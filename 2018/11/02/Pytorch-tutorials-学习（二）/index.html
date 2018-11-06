@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Pytorch,tensorboardX,LR_Schedule,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pytorch 文件布局要玩自己的深度学习，首先要布局好整个程序文件的组织结构。暂且考虑以下文件组织结构1234567891011121314log/checkpoint/data/   dataset.py   get_data.pymodel/   nn/   loss/utils/   preprocess.py   visualize.py   metric.pyconfig.pymain">
+<meta name="keywords" content="Pytorch,tensorboardX,LR_Schedule">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch-tutorials-学习（二）">
+<meta property="og:url" content="http://yifdu.github.io/2018/11/02/Pytorch-tutorials-学习（二）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="Pytorch 文件布局要玩自己的深度学习，首先要布局好整个程序文件的组织结构。暂且考虑以下文件组织结构1234567891011121314log/checkpoint/data/   dataset.py   get_data.pymodel/   nn/   loss/utils/   preprocess.py   visualize.py   metric.pyconfig.pymain">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg">
+<meta property="og:updated_time" content="2018-11-05T13:22:12.630Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pytorch-tutorials-学习（二）">
+<meta name="twitter:description" content="Pytorch 文件布局要玩自己的深度学习，首先要布局好整个程序文件的组织结构。暂且考虑以下文件组织结构1234567891011121314log/checkpoint/data/   dataset.py   get_data.pymodel/   nn/   loss/utils/   preprocess.py   visualize.py   metric.pyconfig.pymain">
+<meta name="twitter:image" content="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2018/11/02/Pytorch-tutorials-学习（二）/">
+
+
+
+
+
+  <title>Pytorch-tutorials-学习（二） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/11/02/Pytorch-tutorials-学习（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Pytorch-tutorials-学习（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-02T19:41:24+08:00">
+                2018-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg" rel="gallery_cjo5rym3l000qskwai0vis6ms" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="Pytorch-文件布局"><a href="#Pytorch-文件布局" class="headerlink" title="Pytorch 文件布局"></a>Pytorch 文件布局</h1><p>要玩自己的深度学习，首先要布局好整个程序文件的组织结构。<br>暂且考虑以下文件组织结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">log/</span><br><span class="line">checkpoint/</span><br><span class="line">data/</span><br><span class="line">   dataset.py</span><br><span class="line">   get_data.py</span><br><span class="line">model/</span><br><span class="line">   nn/</span><br><span class="line">   loss/</span><br><span class="line">utils/</span><br><span class="line">   preprocess.py</span><br><span class="line">   visualize.py</span><br><span class="line">   metric.py</span><br><span class="line">config.py</span><br><span class="line">main.py</span><br></pre></td></tr></table></figure></p>
+<p>1:log/:是用来存储我们的用于tensorboardX的可视化文件<br>2.checkpoint/:用于存储模型参数<br>3.data/:用于存储我们的数据集和标签，在我们的dataset.py中是我们上一节的Dataset自定义数据集，而get_data.py就是上一节中讲的Dataloader<br>4.model/:里的nn/存储的是模型的网络，而loss/里存储的是我们可能用到的自定义loss函数<br>5.utils/:里面存放了我们预处理文件preprocess.py，这里的预处理是直接对data/里的数据进行的操作。另外还有visualize.py，可以进行一些tensorboardX不能可视化的函数，如t-SNE。最后还有metric.py文件，该文件里面存放了一些评判函数。<br>6.config.py:是配置文件，所有可配置的变量都集中在此，并提供默认值<br>7.main.py:主函数</p>
+<h1 id="tensorboardX"><a href="#tensorboardX" class="headerlink" title="tensorboardX"></a>tensorboardX</h1><p>tensorboardX是仿照tensorflow中的tensorboard的，专门针对pytorch的可视化的库。要用这个库还需要安装tensorflow.(无奈..)</p>
+<p>该软件包目前支持记录标量、图像、音频、直方图、文本、embedding、反向传播路径等。</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ul>
+<li><p>创建summarywriter:在记录任何内容之前，我们需要创建一个记录各个量的编写器实例。可以通过以下方式来实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorboardX <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer=SummaryWriter(<span class="string">'/log'</span>)</span><br><span class="line"><span class="comment">#creates writer object.The log will be saved in '/log'</span></span><br><span class="line">writer2=SummaryWriter()</span><br><span class="line"><span class="comment">#creates writer2 object with auto generated file name, the dir will be something like 'runs/Aug20-17-20-33'</span></span><br><span class="line">writer3=SummaryWriter(comment=<span class="string">'3x learning rate'</span>)</span><br><span class="line"><span class="comment">#creates writer3 object with auto generated file name, the comment will be appended to the filename. The dir will be something like 'runs/Aug20-17-20-33-3xlearning rate'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加信息：通用API格式————add_something(tag name,object,iteration number).</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. add_scalar:使用writer.add_scalar(&apos;myscalar&apos;,value,iteration).注意不要给程序喂tensor，可以根据x.item()提取标量。</span><br><span class="line">2. add_image:使用writer.add_image(&apos;imresult&apos;,x,iteration)。如果要展现一批量的images则用torchvision的make_grid函数来准备image array并将该结果输入到add_image(....)中（make_grid输入 4Dtensor 返回3D tensor）</span><br><span class="line">3.add_histogram:使用writer.add_histogram(&apos;hist&apos;,array,iteration)。存histogram是昂贵的。为了存histogram，需要转换array成numpy array。</span><br><span class="line">4.add_graph:神经网络的图绘制是基于autograd的backward tracing。为了绘制这张图，你需要一个模型m和一个满足模型m正确输入大小的输入tensor t。令r=m(t),那么可以用writer.add_graph(m,r)来存储这张图。默认该输入tensor不需要梯度，因此当back tracing的时候，它会被忽略。为了能绘制出输入结点，则需传入额外的参数requires_grad=True当创建输入tensor时。</span><br><span class="line">5.add_audio:输入到add_audio函里的是一个一维array.</span><br><span class="line">6.add_embedding:Embedding的高维数据能被可视化并且转换成人可见的3D数据通过tensorboard，tensorboard里提供了PCA和t-sne来投影数据到低维空间.tensorboard需要你提供给他一串数据点。该串数据点传递n×d大小的tensor，其中n是点的数量，d是特征维度。为了使可视化信息更充沛，你能传入可选的metadata或label_imgs给每个数据点。以该种方式可以看到相邻的点有相似的标签，远距离的点有不同的标签（语义上的或可视上的）。这里的metadata是一个label list.该list的长度应该等于n.该label_imgs是4D的tensor,大小位NCHW,其中N=n。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭编写器。writer.close()</p>
+</li>
+<li>浏览器下可视化：在命令行中输入命令tensorboard –logdir=&lt;your_log_dir&gt;（这一步与tensorflow是一样的）</li>
+</ul>
+<p>以上就是我们在tensorboardX中可能用到的一些操作。</p>
+<h1 id="pytorch-数据集图片显示"><a href="#pytorch-数据集图片显示" class="headerlink" title="pytorch 数据集图片显示"></a>pytorch 数据集图片显示</h1><p>pytorch载入的数据集是元组tuple形式，里面包括了数据及标签（train_data,label）,torch.Tensor形式，以便后面计算使用。</p>
+<p>首先载入数据集<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable  </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt  </span><br><span class="line"><span class="keyword">import</span> torchvision.datasets <span class="keyword">as</span> dset</span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span> transforms</span><br><span class="line"><span class="keyword">from</span> autoencoder <span class="keyword">import</span> AutoEncoder</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">dataset = dset.CIFAR10(root=<span class="string">'../train/data'</span>, download=<span class="keyword">True</span>,</span><br><span class="line">                           transform=transforms.Compose([</span><br><span class="line">                           transforms.Scale(<span class="number">200</span>),</span><br><span class="line">                           transforms.ToTensor(),</span><br><span class="line">                           transforms.Normalize((<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>), (<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>)),</span><br><span class="line">                           transforms.Gray()</span><br><span class="line">                           ]))</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用torch的接口"><a href="#使用torch的接口" class="headerlink" title="使用torch的接口"></a>使用torch的接口</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">img=torchvision.utils.make_grid(dataset[<span class="number">1</span>][<span class="number">0</span>].numpy)</span><br><span class="line">plt.imshow(np.transpose(img,(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>)))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>等价于下述方式：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">b=dataset[<span class="number">1</span>][<span class="number">0</span>].numpy()<span class="comment">#取数据，不取标签  形状为1×200×200</span></span><br><span class="line">plt.imshow(b.reshape(<span class="number">200</span>,<span class="number">200</span>),cmap=<span class="string">'gray'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>torchvision.utils.make_grid(tensor,nrow=8,padding=2,normalize=False,range=None,scale_each=False)</p>
+<p>这里的几个参数的意思是：</p>
+<ul>
+<li>normalize=True，会将图片的像素值归一化处理</li>
+<li>如果range=(min,max)，那么min,max用来规范化image</li>
+<li>scale_each=True,每个图片独立规范化，而不是根据所有图片的像素最大最小值来规范化</li>
+</ul>
+<p>该包里还有一个函数是用来将给定的Tensor保存成image文件。<br>torchvision.utils.save_image(tensor,filename,nrow=8,padding=2,normalize=False,range=None,scale_each=False)<br>如果给定的是mini-batch tensor，那就用marke-grid做成切分图，再保存。</p>
+<h1 id="LR-Schedule-学习率的设置"><a href="#LR-Schedule-学习率的设置" class="headerlink" title="LR_Schedule 学习率的设置"></a>LR_Schedule 学习率的设置</h1><h2 id="自定义根据epoch改变的学习率"><a href="#自定义根据epoch改变的学习率" class="headerlink" title="自定义根据epoch改变的学习率"></a>自定义根据epoch改变的学习率</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def adjust_learning_rate(optimizer,epoch):</span><br><span class="line">    lr=args.lr*(0.1**(epoch//30))</span><br><span class="line">    for param_group in optimizer.param_groups:</span><br><span class="line">    param_group[&apos;lr&apos;]=lr</span><br><span class="line">######</span><br><span class="line">#主函数中</span><br><span class="line">optimizer=torch.optim.SGD(model.parameters(),lr=args.lr,momentum=0.9)</span><br><span class="line">for epoch in range(10):</span><br><span class="line">    adjust_learning_rate(optimizer,epoch)</span><br><span class="line">    train(...)</span><br><span class="line">    validate(...)</span><br></pre></td></tr></table></figure>
+<h2 id="根据模型的不同层设置不同的学习率"><a href="#根据模型的不同层设置不同的学习率" class="headerlink" title="根据模型的不同层设置不同的学习率"></a>根据模型的不同层设置不同的学习率</h2><p>当我们在使用预训练的模型时，需要对分类层进行单独修改并进行初始化，其他层的参数采用预训练的模型参数进行初始化，这个时候我们希望在进行训练过程中，除分类层以外的层只进行微调，不需要过多改变参数，因此需要设置较少的学习率。而改正后的分类层则需要以较大的步子去收敛，学习率往往要设置大一点。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">model=torchvision.models.resnet101(pretrained=<span class="keyword">True</span>)</span><br><span class="line">large_lr_layers=list(map(id,model.fc.parameters()))</span><br><span class="line">small_lr_layers=filter(<span class="keyword">lambda</span> p:id(p) <span class="keyword">not</span> <span class="keyword">in</span> large_lr_layers,model.parameters())</span><br><span class="line">optimizer=torch.optim.SGD([</span><br><span class="line">        &#123;<span class="string">"params"</span>:large_lr_layers&#125;,</span><br><span class="line">        &#123;<span class="string">"params"</span>:small_lr_layers,<span class="string">"lr"</span>:<span class="number">1e-4</span>&#125;],lr=<span class="number">1e-2</span>,momenum=<span class="number">0.9</span>)</span><br></pre></td></tr></table></figure></p>
+<p>注：large_lr_layers学习率为1e-2,small_lr_layers学习率为1e-4，两部分参数共用一个momenum</p>
+<h2 id="根据具体需要改变lr"><a href="#根据具体需要改变lr" class="headerlink" title="根据具体需要改变lr"></a>根据具体需要改变lr</h2><p>我们常会用到的是ReduceLROnPlateau<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode=&apos;min&apos;, factor=0.1, patience=10, verbose=False, threshold=0.0001, threshold_mode=&apos;rel&apos;, cooldown=0, min_lr=0, eps=1e-08)</span><br></pre></td></tr></table></figure></p>
+<p>如果以acc为例，当mode设置为”max”时，如果acc在给定patience内没有提升，则以factor的倍率降低lr。<br>示例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">optimizer=torch.optim.SGD(model.parameters(),lr=<span class="number">0.1</span>,momentum=<span class="number">0.9</span>)</span><br><span class="line">scheduler=ReduceLROnPlateau(optimizer,<span class="string">'max'</span>,verbose=<span class="number">1</span>,patience=<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">  train(...)</span><br><span class="line">  val_acc=validate(....)</span><br><span class="line">  scheduler.step(val_acc)</span><br></pre></td></tr></table></figure></p>
+<h2 id="其他lr-scheduler"><a href="#其他lr-scheduler" class="headerlink" title="其他lr_scheduler"></a>其他lr_scheduler</h2><ul>
+<li>1.torch.optim.lr_scheduler.LambdaLR(optimizer,lr_lambda,last_epoch=-1)<br>将每个参数组的学习率设置为初始lr的给定函数倍。当last_epoch=-1,设定为初始lr</li>
+</ul>
+<p>这里<strong>lr_lambda</strong>可以是函数也可以是函数list——该函数在已知整数参数epoch的情况下会计算乘法因子。<br>示例<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lambda1=<span class="keyword">lambda</span> epoch: epoch //<span class="number">30</span></span><br><span class="line">lambda2=<span class="keyword">lambda</span> epoch: <span class="number">0.95</span>**epoch</span><br><span class="line">scheduler = LambdaLR(optimizer, lr_lambda=[lambda1, lambda2])</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">     scheduler.step()</span><br><span class="line">     train(...)</span><br><span class="line">     validate(...)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>2.torch.optim.lr_scheduler.StepLR(optimizer,step_size,gamma=0.1,last_epoch=1)<br>将每个参数组的学习率设置为在每个step_size期间，lr衰减gamma倍。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># Assuming optimizer uses lr = 0.05 for all groups</span><br><span class="line"> # lr = 0.05     if epoch &lt; 30</span><br><span class="line"> # lr = 0.005    if 30 &lt;= epoch &lt; 60</span><br><span class="line"> # lr = 0.0005   if 60 &lt;= epoch &lt; 90</span><br><span class="line"> # ...</span><br><span class="line">  scheduler = StepLR(optimizer, step_size=30, gamma=0.1)</span><br><span class="line"> for epoch in range(100):</span><br><span class="line">     scheduler.step()</span><br><span class="line">     train(...)</span><br><span class="line">     validate(...)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3.torch.optim.lr_scheduler.MultiStepLR(optimizer,milestones,gamma=0.1,last_epoch=-1)<br>设置一旦epoch数达到其中一个milestones每个参数组的学习率就下降gamma.<br>其中milestones是epoch指标的list，并且必须是上升的。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Assuming optimizer uses lr = 0.05 for all groups</span></span><br><span class="line"> <span class="comment"># lr = 0.05     if epoch &lt; 30</span></span><br><span class="line"> <span class="comment"># lr = 0.005    if 30 &lt;= epoch &lt; 60</span></span><br><span class="line"> <span class="comment"># lr = 0.0005   if 60 &lt;= epoch &lt; 90</span></span><br><span class="line"> <span class="comment"># ...</span></span><br><span class="line"> scheduler = StepLR(optimizer, step_size=<span class="number">30</span>, gamma=<span class="number">0.1</span>)</span><br><span class="line"> <span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">     scheduler.step()</span><br><span class="line">     train(...)</span><br><span class="line">     validate(...)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>4.torch.optim.lr_scheduler.ExponentialLR(optimizer,gamma,last_epoch=-1)<br>设置每个参数组的学习率在每个epoch是以gamma衰减。</p>
+</li>
+<li><p>5.torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,T_max,eta_min=0,last_epoch=-1)<br>设置每个参数组的学习率用cos退火方法，其中$\eta_{min}+\frac{1}{2}(\eta_{max}-\eta_{min})(1+cos(\frac{T_{cur}}{T_{max}}\pi))$<br>其中参数T_max(int)是迭代的最大数，eta_min(float)是学习率的最小值默认为0.</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Pytorch/" rel="tag"># Pytorch</a>
+          
+            <a href="/tags/tensorboardX/" rel="tag"># tensorboardX</a>
+          
+            <a href="/tags/LR-Schedule/" rel="tag"># LR_Schedule</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/30/CS224n笔记（一）/" rel="next" title="CS224n笔记（一）">
+                <i class="fa fa-chevron-left"></i> CS224n笔记（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/05/CS224n笔记（二）/" rel="prev" title="CS224n笔记（二）">
+                CS224n笔记（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytorch-文件布局"><span class="nav-number">1.</span> <span class="nav-text">Pytorch 文件布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tensorboardX"><span class="nav-number">2.</span> <span class="nav-text">tensorboardX</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#流程"><span class="nav-number">2.1.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pytorch-数据集图片显示"><span class="nav-number">3.</span> <span class="nav-text">pytorch 数据集图片显示</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用torch的接口"><span class="nav-number">3.1.</span> <span class="nav-text">使用torch的接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LR-Schedule-学习率的设置"><span class="nav-number">4.</span> <span class="nav-text">LR_Schedule 学习率的设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义根据epoch改变的学习率"><span class="nav-number">4.1.</span> <span class="nav-text">自定义根据epoch改变的学习率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据模型的不同层设置不同的学习率"><span class="nav-number">4.2.</span> <span class="nav-text">根据模型的不同层设置不同的学习率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据具体需要改变lr"><span class="nav-number">4.3.</span> <span class="nav-text">根据具体需要改变lr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他lr-scheduler"><span class="nav-number">4.4.</span> <span class="nav-text">其他lr_scheduler</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

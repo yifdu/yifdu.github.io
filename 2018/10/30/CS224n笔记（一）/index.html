@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="自然语言,深度学习,nlp,Cs224n,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="自然语言涉及的几个 层次 NLP是一门交叉学科，它往往包含着Computer Science, artificial intelligence 和 linguistics。如上图可以看到自然语言涉及的是内容很广泛，而本课程Cs224n主要围绕图中画圈部分。 Deep NLP=Deep Learning +NLP将自然语言处理的思想与表示学习结合起来，用深度学习的方法解决NLP目标，不仅简化了过程而">
+<meta name="keywords" content="自然语言,深度学习,nlp,Cs224n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS224n笔记（一）">
+<meta property="og:url" content="http://yifdu.github.io/2018/10/30/CS224n笔记（一）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="自然语言涉及的几个 层次 NLP是一门交叉学科，它往往包含着Computer Science, artificial intelligence 和 linguistics。如上图可以看到自然语言涉及的是内容很广泛，而本课程Cs224n主要围绕图中画圈部分。 Deep NLP=Deep Learning +NLP将自然语言处理的思想与表示学习结合起来，用深度学习的方法解决NLP目标，不仅简化了过程而">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png">
+<meta property="og:updated_time" content="2018-11-02T08:29:48.822Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS224n笔记（一）">
+<meta name="twitter:description" content="自然语言涉及的几个 层次 NLP是一门交叉学科，它往往包含着Computer Science, artificial intelligence 和 linguistics。如上图可以看到自然语言涉及的是内容很广泛，而本课程Cs224n主要围绕图中画圈部分。 Deep NLP=Deep Learning +NLP将自然语言处理的思想与表示学习结合起来，用深度学习的方法解决NLP目标，不仅简化了过程而">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2018/10/30/CS224n笔记（一）/">
+
+
+
+
+
+  <title>CS224n笔记（一） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/10/30/CS224n笔记（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CS224n笔记（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-30T21:35:50+08:00">
+                2018-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cs224n/" itemprop="url" rel="index">
+                    <span itemprop="name">Cs224n</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjo5rym2e0007skwaqajm4frn" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="自然语言涉及的几个-层次"><a href="#自然语言涉及的几个-层次" class="headerlink" title="自然语言涉及的几个 层次"></a>自然语言涉及的几个 层次</h1><p><img src="pic1.png" alt="pic1"></p>
+<p>NLP是一门交叉学科，它往往包含着Computer Science, artificial intelligence 和 linguistics。<br>如上图可以看到自然语言涉及的是内容很广泛，而本课程Cs224n主要围绕图中画圈部分。</p>
+<h1 id="Deep-NLP-Deep-Learning-NLP"><a href="#Deep-NLP-Deep-Learning-NLP" class="headerlink" title="Deep NLP=Deep Learning +NLP"></a>Deep NLP=Deep Learning +NLP</h1><p>将自然语言处理的思想与表示学习结合起来，用深度学习的方法解决NLP目标，不仅简化了过程而且提高了许多方面的效果。</p>
+<p>应用：机器翻译、情感分析、客服系统、问答系统</p>
+<h2 id="比如机器翻译"><a href="#比如机器翻译" class="headerlink" title="比如机器翻译"></a>比如机器翻译</h2><p>传统方法在许多层级（词语、语法、语义之类）上做了尝试。而用Deep NLP这类方法试图找到一种世界通用的“国际语”（Interlingua）来作为原文和译文的桥梁。</p>
+<p><img src="pic2.png" alt="pic2"></p>
+<h1 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h1><p>抛出一个问题：计算机如何处理词语，或者说计算机如何表示一个词语的意思？（语义这是一个很主观的概念）<br>在此之前计算语言学采用的是WordNet那样的库。</p>
+<h2 id="WordNet"><a href="#WordNet" class="headerlink" title="WordNet"></a>WordNet</h2><blockquote>
+<p>WordNet:<br>是面向语义的英语词典，与传统词典类似，但结构更丰富。我们可以用NLTK来了解一下WordNet<br>首先你需要pip install nltk</p>
+<p>from nltk.corpus import wordnet as wn<br>wn.synsets(‘motorcar’)#找到它的同义词集<br>wn.synset(‘car.n.01’).lemma_names#car.n.01 指的是car的第一个名词的意思，<br>wn.synset(‘car.n.01’).lemma_names()#列出该同义词集的所有词条</p>
+<p>WordNet的同义词集相当于抽象的概念，他们并不总是有对应的英语词汇。这些概念在层次结构中相互联系在一起。用树来表示，每个节点对应一个同义词集，边表示上位词/下位词关系，即上级概念与从属概念的关系。<br>总之，WordNet不光把单词以字母顺序排列像字典一样，而且按照单词的意义组成了一个单词网络。</p>
+</blockquote>
+<p>还有一种表示词语意思的方式是discrete representation(典型代表onehot).这种方式会有以下一些问题：</p>
+<ul>
+<li>缺少韵味，比如同义词之间微妙的差别无法通过该表示来表现出来</li>
+<li>缺少新词</li>
+<li>主观化</li>
+<li>耗费大量人力去整理</li>
+<li>无法计算准确的词语相似度</li>
+</ul>
+<p>从symbolic representation 到distributed representation 词语在符号表示上都体现不出意义的相似性。<br>需要找到一种用向量直接编码含义的方法。</p>
+<h2 id="Distributional-Similarity-based-representation"><a href="#Distributional-Similarity-based-representation" class="headerlink" title="Distributional Similarity based representation"></a>Distributional Similarity based representation</h2><p>如果能把单词放到正确的上下文中去，才能说明你真正掌握了它的含义。<br>即通过一个词的邻居来表达它的含义，You shall know a word by the company it keeps.</p>
+<p>分布相似性的概念是一种关于词汇语义的理论，你可以通过理解单词出现的上下文来描述该单词的含义。</p>
+<p>通过向量定义词语的含义：<br>通过调整一个单词及其上下文单词的向量，使得根据两个向量可以推测两个词汇的相似度；或根据向量可以预测词语的上下文。这种手法是递归的，根据向量来调整向量，与词典中意项的定义相似。</p>
+<blockquote>
+<p>这里提出一个问题：distributed representation 和distributional representation的区别？？</p>
+<p>distributed:分布式描述的是若干个元素的连续表示形式,比如稠密的词嵌入向量的表示，与之相反的是onehot 向量</p>
+<p>distributional:使用词语的上下文来表示其语义，Word2vec和基于计数的词向量表示都是分布表示，因为我们都是用词语的上下文来表征它的含义</p>
+<p>更具体一点：考虑distributional models和distributed models的区别：</p>
+<ul>
+<li>distributional models(BOW,LSI,LDA):1.共现在同一文本区域中词（如同一语句）相关，且在语料中的共现语句越多越相关。2.使用共现语句个数构建词与词（上下文）的PMI/PPMI矩阵（高维稀疏矩阵），然后进行SVD得到每个词的低维稠密向量（隐向量）</li>
+<li>distributed models(NPLM,LBL,Word2vec,Glove):1.相同上下文中出现的词具有相关性，相同的上下文在预料库中越多越相关，不要求同时出现。2.思想来源于深度学习，使用预测代替共现计数</li>
+</ul>
+<p>一脸懵逼的我来举个例子：</p>
+<p>1.A woman is in the room.  2.A man is in the room. 这两个句子，我们可以看到，woman和room是Distributional(共现)，woman和man是distributed（同上下文）.</p>
+<p>个人总结：distributional 思想是同一语句中出现的词是相关的。这是一种横向思想。distributed思想是具有相似上下文的词语相关。这是纵向思想。</p>
+<p>至于方法上，distributional会使用隐矩阵分解、使用共现计数来构建原始矩阵等。distributed会使用神经网络词嵌入、用神经网络进行上下文预测等。</p>
+</blockquote>
+<h2 id="Word2vec的主要思想及模型"><a href="#Word2vec的主要思想及模型" class="headerlink" title="Word2vec的主要思想及模型"></a>Word2vec的主要思想及模型</h2><p>通过前面的比较distributional model 和distributed model我们应该能发现Word2Vec的一些特点。比如上面例子中的woman与man为什么意义可以用他的上下文来表示，此时不一定要woman与man共现，但我们能得到他们具有相似的向量。</p>
+<p>word2vec的主要思想就是单词和上下文的彼此预测。</p>
+<p>两个主要的算法：</p>
+<ul>
+<li>skip-grams: 给定一个单词，预测其上下文</li>
+<li>continuous Bag of words(CBOW): 给定上下文预测目标单词</li>
+</ul>
+<p>Skip-grams:<br><img src="skip-grams.png" alt="skip-grams"></p>
+<p>CBOW:<br><img src="CBOW.png" alt="CBOW"></p>
+<p>两种稍微高效一些的训练方法：</p>
+<ul>
+<li>Hierarchical softmax</li>
+<li>Negative sampling</li>
+</ul>
+<p>我们慢慢来一点点介绍。(没办法，课程进度就是这样。。。。)</p>
+<h3 id="Skip-gram"><a href="#Skip-gram" class="headerlink" title="Skip-gram"></a>Skip-gram</h3><p>从上面的示例图，我们可以看到skip-gram算法是已知中心词来最大化上下文词的联合分布概率，并且从算法名字可以看出这是一种词袋模型（与位置无关）。注意：这里上下文词是需要一个窗口来框定的。所以这里的联合概率分布也并非是一个全局的概念而是局部的。常将窗口大小设为5.当然最后是要求所有窗口概率的乘积。</p>
+<p><img src="skip-gram_example.png" alt="skip-gram_example"></p>
+<p>我们有目标函数：</p>
+<p>$$<br>max\ \ J(\Theta)=\prod_{t=1}^{T}\prod_{-m\leq j\leq m \ j\neq0}P（W_{t+j}|W_t;\Theta）<br>$$<br>其中T是表示窗口数，-m≤j≤m是窗口大小，当然不包括中心词自身。这里我们的true label是各个该中心词的context的onehot形式。（可以理解为我们希望中心词与该上下文词相似的概率为1，与其他词的概率为0，因此该true label也是onehot的形式。）</p>
+<p>现在我们有了目标函数，知道要训练的参数是 $\Theta$，问题的关键是 $P(W_{t+j}|W_t)$ 的形式我们未知。</p>
+<p>前面提到了我们希望用一个向量表示一个词汇的含义，而我们的向量内积就具有内积越大越相似的特点。因此我们可以用两个向量的内积形式来表示概率。在这里用到了一些trick，<br>$$<br>P(O|C)=\frac{e^{u_0^{T}v_c}}{\sum_{w=1}^{V}e^{u_w^{T}v_c}}<br>$$<br><strong>强烈注释：这里O表示上下文词向量中的某一个，C表示中心词。u是对应的上下文词向量，v是中心词向量</strong></p>
+<p>我们完全有理由相信同一个词语具有上下文词向量和中心词向量两个向量。</p>
+<h4 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h4><p><img src="skip-gram_1.png" alt="skip-gram_1"><br>这就是上面计算P(O|C)的示意图。可以看到我们整个模型所要学习的参数就是这个向量，通过不断调整这个向量里面值得大小来使前面提到得目标函数 $J(\Theta)$ 最大。因此这些词向量就是我们得参数 $\Theta$.</p>
+<p>那么问题又来了，我们的输入是什么？？</p>
+<p>显然如果把这个模型看成一个黑箱，我们希望输入的是一个单词，输出的是表示该单词意义的向量。但是我们不可能对一个字符串进行数字计算，但我们又需要能表示一个单词，则用到了前人所提到的onehot.（具体形式不多说）</p>
+<p>总的模型形式是这样的：</p>
+<p><img src="skip-gram_model.png" alt="model"><br>左侧是我们的输入向量onehot向量。他与一个矩阵W相乘得到也得到一个向量。具体形式可以如下图给出，<br><img src="skip-gram_2.png" alt="skip-gram2"><br>因为onehot只有一个元素为1其余都为0，因此上述过程可视为提取向量的过程。而上述W矩阵我们也可以称为中心词矩阵。</p>
+<p>得到中心词向量以后我们又拿这个词向量与矩阵 $W’$ 相乘，很显然这个矩阵中的各个向量就能表示上下文的词向量。通过两者相乘我们可以知道中心词向量与某个上下文词向量的内积，然后如前做一个softmax，我们就能计算得到在某个中心词下某个上下文词出现的概率P(O|C)。</p>
+<p>上述流程就是我们整个模型前向传播的过程。不要忘了我们的目标是反向传播学习 $\Theta$.这里我们的 $\Theta$可以表示为如下形式：<br><img src="skip-gram_parameter.png" alt="skip-gram_parameter"></p>
+<h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><p>来比一波公式推导：<br>$$<br>J(\Theta)=\frac{1}{T}\sum_{t=1}^{T}\sum_{-m\leq j\leq m \ j\neq0}\ln P(W_{t+j}|W_t)<br>$$<br>其中<br>$$<br>P(O|C)=\frac{e^{u_0^{T}v_c}}{\sum_{w=1}^{V}e^{u_w^{T}v_c}}<br>$$<br>对上式求导：<br>$$<br> \frac{\partial \ln P(O|C)}{\partial v_c}=\frac{\partial}{\partial v_c}(ln e^{u_o^{T}v_c})-\frac{\partial}{\partial v_c}(ln \sum_{w=1}^{V}e^{u_w^{T}v_c})<br>$$<br>其中<br>$$<br>\frac{\partial}{\partial v_c}(ln e^{u_o^{T}v_c})=u_o<br>$$<br>$$<br>\frac{\partial}{\partial v_c}(ln \sum_{w=1}^{V}e^{u_w^{T}v_c})=\sum_{w=1}^{T}u_wP(u_w|v_c)<br>$$<br>最后可得偏导数为：<br>$$<br> \frac{\partial \ln P(O|C)}{\partial v_c}=u_o-\sum_{w=1}^{T}u_wP(u_w|v_c)=observed-expected<br>$$<br>同理对 $u_w$的偏导有如下形式：<br>$$<br> \frac{\partial \ln P(O|C)}{\partial u_w}=-\sum_{w=1}^{T}v_cP(u_w|v_c)<br>$$<br>That’s all。我们可以从这里看到这里计算梯度的时候有一个求和符号 $\sum$这会造成极大的计算量，因此需要有一些改进的更新策略比如Hierarchical softmax和Negative sampling，都可以降低计算复杂度。</p>
+<h2 id="Continuous-Bag-of-Words-CBOW"><a href="#Continuous-Bag-of-Words-CBOW" class="headerlink" title="Continuous Bag of Words(CBOW)"></a>Continuous Bag of Words(CBOW)</h2><p>如前所述，CBOW做的是给定上下文词汇预测中心词。很显然这就像是skip-grams的逆过程。如下图所示。</p>
+<p><img src="CBOW1.png" alt="CBOW1"></p>
+<p>与前面的方法相似，这里也只有一个隐层，我们所要学习的参数也是两个矩阵W和$W’$。但是不同的是，这里输入的是上下文词的onehot，不再是单一的向量而是多个向量。而此时我们的输出变成了单个向量。</p>
+<p>这里会有个问题，就是C个Onehot向量与$W_I$相乘会得到N×C的中间矩阵,再与N×V的$W_O$作用，得到的也只是V×C的矩阵，并不能得到我们所需要的V×1的表示中心词的向量。很显然，在中间隐层处我们需要做一些处理使中间的输出为N×1的向量。这里采用的是平均值法，即对中间得到的C个N×1的向量进行相加再取平均。</p>
+<p>具体CBOW的流程如下所示（转自<a href="https://blog.csdn.net/github_36235341/article/details/78607323" target="_blank" rel="noopener">[1]</a>）：</p>
+<p>假设 Courpus = { I drik coffee everyday } ，根据 “I”“drink”“everyday”来预测“coffee”。<br><img src="CBOW_step1.png" alt="CBOW_step1"><br><img src="CBOW_step2.png" alt="CBOW_step2"><br><img src="CBOW_step3.png" alt="CBOW_step3"><br><img src="CBOW_step4.png" alt="CBOW_step4"><br>理论上，像上图求出$U_o$之后我们只要做一个softmax就能计算出，各个词汇可能作为中心词的概率。（这里我们的true label是该词的onehot的形式）</p>
+<p>但是就像前面提到那样，这样做softmax在计算分母的时候需要极大的计算量，因此我们我们会用别的方法来替代，比如Hierarchical softmax和Negative sampling。接下来将介绍。</p>
+<p>##Hierarchical Softmax<br><strong>前提：无论是这里的Hierarchical Softmax还是后面的Negative Sampling都是对前面两种方法（skip-grams和CBOW的改进，目的是为了性能更好，计算量更小。Bengio的《A neural probabilistic language model》可以帮助理解上述两个算法）</strong></p>
+<p>算法做了改进整个模型的结构也不大一样了。此时无论是skip-grams还是CBOW都是三层：Input layer、projection layer、output layer。</p>
+<p>1.Input layer:包含Context(w)中2c个词的词向量   $v(Context(w)<em>{1}), v(Context(W)</em>{2}),…v(Context(w)<em>{2c})$</em>.这里再定义一个表示词向量的长度。（这里输入的向量不是像前面介绍的那样是onehot向量）</p>
+<p>2.projection layer:将输入层2c个向量求和累加（summation）得到$X_w$</p>
+<p>3.output layer:输出层对应一棵Huffman树.</p>
+<p>与前面介绍的完全不同,前面主要是采用矩阵的运算，最后进行一个softmax，而这里在投影层只做了累加和，最后的输出改用了一个Huffman树。因此可见，Hierarchical Softmax要体现其优点完全要靠输出层的Huffman树。</p>
+<p>下面是CBOW模型用Hierarchical Softmax的示意图。<br><img src="CBOW_Softmax.png" alt="CBOW_Softmax"><br>下图是skip-grams模型用Hierarchical Softmax。<br><img src="skip-grams_softmax.png" alt="skip-grams_Softmax"></p>
+<p>下面主要介绍用Hierarchical Softmax的CBOW</p>
+<h3 id="CBOW-with-Hierarchical-Softmax"><a href="#CBOW-with-Hierarchical-Softmax" class="headerlink" title="CBOW with Hierarchical Softmax:"></a>CBOW with Hierarchical Softmax:</h3><h4 id="梯度计算"><a href="#梯度计算" class="headerlink" title="梯度计算"></a>梯度计算</h4><p>考虑Haffman树，以预料库中出现的词作为叶子节点，以各词在语料中出现的次数当权值构造出一个Huffman树。这个Huffman树中叶子节点有N个，非叶子节点有N-1个。</p>
+<p>考虑Huffman树中的某个叶子结点，假设它对应词典D中的词w,记</p>
+<p>$1. p^{w}$:从根节点出发到达w对应叶子结点的路径<br>$2. l^{w}:路径p^{w}中包含结点的个数$<br>$3. p_1^{w},p_2^{w},…p_{l^{w}}^{w} :路径p^{w}中的l^{w}个结点，其中 p_1^{w}表示根节点，p_{l^{w}}^{w}表示词w对应的结点。$<br>$4. d_1^{w},d_2^{w},…,d_{l^{w}-1}^{w} ∈{0，1}：词w的Huffman编码，它由 l^{w}-1位编码构成，d_j^{w}表示路径p^{w}中第j条边对应的编码。$<br>$5.\Theta_1^{w},\Theta_1^{w},…,\Theta_{l^{w}-1}^{w}∈R^{m}:路径p^{w}中非叶子结点对应的向量，\Theta_j^{w}表示路径p^{w}中的第j个非叶子结点对应的向量$<br><img src="CBOW_Huffman.png" alt="CBOW_Huffman"><br>上述Huffman树中的红线路径即为该叶子结点词的Huffman编码（可以考虑左0右1，但图上是左1右0）。<br>我们可以这么认为每经过一个非叶子结点就需要进行一次二分类，而我们希望选择通往目标叶子结点的路径概率最大。这里如何做一个二分类？？很显然我们可以利用Sigmoid函数。</p>
+<p>假设从我们的根节点出发到目标叶子结点需要经过4条边,显然我们需要经历四次二分类，得到下面式子(根据上面的Huffman编码书写的公式)：<br>$第1次：p(d_1^{w}|x_w,\Theta_1^{w})=1-\sigma(x_w^{T}\Theta_1^{w})$<br>$第2次：p(d_2^{w}|x_w,\Theta_2^{w})=\sigma(x_w^{T}\Theta_2^{w})$<br>$第3次：p(d_3^{w}|x_w,\Theta_3^{w})=\sigma(x_w^{T}\Theta_3^{w})$<br>$第4次：p(d_4^{w}|x_w,\Theta_4^{w})=1-\sigma(x_w^{T}\Theta_4^{w})$</p>
+<p>根据前面几节介绍的，我们的目标是求$P(O|C)$,现在得到的这些概率对我们有什么用呢？</p>
+<p>很好理解：$P(O|C)=\prod_{j=1}^{4}P(d_j^{w}|x_w,\Theta_{j}^w)，输入的是我们的x_w(已知),希望得到的目标词汇O的概率$。整合到这个预料库中，我们希望这个所有词汇的对数似然函数的和最大，即有下式：<br>$$max\ \ L=\sum_{w∈C}log\prod_{j=1}^{4}P(d_j^{w}|x_w,\Theta_{j}^w) $$</p>
+<p>接着就可以用梯度上升法来求参数了.</p>
+<p>同理skip-grams也可以用到Hierarchical Softmax，方法与上述类似。</p>
+<p><strong>小结：尽管该方法名字中带有Softmax但是实际上并没有用到我们传统意义上的Softmax，而是进行了分层，考虑了每一层上二分类问题（用sigmoid），这样做就避免了之前softmax时分母计算量大的问题。(上面Sigmoid使用有点类似于逻辑回归中二分类用Sigmoid多分类用Softmax).这里用Huffman树有一个特点，就是越是频繁的词越接近根结点而越是生僻的词越接远离根节点。</strong></p>
+<h2 id="Negative-Sampling"><a href="#Negative-Sampling" class="headerlink" title="Negative Sampling"></a>Negative Sampling</h2><p>从上述最后的总结里我们可以看出如果我们用的是一个特别大的预料库，生僻词会离树的根结点特别远，何况有时概率的乘积操作，这个值也会特别的小。因此提出了Negative Sampling希望能解决这个问题。</p>
+<h3 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h3><p>还是假设是CBOW模型，我们已知词w的上下文context(w)，需要预测w.显然如果考虑其为二分类问题，w是我们的正例，而其他所有乱七八糟的词都是负例。并且所有负例都选择显然是不可行的，因此我们要对负例进行采样，选择一部分负例。那么问题来了，怎么选择？？</p>
+<h4 id="采样方法"><a href="#采样方法" class="headerlink" title="采样方法"></a>采样方法</h4><p>对于一个给定的词w（正例），如何生成它的负例集NEG(w).</p>
+<p>词典D中的词在预料C中出现的次数有高有低，对于那些高频词，被选为负样本的概率就应该比较大，反之，那些低频词被选为中的概率就比较小。这就是我们对采样过程的一个大致要求。本质上就是一个带权采样问题。</p>
+<p>具体在word2vec中怎么处理呢，可以看下面这个流程（转自<a href="https://blog.csdn.net/itplus/article/details/37998797" target="_blank" rel="noopener">[2]</a>)<br><img src="Negative_Sampling_sample.png" alt=""></p>
+<p>说白了上述过程就是采样里的直接采样方法。<br>与之前的不同的是,这里对词典D中每个词汇的权值定义与一般的不一样，<br>$$Weight(w)=\frac{[counter(w)]^{\frac{3}{4}}}{\sum_{u∈D}[counter(u)]^{\frac{3}{4}}}$$</p>
+<h4 id="梯度计算（CBOW）"><a href="#梯度计算（CBOW）" class="headerlink" title="梯度计算（CBOW）"></a>梯度计算（CBOW）</h4><p>跟前面一样，现在我们知道了哪个是正例（w），哪些是负例(NEG(w))。我们的目标就是最大化正例的概率最小化负例的概率。有下式：<br>$$g(w)=\prod_{u∈w\cup NEG(w)}P(u|Context(w))$$<br>其中：<br>$$P(u|Context(w))=\begin{cases}<br>\sigma (x_w^T \Theta^u) \ \ \ \ \ \ \ \ if\ \  u=w \<br>1-\sigma(x_w^T \Theta^u) \  if\ \ u\neq w<br>\end{cases}<br>$$<br>这里的$x_w$仍是context 各词向量的累加和,u是咱们从正例和负例里取出的值。</p>
+<p>在一个样本集里，我们需要最大化的是一个样本里的连乘概率，即<br>$$L=\prod_{w∈D}g(w)$$<br>之后的方法就与之前的相似了，我们需要使其最大值，更新参数采用梯度上升法。<br>同样我们的skip-grams也可以用这个方法训练模型。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1]<a href="https://blog.csdn.net/github_36235341/article/details/78607323" target="_blank" rel="noopener">https://blog.csdn.net/github_36235341/article/details/78607323</a><br>[2]<a href="https://blog.csdn.net/itplus/article/details/37998797" target="_blank" rel="noopener">https://blog.csdn.net/itplus/article/details/37998797</a><br>[3]CS224n 1-2节课</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/自然语言/" rel="tag"># 自然语言</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/nlp/" rel="tag"># nlp</a>
+          
+            <a href="/tags/Cs224n/" rel="tag"># Cs224n</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/29/Pytorch-tutorials-学习(一)/" rel="next" title="Pytorch tutorials 学习（一）">
+                <i class="fa fa-chevron-left"></i> Pytorch tutorials 学习（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/02/Pytorch-tutorials-学习（二）/" rel="prev" title="Pytorch-tutorials-学习（二）">
+                Pytorch-tutorials-学习（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言涉及的几个-层次"><span class="nav-number">1.</span> <span class="nav-text">自然语言涉及的几个 层次</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-NLP-Deep-Learning-NLP"><span class="nav-number">2.</span> <span class="nav-text">Deep NLP=Deep Learning +NLP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#比如机器翻译"><span class="nav-number">2.1.</span> <span class="nav-text">比如机器翻译</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Word2Vec"><span class="nav-number">3.</span> <span class="nav-text">Word2Vec</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WordNet"><span class="nav-number">3.1.</span> <span class="nav-text">WordNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributional-Similarity-based-representation"><span class="nav-number">3.2.</span> <span class="nav-text">Distributional Similarity based representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word2vec的主要思想及模型"><span class="nav-number">3.3.</span> <span class="nav-text">Word2vec的主要思想及模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram"><span class="nav-number">3.3.1.</span> <span class="nav-text">Skip-gram</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向传播"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">前向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向传播"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">反向传播</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Continuous-Bag-of-Words-CBOW"><span class="nav-number">3.4.</span> <span class="nav-text">Continuous Bag of Words(CBOW)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CBOW-with-Hierarchical-Softmax"><span class="nav-number">3.4.1.</span> <span class="nav-text">CBOW with Hierarchical Softmax:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度计算"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">梯度计算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Negative-Sampling"><span class="nav-number">3.5.</span> <span class="nav-text">Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主要思想"><span class="nav-number">3.5.1.</span> <span class="nav-text">主要思想</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#采样方法"><span class="nav-number">3.5.1.1.</span> <span class="nav-text">采样方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度计算（CBOW）"><span class="nav-number">3.5.1.2.</span> <span class="nav-text">梯度计算（CBOW）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
