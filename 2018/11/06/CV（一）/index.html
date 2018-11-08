@@ -104,7 +104,13 @@
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Moravec_4.png">
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Moravec_5.png">
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Moravec_6.png">
-<meta property="og:updated_time" content="2018-11-07T16:35:40.040Z">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Harris_2.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Harris_3.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Harris_4.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Harris_5.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Harris_6.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Harris_7.png">
+<meta property="og:updated_time" content="2018-11-08T05:28:27.392Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CV（一）">
 <meta name="twitter:description" content="角点定义角点（corner point）通常被定义为两条边的交点，更严格的说，角点的局部邻域应该具有两个不同区域的不同方向的边界。而在实际应用中，大多数所谓的角点检测方法检测的是拥有特定特征的图像点，而不仅仅是“角点”。这些特征点在图像中有具体的坐标，并具有某些数学特征，如局部最大或最小灰度、梯度特征等。 现有的角点检测算法并不都十分的鲁棒。很多方法要求有大量的训练集和冗余数据来防止或减少错误特征">
@@ -349,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.9k 字
+                  2.8k 字
                 </span>
               
 
@@ -365,7 +371,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  10 分钟
                 </span>
               
             </div>
@@ -415,18 +421,41 @@
 <p><img src="/2018/11/06/CV（一）/Moravec_1.png" alt="Moravec_1"><br>上图为可能遇到的三种情况。如果像素位于平滑图像区域内，周围的窗口都会非常相似.如果像素在边缘上，则周围的窗口在与边缘正交的方向上会有很大的差异，在与边缘平行的方向上则较为相似。而如果像素是各个方向上都有变化的特征点，则周围所有的窗口都不会很相似。</p>
 <p><img src="/2018/11/06/CV（一）/Moravec_2.png" alt="Moravec_2"></p>
 <p>基本公式为：$E(u,v)=\sum_{x,y}w(x,y)[I(x+u,y+v)-I(x,y)]^{2}$</p>
-<p>Moravec的原理如果有一句话就是：<strong>通过滑动二值矩阵窗口寻找灰度变化的局部最大值。</strong><br>具体操作：首先，计算每个像素点的兴趣值，即以该像素为中心，取一个w*w的方形窗口，计算0度、45度、90度、135度四个方向灰度差的平方和，取其中的最小值作为该像素的兴趣点。实际一些算法用水平或对角线上的一个方向灰度差的平方和来近似替代。</p>
+<p>Moravec的原理如果有一句话就是：<strong>通过滑动二值矩阵窗口寻找灰度变化的局部最大值。</strong><br>简单理解就是，首先，计算每个像素点的兴趣值，即以该像素为中心，取一个w*w的方形窗口，计算0度、45度、90度、135度四个方向（有些会考虑8个方向）灰度差的平方和，取其中的最小值作为该像素的兴趣点。实际一些算法用水平或对角线上的一个方向灰度差的平方和来近似替代。</p>
 <p>具体主要包括四个过程：<br>1.滑动窗口计算灰度变化<br><img src="/2018/11/06/CV（一）/Moravec_3.png" alt="Moravec_3"><br>上图中，红色框为原始框，而蓝色框表示右上的滑动框。白色框表示前景255，黑色框表示背景0.那么原始框和滑动框的灰度变化通过对应位置差的平方和来表示，即$V=\sum_{i=1}^{9}(A_{i}-B_{i})^2$<br>同样根据上式计算另外几个方向的滑动框的灰度变化。<br>2.构造角点映射图</p>
 <p>在构造角点映射图前我们先分析一下，通过上式我们凭什么可以检测到角点，看下图<br><img src="/2018/11/06/CV（一）/Moravec_4.png" alt="Moravec_4"><br>上面四张图中的四个红色框表示我们正在处理的框，第一幅图中的窗表示在目标内部或者背景上，该区域灰度分布均匀。第二幅图中的窗跨在图像的边缘处，当垂直于边缘方向滑动时会导致灰度很大的变化，而沿着边缘滑动窗时，灰度变化较小。第三幅图中的窗在角点处，不管往哪个方向滑动窗口都会导致灰度的很大变化。而第四幅图框内是一个离散点，滑动窗向任何方向滑动也会导致灰度的很大变化。</p>
 <p>因此通过上面的描述和分析，我们知道，Moravec算子可以作为一种角点性的度量，这种度量通过求各个方向的滑窗的最小值来表示。</p>
-<p>$$$C(x,y)=min(V_{u,v}(x,y))$</p>
-<p>我们通过下图来描述角点映射图（the cornerness map）的构造：<br><img src="/2018/11/06/CV（一）/Moravec_5.png" alt="Moravec_5"><br>上图中的通过Moravec算子计算得到的，其中1表示$1<em>255^2$,2表示$2</em>255^2$，通过上图可知：</p>
+<script type="math/tex; mode=display">C(x,y)=min(V_{u,v}(x,y))</script><p>我们通过下图来描述角点映射图（the cornerness map）的构造：<br><img src="/2018/11/06/CV（一）/Moravec_5.png" alt="Moravec_5"><br>上图中的通过Moravec算子计算得到的，其中1表示$1×255^2$,2表示$2×255^2$，通过上图可知：</p>
 <ul>
-<li>角点位于局部最大值处，我们可以应用非极大值抑制找到局部最大值</li>
+<li>角点位于局部最大值处，我们可以应用非极大值抑制找到局部最大值（找到真正的角点，因为该点周围可能也有超过阈值的点。）。</li>
 <li>离散点（噪声点）与角点有相同的角点性，因此Moravec算子对噪声敏感，但通过增大滑窗的大小可以对噪声起到一定的抑制作用，然而同时增加了计算量。另一方面，可以通过设定一个阈值对cornerness map进行二值化，小于阈值的T的cornerness map设置为0，从而对离散点的局部最大值进行抑制。</li>
 <li>Moaravec 算子不能应用于图像边界的一定区域（标记为X的区域），对于这部分的区域，一般直接忽略，在cornerness map中这些区域对应的值置为0.</li>
 </ul>
 <p>下面对Moravec算子的基本步骤进行简单总结，主要包括：<br><img src="/2018/11/06/CV（一）/Moravec_6.png" alt="Moravec_6"></p>
+<p>Moravec算法的缺陷：</p>
+<ul>
+<li>1.不具备旋转不变性</li>
+<li>2.对边缘点的反应比较强烈<h4 id="非极大值抑制-Non-Maximum-Suppression-NMS"><a href="#非极大值抑制-Non-Maximum-Suppression-NMS" class="headerlink" title="非极大值抑制(Non-Maximum Suppression,NMS)"></a>非极大值抑制(Non-Maximum Suppression,NMS)</h4>顾名思义，就是抑制不是极大值的元素，可以理解为局部最大搜索。这个局部代表的是一个邻域，邻域有两个参数可变，一个是是维数一个是大小。</li>
+</ul>
+<p>论文<a href="https://www.semanticscholar.org/paper/Efficient-Non-Maximum-Suppression-Neubeck-Gool/52ca4ed04d1d9dba3e6ae30717898276735e0b79" target="_blank" rel="noopener">《Efficient Non-Maximum Suppression》</a></p>
+<h3 id="Harris角点检测"><a href="#Harris角点检测" class="headerlink" title="Harris角点检测"></a>Harris角点检测</h3><p>前面提到，当一个窗口在图像上移动，在平滑区域内，窗口在各个方向上都没有变化。当一个窗口在边缘处，沿着边缘互动时它是没有变化的，而垂直于边缘滑动时是有很大变化的。当窗口在角点处，向各个方向滑动都是有很大的变化的。通过窗口在各个方向上的变化程度，我们可以判断是不是为角点</p>
+<p>根据前面介绍的角点的数学特征（窗口平移[u,v]产生灰度变化E(u,v)）：</p>
+<script type="math/tex; mode=display">E(u,v)=\sum_{x,y}w(x,y)[I(x+u,y+v)-I(x,y)]^{2}</script><p>由：$I(x+u,y+v)=I(x,y)+I_xu+I_yv+O(u^2,v^2)$得到<br>$E(u,v)=[u,v]\begin{bmatrix}I_{x}^2&amp;I_xI_y\\I_{x}I_{y}&amp;I_{y}^2\ \end{bmatrix}\begin{bmatrix}u\\v\ \end{bmatrix}$<br>对于局部微小的移动量[u,v]，近似表达为</p>
+<script type="math/tex; mode=display">E(u,v)=\sum_{x,y}w(x,y)[I_xu+I_yv]^2</script><script type="math/tex; mode=display">E(u,v)≈[u,v]M\begin{bmatrix}u\\v\\ \end{bmatrix}</script><p>其中M是2×2的矩阵。可由图像的导数求得：</p>
+<script type="math/tex; mode=display">M=\sum_{x,y}w(x,y)\begin{bmatrix}I_{x}^2&I_xI_y\\I_{x}I_{y}&I_{y}^2\\ \end{bmatrix}</script><p>事实上，我们并不需要求上述E(u,v)来判断角点。而是通过矩阵M来分析。<br>通过对窗口内每个像素的x方向上的梯度与y方向上的梯度进行统计分析。这里以$I_x和I_y$为坐标轴，因此每个像素的梯度坐标可以表示成($I_x,I_y$)。针对平坦区域，边缘区域以及角点区域三种情形进行分析：<br><img src="/2018/11/06/CV（一）/Harris_2.png" alt="Harris_2"><br>下图对这三种情况窗口中的对应像素的梯度分布进行绘制：<br><img src="/2018/11/06/CV（一）/Harris_3.png" alt="Harris_3"><br>如果使用椭圆进行数据集表示，则绘制图示如下：<br><img src="/2018/11/06/CV（一）/Harris_4.png" alt="Harris_4"><br>由此我们可以利用M矩阵的特征值对角点进行判定：<br><img src="/2018/11/06/CV（一）/Harris_5.png" alt="Harris_5"><br>由此我们得到：</p>
+<ul>
+<li>特征值都比较大时，即窗口内还有角点</li>
+<li>特征值一个比较大，一个比较小，窗口内还有边缘</li>
+<li>特征值都比较小，窗口处于平坦处<br>为了能定量化，提出了角点响应函数的概念。</li>
+</ul>
+<p>定义角点响应函数R为：</p>
+<script type="math/tex; mode=display">R=\lambda_1\lambda_2-k(\lambda_1+\lambda_2)^2</script><p>Harris角点检测算法就是对角点响应函数R进行阈值处理：R＞threshold,即提取R的局部最大值</p>
+<p>Harris角点检测的特点：</p>
+<ul>
+<li>Harris具有灰度变化的不变性：即对亮度和对比度的仿射变换并不改变Harris响应的极值点出现的位置，但是，由于阈值的选择，可能会影响角点检测的数量。如下图<br><img src="/2018/11/06/CV（一）/Harris_6.png" alt="Harris_6"></li>
+<li>Harris具有旋转不变性</li>
+<li>Harris不具有尺度不变性，即当图缩小和放大窗口内包含图像内容是完全不同的。如下图：<br><img src="/2018/11/06/CV（一）/Harris_7.png" alt="Harris_7"></li>
+</ul>
 
       
     </div>
@@ -451,7 +480,7 @@
   <p><span>本文标题:</span><a href="/2018/11/06/CV（一）/">CV（一）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月06日 - 00:11</p>
-  <p><span>最后更新:</span>2018年11月08日 - 00:11</p>
+  <p><span>最后更新:</span>2018年11月08日 - 13:11</p>
   <p><span>原始链接:</span><a href="/2018/11/06/CV（一）/" title="CV（一）">http://yifdu.github.io/2018/11/06/CV（一）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/06/CV（一）/" aria-label="复制成功！"></i></span>
   </p>
@@ -662,7 +691,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#角点定义"><span class="nav-number">1.</span> <span class="nav-text">角点定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#角点检测算法"><span class="nav-number">2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">2.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角点检测算法-1"><span class="nav-number">2.2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Moravec角点检测算法（参考文献-1-）"><span class="nav-number">2.2.1.</span> <span class="nav-text">Moravec角点检测算法（参考文献[1]）</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#角点定义"><span class="nav-number">1.</span> <span class="nav-text">角点定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#角点检测算法"><span class="nav-number">2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">2.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角点检测算法-1"><span class="nav-number">2.2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Moravec角点检测算法（参考文献-1-）"><span class="nav-number">2.2.1.</span> <span class="nav-text">Moravec角点检测算法（参考文献[1]）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非极大值抑制-Non-Maximum-Suppression-NMS"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">非极大值抑制(Non-Maximum Suppression,NMS)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Harris角点检测"><span class="nav-number">2.2.2.</span> <span class="nav-text">Harris角点检测</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
