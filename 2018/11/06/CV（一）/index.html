@@ -98,10 +98,17 @@
 <meta property="og:site_name" content="深度智障">
 <meta property="og:description" content="角点定义角点（corner point）通常被定义为两条边的交点，更严格的说，角点的局部邻域应该具有两个不同区域的不同方向的边界。而在实际应用中，大多数所谓的角点检测方法检测的是拥有特定特征的图像点，而不仅仅是“角点”。这些特征点在图像中有具体的坐标，并具有某些数学特征，如局部最大或最小灰度、梯度特征等。 现有的角点检测算法并不都十分的鲁棒。很多方法要求有大量的训练集和冗余数据来防止或减少错误特征">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-05T17:36:50.938Z">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Moravec_1.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Moravec_2.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Moravec_3.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Moravec_4.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Moravec_5.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Moravec_6.png">
+<meta property="og:updated_time" content="2018-11-07T16:35:40.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CV（一）">
 <meta name="twitter:description" content="角点定义角点（corner point）通常被定义为两条边的交点，更严格的说，角点的局部邻域应该具有两个不同区域的不同方向的边界。而在实际应用中，大多数所谓的角点检测方法检测的是拥有特定特征的图像点，而不仅仅是“角点”。这些特征点在图像中有具体的坐标，并具有某些数学特征，如局部最大或最小灰度、梯度特征等。 现有的角点检测算法并不都十分的鲁棒。很多方法要求有大量的训练集和冗余数据来防止或减少错误特征">
+<meta name="twitter:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Moravec_1.png">
 
 
 
@@ -342,7 +349,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  847 字
+                  1.9k 字
                 </span>
               
 
@@ -358,7 +365,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -404,6 +411,22 @@
 <li>（x，y）是窗口内所对应的像素坐标位置，窗口有多大就有多少个位置</li>
 <li>w(x,y)是窗口函数，最简单情形就是窗口内的所有像素所对应的w权重系数均为1.但有时候，我们会将w(x,y)函数设定为窗口中心为原点的二元正态分布。如果窗口中心点是角点时，移动前与移动后，该点的灰度变化应该最为剧烈，所以该点的权重系数可以设定大些，表示窗口移动时，该点在灰度变化贡献较大；而离窗口中心（角点）较远的点，这些点的灰度变化几近平缓，这些点的权重系数，可以设定小点，以示该点对灰度变化贡献较小，那么我们自然想到使用二元高斯函数来表示窗口函数。</li>
 </ul>
+<h2 id="角点检测算法-1"><a href="#角点检测算法-1" class="headerlink" title="角点检测算法"></a>角点检测算法</h2><h3 id="Moravec角点检测算法（参考文献-1-）"><a href="#Moravec角点检测算法（参考文献-1-）" class="headerlink" title="Moravec角点检测算法（参考文献[1]）"></a>Moravec角点检测算法（<a href="https://blog.csdn.net/kezunhai/article/details/11176065?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">参考文献[1]</a>）</h3><p>这是一种最早的角点检测算法。尽管这种算法实用性差，但它是许多算法的基础。该算法将角点定义为具有低“自相关性”的。算法检测图像的每一个像素，将图像周边的一个邻域作为一个窗口，并检测这个窗口和周围其他窗口的相关性。这种相关性通过两个窗口间的平方差之和（SSD）来衡量，SSD值越小则相似性越高。</p>
+<p><img src="/2018/11/06/CV（一）/Moravec_1.png" alt="Moravec_1"><br>上图为可能遇到的三种情况。如果像素位于平滑图像区域内，周围的窗口都会非常相似.如果像素在边缘上，则周围的窗口在与边缘正交的方向上会有很大的差异，在与边缘平行的方向上则较为相似。而如果像素是各个方向上都有变化的特征点，则周围所有的窗口都不会很相似。</p>
+<p><img src="/2018/11/06/CV（一）/Moravec_2.png" alt="Moravec_2"></p>
+<p>基本公式为：$E(u,v)=\sum_{x,y}w(x,y)[I(x+u,y+v)-I(x,y)]^{2}$</p>
+<p>Moravec的原理如果有一句话就是：<strong>通过滑动二值矩阵窗口寻找灰度变化的局部最大值。</strong><br>具体操作：首先，计算每个像素点的兴趣值，即以该像素为中心，取一个w*w的方形窗口，计算0度、45度、90度、135度四个方向灰度差的平方和，取其中的最小值作为该像素的兴趣点。实际一些算法用水平或对角线上的一个方向灰度差的平方和来近似替代。</p>
+<p>具体主要包括四个过程：<br>1.滑动窗口计算灰度变化<br><img src="/2018/11/06/CV（一）/Moravec_3.png" alt="Moravec_3"><br>上图中，红色框为原始框，而蓝色框表示右上的滑动框。白色框表示前景255，黑色框表示背景0.那么原始框和滑动框的灰度变化通过对应位置差的平方和来表示，即$V=\sum_{i=1}^{9}(A_{i}-B_{i})^2$<br>同样根据上式计算另外几个方向的滑动框的灰度变化。<br>2.构造角点映射图</p>
+<p>在构造角点映射图前我们先分析一下，通过上式我们凭什么可以检测到角点，看下图<br><img src="/2018/11/06/CV（一）/Moravec_4.png" alt="Moravec_4"><br>上面四张图中的四个红色框表示我们正在处理的框，第一幅图中的窗表示在目标内部或者背景上，该区域灰度分布均匀。第二幅图中的窗跨在图像的边缘处，当垂直于边缘方向滑动时会导致灰度很大的变化，而沿着边缘滑动窗时，灰度变化较小。第三幅图中的窗在角点处，不管往哪个方向滑动窗口都会导致灰度的很大变化。而第四幅图框内是一个离散点，滑动窗向任何方向滑动也会导致灰度的很大变化。</p>
+<p>因此通过上面的描述和分析，我们知道，Moravec算子可以作为一种角点性的度量，这种度量通过求各个方向的滑窗的最小值来表示。</p>
+<p>$$$C(x,y)=min(V_{u,v}(x,y))$</p>
+<p>我们通过下图来描述角点映射图（the cornerness map）的构造：<br><img src="/2018/11/06/CV（一）/Moravec_5.png" alt="Moravec_5"><br>上图中的通过Moravec算子计算得到的，其中1表示$1<em>255^2$,2表示$2</em>255^2$，通过上图可知：</p>
+<ul>
+<li>角点位于局部最大值处，我们可以应用非极大值抑制找到局部最大值</li>
+<li>离散点（噪声点）与角点有相同的角点性，因此Moravec算子对噪声敏感，但通过增大滑窗的大小可以对噪声起到一定的抑制作用，然而同时增加了计算量。另一方面，可以通过设定一个阈值对cornerness map进行二值化，小于阈值的T的cornerness map设置为0，从而对离散点的局部最大值进行抑制。</li>
+<li>Moaravec 算子不能应用于图像边界的一定区域（标记为X的区域），对于这部分的区域，一般直接忽略，在cornerness map中这些区域对应的值置为0.</li>
+</ul>
+<p>下面对Moravec算子的基本步骤进行简单总结，主要包括：<br><img src="/2018/11/06/CV（一）/Moravec_6.png" alt="Moravec_6"></p>
 
       
     </div>
@@ -428,7 +451,7 @@
   <p><span>本文标题:</span><a href="/2018/11/06/CV（一）/">CV（一）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月06日 - 00:11</p>
-  <p><span>最后更新:</span>2018年11月06日 - 01:11</p>
+  <p><span>最后更新:</span>2018年11月08日 - 00:11</p>
   <p><span>原始链接:</span><a href="/2018/11/06/CV（一）/" title="CV（一）">http://yifdu.github.io/2018/11/06/CV（一）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/06/CV（一）/" aria-label="复制成功！"></i></span>
   </p>
@@ -639,7 +662,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#角点定义"><span class="nav-number">1.</span> <span class="nav-text">角点定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#角点检测算法"><span class="nav-number">2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">2.1.</span> <span class="nav-text">基本思想</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#角点定义"><span class="nav-number">1.</span> <span class="nav-text">角点定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#角点检测算法"><span class="nav-number">2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">2.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角点检测算法-1"><span class="nav-number">2.2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Moravec角点检测算法（参考文献-1-）"><span class="nav-number">2.2.1.</span> <span class="nav-text">Moravec角点检测算法（参考文献[1]）</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -668,16 +691,6 @@
   
 </div>
 
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
