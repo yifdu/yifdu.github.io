@@ -110,7 +110,8 @@
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Harris_5.png">
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Harris_6.png">
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/Harris_7.png">
-<meta property="og:updated_time" content="2018-11-08T05:28:27.392Z">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/shi_1.png">
+<meta property="og:updated_time" content="2018-11-09T12:35:11.518Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CV（一）">
 <meta name="twitter:description" content="角点定义角点（corner point）通常被定义为两条边的交点，更严格的说，角点的局部邻域应该具有两个不同区域的不同方向的边界。而在实际应用中，大多数所谓的角点检测方法检测的是拥有特定特征的图像点，而不仅仅是“角点”。这些特征点在图像中有具体的坐标，并具有某些数学特征，如局部最大或最小灰度、梯度特征等。 现有的角点检测算法并不都十分的鲁棒。很多方法要求有大量的训练集和冗余数据来防止或减少错误特征">
@@ -355,7 +356,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.8k 字
+                  3k 字
                 </span>
               
 
@@ -456,7 +457,11 @@
 <li>Harris具有旋转不变性</li>
 <li>Harris不具有尺度不变性，即当图缩小和放大窗口内包含图像内容是完全不同的。如下图：<br><img src="/2018/11/06/CV（一）/Harris_7.png" alt="Harris_7"></li>
 </ul>
-
+<h3 id="Shi-Tomasi-算法"><a href="#Shi-Tomasi-算法" class="headerlink" title="Shi-Tomasi 算法"></a>Shi-Tomasi 算法</h3><p>事实上该算法是Harris算法的改进。Harris算法是对矩阵M的行列式值与M的迹相减，再将差值与事先给定的阈值进行比较。本算法提出的改进是，若两个特征值中较小的一个大于最小阈值，则会得到强角点。</p>
+<p>原来Harris的打分公式为：</p>
+<script type="math/tex; mode=display">R=\lambda_1\lambda_2-k(\lambda_1+\lambda_2)^2</script><p>Shi-Tomasi的打分函数为：</p>
+<script type="math/tex; mode=display">R=min(\lambda_1,\lambda_2)</script><p>如果打分超过阈值，我们就认为它是一个角点。我们可以把它绘制到$\lambda_1-\lambda_2$,就会得到下图：<br><img src="/2018/11/06/CV（一）/shi_1.png" alt="shi_1"><br>从这幅图中，我们可以看出来只有当$\lambda_1和\lambda_2$都大于最小值时，才被认为是角点（绿色区域）。</p>
+<h3 id="FAST角点检测算法"><a href="#FAST角点检测算法" class="headerlink" title="FAST角点检测算法"></a>FAST角点检测算法</h3>
       
     </div>
     
@@ -480,7 +485,7 @@
   <p><span>本文标题:</span><a href="/2018/11/06/CV（一）/">CV（一）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月06日 - 00:11</p>
-  <p><span>最后更新:</span>2018年11月08日 - 13:11</p>
+  <p><span>最后更新:</span>2018年11月09日 - 20:11</p>
   <p><span>原始链接:</span><a href="/2018/11/06/CV（一）/" title="CV（一）">http://yifdu.github.io/2018/11/06/CV（一）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/06/CV（一）/" aria-label="复制成功！"></i></span>
   </p>
@@ -691,7 +696,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#角点定义"><span class="nav-number">1.</span> <span class="nav-text">角点定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#角点检测算法"><span class="nav-number">2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">2.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角点检测算法-1"><span class="nav-number">2.2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Moravec角点检测算法（参考文献-1-）"><span class="nav-number">2.2.1.</span> <span class="nav-text">Moravec角点检测算法（参考文献[1]）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非极大值抑制-Non-Maximum-Suppression-NMS"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">非极大值抑制(Non-Maximum Suppression,NMS)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Harris角点检测"><span class="nav-number">2.2.2.</span> <span class="nav-text">Harris角点检测</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#角点定义"><span class="nav-number">1.</span> <span class="nav-text">角点定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#角点检测算法"><span class="nav-number">2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">2.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角点检测算法-1"><span class="nav-number">2.2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Moravec角点检测算法（参考文献-1-）"><span class="nav-number">2.2.1.</span> <span class="nav-text">Moravec角点检测算法（参考文献[1]）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非极大值抑制-Non-Maximum-Suppression-NMS"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">非极大值抑制(Non-Maximum Suppression,NMS)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Harris角点检测"><span class="nav-number">2.2.2.</span> <span class="nav-text">Harris角点检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shi-Tomasi-算法"><span class="nav-number">2.2.3.</span> <span class="nav-text">Shi-Tomasi 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FAST角点检测算法"><span class="nav-number">2.2.4.</span> <span class="nav-text">FAST角点检测算法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
