@@ -99,7 +99,7 @@
 <meta property="og:description" content="自然语言涉及的几个 层次 NLP是一门交叉学科，它往往包含着Computer Science, artificial intelligence 和 linguistics。如上图可以看到自然语言涉及的是内容很广泛，而本课程Cs224n主要围绕图中画圈部分。 Deep NLP=Deep Learning +NLP将自然语言处理的思想与表示学习结合起来，用深度学习的方法解决NLP目标，不仅简化了过程而">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png">
-<meta property="og:updated_time" content="2018-11-09T11:45:16.722Z">
+<meta property="og:updated_time" content="2018-11-09T11:54:18.472Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS224n笔记（一）">
 <meta name="twitter:description" content="自然语言涉及的几个 层次 NLP是一门交叉学科，它往往包含着Computer Science, artificial intelligence 和 linguistics。如上图可以看到自然语言涉及的是内容很广泛，而本课程Cs224n主要围绕图中画圈部分。 Deep NLP=Deep Learning +NLP将自然语言处理的思想与表示学习结合起来，用深度学习的方法解决NLP目标，不仅简化了过程而">
@@ -366,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  6.2k 字
+                  6.3k 字
                 </span>
               
 
@@ -559,7 +559,14 @@ P(O|C)=\frac{e^{u_0^{T}v_c}}{\sum_{w=1}^{V}e^{u_w^{T}v_c}}</script><p>对上式�
 <h3 id="模型是怎么来的"><a href="#模型是怎么来的" class="headerlink" title="模型是怎么来的"></a>模型是怎么来的</h3><p>先定义几个符号：</p>
 <script type="math/tex; mode=display">X_i=\sum_{j=1}^{N}X_{i,j}</script><p>其实就是矩阵单词i的那一行的和；</p>
 <script type="math/tex; mode=display">P_{i,k}=\frac{X_{i,k}}{X_i}</script><p>该条件概率表示单词k出现在单词i语境中的概率；</p>
-<script type="math/tex; mode=display">ratio_{i,j,k}=\frac{P_{i,k}}{P_{j,k}}</script><p>这表示两个条件概率的比率。<br>|ratio的值|单词j,k相关|单词j,k不相关<br>-|:-:|:-:<br>单词i,k相关|趋近1|很大<br>单词i，k不相关|很小|趋近1<br>思想：假设我们已经得到了词向量，如果我们用词向量$V_{i}、V_{j}、{k}$通过某种函数计算$ratio_{i,j,k}$能够同样得到这样的规律的话，就意味着我们词向量与共现矩阵具有很好的一致性，也就说明了我们的词向量中蕴含着共现矩阵中所蕴涵的信息。</p>
+<script type="math/tex; mode=display">ratio_{i,j,k}=\frac{P_{i,k}}{P_{j,k}}</script><p>这表示两个条件概率的比率。</p>
+<script type="math/tex; mode=display">
+\begin{array}{c|lcr}
+ratio的值& \text{单词j,k相关} & \text{单词j,k不相关} \\
+\hline
+单词i,k相关 & 趋近1 & 很大 \\
+单词i，k不相关 & 很小 & 趋近1 
+\end{array}</script><p>思想：假设我们已经得到了词向量，如果我们用词向量$V_{i}、V_{j}、{k}$通过某种函数计算$ratio_{i,j,k}$能够同样得到这样的规律的话，就意味着我们词向量与共现矩阵具有很好的一致性，也就说明了我们的词向量中蕴含着共现矩阵中所蕴涵的信息。</p>
 <p>设词向量$V_{i}、V_{j}、V_{k}$计算$ratio_{i,j,k}$的函数为$g(V_i,V_j,V_k)$(暂时先不去管具体的函数形式)，那么应该有:</p>
 <script type="math/tex; mode=display">\frac{P_{i,k}}{P_{j,k}}=g(V_i,V_j,V_k)</script><p>即两者应该尽可能地接近；<br>很容易想到用二者的差方来作为损失函数</p>
 <script type="math/tex; mode=display">J=\sum_{i,j,k}^{N}(\frac{P_{i,k}}{P_{j,k}}-g(V_i,V_j,V_k))^{2}</script><p>但这样做的话复杂度就是N×N×N.太复杂了</p>
