@@ -113,7 +113,7 @@
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/shi_1.png">
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/FAST_2.png">
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/FAST_1.png">
-<meta property="og:updated_time" content="2018-11-12T08:06:45.286Z">
+<meta property="og:updated_time" content="2018-11-12T08:11:38.512Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CV（一）">
 <meta name="twitter:description" content="角点定义角点（corner point）通常被定义为两条边的交点，更严格的说，角点的局部邻域应该具有两个不同区域的不同方向的边界。而在实际应用中，大多数所谓的角点检测方法检测的是拥有特定特征的图像点，而不仅仅是“角点”。这些特征点在图像中有具体的坐标，并具有某些数学特征，如局部最大或最小灰度、梯度特征等。 现有的角点检测算法并不都十分的鲁棒。很多方法要求有大量的训练集和冗余数据来防止或减少错误特征">
@@ -358,7 +358,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.3k 字
+                  3.4k 字
                 </span>
               
 
@@ -477,6 +477,7 @@ V=max
 \sum(p-pixel\ \ values) \ \ \ \ \ \ \ \  if(p-value)>t \\
 \end{cases}</script></li>
 </ul>
+<h4 id="FAST算法特点"><a href="#FAST算法特点" class="headerlink" title="FAST算法特点"></a>FAST算法特点</h4><p>1.速度快<br>2.受图像噪声以及阈值影响较大<br>3.</p>
 
       
     </div>
@@ -712,7 +713,7 @@ V=max
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#角点定义"><span class="nav-number">1.</span> <span class="nav-text">角点定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#角点检测算法"><span class="nav-number">2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">2.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角点检测算法-1"><span class="nav-number">2.2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Moravec角点检测算法（参考文献-1-）"><span class="nav-number">2.2.1.</span> <span class="nav-text">Moravec角点检测算法（参考文献[1]）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非极大值抑制-Non-Maximum-Suppression-NMS"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">非极大值抑制(Non-Maximum Suppression,NMS)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Harris角点检测"><span class="nav-number">2.2.2.</span> <span class="nav-text">Harris角点检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shi-Tomasi-算法"><span class="nav-number">2.2.3.</span> <span class="nav-text">Shi-Tomasi 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FAST角点检测算法"><span class="nav-number">2.2.4.</span> <span class="nav-text">FAST角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FAST算法步骤"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">FAST算法步骤</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#角点定义"><span class="nav-number">1.</span> <span class="nav-text">角点定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#角点检测算法"><span class="nav-number">2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">2.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角点检测算法-1"><span class="nav-number">2.2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Moravec角点检测算法（参考文献-1-）"><span class="nav-number">2.2.1.</span> <span class="nav-text">Moravec角点检测算法（参考文献[1]）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非极大值抑制-Non-Maximum-Suppression-NMS"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">非极大值抑制(Non-Maximum Suppression,NMS)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Harris角点检测"><span class="nav-number">2.2.2.</span> <span class="nav-text">Harris角点检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shi-Tomasi-算法"><span class="nav-number">2.2.3.</span> <span class="nav-text">Shi-Tomasi 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FAST角点检测算法"><span class="nav-number">2.2.4.</span> <span class="nav-text">FAST角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FAST算法步骤"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">FAST算法步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FAST算法特点"><span class="nav-number">2.2.4.2.</span> <span class="nav-text">FAST算法特点</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
