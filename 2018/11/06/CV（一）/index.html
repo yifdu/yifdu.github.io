@@ -113,7 +113,17 @@
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/shi_1.png">
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/FAST_2.png">
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/FAST_1.png">
-<meta property="og:updated_time" content="2018-11-12T08:11:38.512Z">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_1.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_2.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_3.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_4.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_5.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_6.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_7.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_8.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_10.png">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SITF_11.png">
+<meta property="og:updated_time" content="2018-11-15T06:05:13.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CV（一）">
 <meta name="twitter:description" content="角点定义角点（corner point）通常被定义为两条边的交点，更严格的说，角点的局部邻域应该具有两个不同区域的不同方向的边界。而在实际应用中，大多数所谓的角点检测方法检测的是拥有特定特征的图像点，而不仅仅是“角点”。这些特征点在图像中有具体的坐标，并具有某些数学特征，如局部最大或最小灰度、梯度特征等。 现有的角点检测算法并不都十分的鲁棒。很多方法要求有大量的训练集和冗余数据来防止或减少错误特征">
@@ -358,7 +368,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.4k 字
+                  5.7k 字
                 </span>
               
 
@@ -374,7 +384,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  12 分钟
+                  21 分钟
                 </span>
               
             </div>
@@ -478,6 +488,71 @@ V=max
 \end{cases}</script></li>
 </ul>
 <h4 id="FAST算法特点"><a href="#FAST算法特点" class="headerlink" title="FAST算法特点"></a>FAST算法特点</h4><p>1.速度快<br>2.受图像噪声以及阈值影响较大<br>3.</p>
+<h3 id="SIFT"><a href="#SIFT" class="headerlink" title="SIFT"></a>SIFT</h3><p>SIFT也是一种特征点（角点）检测算法，他的一大特点是SIFT特征对旋转、尺度缩放、亮度变化等保持不变性，是一种稳定的局部特征</p>
+<p>SIFT特征检测方法：</p>
+<ul>
+<li>1.创建尺度空间：尺度空间的目的是为了模拟图像数据的多尺度特征<script type="math/tex; mode=display">L(x,y,\sigma)=G(x,y,\sigma)  * I(x,y)</script>其中G(x,y,\sigma)是尺度可变的高斯函数，$G(x,y,\sigma)=\frac{1}{2\pi\sigma^{2}}e^{-(x^2+y^2)/2\sigma^2}$<br>(x,y)是空间坐标，也是尺度坐标。$\sigma$大小决定图像的平滑程度。大尺度对应图像的概貌特征，小尺度对应图像的细节特征.大的\sigma值对应粗糙尺度（低分辨率），反之，对应精细尺度（高分辨率特征）。</li>
+</ul>
+<p>为了有效的在尺度空间检测到稳定的关键点，提出了高斯差分尺度空间（DOG scale-space）.利用不同尺度的高斯差分核与图像卷积生成。：</p>
+<script type="math/tex; mode=display">\begin{align}
+D(x,y,\sigma)&=(G(x,y,k\sigma)-G(x,y,\sigma))* I(x,y) \\
+&=L(x,y,k\sigma)-L(x,y,\sigma)
+\end{align}</script><p><img src="/2018/11/06/CV（一）/SIFT_1.png" alt="SIFT_1"><br>关于尺度空间的理解说明图中的2是必须的，尺度空间是连续的。在Lowe的论文中，将第0层的初始尺度为1.6，图片的初始尺度定为0.5.在检测极值点前对原始图像的高斯平滑以致图像丢失高频信息，所以Lowe建议在建立尺度空间前首先对原始图像长宽扩展一倍，以保留原始图像信息，增加特征点数量。尺度越大图像越模糊。</p>
+<p><img src="/2018/11/06/CV（一）/SIFT_2.png" alt="SIFT_2"></p>
+<ul>
+<li>2.检测尺度空间中的极值点：为了寻找尺度空间的极值点，每一个采样点要和它所有的相邻点比较，看其是否比它的图像域和尺度域的相邻点大或者小。如下图，中间的检测点和它同尺度的8个相邻点和上下相邻尺度对应的9*2个点共26个点比较，以确保在尺度空间和二维图像空间都检测到极值点。如果一个点在DOG尺度空间本层以及上下两层的26个域中是最大或者最小的，就认为该点是图像在尺度下的一个特征点。<br><img src="/2018/11/06/CV（一）/SIFT_3.png" alt="SIFT"><br>同一组中的相邻尺度：<br><img src="/2018/11/06/CV（一）/SIFT_4.png" alt="SIFT_4"><br>在极值比较的过程中，每一组图像的首末两层是无法进行极值比较的，为了满足尺度变化的连续性，我们在每一组图像的顶层继续用高斯模糊生成三幅图像，高斯金字塔有每组S+3层图像。DOG金字塔每组有S+2层图像。上上上张图的左侧是高斯金字塔，右侧是DOG金字塔。</li>
+<li>3.精确定位极值点<br>通过拟合三维二次函数以精确确定关键点的位置和尺度（达到亚像素精度），同时去除低对比度的关键点和不稳定的边缘响应点（因为 DOG算子会产生较强的边缘响应），以增强匹配稳定性、提高抗噪声能力。</li>
+</ul>
+<p>I.空间尺度函数：<script type="math/tex">D(x,y\sigma)=D(x,y,\sigma)+\frac{\partial D^T}{\partial x}x+\frac{1}{2}x^T\frac{\partial^2D}{\partial x^2}x</script><br>求导，并令其为0，得到精确的$位置\hat{x}$,</p>
+<script type="math/tex; mode=display">\hat{x}=-\frac{\partial^2D^{-1}}{\partial x^2}x+\frac{1}{2}x^T\frac{\partial^2D}{\partial x^2}x</script><p>II.在已经检测到的特征点中，要去掉低对比度的特征点和不稳定的边缘相应点，去除低对比度的点：计算下式</p>
+<script type="math/tex; mode=display">D(\hat{x})=D(x,y,\sigma)+\frac{1}{2}\frac{\partial D^T}{\partial x}\hat{x}</script><p>若$|D(\hat{x})|≥0.03$则保留该点，否则丢弃<br>$这里\hat{X}=(x,y,\sigma)^T$<br>III.边缘响应的去除,一个定义不好的高斯差分算子的极值在横跨边缘的地方有较大的主曲率，而在垂直边缘方向有较小的主曲率。主曲率通过一个2×2的Hessian矩阵H求出</p>
+<script type="math/tex; mode=display">H=
+\begin{bmatrix}D_{xx}&D_{xy}\\D_{xy}&D_{yy}\\ \end{bmatrix}</script><p>导数由采样点相邻差估计得到。</p>
+<p>D的主曲率和H的特征值成正比，令α为最大特征值，β为最小特征值，则</p>
+<script type="math/tex; mode=display">Tr(H)=D_{xx}+D_{yy}=α+β</script><script type="math/tex; mode=display">Det(H)=D_{xx}D_{yy}-(D_{xy})^2=αβ</script><p>令α=γβ，则</p>
+<script type="math/tex; mode=display">\frac{Tr(H)^2}{Det(H)}=\frac{(α+β)^2}{αβ}=\frac{(γβ+β)^2}{γβ^2}=\frac{(γ+1)^2}{γ}</script><p>如果$r&gt;\frac{(γ+1)^2}{γ}$则丢弃它（一般这里r=10）</p>
+<ul>
+<li>4.为每个关键点指定方向参数<br>利用关键点邻域像素的梯度方向分布特性为每个关键点指定方向参数，使算子具备旋转不变性。<script type="math/tex; mode=display">m(x,y)\sqrt{(L(x+1,y)-L(x-1,y))^2+(L(x,y+1)-L(x,y-1))^2}</script><script type="math/tex; mode=display">\theta(x,y)=atan2((L(x,y+1)-L(x,y-1))/(L(x+1,y)-L(x-1,y)))</script>式中(x,y)处梯度的模值和方向公式。其中L所用的尺度为每个关键点各自所在的尺度</li>
+</ul>
+<p>至此，图像的关键点已检测完毕，每个关键点有三个信息：<strong>位置、所处尺度、方向</strong>。由此可以确定一个SIFT的特征区域</p>
+<p>直方图的峰值就是主方向，其他的达到最大值80%的方向作为辅助方向<br><img src="/2018/11/06/CV（一）/SIFT_5.png" alt="SIFT_5"><br>利用关键点邻域像素的梯度方向分布特性为每个关键点指定方向参数，使算子具备旋转不变性。以关键点为中心的邻域窗口内采样，并用直方图统计邻域像素的梯度方向。梯度直方图的范围为0~360度，其中每10度一个柱，总共36个柱。随着距中心点越来越远的邻域其对直方图的贡献也响应减少。<br><img src="/2018/11/06/CV（一）/SIFT_6.png" alt="SIFT_6"></p>
+<ul>
+<li><p>关键点描述子的生成<br>首先将坐标轴旋转为关键点的方向，以确保旋转不变性。以特征点为中心取8<em>8的邻域为采样窗口，将采样点与特征点的相对方向通过高斯加权后归入包含8个方向直方图，最后获得2</em>2*8的32维特征描述子，示意图如下：<br><img src="/2018/11/06/CV（一）/SIFT_7.png" alt="SIFT_7"><br>每一个小格都代表了特征点邻域所在的尺度空间的一个像素，箭头方向代表了像素梯度方向，箭头长度代表该像素的幅值。然后在4×4的窗口内计算8个方向的梯度方向直方图，绘制每个梯度方向的累加可形成一个种子点。<br><img src="/2018/11/06/CV（一）/SIFT_8.png" alt="SIFT_8"><br>每个直方图有8个方向的梯度方向，每一个描述符包含一个位于关键点附近的四个直方图数组。这就导致了SIFt的特征向量有128维（先是一个4×4来计算出一个直方图，每个直方图8个方向.所以4×4×8=128维）将这个向量归一化之后，就进一步去除了光照的影响</p>
+</li>
+<li><p>5.128维关键点描述子生成步骤<br>I.确定计算描述子所需的图像区域<br>  描述子梯度方向直方图由关键点所在尺度的模糊图像计算产生。图像区域的半径通过下式计算：</p>
+<script type="math/tex; mode=display">radius=\frac{3\sigma_{oct}×\sqrt{2}×(d+1)+1}{2}</script><p>  $\sigma_{oct}$使关键点所在组（octave）的组内尺度，d=4</p>
+</li>
+</ul>
+<p>II.将坐标移至关键点主方向<br><img src="/2018/11/06/CV（一）/SIFT_10.png" alt="SIFT_10"><br>那么旋转角度后新坐标为</p>
+<script type="math/tex; mode=display">
+\begin{pmatrix}
+\hat{x} \\
+\hat{y} \\
+\end{pmatrix}=
+\begin{pmatrix}
+cos\theta \ \ \ \ -sin\theta\\
+sin\theta \ \ \ \ \ cos\theta\\
+\end{pmatrix}
+×
+\begin{pmatrix}
+x \\
+y \\
+\end{pmatrix}</script><p>III.图像半径区域内对每个像素点求其梯度幅值和方向，然后对每个梯度赋值乘以高斯权重参数，生成方向直方图<br><img src="/2018/11/06/CV（一）/SITF_11.png" alt="SIFT_11"><br>IV.在窗口宽度为2×2的区域内计算8个方向的梯度方向直方图，绘制每个梯度方向的累加值，即可形成一个种子点。然后再在下一个2×2的区域内进行直方图统计，形成下一个种子点，共生成16个种子点。<br>V. 描述子向量元素门限化即门限化后的描述子向量规范化。</p>
+<p>描述子向量元素门限化：</p>
+<p>方向直方图每个方向上梯度幅值限制在一定门限值以下（门限一般取0.2）.</p>
+<p>描述子向量元素规范化：</p>
+<script type="math/tex; mode=display">W=(w_1,w_2,....,w_{128}) \ \ \ \ \ \ \ \ \ \ \ \ \ \ 为得到的128描述子向量，</script><script type="math/tex; mode=display">L=(l_1,l_2,...,l_{128})  \ \ \ \ \ \ \ \ \ \ \ \ \ 为规范化后的向量</script><script type="math/tex; mode=display">l_j=W_j/\sqrt{\sum_{i=1}^{128}w_i} \ \ \ \ \ \ \ \ \ \ j=1,2,3,...,128</script><h1 id="补充概念"><a href="#补充概念" class="headerlink" title="补充概念"></a>补充概念</h1><h2 id="什么使局部特征？"><a href="#什么使局部特征？" class="headerlink" title="什么使局部特征？"></a>什么使局部特征？</h2><ul>
+<li>局部特征从总体上说是图像或者在视觉领域中一些有别于其周围的地方</li>
+<li>局部特征通常是描述一块区域，使其能具有高可区分度</li>
+<li>局部特征的好坏直接会决定后面的分类、识别是否会得到一个好的结果<h2 id="局部特征需要具备的特性"><a href="#局部特征需要具备的特性" class="headerlink" title="局部特征需要具备的特性"></a>局部特征需要具备的特性</h2></li>
+<li>重复性</li>
+<li>可区分性</li>
+<li>准确性</li>
+<li>数量以及效率</li>
+<li>不变性<h2 id="尺度空间理论"><a href="#尺度空间理论" class="headerlink" title="尺度空间理论"></a>尺度空间理论</h2></li>
+<li>目的使模拟图像数据的多尺度特征</li>
+<li>其基本思想是在视觉信息图像处理模型中引入一个被视为尺度的参数，通过连续变化尺度参数获得不同尺度下的视觉处理信息，然后综合这些信息以深入地挖掘图像的本质</li>
+</ul>
 
       
     </div>
@@ -502,7 +577,7 @@ V=max
   <p><span>本文标题:</span><a href="/2018/11/06/CV（一）/">CV（一）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月06日 - 00:11</p>
-  <p><span>最后更新:</span>2018年11月12日 - 16:11</p>
+  <p><span>最后更新:</span>2018年11月15日 - 14:11</p>
   <p><span>原始链接:</span><a href="/2018/11/06/CV（一）/" title="CV（一）">http://yifdu.github.io/2018/11/06/CV（一）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/06/CV（一）/" aria-label="复制成功！"></i></span>
   </p>
@@ -559,8 +634,8 @@ V=max
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/06/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/12/t-SNE/" rel="prev" title="t-SNE">
+                t-SNE <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -642,7 +717,7 @@ V=max
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -664,7 +739,7 @@ V=max
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -713,7 +788,7 @@ V=max
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#角点定义"><span class="nav-number">1.</span> <span class="nav-text">角点定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#角点检测算法"><span class="nav-number">2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">2.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角点检测算法-1"><span class="nav-number">2.2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Moravec角点检测算法（参考文献-1-）"><span class="nav-number">2.2.1.</span> <span class="nav-text">Moravec角点检测算法（参考文献[1]）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非极大值抑制-Non-Maximum-Suppression-NMS"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">非极大值抑制(Non-Maximum Suppression,NMS)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Harris角点检测"><span class="nav-number">2.2.2.</span> <span class="nav-text">Harris角点检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shi-Tomasi-算法"><span class="nav-number">2.2.3.</span> <span class="nav-text">Shi-Tomasi 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FAST角点检测算法"><span class="nav-number">2.2.4.</span> <span class="nav-text">FAST角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FAST算法步骤"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">FAST算法步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FAST算法特点"><span class="nav-number">2.2.4.2.</span> <span class="nav-text">FAST算法特点</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#角点定义"><span class="nav-number">1.</span> <span class="nav-text">角点定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#角点检测算法"><span class="nav-number">2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思想"><span class="nav-number">2.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角点检测算法-1"><span class="nav-number">2.2.</span> <span class="nav-text">角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Moravec角点检测算法（参考文献-1-）"><span class="nav-number">2.2.1.</span> <span class="nav-text">Moravec角点检测算法（参考文献[1]）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非极大值抑制-Non-Maximum-Suppression-NMS"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">非极大值抑制(Non-Maximum Suppression,NMS)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Harris角点检测"><span class="nav-number">2.2.2.</span> <span class="nav-text">Harris角点检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shi-Tomasi-算法"><span class="nav-number">2.2.3.</span> <span class="nav-text">Shi-Tomasi 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FAST角点检测算法"><span class="nav-number">2.2.4.</span> <span class="nav-text">FAST角点检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FAST算法步骤"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">FAST算法步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FAST算法特点"><span class="nav-number">2.2.4.2.</span> <span class="nav-text">FAST算法特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SIFT"><span class="nav-number">2.2.5.</span> <span class="nav-text">SIFT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#补充概念"><span class="nav-number">3.</span> <span class="nav-text">补充概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么使局部特征？"><span class="nav-number">3.1.</span> <span class="nav-text">什么使局部特征？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局部特征需要具备的特性"><span class="nav-number">3.2.</span> <span class="nav-text">局部特征需要具备的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尺度空间理论"><span class="nav-number">3.3.</span> <span class="nav-text">尺度空间理论</span></a></li></ol></li></ol></div>
             
 
           </div>

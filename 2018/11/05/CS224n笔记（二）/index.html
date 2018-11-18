@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="cs224n,">
 
 
 
@@ -90,14 +90,20 @@
 
 
 
+<meta name="description" content="Word Window分类窗口分类开始分类：  一般我们有训练集$\{x_i,y_i\}^{N}_{i=1}$ $x_i$——输入，例如单词(索引或向量!),上下文窗口，句子，文档等 $y_i$——我们试图去预测的标签，例如1.类：情感、命名实体、买/卖决策;2.其他单词;3.后续：多词序列  分类直观表现 训练数据：$\{x_i,y_i\}_{i=1}^N$ 简单解释：固定二维词向量来分类使用逻">
+<meta name="keywords" content="cs224n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS224n笔记（二）">
 <meta property="og:url" content="http://yifdu.github.io/2018/11/05/CS224n笔记（二）/index.html">
 <meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="Word Window分类窗口分类开始分类：  一般我们有训练集$\{x_i,y_i\}^{N}_{i=1}$ $x_i$——输入，例如单词(索引或向量!),上下文窗口，句子，文档等 $y_i$——我们试图去预测的标签，例如1.类：情感、命名实体、买/卖决策;2.其他单词;3.后续：多词序列  分类直观表现 训练数据：$\{x_i,y_i\}_{i=1}^N$ 简单解释：固定二维词向量来分类使用逻">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-05T14:25:55.552Z">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png">
+<meta property="og:updated_time" content="2018-11-18T12:53:23.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS224n笔记（二）">
+<meta name="twitter:description" content="Word Window分类窗口分类开始分类：  一般我们有训练集$\{x_i,y_i\}^{N}_{i=1}$ $x_i$——输入，例如单词(索引或向量!),上下文窗口，句子，文档等 $y_i$——我们试图去预测的标签，例如1.类：情感、命名实体、买/卖决策;2.其他单词;3.后续：多词序列  分类直观表现 训练数据：$\{x_i,y_i\}_{i=1}^N$ 简单解释：固定二维词向量来分类使用逻">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png">
 
 
 
@@ -338,7 +344,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0 字
+                  1.6k 字
                 </span>
               
 
@@ -354,7 +360,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  5 分钟
                 </span>
               
             </div>
@@ -373,9 +379,74 @@
 
       
       
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjomk8w9n0000dwwa1968325f" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
 
       
-        
+        <h1 id="Word-Window分类"><a href="#Word-Window分类" class="headerlink" title="Word Window分类"></a>Word Window分类</h1><h2 id="窗口分类"><a href="#窗口分类" class="headerlink" title="窗口分类"></a>窗口分类</h2><p>开始分类：</p>
+<ul>
+<li>一般我们有训练集$\{x_i,y_i\}^{N}_{i=1}$</li>
+<li>$x_i$——输入，例如单词(索引或向量!),上下文窗口，句子，文档等</li>
+<li>$y_i$——我们试图去预测的标签，例如1.类：情感、命名实体、买/卖决策;2.其他单词;3.后续：多词序列</li>
+</ul>
+<h3 id="分类直观表现"><a href="#分类直观表现" class="headerlink" title="分类直观表现"></a>分类直观表现</h3><ul>
+<li>训练数据：$\{x_i,y_i\}_{i=1}^N$</li>
+<li>简单解释：<br>固定二维词向量来分类<br>使用逻辑回归<br>用线性决策边界</li>
+<li>一般的ML：假定x是固定的，训练逻辑回归权重W,只修正决策边界</li>
+<li>目标：预测每个x:P(y|x)=$\frac{exp(W_yx)}{\sum_{c=1}^Cexp(W_cx)}$其中W∈$R^{C×d}$<br><img src="/2018/11/05/CS224n笔记（二）/classification_1.png" alt="classification_1"><h2 id="softmax"><a href="#softmax" class="headerlink" title="softmax"></a>softmax</h2>如上所述，我们会采用softmax将输出表示成一种概率的形式。显然我们的目标就是要最大化目标类别的概率。</li>
+</ul>
+<p>在机器学习里，我们往往会用最小化负对数的方法代替原来的最大化问题。</p>
+<script type="math/tex; mode=display">-logp(y|x)=-log(\frac{exp(f_y)}{\sum_{c=1}^{C}exp(f_c)})</script><p>这就是我们的损失函数，其实就是交叉熵的结果。<br>交叉熵可以表述为：</p>
+<script type="math/tex; mode=display">H(p,q)=-\sum_{c=1}^{C}p(c)log\ \ q(c)</script><p>其中p是正确类的概率，q是我们计算的概率。由于p的onehot特点所以最后的结果就是我们前面所写的。</p>
+<p>对于N个数据点来说：</p>
+<script type="math/tex; mode=display">-\sum_{i=1}^Nlog(\frac{exp(W_{k(i)}x^{(i)})}{\sum_{c=1}^{C}exp(W_cx^{(i)})})</script><p>加上正则化项有：</p>
+<script type="math/tex; mode=display">-\sum_{i=1}^Nlog(\frac{exp(W_{k(i)}x^{(i)})}{\sum_{c=1}^{C}exp(W_cx^{(i)})})+\lambda \sum_{k=1}^{Cd+|V|d}\theta_k^2</script><p>这里的$\theta$就是权值矩阵所有参数（c×d）+词向量参数(|V|×d)，这里相比较传统分类问题，增加了词向量所有参数，这也是和传统分类问题的最大区别。</p>
+<p><img src="/2018/11/05/CS224n笔记（二）/classification_2.png" alt="classification_2"><br>上述红线是test error，蓝线是training error,横轴为模型复杂度或迭代次数。直线是方差偏差均衡点。</p>
+<h2 id="基于词向量的分类优化"><a href="#基于词向量的分类优化" class="headerlink" title="基于词向量的分类优化"></a>基于词向量的分类优化</h2><p>一般的ML问题，参数由权重矩阵的列组成维度不会太大。<strong>而在词向量或其他深度学习中，需要同时学习权值矩阵和词向量。</strong> 参数一多就容易过拟合。<br><img src="/2018/11/05/CS224n笔记（二）/word2vec_1.png" alt="word2vec_1"><br>因为同时需要学习权值矩阵和词向量，所以基于词向量的分类问题参数拟合，还会造成re-training词向量失去泛化效果。比如针对电影评价情感数据训练逻辑回归模型，在训练集里我们有单词”TV”和“telly”,在测试集里我们有单词”television”，原本它们是相似的单词（来自于已经训练的词向量模型）。<br><img src="/2018/11/05/CS224n笔记（二）/word2vec_2.png" alt="word2vec_2"></p>
+<p>当我们重新训练词向量模型的时候会发生什么？</p>
+<ul>
+<li>1.在训练集中的单词会被重新安排到合适的位置</li>
+<li>2.在已经训练的词向量模型中但是不在训练集中的单词将保留在原来的位置</li>
+</ul>
+<p>对于上例，”TV”和”telly”会被重新安排，而”television”则保留在原位，尴尬的事就发生了。</p>
+<p>于是在测试集上导致television被误分。<br>这个例子说明：<br>1)如果你只有一个很小的训练集，不要训练词向量模型。<br>2)如果你有一个足够大的训练集，那么对于相应的任务来说训练词向量模型是有益的。</p>
+<hr>
+<p>基础知识<br>词向量矩阵L常被称作lookup table：<br><img src="/2018/11/05/CS224n笔记（二）/matrix.png" alt="matrix"><br>Word Vectors=Word embeddings=word respresentations(mostly)<br>通常通过词向量矩阵L和one-hot向量e相乘得到单个的词向量<br>$x=Le    ∈d×V·V×1$</p>
+<hr>
+<h2 id="Window-classification"><a href="#Window-classification" class="headerlink" title="Window classification"></a>Window classification</h2><p>背景：单个单词的分类任务很少，比较多的是在上下文中解决歧义问题，这是一种根据上下文给单个单词分类的任务，可以用于消歧或命名实体分类。例子如下：<br><img src="/2018/11/05/CS224n笔记（二）/Window_classification_1.png" alt="Window_classification_1"><br>Windows_classification的思路是：将对一个单词进行分类的问题扩展到对其临近词和上下文窗口进行分类，就是对窗口中的单词打上标签同时把它前后的单词向量进行拼接然后训练一个分类器。<br><img src="/2018/11/05/CS224n笔记（二）/Window_classification_2.png" alt="Window_classification_2"><br>这是对于一个句子上下文中的“Paris”进行分类，窗口长度为2,得到的是一个窗口向量，是一个列向量，可表示为：</p>
+<script type="math/tex; mode=display">X_{window}=x∈R^{5d}</script><p>结合前面的思路，使用softmax:<br><img src="/2018/11/05/CS224n笔记（二）/Window_classification_3.png" alt="Window_classification_3"><br>J对x求导<br><img src="/2018/11/05/CS224n笔记（二）/Window_classification_4.png" alt="Window_classification_4"><br>于是就可以更新词向量了。<br>另一方面对W求偏导，将所有参数的偏导数写到一起有：<br><img src="/2018/11/05/CS224n笔记（二）/Window_classification_5.png" alt="Window_classification_5"></p>
+<p>最后结论：<br>softmax(=逻辑回归)并不是强有力的</p>
+<ul>
+<li>softmax仅仅在原有空间上给出线性决策边界</li>
+<li>在少量的数据上（正则化）效果会不错</li>
+<li>在大量的数据上效果会有限</li>
+<li>softmax仅仅给出线性决策边界举例：<br><img src="/2018/11/05/CS224n笔记（二）/Window_classification_6.png" alt="Window_classification_6"><br>神经网络更胜一筹，它可以学习更复杂的函数和非线性决策边界<br><img src="/2018/11/05/CS224n笔记（二）/Window_classification_7.png" alt="Window_classification_7"><h1 id="基于神经网络的分类"><a href="#基于神经网络的分类" class="headerlink" title="基于神经网络的分类"></a>基于神经网络的分类</h1></li>
+</ul>
+<p>从上述可以看出window classification 在少量的数据（正则化）效果会不错，在大量的数据上效果有限。</p>
+<p>这主要是因为softmax仅仅给出线性决策边界，为了能解决一些非线性决策边界的问题，我们会采用神经网络。</p>
+<h2 id="从逻辑回归到神经网络"><a href="#从逻辑回归到神经网络" class="headerlink" title="从逻辑回归到神经网络"></a>从逻辑回归到神经网络</h2><p>我们从上述的softmax的运行机制中已经可以看出了一个基本的神经元的运行机制。<br>一个神经元：<br><img src="/2018/11/05/CS224n笔记（二）/NeuralNetwork_1.png" alt="NeuralNetwork_1"><br>一个神经网络等价于同时运行许多逻辑回归单元，神经网络同时运行多个逻辑回归，但不需要提前指定它具体预测什么。<br><img src="/2018/11/05/CS224n笔记（二）/NeuralNetwork_2.png" alt="NeuralNetwork_2"><br>接着把预测结果输入到下一级逻辑回归单元，由损失函数自动决定它们预测什么。</p>
+<p>然后我们就有了多层神经网络<br><img src="/2018/11/05/CS224n笔记（二）/NeuralNetwork_3.png" alt="NeuralNetwork_3"></p>
+<h2 id="更厉害的窗口分类器"><a href="#更厉害的窗口分类器" class="headerlink" title="更厉害的窗口分类器"></a>更厉害的窗口分类器</h2><ul>
+<li>基于神经网络进行修正：<br><img src="/2018/11/05/CS224n笔记（二）/NeuralNetwork_4.png" alt="NeuralNetwork_4"></li>
+<li>单个（神经网络）层是一个线性层（函数）和非线性函数的组合<br><img src="/2018/11/05/CS224n笔记（二）/NeuralNetwork_5.png" alt="NeuralNetwork_5"></li>
+<li>神经网络激活函数可以用来计算一些函数</li>
+<li>例如，一个softmax概率分布或者一个没有归一化的打分函数可以是这样的：<br><img src="/2018/11/05/CS224n笔记（二）/NeuralNetwork_6.png" alt="NeuralNetwork_6"><h2 id="总结：前馈网络计算"><a href="#总结：前馈网络计算" class="headerlink" title="总结：前馈网络计算"></a>总结：前馈网络计算</h2></li>
+<li>通过一个三层神经网络计算这个窗口向量的得分：s=score(museums in Paris are amazing)<br><img src="/2018/11/05/CS224n笔记（二）/NeuralNetwork_7.png" alt="NeuralNetwork_7"></li>
+</ul>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>1.<a href="http://www.52nlp.cn" target="_blank" rel="noopener">我爱自然语言处理</a></p>
+
       
     </div>
     
@@ -399,7 +470,7 @@
   <p><span>本文标题:</span><a href="/2018/11/05/CS224n笔记（二）/">CS224n笔记（二）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月05日 - 22:11</p>
-  <p><span>最后更新:</span>2018年11月05日 - 22:11</p>
+  <p><span>最后更新:</span>2018年11月18日 - 20:11</p>
   <p><span>原始链接:</span><a href="/2018/11/05/CS224n笔记（二）/" title="CS224n笔记（二）">http://yifdu.github.io/2018/11/05/CS224n笔记（二）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/05/CS224n笔记（二）/" aria-label="复制成功！"></i></span>
   </p>
@@ -428,6 +499,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cs224n/" rel="tag"># cs224n</a>
+          
+        </div>
       
 
       
@@ -504,8 +581,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -522,7 +608,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -544,7 +630,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -583,6 +669,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Word-Window分类"><span class="nav-number">1.</span> <span class="nav-text">Word Window分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#窗口分类"><span class="nav-number">1.1.</span> <span class="nav-text">窗口分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分类直观表现"><span class="nav-number">1.1.1.</span> <span class="nav-text">分类直观表现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax"><span class="nav-number">1.2.</span> <span class="nav-text">softmax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于词向量的分类优化"><span class="nav-number">1.3.</span> <span class="nav-text">基于词向量的分类优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Window-classification"><span class="nav-number">1.4.</span> <span class="nav-text">Window classification</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于神经网络的分类"><span class="nav-number">2.</span> <span class="nav-text">基于神经网络的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#从逻辑回归到神经网络"><span class="nav-number">2.1.</span> <span class="nav-text">从逻辑回归到神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更厉害的窗口分类器"><span class="nav-number">2.2.</span> <span class="nav-text">更厉害的窗口分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结：前馈网络计算"><span class="nav-number">2.3.</span> <span class="nav-text">总结：前馈网络计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="pytorch,cifar10,">
 
 
 
@@ -90,13 +90,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="深度智障">
-<meta property="og:url" content="http://yifdu.github.io/archives/index.html">
+<meta name="description" content="实验1——cifar10最近为了学习调参，跑了一遍cifar10,用pytorch编写的代码。 由于自己用的是1080ti，所以结果能比较快地显现。 首先设置lr=0.01，但是没跑多久正确率机会都不变，同时loss不降反升，因此只能调低lr=0.001，然而还是不行。这时继续调低lr至1e-4。 此时正确率慢慢爬升了，而且loss也在慢慢下降。但是这些过程进行地很缓慢，10个Epoch训练集正确">
+<meta name="keywords" content="pytorch,cifar10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pytorch调参经验（一）">
+<meta property="og:url" content="http://yifdu.github.io/2018/11/18/pytorch调参经验（一）/index.html">
 <meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="实验1——cifar10最近为了学习调参，跑了一遍cifar10,用pytorch编写的代码。 由于自己用的是1080ti，所以结果能比较快地显现。 首先设置lr=0.01，但是没跑多久正确率机会都不变，同时loss不降反升，因此只能调低lr=0.001，然而还是不行。这时继续调低lr至1e-4。 此时正确率慢慢爬升了，而且loss也在慢慢下降。但是这些过程进行地很缓慢，10个Epoch训练集正确">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg">
+<meta property="og:updated_time" content="2018-11-18T12:54:40.914Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深度智障">
+<meta name="twitter:title" content="pytorch调参经验（一）">
+<meta name="twitter:description" content="实验1——cifar10最近为了学习调参，跑了一遍cifar10,用pytorch编写的代码。 由于自己用的是1080ti，所以结果能比较快地显现。 首先设置lr=0.01，但是没跑多久正确率机会都不变，同时loss不降反升，因此只能调低lr=0.001，然而还是不行。这时继续调低lr至1e-4。 此时正确率慢慢爬升了，而且loss也在慢慢下降。但是这些过程进行地很缓慢，10个Epoch训练集正确">
+<meta name="twitter:image" content="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg">
 
 
 
@@ -126,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yifdu.github.io/archives/">
+  <link rel="canonical" href="http://yifdu.github.io/2018/11/18/pytorch调参经验（一）/">
 
 
 
 
 
-  <title>归档 | 深度智障</title>
+  <title>pytorch调参经验（一） | 深度智障</title>
   
 
 
@@ -151,7 +158,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -257,282 +264,266 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/11/18/pytorch调参经验（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">pytorch调参经验（一）</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T00:40:13+08:00">
+                2018-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 7 篇日志。 继续努力。
-      </span>
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg" rel="gallery_cjomk8wa00001dwwaivrmi443" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
           </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/18/pytorch调参经验（一）/" itemprop="url">
-              
-                <span itemprop="name">pytorch调参经验（一）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-18T00:40:13+08:00" content="2018-11-18">
-          11-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        </div>
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/12/t-SNE/" itemprop="url">
-              
-                <span itemprop="name">t-SNE</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-12T17:01:01+08:00" content="2018-11-12">
-          11-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h1 id="实验1——cifar10"><a href="#实验1——cifar10" class="headerlink" title="实验1——cifar10"></a>实验1——cifar10</h1><p>最近为了学习调参，跑了一遍cifar10,用pytorch编写的代码。</p>
+<p>由于自己用的是1080ti，所以结果能比较快地显现。</p>
+<p>首先设置lr=0.01，但是没跑多久正确率机会都不变，同时loss不降反升，因此只能调低lr=0.001，然而还是不行。这时继续调低lr至1e-4。 此时正确率慢慢爬升了，而且loss也在慢慢下降。但是这些过程进行地很缓慢，10个Epoch训练集正确率也才到40%.</p>
+<h2 id="调整"><a href="#调整" class="headerlink" title="调整"></a>调整</h2><p>调了许多东西，调整了BatchSize，增大到128个，能增长稍微快一点但是快地不多。</p>
+<p>试着调整了优化器，由Adam改为了SGD，还改变了里面地参数，比如moment、weight_decay，但结果都是变化地不太大。</p>
+<p>接着修改了lr_scheduler但这对于我们一开始训练效果差并没有影响。显然这也是无效的。</p>
+<p>此时我甚至考虑是否需要修改网络结构，但我使用的是已有的模型ResNet18,应该问题不大。</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>最终的结果是<br>在使用pytorch的时候，模型参数的更新时，优化器Optim需要采用下述操作：optim.zero_grad().就是将模型参数的梯度值清零。</p>
+<p>结果特别明显：10个epoch，训练集的正确率就可以达到85%多。30个epoch就已经训练集达到95%以上。但测试集效果不佳，正确率只有83%多。</p>
+<h2 id="调参"><a href="#调参" class="headerlink" title="调参"></a>调参</h2><p>上述结果，训练集达到了100%,但测试集只有83%，显然是过拟合。对比自己手上有的已开源的代码，我们做了一系列的改变，这里的改变是指能正则化的改变。这些对结果的改变不大。</p>
+<p>接着我发现了一处唯一的区别，开源代码中的数据增强中用到了Randomcrop(32,padding=4)，而我只采用Resize((32,32)).<br>结果的区别是，训练集的正确率达到93.6%时，测试集的正确率达到87.72%。<br><strong><em>原因是：</em></strong><br><a href="https://blog.csdn.net/u010165147/article/details/78633858" target="_blank" rel="noopener">链接</a></p>
+<p>神经网络的学习或者说参数估计本质就是建立输入X与输出Y的统计关系，其往往需要大量的数据，但是我们用大量的数据学习到的模型是否稳定？？由于神经网络是黑箱的，我们比较难以用数学原理推断模型的稳定性。比如在人脸识别时，我们人可以通过以一颗痣就能很好地辨别这个人，但在网络上我们只能给他足够多地数据才能在统计意义上使其关注这个痣。</p>
+<p>上述博客中举了【俄罗斯坦克问题】<br>就是在训练电脑识别一个物体时，我们人眼可以很容易从数据提取出区分两类地特征，而神经网络这个黑箱可能会从另外一个角度出发区分两类，但这个角度很有可能不是图像中物体地特征，而是这个数据（图像）的特征。比如该博客中说的，美国坦克的图像是高清的，而俄罗斯坦克是模糊的。神经网络训练识别两类坦克的方法可能就是学习区分模糊和清晰的照片。</p>
+<p>因此可以看到我们用神经网络训练时存在这样的问题，这个问题实际就是我们的目的和我们给的数据不符合，即我们给了模型错误的数据。【俄罗斯坦克问题】本质上是一个集合中的概率问题，我们假设训练图片包含因子特征：<br>符号标记：</p>
+<ul>
+<li>俄罗斯坦克A,美国坦克B</li>
+<li>模糊X,清晰Y</li>
+<li>类别标签，俄罗斯坦克为$C_a$,美国坦克为$C_b$<br>所以俄罗斯坦克的图片为$I_a$={A,X},美国坦克的图片为$I_b$={B,Y}；<br>这里存在多映射关系即<script type="math/tex; mode=display">P(C_a|A)=P(C_a|X)=P(C_a|I_a)</script><script type="math/tex; mode=display">P(C_b|B)=P(C_b|Y)=P(C_b|I_b)</script>我们的目的是给定图片学习A——&gt;$C_a$及B——&gt;$C_b$的映射关系，但是如果模型建立了X——&gt;$C_a$,Y——&gt;$C_b$的映射关系，我们也无法检测出模型学习了与我们的目的不符的映射。我们需要图片$I_c$={A,Y}或$I_d$={B,X}才能测试模型的正确性。</li>
+</ul>
+<p>这就是我们在上面提到的要解决数据特征对我们图像中的物体特征的影响。</p>
+<p>在数据中加入因子X或Y，即数据变为</p>
+<ul>
+<li>俄罗斯坦克的图片为：$I_a={A,X},I_c={A,Y}$</li>
+<li>美国坦克的图片为：$I_b={B,Y},I_d={B,X}$<br>这个时候当X和Y在每类均匀分布的时候，X和Y被视为噪音，即<script type="math/tex; mode=display">\frac{P(A|X)}{P(B|X)}=\frac{P(A|Y)}{P(B|Y)}=1</script>所以X,Y对分类的信息增益为0，即X,Y无预测能力，这时我们才正确建立了与我们目的相符的映射关系。</li>
+</ul>
+<p>回到刚开始的问题，深度学习训练中对图片用随机裁剪的好处？<br>这个裁剪不仅仅是增加数据量，如上文所述也是一种弱化数据噪声与增加模型稳定性的方法。</p>
+<p>比如我们假设：<br>二分类问题，C1类别主要特征为${E_1.F_1.G_1}$,C2为${E_2,F_2,G_2}$<br>我们增加背景数据噪声：C1,C2随机加入$N_1,N_2,N_3$<br>这个时候随机裁剪可以得到图片，如：<br>$I_1=\{E_1,F_1,G_1\}$<br>$I_2=\{E_1,F_1,G_1,N_1\}$<br>$I_3=\{E_1,F_1,N_2\}$<br>$I_4=\{F_1,G_1,N_3\}$<br>$……$<br>因为$N_1,N_2,N_3$为随机的而$E_1,F_1,G_1$总是能高概率产生$E_1,F_1,G_1——&gt;C_1$的映射，这时$\{E_1,F_1,G_1\}$中任意因子相对于$N_1,N_2,N_3$有更高的信息增益或者权重。即：</p>
+<script type="math/tex; mode=display">P(C_1|x∈\{E_1,F_1,G_1\})>>P(C_1|x∈\{N_1,N_2,N_3\})</script><p>如果$N_1,N_2,N_3$在类别$C_2$中也有相应的分布，那么$N_1,N_2,N_3$的信息增益接近于0.<br>假设模型未见过数据$I_x=\{F_1,G_1,N_1,N_3\}$,那么模型会如何预测该数据，通过上式我们可以看到$F_1,G_1$的权重是相当高的，即便是其他未见过的噪声加入，$F_1,G_1$因子的权重仍然起主要作用，所以模型有更高的稳定性。</p>
+<p>随机裁剪相当于建立每个因子特征与相应类别的权重关系，减弱背景（或噪音）因子的权重，也可以产生更好的学习效果增加模型的稳定性。</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/06/CV（一）/" itemprop="url">
-              
-                <span itemprop="name">CV（一）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-06T00:44:50+08:00" content="2018-11-06">
-          11-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/05/CS224n笔记（二）/" itemprop="url">
-              
-                <span itemprop="name">CS224n笔记（二）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-05T22:25:55+08:00" content="2018-11-05">
-          11-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/02/Pytorch-tutorials-学习（二）/" itemprop="url">
-              
-                <span itemprop="name">Pytorch-tutorials-学习（二）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-02T19:41:24+08:00" content="2018-11-02">
-          11-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/30/CS224n笔记（一）/" itemprop="url">
-              
-                <span itemprop="name">CS224n笔记（一）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-10-30T21:35:50+08:00" content="2018-10-30">
-          10-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/29/Pytorch-tutorials-学习(一)/" itemprop="url">
-              
-                <span itemprop="name">Pytorch tutorials 学习（一）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-10-29T21:10:41+08:00" content="2018-10-29">
-          10-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/11/18/pytorch调参经验（一）/">pytorch调参经验（一）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2018年11月18日 - 00:11</p>
+  <p><span>最后更新:</span>2018年11月18日 - 20:11</p>
+  <p><span>原始链接:</span><a href="/2018/11/18/pytorch调参经验（一）/" title="pytorch调参经验（一）">http://yifdu.github.io/2018/11/18/pytorch调参经验（一）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/18/pytorch调参经验（一）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pytorch/" rel="tag"># pytorch</a>
+          
+            <a href="/tags/cifar10/" rel="tag"># cifar10</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/12/t-SNE/" rel="next" title="t-SNE">
+                <i class="fa fa-chevron-left"></i> t-SNE
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -540,6 +531,12 @@
 
 
           
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
 
         </div>
         
@@ -560,8 +557,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -639,6 +645,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验1——cifar10"><span class="nav-number">1.</span> <span class="nav-text">实验1——cifar10</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#调整"><span class="nav-number">1.1.</span> <span class="nav-text">调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">1.2.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调参"><span class="nav-number">1.3.</span> <span class="nav-text">调参</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -789,6 +811,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -829,6 +855,22 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
 
   

@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="降维、可视化,">
 
 
 
@@ -90,13 +90,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="深度智障">
-<meta property="og:url" content="http://yifdu.github.io/archives/index.html">
+<meta name="description" content="SNESNE 是通过仿射变换将数据点映射到概率分布上，主要包括两个步骤：  SNE构建一个高维对象之间的概率分布，使得相似的对象有更高的概率被选择，而不相似的对象有较低的概率被选择。 SNE在低维空间里构建这些点的概率分布，使得这两个概率分布之间尽可能地相似。  可以看到t-SNE是非监督地降维，它跟kmeans等不同，他不能通过训练得到一些东西之后再用于其他数据（t-SNE只有fit_trans">
+<meta name="keywords" content="降维、可视化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="t-SNE">
+<meta property="og:url" content="http://yifdu.github.io/2018/11/12/t-SNE/index.html">
 <meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="SNESNE 是通过仿射变换将数据点映射到概率分布上，主要包括两个步骤：  SNE构建一个高维对象之间的概率分布，使得相似的对象有更高的概率被选择，而不相似的对象有较低的概率被选择。 SNE在低维空间里构建这些点的概率分布，使得这两个概率分布之间尽可能地相似。  可以看到t-SNE是非监督地降维，它跟kmeans等不同，他不能通过训练得到一些东西之后再用于其他数据（t-SNE只有fit_trans">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://file.elecfans.com/web1/M00/50/39/pIYBAFrwC7WAY8ovAAF2KjUns7I746.jpg">
+<meta property="og:updated_time" content="2018-11-17T16:26:48.184Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深度智障">
+<meta name="twitter:title" content="t-SNE">
+<meta name="twitter:description" content="SNESNE 是通过仿射变换将数据点映射到概率分布上，主要包括两个步骤：  SNE构建一个高维对象之间的概率分布，使得相似的对象有更高的概率被选择，而不相似的对象有较低的概率被选择。 SNE在低维空间里构建这些点的概率分布，使得这两个概率分布之间尽可能地相似。  可以看到t-SNE是非监督地降维，它跟kmeans等不同，他不能通过训练得到一些东西之后再用于其他数据（t-SNE只有fit_trans">
+<meta name="twitter:image" content="http://file.elecfans.com/web1/M00/50/39/pIYBAFrwC7WAY8ovAAF2KjUns7I746.jpg">
 
 
 
@@ -126,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yifdu.github.io/archives/">
+  <link rel="canonical" href="http://yifdu.github.io/2018/11/12/t-SNE/">
 
 
 
 
 
-  <title>归档 | 深度智障</title>
+  <title>t-SNE | 深度智障</title>
   
 
 
@@ -151,7 +158,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -257,282 +264,270 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/11/12/t-SNE/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">t-SNE</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-12T17:01:01+08:00">
+                2018-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 7 篇日志。 继续努力。
-      </span>
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://file.elecfans.com/web1/M00/50/39/pIYBAFrwC7WAY8ovAAF2KjUns7I746.jpg" rel="gallery_cjomk8wa40002dwwam6sqsrvr" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://file.elecfans.com/web1/M00/50/39/pIYBAFrwC7WAY8ovAAF2KjUns7I746.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
           </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/18/pytorch调参经验（一）/" itemprop="url">
-              
-                <span itemprop="name">pytorch调参经验（一）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-18T00:40:13+08:00" content="2018-11-18">
-          11-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        </div>
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/12/t-SNE/" itemprop="url">
-              
-                <span itemprop="name">t-SNE</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-12T17:01:01+08:00" content="2018-11-12">
-          11-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/06/CV（一）/" itemprop="url">
-              
-                <span itemprop="name">CV（一）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-06T00:44:50+08:00" content="2018-11-06">
-          11-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        <h1 id="SNE"><a href="#SNE" class="headerlink" title="SNE"></a>SNE</h1><p>SNE 是通过仿射变换将数据点映射到概率分布上，主要包括两个步骤：</p>
+<ul>
+<li>SNE构建一个高维对象之间的概率分布，使得相似的对象有更高的概率被选择，而不相似的对象有较低的概率被选择。</li>
+<li>SNE在低维空间里构建这些点的概率分布，使得这两个概率分布之间尽可能地相似。</li>
+</ul>
+<p>可以看到t-SNE是非监督地降维，它跟kmeans等不同，他不能通过训练得到一些东西之后再用于其他数据（t-SNE只有fit_transform，没有fit操作）</p>
+<h2 id="SNE原理推导"><a href="#SNE原理推导" class="headerlink" title="SNE原理推导"></a>SNE原理推导</h2><p><strong>SNE是将欧几里得距离转换为条件概率来表达点与点之间地相似度</strong>。具体来说，给定一个N个高维地数据点，t-SNE首先是计算概率$p_{ij}$，正比于$x_i$和$x_j$(这种概率是自主构建的)，即：</p>
+<script type="math/tex; mode=display">p_{j|i}=\frac{exp(-||x_i-x_j||^2/(2\sigma_i^2))}{\sum_{k≠i}exp(-||x_i-x_k||^2/(2\sigma_i^2))}</script><p>这里的有一个参数$\sigma_i$,对于不同的点$x_i$取值不一样，后续会讨论如何设置。此外设置p_{x|x}=0，因为我们关注的是两两之间的相似度。那对于低维度下的$y_i$，我们可以指定高斯分布为方差$\frac{1}{\sqrt{2}}$,因此他们之间的相似度如下</p>
+<script type="math/tex; mode=display">q_{j|i}=\frac{exp(-||x_i-x_j||^2)}{\sum_{k≠i}exp(-||x_i-x_k||^2)}</script><p>同样$q_{i|i}$=0<br>如果降维效果好，局部特征保留完整，那么$p_{i|j}=q_{i|j}$优化两个分布之间的距离很容易想到KL散度，那么目标函数有：</p>
+<script type="math/tex; mode=display">C=\sum_iKL(P_i||Q_i)=\sum_i\sum_jp_{j|i}log\frac{p_{j|i}}{q_{j|i}}</script><p>这里$P_i$表示了给定$x_i$下，其他所有数据点的条件概率分布。需要注意的是KL散度具有不对称性，在低维映射不同的距离对应不同的惩罚权重是不同的，具体来说：距离较远的两个点来表达距离较近的两个点会产生更大的cost，相反，用较近的两个点来表达较远的两个点产生的cost相对较小。即用较小的$q_{j|i}$=0.2来建模较大的$p_{j|i}$=0.8,$cost=plog(\frac{p}{q})=1.11$,同样用较大的$q_{j|i}=0.8$来建模较大的$p_{j|i}=0.2$,cost=-0.277，因此SNE倾向于保留数据中的局部特征。</p>
+<p>下面开始正式推导SNE:</p>
+<p>首先要注意不同的点具有不同的$\sigma_i$,熵$P_i$会随着$\sigma_i$增加而增加<br>SNE引入了困惑度（perplexity）的概念，用二分搜索方法寻找一个最佳的$\sigma$.其中困惑度表示为</p>
+<script type="math/tex; mode=display">perp(P_i)=2^{H(P_i)}</script><p>这里$H(P_i)是P_i的熵$,即：</p>
+<script type="math/tex; mode=display">H(P_i)=-\sum_jp_{j|i}log_2(p_{j|i})</script><p>困惑度可以解释为一个点附近的有效邻近点个数。SNE对困惑度的调整比较有鲁棒性，通常选择5-50之间，给定之后寻找合适的$\sigma$</p>
+<p>核心问题是如何求解梯度，目标函数等价于$\sum\sum-plog(p)$这个式子与softmax非常相似，softmax的目标函数是$\sum-ylogp$，对应的梯度是y-p（注：这里的softmax中y表示label,p表示预估值）。同样我们可以推导SNE的目标函数中的i在j的条件概率情况的梯度是2$(p_{i|j}-q_{i|j})(y_i-y_j)$,同样j在i的条件概率的梯度是2$(p_{j|i}-q_{j|i})(y_i-y_j)$，最后得到完整的梯度公式：</p>
+<script type="math/tex; mode=display">\frac{\partial C}{\partial y_i}=2\sum_j(p_{j|i}-q_{j|i}+p_{i|j}-q_{i|j})(y_i-y_j)</script><p>初始化时，可以用较小的\sigma下的高斯分布来进行初始化。为了加速优化过程和避免陷入局部最优解，梯度中需要使用一个相对较大的动量（momentum）.即参数更新中除了当前的梯度还要引入之前的梯度累加的指数衰减项，如下：</p>
+<script type="math/tex; mode=display">Y^{t}=Y^{t-1}\eta \frac{\partial C}{partial Y}+α(t)(Y^{(t-1)-Y^{(t-2)}}</script><p>这里的$Y^{t}$表示迭代t次的解，$\eta$表示学习速率，α(t)表示迭代t次的动量。</p>
+<p>此外，在初始化的阶段每次迭代中可以引入一些高斯噪声，之后像模拟退火一样逐渐减小该噪声，可以用来避免陷入局部最优解。因此，SNE在选择高斯噪声，以及学习噪声，什么时候开始衰减，动量选择等等超参数上，需要跑多次优化才可以。</p>
+<h1 id="t-SNE原理推导"><a href="#t-SNE原理推导" class="headerlink" title="t-SNE原理推导"></a>t-SNE原理推导</h1><p>尽管SNE提供了很好的可视化方法，但他很难优化，而且存在“crowding problem”（拥挤问题）。后续Hinton等人提出了t-SNE.</p>
+<p>与SNE不同，主要如下：</p>
+<ul>
+<li><ol>
+<li>使用对称版的SNE，简化梯度公式</li>
+</ol>
+</li>
+<li>2.低维空间下，使用t分布替代高斯分布表达两点之间的相似度<br>t-SNE在低维空间下使用更重长尾分布的t分布来避免crowding问题和优化问题。下面先介绍对称版的SNE，之后介绍crowding问题，之后再介绍t-SNE.<h2 id="Symmetric-SNE"><a href="#Symmetric-SNE" class="headerlink" title="Symmetric SNE"></a>Symmetric SNE</h2>优化$p_{i|j}$和$q_{i|j}$的KL三度的一种替换思路是，使用联合概率分布来替换条件概率分布，即P是高维空间里各个点的联合概率分布，Q是低维空间下的，目标函数为<script type="math/tex; mode=display">C=KL(P||Q)=\sum_{i}\sum_{j}p_{i,j}log\frac{p_{ij}}{q_{ij}}</script>这里$p_{ii},q_{ii}$为0，我们将这种SNE称之为Symmetric SNE（对称SNE）,因为他假设了对于任意i,$p_{ij}=p_{ji}$，$q_{ij}=q_{ji}$,因此概率分布可以改写为：<script type="math/tex; mode=display">p_{ij}=\frac{exp(-||x_i-x_j||^2/2\sigma^2)}{\sum_{k≠l}exp(-||x_{k}-x_{l}||^2/2\sigma^2)}</script>q_{ij}=\frac{exp(-||y_i-y_j||^2)}{\sum_{k≠l}exp(-||y_k-y_l||^2)}<br>$$<br>这种表达方式，使得整体简洁了很多。但是会引入异常值的问题。如果$x_i$是异常值，那么$||x_i-x_j||^2$会很大，对应的所有的j，$p_{ij}$很小（之前是仅在$x_i$下很小），导致低维映射下的$y_i$对cost影响很小。</li>
+</ul>
+<p>为了解决这个问题，我们将联合概率分布定义修正为$p_{ij}=\frac{p_{i|j}+p_{j|i}}{2}$,这保证了$\sum_{j}p_{ij}&gt;\frac{1}{2n}$,使得每个点对于cost都会有一定的贡献。对称SNE的最大优点是梯度计算变得简单了，如下：</p>
+<script type="math/tex; mode=display">\frac{\partial C}{\partial y_i}=4\sum_j(p_{ij}-q_{ij})(y_i-y_j)</script><p>实验中，发现对称SNE能够产生和SNE一样好的结果，有时甚至略好一点。</p>
+<h2 id="crowding问题"><a href="#crowding问题" class="headerlink" title="crowding问题"></a>crowding问题</h2><p>拥挤问题就是说各个簇聚集在一起，无法区分。比如有一种情况，高维度数据在降维到10维下，可以有很好的表达，但是降维到两维后无法得到可信映射，比如降维如10维重有11个点之间两两等距离的，在二维下就无法得到可信的映射结果（最多3个点）。进一步的说明，假设一个以数据点x_i为中心，半径为r的m维球（三维空间就是球），其体积是按$r^m$增长的，假设数据点是在m维球中均匀分布，我们来看看其他数据点与$x_i$的距离随维度增大而产生的变化。</p>
+<p>如何解决crowding问题呢？？<br>Cook et al(2007)提出一种slight repulsion的方式，在基线概率分布中引入一个较小的混合因子$\rho$,这样$q_{ij}$就永远不会小于$\frac{2\rho}{n(n-1)}$（因为一共了n(n-1)个pairs）,这样在高维空间中比较远的两个点之间的$q_{ij}$总会比$p_{ij}$大一点。这种称之为UNI-SNE,效果通常比标准的SNE要好。优化UNI-SNE的方法是让$\rho$为0，使用标准的SNE优化，之后用模拟退火的方法的时候，再慢慢增加$\rho$，直接优化UNI-SNE是不行的（即一开始$\rho$不为0），因为距离远的两个点基本是一样的$q_{ij}$(等于基线分布)，即使$p_{ij}$很大，一些距离变化很难在$q_{ij}$中产生作用。也就是说优化中刚 开始距离较远的两个聚类点，后续就无法再把他们拉近了。</p>
+<h2 id="t-SNE"><a href="#t-SNE" class="headerlink" title="t-SNE"></a>t-SNE</h2>
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/05/CS224n笔记（二）/" itemprop="url">
-              
-                <span itemprop="name">CS224n笔记（二）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-05T22:25:55+08:00" content="2018-11-05">
-          11-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/02/Pytorch-tutorials-学习（二）/" itemprop="url">
-              
-                <span itemprop="name">Pytorch-tutorials-学习（二）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-02T19:41:24+08:00" content="2018-11-02">
-          11-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/30/CS224n笔记（一）/" itemprop="url">
-              
-                <span itemprop="name">CS224n笔记（一）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-10-30T21:35:50+08:00" content="2018-10-30">
-          10-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/10/29/Pytorch-tutorials-学习(一)/" itemprop="url">
-              
-                <span itemprop="name">Pytorch tutorials 学习（一）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-10-29T21:10:41+08:00" content="2018-10-29">
-          10-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/11/12/t-SNE/">t-SNE</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2018年11月12日 - 17:11</p>
+  <p><span>最后更新:</span>2018年11月18日 - 00:11</p>
+  <p><span>原始链接:</span><a href="/2018/11/12/t-SNE/" title="t-SNE">http://yifdu.github.io/2018/11/12/t-SNE/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/12/t-SNE/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/降维、可视化/" rel="tag"># 降维、可视化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/06/CV（一）/" rel="next" title="CV（一）">
+                <i class="fa fa-chevron-left"></i> CV（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/18/pytorch调参经验（一）/" rel="prev" title="pytorch调参经验（一）">
+                pytorch调参经验（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -540,6 +535,12 @@
 
 
           
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
 
         </div>
         
@@ -560,8 +561,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -639,6 +649,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SNE"><span class="nav-number">1.</span> <span class="nav-text">SNE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SNE原理推导"><span class="nav-number">1.1.</span> <span class="nav-text">SNE原理推导</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#t-SNE原理推导"><span class="nav-number">2.</span> <span class="nav-text">t-SNE原理推导</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Symmetric-SNE"><span class="nav-number">2.1.</span> <span class="nav-text">Symmetric SNE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#crowding问题"><span class="nav-number">2.2.</span> <span class="nav-text">crowding问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#t-SNE"><span class="nav-number">2.3.</span> <span class="nav-text">t-SNE</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -789,6 +815,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -829,6 +859,22 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
 
   
