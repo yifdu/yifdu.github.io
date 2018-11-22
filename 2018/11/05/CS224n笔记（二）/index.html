@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="cs224n,">
+  <meta name="keywords" content="cs224n,SVD,Word Window classification,">
 
 
 
@@ -90,19 +90,19 @@
 
 
 
-<meta name="description" content="Word Window分类窗口分类开始分类：  一般我们有训练集$\{x_i,y_i\}^{N}_{i=1}$ $x_i$——输入，例如单词(索引或向量!),上下文窗口，句子，文档等 $y_i$——我们试图去预测的标签，例如1.类：情感、命名实体、买/卖决策;2.其他单词;3.后续：多词序列  分类直观表现 训练数据：$\{x_i,y_i\}_{i=1}^N$ 简单解释：固定二维词向量来分类使用逻">
-<meta name="keywords" content="cs224n">
+<meta name="description" content="SVD based MethodSVD分解\ \ \ \ \ \ \ \ \ \ \  \ \ X=USV^T  Word-Document Matrix————我们做一个大胆的推测：常出现在同一篇文章中的单词是相关联的。例如，“banks”、”bonds”，”stocks”，“money”等可能一起出现，但是“banks”,”octopus”,”banana”，and “hockey”常常并不会">
+<meta name="keywords" content="cs224n,SVD,Word Window classification">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS224n笔记（二）">
 <meta property="og:url" content="http://yifdu.github.io/2018/11/05/CS224n笔记（二）/index.html">
 <meta property="og:site_name" content="深度智障">
-<meta property="og:description" content="Word Window分类窗口分类开始分类：  一般我们有训练集$\{x_i,y_i\}^{N}_{i=1}$ $x_i$——输入，例如单词(索引或向量!),上下文窗口，句子，文档等 $y_i$——我们试图去预测的标签，例如1.类：情感、命名实体、买/卖决策;2.其他单词;3.后续：多词序列  分类直观表现 训练数据：$\{x_i,y_i\}_{i=1}^N$ 简单解释：固定二维词向量来分类使用逻">
+<meta property="og:description" content="SVD based MethodSVD分解\ \ \ \ \ \ \ \ \ \ \  \ \ X=USV^T  Word-Document Matrix————我们做一个大胆的推测：常出现在同一篇文章中的单词是相关联的。例如，“banks”、”bonds”，”stocks”，“money”等可能一起出现，但是“banks”,”octopus”,”banana”，and “hockey”常常并不会">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png">
-<meta property="og:updated_time" content="2018-11-18T12:53:23.146Z">
+<meta property="og:updated_time" content="2018-11-22T07:56:45.060Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS224n笔记（二）">
-<meta name="twitter:description" content="Word Window分类窗口分类开始分类：  一般我们有训练集$\{x_i,y_i\}^{N}_{i=1}$ $x_i$——输入，例如单词(索引或向量!),上下文窗口，句子，文档等 $y_i$——我们试图去预测的标签，例如1.类：情感、命名实体、买/卖决策;2.其他单词;3.后续：多词序列  分类直观表现 训练数据：$\{x_i,y_i\}_{i=1}^N$ 简单解释：固定二维词向量来分类使用逻">
+<meta name="twitter:description" content="SVD based MethodSVD分解\ \ \ \ \ \ \ \ \ \ \  \ \ X=USV^T  Word-Document Matrix————我们做一个大胆的推测：常出现在同一篇文章中的单词是相关联的。例如，“banks”、”bonds”，”stocks”，“money”等可能一起出现，但是“banks”,”octopus”,”banana”，and “hockey”常常并不会">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png">
 
 
@@ -318,6 +318,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cs224n/" itemprop="url" rel="index">
+                    <span itemprop="name">Cs224n</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -344,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.6k 字
+                  1.9k 字
                 </span>
               
 
@@ -360,7 +382,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -383,7 +405,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjomk8w9n0000dwwa1968325f" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjossyasl001knwwahw2hr3jk" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" itemprop="contentUrl">
               </a>
             
@@ -395,7 +417,25 @@
       
 
       
-        <h1 id="Word-Window分类"><a href="#Word-Window分类" class="headerlink" title="Word Window分类"></a>Word Window分类</h1><h2 id="窗口分类"><a href="#窗口分类" class="headerlink" title="窗口分类"></a>窗口分类</h2><p>开始分类：</p>
+        <h1 id="SVD-based-Method"><a href="#SVD-based-Method" class="headerlink" title="SVD based Method"></a>SVD based Method</h1><script type="math/tex; mode=display">SVD分解\ \ \ \ \ \ \ \ \ \ \  \ \ X=USV^T</script><ul>
+<li><ol>
+<li>Word-Document Matrix————我们做一个大胆的推测：常出现在同一篇文章中的单词是相关联的。例如，“banks”、”bonds”，”stocks”，“money”等可能一起出现，但是“banks”,”octopus”,”banana”，and “hockey”常常并不会一起出现。我们根据这个事实去构建一个word-document matrix X,X∈$R^{|V|×M}$,其中M是document的数量，|V|是单词数。</li>
+</ol>
+</li>
+<li><ol>
+<li>Window based Co-occurrence Matrix————在这里矩阵X存储的是单词的共现次数。</li>
+</ol>
+</li>
+</ul>
+<h2 id="应用SVD到共现矩阵中"><a href="#应用SVD到共现矩阵中" class="headerlink" title="应用SVD到共现矩阵中"></a>应用SVD到共现矩阵中</h2><p>现在我们将SVD应用到X上，观察奇异值，并根据给定的百分数，截断k个奇异值。</p>
+<script type="math/tex; mode=display">\frac{\sum_{i=1}^{k}\sigma_i}{\sum_{i=1}^{|V|}\sigma_i}</script><p>我们可以得到$U_{1:|V|,1:k}$的子矩阵作为我们的word embedding 矩阵。因此单词表中的每个单词给出了k维的表达。</p>
+<p>原来：<br><img src="/2018/11/05/CS224n笔记（二）/SVD_1.png" alt="SVD_1"><br>降低维度通过选择前k个特征向量<br><img src="/2018/11/05/CS224n笔记（二）/SVD_2.png" alt="SVD_2"><br>该方法方法能让我们得到的词向量表示单词的隐性和语义信息。</p>
+<h2 id="SVD的问题"><a href="#SVD的问题" class="headerlink" title="SVD的问题"></a>SVD的问题</h2><ul>
+<li>1.计算量大(m×n的矩阵计算量为$O(mn^2)$)</li>
+<li>2.很难包含新的词或文档,很难及时更新</li>
+<li>3.矩阵是稀疏的</li>
+</ul>
+<h1 id="Word-Window分类"><a href="#Word-Window分类" class="headerlink" title="Word Window分类"></a>Word Window分类</h1><h2 id="窗口分类"><a href="#窗口分类" class="headerlink" title="窗口分类"></a>窗口分类</h2><p>开始分类：</p>
 <ul>
 <li>一般我们有训练集$\{x_i,y_i\}^{N}_{i=1}$</li>
 <li>$x_i$——输入，例如单词(索引或向量!),上下文窗口，句子，文档等</li>
@@ -470,7 +510,7 @@
   <p><span>本文标题:</span><a href="/2018/11/05/CS224n笔记（二）/">CS224n笔记（二）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月05日 - 22:11</p>
-  <p><span>最后更新:</span>2018年11月18日 - 20:11</p>
+  <p><span>最后更新:</span>2018年11月22日 - 15:11</p>
   <p><span>原始链接:</span><a href="/2018/11/05/CS224n笔记（二）/" title="CS224n笔记（二）">http://yifdu.github.io/2018/11/05/CS224n笔记（二）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/05/CS224n笔记（二）/" aria-label="复制成功！"></i></span>
   </p>
@@ -503,6 +543,10 @@
         <div class="post-tags">
           
             <a href="/tags/cs224n/" rel="tag"># cs224n</a>
+          
+            <a href="/tags/SVD/" rel="tag"># SVD</a>
+          
+            <a href="/tags/Word-Window-classification/" rel="tag"># Word Window classification</a>
           
         </div>
       
@@ -608,7 +652,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -619,7 +663,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -630,7 +674,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -679,7 +723,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Word-Window分类"><span class="nav-number">1.</span> <span class="nav-text">Word Window分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#窗口分类"><span class="nav-number">1.1.</span> <span class="nav-text">窗口分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分类直观表现"><span class="nav-number">1.1.1.</span> <span class="nav-text">分类直观表现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax"><span class="nav-number">1.2.</span> <span class="nav-text">softmax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于词向量的分类优化"><span class="nav-number">1.3.</span> <span class="nav-text">基于词向量的分类优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Window-classification"><span class="nav-number">1.4.</span> <span class="nav-text">Window classification</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于神经网络的分类"><span class="nav-number">2.</span> <span class="nav-text">基于神经网络的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#从逻辑回归到神经网络"><span class="nav-number">2.1.</span> <span class="nav-text">从逻辑回归到神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更厉害的窗口分类器"><span class="nav-number">2.2.</span> <span class="nav-text">更厉害的窗口分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结：前馈网络计算"><span class="nav-number">2.3.</span> <span class="nav-text">总结：前馈网络计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SVD-based-Method"><span class="nav-number">1.</span> <span class="nav-text">SVD based Method</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用SVD到共现矩阵中"><span class="nav-number">1.1.</span> <span class="nav-text">应用SVD到共现矩阵中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVD的问题"><span class="nav-number">1.2.</span> <span class="nav-text">SVD的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Word-Window分类"><span class="nav-number">2.</span> <span class="nav-text">Word Window分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#窗口分类"><span class="nav-number">2.1.</span> <span class="nav-text">窗口分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分类直观表现"><span class="nav-number">2.1.1.</span> <span class="nav-text">分类直观表现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax"><span class="nav-number">2.2.</span> <span class="nav-text">softmax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于词向量的分类优化"><span class="nav-number">2.3.</span> <span class="nav-text">基于词向量的分类优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Window-classification"><span class="nav-number">2.4.</span> <span class="nav-text">Window classification</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于神经网络的分类"><span class="nav-number">3.</span> <span class="nav-text">基于神经网络的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#从逻辑回归到神经网络"><span class="nav-number">3.1.</span> <span class="nav-text">从逻辑回归到神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更厉害的窗口分类器"><span class="nav-number">3.2.</span> <span class="nav-text">更厉害的窗口分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结：前馈网络计算"><span class="nav-number">3.3.</span> <span class="nav-text">总结：前馈网络计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>

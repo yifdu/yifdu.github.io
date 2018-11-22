@@ -99,7 +99,7 @@
 <meta property="og:description" content="实验1——cifar10最近为了学习调参，跑了一遍cifar10,用pytorch编写的代码。 由于自己用的是1080ti，所以结果能比较快地显现。 首先设置lr=0.01，但是没跑多久正确率机会都不变，同时loss不降反升，因此只能调低lr=0.001，然而还是不行。这时继续调低lr至1e-4。 此时正确率慢慢爬升了，而且loss也在慢慢下降。但是这些过程进行地很缓慢，10个Epoch训练集正确">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg">
-<meta property="og:updated_time" content="2018-11-18T12:54:40.914Z">
+<meta property="og:updated_time" content="2018-11-21T11:23:28.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytorch调参经验（一）">
 <meta name="twitter:description" content="实验1——cifar10最近为了学习调参，跑了一遍cifar10,用pytorch编写的代码。 由于自己用的是1080ti，所以结果能比较快地显现。 首先设置lr=0.01，但是没跑多久正确率机会都不变，同时loss不降反升，因此只能调低lr=0.001，然而还是不行。这时继续调低lr至1e-4。 此时正确率慢慢爬升了，而且loss也在慢慢下降。但是这些过程进行地很缓慢，10个Epoch训练集正确">
@@ -318,6 +318,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/pytorch/" itemprop="url" rel="index">
+                    <span itemprop="name">pytorch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -344,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.7k 字
+                  1.9k 字
                 </span>
               
 
@@ -383,7 +405,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg" rel="gallery_cjomk8wa00001dwwaivrmi443" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg" rel="gallery_cjossyans000qnwwawvkc07et" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg" itemprop="contentUrl">
               </a>
             
@@ -398,8 +420,7 @@
         <h1 id="实验1——cifar10"><a href="#实验1——cifar10" class="headerlink" title="实验1——cifar10"></a>实验1——cifar10</h1><p>最近为了学习调参，跑了一遍cifar10,用pytorch编写的代码。</p>
 <p>由于自己用的是1080ti，所以结果能比较快地显现。</p>
 <p>首先设置lr=0.01，但是没跑多久正确率机会都不变，同时loss不降反升，因此只能调低lr=0.001，然而还是不行。这时继续调低lr至1e-4。 此时正确率慢慢爬升了，而且loss也在慢慢下降。但是这些过程进行地很缓慢，10个Epoch训练集正确率也才到40%.</p>
-<h2 id="调整"><a href="#调整" class="headerlink" title="调整"></a>调整</h2><p>调了许多东西，调整了BatchSize，增大到128个，能增长稍微快一点但是快地不多。</p>
-<p>试着调整了优化器，由Adam改为了SGD，还改变了里面地参数，比如moment、weight_decay，但结果都是变化地不太大。</p>
+<h2 id="调整"><a href="#调整" class="headerlink" title="调整"></a>调整</h2><h2 id="调了许多东西，调整了BatchSize，增大到128个，能增长稍微快一点但是快地不多。"><a href="#调了许多东西，调整了BatchSize，增大到128个，能增长稍微快一点但是快地不多。" class="headerlink" title="调了许多东西，调整了BatchSize，增大到128个，能增长稍微快一点但是快地不多。"></a>调了许多东西，调整了BatchSize，增大到128个，能增长稍微快一点但是快地不多。</h2><p>试着调整了优化器，由Adam改为了SGD，还改变了里面地参数，比如moment、weight_decay，但结果都是变化地不太大。</p>
 <p>接着修改了lr_scheduler但这对于我们一开始训练效果差并没有影响。显然这也是无效的。</p>
 <p>此时我甚至考虑是否需要修改网络结构，但我使用的是已有的模型ResNet18,应该问题不大。</p>
 <h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>最终的结果是<br>在使用pytorch的时候，模型参数的更新时，优化器Optim需要采用下述操作：optim.zero_grad().就是将模型参数的梯度值清零。</p>
@@ -424,6 +445,8 @@
 <p>比如我们假设：<br>二分类问题，C1类别主要特征为${E_1.F_1.G_1}$,C2为${E_2,F_2,G_2}$<br>我们增加背景数据噪声：C1,C2随机加入$N_1,N_2,N_3$<br>这个时候随机裁剪可以得到图片，如：<br>$I_1=\{E_1,F_1,G_1\}$<br>$I_2=\{E_1,F_1,G_1,N_1\}$<br>$I_3=\{E_1,F_1,N_2\}$<br>$I_4=\{F_1,G_1,N_3\}$<br>$……$<br>因为$N_1,N_2,N_3$为随机的而$E_1,F_1,G_1$总是能高概率产生$E_1,F_1,G_1——&gt;C_1$的映射，这时$\{E_1,F_1,G_1\}$中任意因子相对于$N_1,N_2,N_3$有更高的信息增益或者权重。即：</p>
 <script type="math/tex; mode=display">P(C_1|x∈\{E_1,F_1,G_1\})>>P(C_1|x∈\{N_1,N_2,N_3\})</script><p>如果$N_1,N_2,N_3$在类别$C_2$中也有相应的分布，那么$N_1,N_2,N_3$的信息增益接近于0.<br>假设模型未见过数据$I_x=\{F_1,G_1,N_1,N_3\}$,那么模型会如何预测该数据，通过上式我们可以看到$F_1,G_1$的权重是相当高的，即便是其他未见过的噪声加入，$F_1,G_1$因子的权重仍然起主要作用，所以模型有更高的稳定性。</p>
 <p>随机裁剪相当于建立每个因子特征与相应类别的权重关系，减弱背景（或噪音）因子的权重，也可以产生更好的学习效果增加模型的稳定性。</p>
+<h2 id="最终结果"><a href="#最终结果" class="headerlink" title="最终结果"></a>最终结果</h2><p><img src="/2018/11/18/pytorch调参经验（一）/cifar10_1.png" alt="cifar10_1"></p>
+<h1 id="AI-Challenge-农作物病害检测"><a href="#AI-Challenge-农作物病害检测" class="headerlink" title="AI Challenge 农作物病害检测"></a>AI Challenge 农作物病害检测</h1><p>这个比赛是我10月底才刚刚看到的，刚上手就跑了一个resnet50.效果并不好，最终只有74%。之后看了该比赛论坛里开源出来的代码之后，做了一些修改，慢慢地能跑到83%。但还是不如网上排行榜里的成绩。之后就放弃了，开始了上面的cifar10的调参学习，才发现在这个模型里也有出现上述问题，最严重的就是那个optimizer.zero_grad()没写。修改之后，效果出奇地好，1个Epoch就达到了80%.最终训练结果是89%多。<br><img src="/2018/11/18/pytorch调参经验（一）/plant_1.png" alt="plant"><br>排行榜<br><img src="/2018/11/18/pytorch调参经验（一）/plant_2.png" alt="plant_2"><br>可以看到训练集上的正确率还没到达100%,因此算是欠拟合。可以继续加深网络。</p>
 
       
     </div>
@@ -448,7 +471,7 @@
   <p><span>本文标题:</span><a href="/2018/11/18/pytorch调参经验（一）/">pytorch调参经验（一）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月18日 - 00:11</p>
-  <p><span>最后更新:</span>2018年11月18日 - 20:11</p>
+  <p><span>最后更新:</span>2018年11月21日 - 19:11</p>
   <p><span>原始链接:</span><a href="/2018/11/18/pytorch调参经验（一）/" title="pytorch调参经验（一）">http://yifdu.github.io/2018/11/18/pytorch调参经验（一）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/18/pytorch调参经验（一）/" aria-label="复制成功！"></i></span>
   </p>
@@ -504,6 +527,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/18/Pytorch-tutorials-学习（三）/" rel="prev" title="Pytorch-tutorials-学习（三）">
+                Pytorch-tutorials-学习（三） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -584,7 +611,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -595,7 +622,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -606,7 +633,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -655,7 +682,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验1——cifar10"><span class="nav-number">1.</span> <span class="nav-text">实验1——cifar10</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#调整"><span class="nav-number">1.1.</span> <span class="nav-text">调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">1.2.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调参"><span class="nav-number">1.3.</span> <span class="nav-text">调参</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验1——cifar10"><span class="nav-number">1.</span> <span class="nav-text">实验1——cifar10</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#调整"><span class="nav-number">1.1.</span> <span class="nav-text">调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调了许多东西，调整了BatchSize，增大到128个，能增长稍微快一点但是快地不多。"><span class="nav-number">1.2.</span> <span class="nav-text">调了许多东西，调整了BatchSize，增大到128个，能增长稍微快一点但是快地不多。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">1.3.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调参"><span class="nav-number">1.4.</span> <span class="nav-text">调参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最终结果"><span class="nav-number">1.5.</span> <span class="nav-text">最终结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AI-Challenge-农作物病害检测"><span class="nav-number">2.</span> <span class="nav-text">AI Challenge 农作物病害检测</span></a></li></ol></div>
             
 
           </div>

@@ -122,8 +122,8 @@
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_7.png">
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_8.png">
 <meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_10.png">
-<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SITF_11.png">
-<meta property="og:updated_time" content="2018-11-15T06:05:13.715Z">
+<meta property="og:image" content="http://yifdu.github.io/2018/11/06/CV（一）/SIFT_11.png">
+<meta property="og:updated_time" content="2018-11-20T16:48:55.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CV（一）">
 <meta name="twitter:description" content="角点定义角点（corner point）通常被定义为两条边的交点，更严格的说，角点的局部邻域应该具有两个不同区域的不同方向的边界。而在实际应用中，大多数所谓的角点检测方法检测的是拥有特定特征的图像点，而不仅仅是“角点”。这些特征点在图像中有具体的坐标，并具有某些数学特征，如局部最大或最小灰度、梯度特征等。 现有的角点检测算法并不都十分的鲁棒。很多方法要求有大量的训练集和冗余数据来防止或减少错误特征">
@@ -342,6 +342,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/CV/" itemprop="url" rel="index">
+                    <span itemprop="name">CV</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -537,7 +559,7 @@ sin\theta \ \ \ \ \ cos\theta\\
 \begin{pmatrix}
 x \\
 y \\
-\end{pmatrix}</script><p>III.图像半径区域内对每个像素点求其梯度幅值和方向，然后对每个梯度赋值乘以高斯权重参数，生成方向直方图<br><img src="/2018/11/06/CV（一）/SITF_11.png" alt="SIFT_11"><br>IV.在窗口宽度为2×2的区域内计算8个方向的梯度方向直方图，绘制每个梯度方向的累加值，即可形成一个种子点。然后再在下一个2×2的区域内进行直方图统计，形成下一个种子点，共生成16个种子点。<br>V. 描述子向量元素门限化即门限化后的描述子向量规范化。</p>
+\end{pmatrix}</script><p>III.图像半径区域内对每个像素点求其梯度幅值和方向，然后对每个梯度赋值乘以高斯权重参数，生成方向直方图<br><img src="/2018/11/06/CV（一）/SIFT_11.png" alt="SIFT_11"><br>IV.在窗口宽度为2×2的区域内计算8个方向的梯度方向直方图，绘制每个梯度方向的累加值，即可形成一个种子点。然后再在下一个2×2的区域内进行直方图统计，形成下一个种子点，共生成16个种子点。<br>V. 描述子向量元素门限化即门限化后的描述子向量规范化。</p>
 <p>描述子向量元素门限化：</p>
 <p>方向直方图每个方向上梯度幅值限制在一定门限值以下（门限一般取0.2）.</p>
 <p>描述子向量元素规范化：</p>
@@ -577,7 +599,7 @@ y \\
   <p><span>本文标题:</span><a href="/2018/11/06/CV（一）/">CV（一）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月06日 - 00:11</p>
-  <p><span>最后更新:</span>2018年11月15日 - 14:11</p>
+  <p><span>最后更新:</span>2018年11月21日 - 00:11</p>
   <p><span>原始链接:</span><a href="/2018/11/06/CV（一）/" title="CV（一）">http://yifdu.github.io/2018/11/06/CV（一）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/06/CV（一）/" aria-label="复制成功！"></i></span>
   </p>
@@ -717,7 +739,7 @@ y \\
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -728,7 +750,7 @@ y \\
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -739,7 +761,7 @@ y \\
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

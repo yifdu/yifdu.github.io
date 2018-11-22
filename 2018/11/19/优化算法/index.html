@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="最优化,凸优化,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一次接触优化算法应该是在学习数值分析的时候，但是有什么梯度下降法，牛顿下降法，拟牛顿法等一些方法。之后就是在深度学习中看到一些奇怪的优化算法，这里主要是就介绍深度学习中的优化算法。 梯度下降其实梯度下降可以分为好多种：（1）Batch gradient descent(BGD)：最小化所有训练样本的损失函数。这就表明其是向着全局损失函数最优的方向去。每一步迭代，都要用到训练集所有的数据。显然，在">
+<meta name="keywords" content="最优化,凸优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优化算法">
+<meta property="og:url" content="http://yifdu.github.io/2018/11/19/优化算法/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="第一次接触优化算法应该是在学习数值分析的时候，但是有什么梯度下降法，牛顿下降法，拟牛顿法等一些方法。之后就是在深度学习中看到一些奇怪的优化算法，这里主要是就介绍深度学习中的优化算法。 梯度下降其实梯度下降可以分为好多种：（1）Batch gradient descent(BGD)：最小化所有训练样本的损失函数。这就表明其是向着全局损失函数最优的方向去。每一步迭代，都要用到训练集所有的数据。显然，在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542637489183&di=27e5e55585bb3846ab76617a8da7c96a&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20170803%2F2beb223c9c714d768716ee7f1a399b30_th.jpg">
+<meta property="og:updated_time" content="2018-11-21T07:02:34.158Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="优化算法">
+<meta name="twitter:description" content="第一次接触优化算法应该是在学习数值分析的时候，但是有什么梯度下降法，牛顿下降法，拟牛顿法等一些方法。之后就是在深度学习中看到一些奇怪的优化算法，这里主要是就介绍深度学习中的优化算法。 梯度下降其实梯度下降可以分为好多种：（1）Batch gradient descent(BGD)：最小化所有训练样本的损失函数。这就表明其是向着全局损失函数最优的方向去。每一步迭代，都要用到训练集所有的数据。显然，在">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542637489183&di=27e5e55585bb3846ab76617a8da7c96a&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20170803%2F2beb223c9c714d768716ee7f1a399b30_th.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2018/11/19/优化算法/">
+
+
+
+
+
+  <title>优化算法 | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/11/19/优化算法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">优化算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T19:35:12+08:00">
+                2018-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542637489183&di=27e5e55585bb3846ab76617a8da7c96a&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20170803%2F2beb223c9c714d768716ee7f1a399b30_th.jpg" rel="gallery_cjossyasz001onwwasivcs1p9" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542637489183&di=27e5e55585bb3846ab76617a8da7c96a&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20170803%2F2beb223c9c714d768716ee7f1a399b30_th.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <p>第一次接触优化算法应该是在学习数值分析的时候，但是有什么梯度下降法，牛顿下降法，拟牛顿法等一些方法。之后就是在深度学习中看到一些奇怪的优化算法，这里主要是就介绍深度学习中的优化算法。</p>
+<h1 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h1><p>其实梯度下降可以分为好多种：<br>（1）Batch gradient descent(BGD)：最小化所有训练样本的损失函数。这就表明其是向着全局损失函数最优的方向去。每一步迭代，都要用到训练集所有的数据。显然，在依靠大数据支撑的深度学习中，这种方法会使迭代速度变慢。<br>（2）Stochastic gradient descent(SGD):最普遍听到的一种梯度下降，他会最小化每条样本的损失函数，虽然不是每次迭代得到的损失函数都向着全局损失函数最优方向，但是大的整体方向是与全局最优一致的。最终结果往往是在全局最优解附近。通过每个样本来迭代更新，显然如果样本数据量大，也是会减慢速度的。SGD伴随的一个问题是噪音较BGD要多，使得SGD并不是每次迭代都向着整体最优方向。但是相较于BGD,SGD更容易从一个local minimum跳到另一个local minimum(但是当learning rate过小时，performance便和BGD相似)；High variance,更容易使得loss curve 产生振荡。<br>（3）Mini-batch gradient descent：计算整个训练集的某个自己的梯度，然后更新梯度。结合SGD和BGD两者的优势，同时也弥补了两者的缺点。比SGD更稳定，更易收敛；比BGD速度更快，计算量要小。</p>
+<p><strong><em>这里我们在深度学习中常提到的SGD就是MGD（即对批样本的处理）</em></strong></p>
+<p>这里从统计学角度来考虑，一个batch里的样本损失函数的梯度与BGD里所有样本的损失函数的梯度相比，应该还是存在着点偏差。如何缓解这个问题？？</p>
+<h2 id="引入Momentum"><a href="#引入Momentum" class="headerlink" title="引入Momentum"></a>引入Momentum</h2><p>引入Momentum来缓解上述问题。Momentum借用物理中的动量的概念，即前几次的梯度也参与运算。为了表示动量，引入了一个新的变量v(velocity).这里用v来代替了前面GD算法的梯度累加。</p>
+<p>这里做个类比：</p>
+<ul>
+<li>参数$\theta$好比海拔高度，他的目标是到海拔为0的山谷里</li>
+<li>变量v是速度，与日常里的速度不同，该速度对应的时间是离散的，不是连续的。是我们走下坡时的速度。</li>
+<li>动量m好比加速度，影响着我们的速度v</li>
+</ul>
+<p>这里指定方向为向上为正，向下为负。</p>
+<p><em>具体实现：</em><br>需要：学习率r，初始参数$\theta$，初始速率v,动量衰减参数α<br>每步迭代过程：<br>1.从训练集中的随机抽取一批容量为n的样本${x_1,….,x_n}$，以及相关的输出$y_i$<br>2.计算梯度和误差，并更新速度v和参数$\theta$</p>
+<script type="math/tex; mode=display">m=+\frac{1}{n}▽_ {\theta}\sum_iL(f(x_i;\theta),y_i)</script><script type="math/tex; mode=display">v=αv-rm</script><script type="math/tex; mode=display">\theta=\theta +v</script><p>其中α是衰减系数，有些地方也称为速度的摩擦系数。</p>
+<p>如果每次迭代得到的梯度都是$\hat{m}$,那么最后的到的v的稳定值为$\frac{r||g||}{1-α}$,也就是说momentum最好的情况能够将学习速度加速$\frac{1}{1-α}$倍。</p>
+<h1 id="Nesterov动量"><a href="#Nesterov动量" class="headerlink" title="Nesterov动量"></a>Nesterov动量</h1><p>与普通动量不同，在理论上对于凸函数它能得到更好的收敛，实践中确实比标准动量表现更好一些。</p>
+<h2 id="核心思路："><a href="#核心思路：" class="headerlink" title="核心思路："></a>核心思路：</h2><p><img src="/2018/11/19/优化算法/Nesterov_1.png" alt="Nesterov_1"><br>从图上可看出，前一种方法是在红点处既计算momentum step又计算gradient step，而Nesterov是在momentum step后计算该处的gradient step。<br>具体实现：<br>需要：学习率r，初始参数$\theta$,初始速率v，动量衰减参数$\theta$<br>每步迭代过程<br>1.从训练集中随机抽取一批容量为n的样本${x_1,….,x_n}$,以及相关的输出$y_i$<br>2.计算梯度和误差，并更新速度和参数$\theta$:</p>
+<script type="math/tex; mode=display">m=+\frac{1}{n}▽_ {\theta}\sum_iL(f(x_i;\theta+αv),y_i)</script><script type="math/tex; mode=display">v=αv-rm</script><script type="math/tex; mode=display">\theta=\theta+v</script><p>注意在估算m的时候参数变为了$\theta+αv$而不是先前的$\theta$</p>
+<h1 id="AdaGrad"><a href="#AdaGrad" class="headerlink" title="AdaGrad"></a>AdaGrad</h1><p>AdaGrad可以自动变更学习速率，只是需要设定一个全局的学习速率r，但是这并非是实际学习速率，实际的速率与以往参数的模之和的开方成反比。</p>
+<script type="math/tex; mode=display">r_n=\frac{r}{\delta+\sqrt{\sum_{i=1}^{n-1}g_i^2}}</script><p>其中$\delta$是一个很小的常量，大概在$10^{-7}$，防止出现分母为0</p>
+<p>具体实现：<br>需要：全局学习率r，初始参数$\theta$,数值稳定值$\delta$<br>中间变量：梯度累计量u（初始化为0）<br>每步迭代过程：<br>1.从训练集中随机抽取一批容量为n的样本${x_1,….,x_n}$,以及相关的输出$y_i$<br>2.计算梯度和误差，更新u，再根据u和梯度计算参数更新量。</p>
+<script type="math/tex; mode=display">m=+\frac{1}{n}▽_ {\theta}\sum_iL(f(x_i;\theta),y_i)</script><script type="math/tex; mode=display">u=u+m^2</script><script type="math/tex; mode=display">\Delta \theta=-\frac{r}{\delta+\sqrt{u}}m</script><script type="math/tex; mode=display">\theta=\theta+\Delta \theta</script><p>刚算法只是引入了自适应的学习率，也没有用到前面的动量、速率。</p>
+<p>优点：能够实现学习率的自动更改。前期梯度较大，后期梯度较小。<br>缺点：仍然要设置一个变量r</p>
+<p>经验表明，在普通算法中也许效果不错，但在深度学习中，深度过深会造成训练提前结束。</p>
+<h1 id="RMSProp"><a href="#RMSProp" class="headerlink" title="RMSProp"></a>RMSProp</h1><p>对上述Adagrad算法做出改进<br>RMSProp通过引入一个衰减系数，让u每回合都衰减一定比例。</p>
+<p>具体实现：<br>需要：全局学习率r，初始参数$\theta$，数值稳定量$\delta$，衰减速率$\rho$<br>中间变量：梯度累计量u（初始为0）<br>每步迭代过程：<br>1.从训练集中随机抽取一批容量为n的样本${x_1,….,x_n}$,以及相关的输出$y_i$<br>2.计算梯度和误差，更新u和梯度计算参数更新量</p>
+<script type="math/tex; mode=display">m=+\frac{1}{n}▽_ {\theta}\sum_iL(f(x_i;\theta),y_i)</script><script type="math/tex; mode=display">u=\rho r+(1-\rho)m^2</script><script type="math/tex; mode=display">\Delta \theta=-\frac{r}{\delta+\sqrt{u}}m</script><script type="math/tex; mode=display">\theta=\theta+\Delta\theta</script><p>优点：<br>相比于Adagrad，这种方法很好的解决了深度学习中过早结束的问题，适合处理非平稳目标，对于RNN效果很好。<br>缺点：<br>又引入了新的超参，衰减系数$\rho$<br>依然依赖全局学习率</p>
+<h1 id="RMSProp-with-Nesterov-Momentum"><a href="#RMSProp-with-Nesterov-Momentum" class="headerlink" title="RMSProp with Nesterov Momentum"></a>RMSProp with Nesterov Momentum</h1><p>具体实现：<br>需要：全局学习率r，参数$\theta$,初始速率v，动量衰减系数α，梯度累积量衰减速率$\rho$<br>中间变量：梯度累计量u（初始化为0）<br>每步迭代过程：<br>1.从训练集中随机抽取一批容量为n的样本${x_1,….,x_n}$,以及相关的输出$y_i$<br>2.计算梯度和误差，更新u和梯度计算参数更新量</p>
+<script type="math/tex; mode=display">\hat{\theta}=\theta+αv</script><script type="math/tex; mode=display">m=+\frac{1}{n}▽_ {\hat{\theta}}\sum_{i}L(f(x_i;\hat{\theta}),y_i)</script><script type="math/tex; mode=display">u=\rho u+(1-\rho)m^2</script><script type="math/tex; mode=display">v=αv-\frac{r}{\sqrt{u}}m</script><script type="math/tex; mode=display">\theta=\theta+v</script><h1 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h1><p>Adam(Adaptive Moment Estimation)本质上是带有动量项的RMSProp,它利用梯度的一阶矩估计和二阶矩估计动态调整每个参数的学习率。Adam的优点主要在于经过偏置校正后，每一次迭代学习率都有个确定范围，使得参数比较平稳。</p>
+<p>具体实现：<br>需要：学习率r，参数$\theta$,数值稳定量$\delta$，一阶动量衰减系数$\rho_1$,二阶动量衰减系数$\rho_2$<br>其中几个取值一般为：$\delta=10^{-8}$,$\rho_1=0.9$,$\rho_2=0.999$<br>中间变量：一阶动量s,二阶动量u，都初始化为0<br>每步迭代过程：<br>1.从训练集中随机抽取一批容量为n的样本${x_1,….,x_n}$,以及相关的输出$y_i$<br>2.计算梯度和误差，更新u和s,再根据u和s及梯度计算参数更新量</p>
+<script type="math/tex; mode=display">m=+\frac{1}{n}▽_ {\theta}\sum_iL(f(x_i;\theta),y_i)</script><script type="math/tex; mode=display">s=\rho_1s+(1-\rho_1)m</script><script type="math/tex; mode=display">u=\rho_2u+(1-\rho_2)m^2</script><script type="math/tex; mode=display">\hat{s}=\frac{s}{1-\rho_1}</script><script type="math/tex; mode=display">\hat{u}=\frac{u}{1-\rho_2}</script><script type="math/tex; mode=display">\Delta\theta=-r\frac{\hat{s}}{\sqrt{\hat{u}}+\delta}</script><script type="math/tex; mode=display">\theta=\theta+\Delta\theta</script><h1 id="Adamax"><a href="#Adamax" class="headerlink" title="Adamax"></a>Adamax</h1><p>这是Adam的一种变体，此方法对学习率的上限提供了一个更简单的范围。公式变化如下：</p>
+<script type="math/tex; mode=display">u_t=max(\rho_2u_{t-1},|m_t|)</script><script type="math/tex; mode=display">\Delta{x}=-\frac{\hat{s_t}}{\hat{u_t}+\epsilon}×r</script><p>可以看出，Adamax学习率边界范围更简单。</p>
+<h1 id="Nadam"><a href="#Nadam" class="headerlink" title="Nadam"></a>Nadam</h1><p>类似于带有Nesterov动量项的Adam.公式如下：</p>
+<script type="math/tex; mode=display">\hat{m_t}=\frac{m_t}{1-\prod_{i=1}^{t}\rho_{1i}}</script><script type="math/tex; mode=display">s_t=\rho_{1t} s_{t-1}+(1-\rho_{1t})m_t</script><script type="math/tex; mode=display">\hat{s_t}=\frac{s_t}{1-\prod_{i=1}^{t+1}\rho_{1t}}</script><script type="math/tex; mode=display">u_t=u_{t-1}\rho_2+(1-\rho_2)m_t^2</script><script type="math/tex; mode=display">\hat{u_t}=\frac{u_t}{1-\rho_{2t}}\overline{s_t}=(1-\rho_{1t})\hat{m_t}+\rho_{1t+1}\hat{m_t}</script><script type="math/tex; mode=display">\Delta{\theta_t}=-\eta\frac{\overline{s_t}}{\sqrt{\hat{u_t}}+\epsilon}</script><p>可以看到Nadam对学习率有了更强的约束，同时对梯度的更新也有更直接的影响。一般而言，在想使用带动量的RMSprop，或者Adam的地方，大多数可以使用Nadam取得更好的效果。</p>
+<h1 id="经验之谈"><a href="#经验之谈" class="headerlink" title="经验之谈"></a>经验之谈</h1><ul>
+<li>对于稀疏数据，尽量使用学习率可自适应的优化方法，不用手动调节，而且最好采用默认值</li>
+<li>SGD通常训练时间更长，但是在好的初始化和学习率调度方案的情况下，结果更可靠</li>
+<li>如果在意更快的收敛，而且需要训练较深复杂的网络时，推荐使用学习率自适应的方法</li>
+<li>RMSprop，Adam是比较相近的算法，在相似的情况下表现差不多</li>
+<li>在想使用带动量的RMSprop，或者Adam的地方，大多可以使用Nadam取得更好的效果。</li>
+</ul>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li>1.<a href="https://zhuanlan.zhihu.com/p/22252270" target="_blank" rel="noopener">深度学习最全优化方法总结比较（SGD，Adagrad，Adadelta，Adam，Adamax，Nadam）</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/11/19/优化算法/">优化算法</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2018年11月19日 - 19:11</p>
+  <p><span>最后更新:</span>2018年11月21日 - 15:11</p>
+  <p><span>原始链接:</span><a href="/2018/11/19/优化算法/" title="优化算法">http://yifdu.github.io/2018/11/19/优化算法/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/19/优化算法/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/最优化/" rel="tag"># 最优化</a>
+          
+            <a href="/tags/凸优化/" rel="tag"># 凸优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/19/scikit-learn学习（一）/" rel="next" title="scikit-learn学习（一）">
+                <i class="fa fa-chevron-left"></i> scikit-learn学习（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/20/YOLO（一）/" rel="prev" title="YOLO（一）">
+                YOLO（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#梯度下降"><span class="nav-number">1.</span> <span class="nav-text">梯度下降</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引入Momentum"><span class="nav-number">1.1.</span> <span class="nav-text">引入Momentum</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nesterov动量"><span class="nav-number">2.</span> <span class="nav-text">Nesterov动量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心思路："><span class="nav-number">2.1.</span> <span class="nav-text">核心思路：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AdaGrad"><span class="nav-number">3.</span> <span class="nav-text">AdaGrad</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RMSProp"><span class="nav-number">4.</span> <span class="nav-text">RMSProp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RMSProp-with-Nesterov-Momentum"><span class="nav-number">5.</span> <span class="nav-text">RMSProp with Nesterov Momentum</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Adam"><span class="nav-number">6.</span> <span class="nav-text">Adam</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Adamax"><span class="nav-number">7.</span> <span class="nav-text">Adamax</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nadam"><span class="nav-number">8.</span> <span class="nav-text">Nadam</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#经验之谈"><span class="nav-number">9.</span> <span class="nav-text">经验之谈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">10.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
