@@ -99,7 +99,7 @@
 <meta property="og:description" content="前言这是机器学习的第一篇，之所以在研究深度学习的时候还选择学习机器学习，是因为8个字“不忘初心，方得始终”。尽管近几年机器学习已被深度学习的光环给笼罩，但我们还是要理智地思考，深度学习终究是数据驱动的，失去了数据，再精密的深度网络结构也是画饼充饥，无的放矢。在很多的实际问题中，我们很难得到海量且带有精确标注的数据，这时深度学习也就没有大显身手的余地，反而是许多传统方法可以灵活巧妙地处理。另外，在研">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg">
-<meta property="og:updated_time" content="2018-11-22T16:16:34.707Z">
+<meta property="og:updated_time" content="2018-11-23T07:53:41.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（一）——SVM">
 <meta name="twitter:description" content="前言这是机器学习的第一篇，之所以在研究深度学习的时候还选择学习机器学习，是因为8个字“不忘初心，方得始终”。尽管近几年机器学习已被深度学习的光环给笼罩，但我们还是要理智地思考，深度学习终究是数据驱动的，失去了数据，再精密的深度网络结构也是画饼充饥，无的放矢。在很多的实际问题中，我们很难得到海量且带有精确标注的数据，这时深度学习也就没有大显身手的余地，反而是许多传统方法可以灵活巧妙地处理。另外，在研">
@@ -366,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.1k 字
+                  3.7k 字
                 </span>
               
 
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  12 分钟
+                  15 分钟
                 </span>
               
             </div>
@@ -478,14 +478,29 @@ L_D=W(α) =\frac{1}{2}(\sum_{i=1}^Nα_iy_ix_i)^T(\sum_{j=1}^Nα_jy_jx_j)-\sum_{i
 <p>具体形式：</p>
 <script type="math/tex; mode=display">min \ \ L(w,b,\xi,α,\mu)=-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^Nα_iα_jy_iy_j(x_i·x_j)+\sum_{i=1}^Nα_i</script><p>如前面所示，我们使用拉格朗日对偶性<br>来求解我们要的α</p>
 <p>对偶化：</p>
-<script type="math/tex; mode=display">max_{α}-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^Nα_iα_jy_iy_j(x_i·x_j)+\sum_{i=1}^Nα_i</script><script type="math/tex; mode=display">s.t. \ \ \ \sum_{i=1}^Nα_iy_i=0</script><script type="math/tex; mode=display">C-α_i-\mu_i=0</script><script type="math/tex; mode=display">α_i≥0</script><script type="math/tex; mode=display">\mu_i≥0  \ \ \ \ \ \ i=1,2,...,N</script><p>可以求解得到$α^* $</p>
+<script type="math/tex; mode=display">max_{α}-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^Nα_iα_jy_iy_j(x_i·x_j)+\sum_{i=1}^Nα_i</script><script type="math/tex; mode=display">s.t. \ \ \ \sum_{i=1}^Nα_iy_i=0</script><script type="math/tex; mode=display">C-α_i-\mu_i=0</script><script type="math/tex; mode=display">α_i≥0</script><script type="math/tex; mode=display">\mu_i≥0  \ \ \ \ \ \ i=1,2,...,N</script><p>可以求解得到$α^* $(上述第二第三个约束条件可以写成一个：$0≤α_i≤C$)</p>
 <p>同样得到$α^<em> $以后就可以得到$w^</em> $和$b^* $</p>
 <script type="math/tex; mode=display">w^* =\sum_{i=1}^Nα_i^* y_ix_i</script><script type="math/tex; mode=display">b^* =y_j-\sum_{i=1}^Ny_iα_i^* (x_i·x_j)</script><p>分离超平面可以写成：</p>
 <script type="math/tex; mode=display">\sum_{i=1}^Nα_i^* y_i(x·x_i)+b^* =0</script><p>决策函数为：</p>
 <script type="math/tex; mode=display">f(x)=sign(\sum_{i=1}^Nα_i^* y_i(x·x_i)+b^* )</script><p>此时我们求得的是线性不可分情况下软间隔的超平面</p>
 <p>分离超平面我们往往用实现表示，间隔边界由虚线表示，$x_i$到间隔边界的距离为$\frac{\xi_i}{||w||}$</p>
 <p><strong><em>如前面软间隔处介绍的那样，我们用的$\xi$往往是hinge loss</em></strong></p>
-<h1 id="非线性SVM与核函数"><a href="#非线性SVM与核函数" class="headerlink" title="非线性SVM与核函数"></a>非线性SVM与核函数</h1><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1>
+<h1 id="非线性SVM与核函数"><a href="#非线性SVM与核函数" class="headerlink" title="非线性SVM与核函数"></a>非线性SVM与核函数</h1><p>非线性SVM的核函数技巧是基于线性SVM进行的一定修改。</p>
+<p>线性SVM中的优化问题：</p>
+<script type="math/tex; mode=display">max\ \ \ L_D(α)=\sum_{i=1}^Nα_i-\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^Nα_iα_jy_iy_j(x_i·x_j)</script><script type="math/tex; mode=display">s.t.\ \ \ \ \ α_i≥0\ \ \ \ \ i=1,2,...N</script><script type="math/tex; mode=display">\ \ \ \ \ \sum_{i=1}^Nα_iy_i=0</script><p>我们知道核函数要做的是将数据点映射到高维空间。我们可以用$\phi(x)$将其映射到高维空间。</p>
+<p>对于非线性问题引入核函数技巧</p>
+<script type="math/tex; mode=display">max\ \ \ L_D(α)=\sum_{i=1}^Nα_i-\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^Nα_iα_jy_iy_j\phi(x_i)\phi(x_j)</script><script type="math/tex; mode=display">s.t.\ \ \ \ \ α_i≥0 \ \ \ \ \ \ \ i=1,2,...N</script><script type="math/tex; mode=display">\ \ \ \ \ \sum_{i=1}^Nα_iy_i=0</script><p>对于软间隔问题则有：</p>
+<script type="math/tex; mode=display">max\ \ \ L_D(α)=\sum_{i=1}^Nα_i-\frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^Nα_iα_jy_iy_j\phi(x_i)\phi(x_j)</script><script type="math/tex; mode=display">s.t.\ \ \ \ \ 0≤α_i≤C \ \ \ \ \ \ i=1,2,...N</script><script type="math/tex; mode=display">\ \ \ \ \ \sum_{i=1}^Nα_iy_i=0</script><p>但由于从输入空间到特征空间的这种映射会使得维度发生爆炸式的增长，因此上述约束问题中内积$\phi(x_i)·\phi(x_j)$的运算会非常大以至于无法承受，因此通常我们会构造一个核函数</p>
+<script type="math/tex; mode=display">K(x_i,x_j)=\phi(x_i)·\phi(x_j)</script><p>我们常用的核函数有：</p>
+<ul>
+<li>1.线性和函数：$K(x,x_i)=x·x_i$</li>
+<li>2.多项式核函数：$K(x,x_i)=((x·x_i)+1)^d$</li>
+<li>3.高斯核函数：$K(x,x_i)=exp(-\frac{||x-x_i||^2}{\sigma^2})$</li>
+<li>sigmoid核函数：$K(x,x_i)=tanh(\eta<x,x_i>+\theta)$</x,x_i></li>
+</ul>
+<h2 id="核函数的选取"><a href="#核函数的选取" class="headerlink" title="核函数的选取"></a>核函数的选取</h2><p>吴恩达的见解<br>1.如果Feature的数量很大，跟样本数量差不多，这时候选用LR或者Linear Kernel的SVM。(数据维度已经很高了则不需要上升到更高维度)<br>2.如果Feature的数量比较小，样本数量一般，不算大也不算小，选用SVM+Gaussian Kernel<br>3.如果Feature的数量比较小,而样本数量很多，需要手工添加一些feature变成第一种情况。(不太能理解)</p>
+<h2 id="核函数的本质"><a href="#核函数的本质" class="headerlink" title="核函数的本质"></a>核函数的本质</h2><script type="math/tex; mode=display">K(x,x_i)=\phi(x)·\phi(x_i)</script><p>这一步是我们用一个K函数替换数据映射到高维后的内积计算。直接设计K比设计$\phi$后得到K方便且计算量小。<br>而核函数的价值在于它是在低维上进行计算，而实质上的分类效果表现在高维上，避免了在高为空间中的复杂计算。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1>
       
     </div>
     
@@ -509,7 +524,7 @@ L_D=W(α) =\frac{1}{2}(\sum_{i=1}^Nα_iy_ix_i)^T(\sum_{j=1}^Nα_jy_jx_j)-\sum_{i
   <p><span>本文标题:</span><a href="/2018/11/21/机器机器学习（一）——SVM/">机器学习（一）——SVM</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月21日 - 00:11</p>
-  <p><span>最后更新:</span>2018年11月23日 - 00:11</p>
+  <p><span>最后更新:</span>2018年11月23日 - 15:11</p>
   <p><span>原始链接:</span><a href="/2018/11/21/机器机器学习（一）——SVM/" title="机器学习（一）——SVM">http://yifdu.github.io/2018/11/21/机器机器学习（一）——SVM/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/21/机器机器学习（一）——SVM/" aria-label="复制成功！"></i></span>
   </p>
@@ -720,7 +735,7 @@ L_D=W(α) =\frac{1}{2}(\sum_{i=1}^Nα_iy_ix_i)^T(\sum_{j=1}^Nα_jy_jx_j)-\sum_{i
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识-SVM"><span class="nav-number">2.</span> <span class="nav-text">初识 SVM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动机"><span class="nav-number">3.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性SVM——SVM最初的模样。"><span class="nav-number">4.</span> <span class="nav-text">线性SVM——SVM最初的模样。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬间隔"><span class="nav-number">4.1.</span> <span class="nav-text">硬间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软间隔"><span class="nav-number">4.2.</span> <span class="nav-text">软间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求解最优化问题"><span class="nav-number">4.3.</span> <span class="nav-text">求解最优化问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日乘子法"><span class="nav-number">4.3.1.</span> <span class="nav-text">拉格朗日乘子法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KKT条件"><span class="nav-number">4.3.2.</span> <span class="nav-text">KKT条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日对偶性"><span class="nav-number">4.3.3.</span> <span class="nav-text">拉格朗日对偶性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求解SVM的最优化问题"><span class="nav-number">4.3.4.</span> <span class="nav-text">求解SVM的最优化问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬间隔-1"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">硬间隔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软间隔-1"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">软间隔</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非线性SVM与核函数"><span class="nav-number">5.</span> <span class="nav-text">非线性SVM与核函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识-SVM"><span class="nav-number">2.</span> <span class="nav-text">初识 SVM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动机"><span class="nav-number">3.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性SVM——SVM最初的模样。"><span class="nav-number">4.</span> <span class="nav-text">线性SVM——SVM最初的模样。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬间隔"><span class="nav-number">4.1.</span> <span class="nav-text">硬间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软间隔"><span class="nav-number">4.2.</span> <span class="nav-text">软间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求解最优化问题"><span class="nav-number">4.3.</span> <span class="nav-text">求解最优化问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日乘子法"><span class="nav-number">4.3.1.</span> <span class="nav-text">拉格朗日乘子法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KKT条件"><span class="nav-number">4.3.2.</span> <span class="nav-text">KKT条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日对偶性"><span class="nav-number">4.3.3.</span> <span class="nav-text">拉格朗日对偶性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求解SVM的最优化问题"><span class="nav-number">4.3.4.</span> <span class="nav-text">求解SVM的最优化问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬间隔-1"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">硬间隔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软间隔-1"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">软间隔</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非线性SVM与核函数"><span class="nav-number">5.</span> <span class="nav-text">非线性SVM与核函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数的选取"><span class="nav-number">5.1.</span> <span class="nav-text">核函数的选取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数的本质"><span class="nav-number">5.2.</span> <span class="nav-text">核函数的本质</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>

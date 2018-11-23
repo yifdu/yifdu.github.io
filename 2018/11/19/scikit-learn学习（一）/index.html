@@ -99,7 +99,7 @@
 <meta property="og:description" content="分类监督学习普通最小二乘法LinearRegression拟合一个带有系数$w=(w_1,…,w_p)$的线性模型，使得数据集实际观测数据和预测数据（估计值）之间的残差平方和最小。其数学表达式： min_{w}||Xw-y||^{2}_{2}代码：123456from sklearn import linear_model&amp;gt;&amp;gt;&amp;gt; reg = linear_model.Linear">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542807845688&di=d6ca416784b22e4a348ea1d34c20ae9a&imgtype=0&src=http%3A%2F%2Fpic2.zhimg.com%2Fv2-1a48764501232749dbeb34c6fc7f198e_1200x500.jpg">
-<meta property="og:updated_time" content="2018-11-21T10:59:23.054Z">
+<meta property="og:updated_time" content="2018-11-22T17:29:07.654Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scikit-learn学习（一）">
 <meta name="twitter:description" content="分类监督学习普通最小二乘法LinearRegression拟合一个带有系数$w=(w_1,…,w_p)$的线性模型，使得数据集实际观测数据和预测数据（估计值）之间的残差平方和最小。其数学表达式： min_{w}||Xw-y||^{2}_{2}代码：123456from sklearn import linear_model&amp;gt;&amp;gt;&amp;gt; reg = linear_model.Linear">
@@ -344,7 +344,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1k 字
+                  1.7k 字
                 </span>
               
 
@@ -360,7 +360,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -410,7 +410,20 @@
 <script type="math/tex; mode=display">||A||_ {Fro}=\sqrt{\sum_{ij}a_{ij}^2}</script><p>并且$l_1,l_2$读取为：</p>
 <script type="math/tex; mode=display">||A||_ {21}=\sum_i\sqrt{\sum_ja_{ij}^2}</script><p>下面是一个拟合时间列的模型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">from sklearn.linear_model import MultiTaskLasso, Lasso</span><br><span class="line"></span><br><span class="line">rng = np.random.RandomState(42)</span><br><span class="line"></span><br><span class="line"># Generate some 2D coefficients with sine waves with random frequency and phase</span><br><span class="line">n_samples, n_features, n_tasks = 100, 30, 40</span><br><span class="line">n_relevant_features = 5</span><br><span class="line">coef = np.zeros((n_tasks, n_features))</span><br><span class="line">times = np.linspace(0, 2 * np.pi, n_tasks)</span><br><span class="line">for k in range(n_relevant_features):</span><br><span class="line">    coef[:, k] = np.sin((1. + rng.randn(1)) * times + 3 * rng.randn(1))</span><br><span class="line"></span><br><span class="line">X = rng.randn(n_samples, n_features)</span><br><span class="line">Y = np.dot(X, coef.T) + rng.randn(n_samples, n_tasks)</span><br><span class="line"></span><br><span class="line">coef_lasso_ = np.array([Lasso(alpha=0.5).fit(X, y).coef_ for y in Y.T])</span><br><span class="line">coef_multi_task_lasso_ = MultiTaskLasso(alpha=1.).fit(X, Y).coef_</span><br><span class="line"></span><br><span class="line">###############################################################################</span><br><span class="line"># Plot support and time series</span><br><span class="line">fig = plt.figure(figsize=(8, 5))</span><br><span class="line">plt.subplot(1, 2, 1)</span><br><span class="line">plt.spy(coef_lasso_)</span><br><span class="line">plt.xlabel(&apos;Feature&apos;)</span><br><span class="line">plt.ylabel(&apos;Time (or Task)&apos;)</span><br><span class="line">plt.text(10, 5, &apos;Lasso&apos;)</span><br><span class="line">plt.subplot(1, 2, 2)</span><br><span class="line">plt.spy(coef_multi_task_lasso_)</span><br><span class="line">plt.xlabel(&apos;Feature&apos;)</span><br><span class="line">plt.ylabel(&apos;Time (or Task)&apos;)</span><br><span class="line">plt.text(10, 5, &apos;MultiTaskLasso&apos;)</span><br><span class="line">fig.suptitle(&apos;Coefficient non-zero location&apos;)</span><br><span class="line"></span><br><span class="line">feature_to_plot = 0</span><br><span class="line">plt.figure()</span><br><span class="line">plt.plot(coef[:, feature_to_plot], &apos;k&apos;, label=&apos;Ground truth&apos;)</span><br><span class="line">plt.plot(coef_lasso_[:, feature_to_plot], &apos;g&apos;, label=&apos;Lasso&apos;)</span><br><span class="line">plt.plot(coef_multi_task_lasso_[:, feature_to_plot],</span><br><span class="line">         &apos;r&apos;, label=&apos;MultiTaskLasso&apos;)</span><br><span class="line">plt.legend(loc=&apos;upper center&apos;)</span><br><span class="line">plt.axis(&apos;tight&apos;)</span><br><span class="line">plt.ylim([-1.1, 1.1])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
 <p>这里有一篇介绍<a href="http://www.cnblogs.com/zeze/p/8244357.html" target="_blank" rel="noopener">多任务学习</a>,之后我也将试着写一篇。</p>
-<h3 id="弹性网络"><a href="#弹性网络" class="headerlink" title="弹性网络"></a>弹性网络</h3>
+<h3 id="弹性网络"><a href="#弹性网络" class="headerlink" title="弹性网络"></a>弹性网络</h3><p>这是一种使用L1，L2范数用来训练的线性回归模型。这种组合允许学习到一个只有少量参数是非零稀疏的模型，就像Lasso一样，但是它仍然保持一些像Ridge的正则性质。我们可以用l1_ratio参数控制L1和L2的凸组合。<br>弹性网络在很多特征互相联系的情况下是非常有用的。Lasso很可能只是随机考虑这些特征中的一个，而弹性网络更倾向于选择两个。<br>在实践中，Lasso和Ridge之间权衡的一个优势是它允许在循环过程中继承Ridge的稳定性。<br>在这里，最小化的目标函数是：</p>
+<script type="math/tex; mode=display">min_{w}\frac{1}{2n_{samples}}||Xw-y||_ 2^{2}+α\rho||w||_ 1+\frac{α(1-\rho)}{2}||w||_ 2^2</script><p>ElasticNetCV类可以通过交叉验证来设置参数：alpha(α)和l1_ratio(\rho)</p>
+<h3 id="多任务弹性网络"><a href="#多任务弹性网络" class="headerlink" title="多任务弹性网络"></a>多任务弹性网络</h3><p>MultiTaskElasticNet 是一个对多回归估算稀疏参数的弹性网络：Y是一个二维数组，形状是(n_samples,n_task).其限制条件是和其他回归问题一样，是选择的特征，也称为tasks.<br>从数学上来说，它包含了一个混合的$l_1,l_2$先验和$l_2$先验为正则项训练的线性模型，目标函数就是最小化：</p>
+<script type="math/tex; mode=display">min_W\frac{1}{2n_{samples}||XW-Y||_ {Fro}^2+α||W||_ {21}+\frac{α(1-α)}{2}||W||_ {Fro}^2}</script><p>在MultiTaskElasticNet类中的实现采用了坐标下降法求解参数。<br>在MultiTaskElasticNetCV中可以通过交叉验证来设置参数alpha(α)和l1_ratio($\rho$)</p>
+<h3 id="最小角回归"><a href="#最小角回归" class="headerlink" title="最小角回归"></a>最小角回归</h3><p>最小角回归(LARS)是对高维数据的回归算法。LARS和逐步回归很像。在每一步，它寻找与响应最有关联的预测。当有很多预测有相同的关联时，它没有继续利用相同的预测，而实在这些预测中找出应该等角的方向。<br>LARS的优点：</p>
+<ul>
+<li>当p&gt;&gt;n,该算法数值运算上非常有效。(例如当维度的数目远超过点的个数)</li>
+<li>它在计算上和前向选择一样快，普通最小二乘法有相同的运算复杂度</li>
+<li>它产生了一个完整的分段线性的解决路径，在交叉验证或者其他相似的微调模型的方法上非常有用</li>
+<li>如果两个变量对响应几乎有相等的联系，则它们的系数应该有相似的增长率。因此这个算法和我们直觉上的判断一样，而且还更加稳定</li>
+<li>它很容易修改为其他估算器生成解，比如Lasso.<br>LARS的缺点：</li>
+<li>因为LARS是建立在循环拟合剩余变量上的，所以他对噪声非常敏感</li>
+</ul>
+
       
     </div>
     
@@ -434,7 +447,7 @@
   <p><span>本文标题:</span><a href="/2018/11/19/scikit-learn学习（一）/">scikit-learn学习（一）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月19日 - 01:11</p>
-  <p><span>最后更新:</span>2018年11月21日 - 18:11</p>
+  <p><span>最后更新:</span>2018年11月23日 - 01:11</p>
   <p><span>原始链接:</span><a href="/2018/11/19/scikit-learn学习（一）/" title="scikit-learn学习（一）">http://yifdu.github.io/2018/11/19/scikit-learn学习（一）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/19/scikit-learn学习（一）/" aria-label="复制成功！"></i></span>
   </p>
@@ -651,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分类"><span class="nav-number">1.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#监督学习"><span class="nav-number">1.1.</span> <span class="nav-text">监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通最小二乘法"><span class="nav-number">1.1.1.</span> <span class="nav-text">普通最小二乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#岭回归"><span class="nav-number">1.1.2.</span> <span class="nav-text">岭回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lasso"><span class="nav-number">1.1.3.</span> <span class="nav-text">Lasso</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多任务Lasso"><span class="nav-number">1.1.4.</span> <span class="nav-text">多任务Lasso</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弹性网络"><span class="nav-number">1.1.5.</span> <span class="nav-text">弹性网络</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分类"><span class="nav-number">1.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#监督学习"><span class="nav-number">1.1.</span> <span class="nav-text">监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通最小二乘法"><span class="nav-number">1.1.1.</span> <span class="nav-text">普通最小二乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#岭回归"><span class="nav-number">1.1.2.</span> <span class="nav-text">岭回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lasso"><span class="nav-number">1.1.3.</span> <span class="nav-text">Lasso</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多任务Lasso"><span class="nav-number">1.1.4.</span> <span class="nav-text">多任务Lasso</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弹性网络"><span class="nav-number">1.1.5.</span> <span class="nav-text">弹性网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多任务弹性网络"><span class="nav-number">1.1.6.</span> <span class="nav-text">多任务弹性网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最小角回归"><span class="nav-number">1.1.7.</span> <span class="nav-text">最小角回归</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
