@@ -99,7 +99,7 @@
 <meta property="og:description" content="Dependency parsing语言学的两种观点如何描述语法有两种主流观点：1.短语结构文法(也叫上下文无关文法)，英语术语是：Constituency=phrase structure grammar=context-free grammars(CFG).简单来说，是把词按照结构组成句子。上下文无关文法可以定义为四元组【T,N,S,R】,其中T表示终结符的集合(即词的集合)，N表示非终结符的">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png">
-<meta property="og:updated_time" content="2018-11-22T10:48:35.707Z">
+<meta property="og:updated_time" content="2018-11-27T12:53:05.247Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS224n笔记（三）">
 <meta name="twitter:description" content="Dependency parsing语言学的两种观点如何描述语法有两种主流观点：1.短语结构文法(也叫上下文无关文法)，英语术语是：Constituency=phrase structure grammar=context-free grammars(CFG).简单来说，是把词按照结构组成句子。上下文无关文法可以定义为四元组【T,N,S,R】,其中T表示终结符的集合(即词的集合)，N表示非终结符的">
@@ -366,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.2k 字
+                  3.6k 字
                 </span>
               
 
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  13 分钟
                 </span>
               
             </div>
@@ -405,7 +405,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjossyalt0000nwwa25r63up0" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjozqsrv9001elgwa5bbh5qu1" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" itemprop="contentUrl">
               </a>
             
@@ -442,7 +442,68 @@
 <li>1.Dynamic programming:估计是找出以head结尾的字串对应最可能的句法树</li>
 <li>Graph algorithms:最小生成树</li>
 <li>Constraint Satisfaction:估计是在某个图上逐步删除不符合要求的边直到成为一棵树</li>
-<li>“Transition-based parsing” or “deterministic dependency parsing”<br>主流方法，基于贪心决策动作拼装句法树<h3 id="Arc-standard-transition"><a href="#Arc-standard-transition" class="headerlink" title="Arc-standard transition"></a>Arc-standard transition</h3></li>
+<li>“Transition-based parsing” or “deterministic dependency parsing”<br>主流方法，基于贪心决策动作拼装句法树</li>
+</ul>
+<hr>
+<p><strong>补充基本概念</strong></p>
+<ul>
+<li>依存树<br>依存树是满足以下约束的有向图<br>1.有一个指定的根节点，没有传入它的弧<br>2.除了根节点外，每个顶点都有一个传入弧，从根节点到每个顶点有一条唯一的路径<ul>
+<li>投射性（projective）：<br>如果从头部到句子中的每个单词之间都有一条路径，则从头部到依赖方的弧线被称为有投射性的。<br>如果组成依赖树的所有弧都是投射性的，则称该依赖树具有投射性。<br>如果依赖树可以在没有交叉边的情况下绘制，则依赖树是可投射的</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong><em>下面介绍两类基本的Dependency Parsing算法</em></strong></p>
+<h3 id="Transition-Based-Method"><a href="#Transition-Based-Method" class="headerlink" title="Transition Based Method"></a>Transition Based Method</h3><p>transition-based 依存语法依赖于定义可能的转换的状态机，以创建从输入句到依存句法树的映射。学习问题是创建一个可以根据转换历史来预测状态机中的下一个转换的模型。分析问题是使用在学习问题中得到的模型对输入句子构建一个最优的转换序列</p>
+<h4 id="arc-standard-transition-system"><a href="#arc-standard-transition-system" class="headerlink" title="arc standard transition system"></a>arc standard transition system</h4><p>这个转换系统是一个状态机，它由这些状态之间的状态和转换组成。该模型引发了从一些初始状态到多个终点状态之一的转换序列。<br><strong>状态</strong>： 对任意句子S=$w_0w_1…w_n$,一个状态可以描述为一个三元组c=$(\sigma,β,A)$:</p>
+<ul>
+<li>1.来自S的单词$w_i$的堆栈</li>
+<li>2.来自S的单词$w_i$的缓冲区β</li>
+<li>3.一组形式为$(w_i,r,w_j)$的依存弧，其中$w_i,w_j$是来自S,和r描述依存关系。<br>因此，对于任意句子S=$w_0w_1…w_n$,</li>
+<li>1.一个形式为$([w_0]_ \sigma,[w_1…w_n]_ β,\varnothing)$的处事状态$c_0$(现在只有ROOT在堆$\sigma$中，没有被选择的单词都在缓冲期β中)</li>
+<li><p>2.一个形式为$(\sigma,[]_ β,A)$的终点状态<br><strong>转移:在状态之间有三种不同类型的转移</strong></p>
+</li>
+<li><p>Leftarc<br>堆栈顶部的单词与其直接下面的单词之间存在依赖头的关系；从堆栈中移除较低的单词</p>
+</li>
+<li>Rightarc<br>在堆栈上的第二个单词和顶部的单词之间建立一个依赖头的关系；删除堆栈顶部的单词；</li>
+<li>Shift<br>从输入缓冲区的前面移除单词并将其推到堆栈上。</li>
+</ul>
+<h4 id="arc-eager-transition-sysetm"><a href="#arc-eager-transition-sysetm" class="headerlink" title="arc eager transition sysetm"></a>arc eager transition sysetm</h4><ul>
+<li>Leftarc<br>在输入缓冲区前面的单词和堆栈顶部的单词之间声明一个依赖头的关系；弹出堆栈。</li>
+<li>Rightarc<br>在堆栈顶部的单词和输入缓冲区前面的单词之间声明一个依赖头的关系；将输入缓冲区前面的单词移到堆栈上。</li>
+<li>Shift<br>从输入缓冲区的前面移除单词并将其推到堆栈上。</li>
+<li>Reduce<br>弹出堆栈<h4 id="基于Greedy的算法框架"><a href="#基于Greedy的算法框架" class="headerlink" title="基于Greedy的算法框架"></a>基于Greedy的算法框架</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function DependencyParse(words) returns dependency tree</span><br><span class="line">    state &lt;——&#123;[root],[words],[]&#125;;  初始化设置</span><br><span class="line">    while state not final</span><br><span class="line">        t &lt;—— ORACLE(state) ; 选择一个变化操作</span><br><span class="line">        state &lt;——APPLY(t,state) ; 应用该操作创造新状态</span><br><span class="line">    return state</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="ORACLE的学习"><a href="#ORACLE的学习" class="headerlink" title="ORACLE的学习"></a>ORACLE的学习</h4><p>上面提到的ORACLE应该是我们学习到的分类器，可以用SVM,多类逻辑回归等。</p>
+<h4 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h4><p><img src="/2018/11/22/CS224n笔记（三）/arc_standard_transition.png" alt="arc_standard_transition"><br><img src="/2018/11/22/CS224n笔记（三）/arc_eager_transition.png" alt="arc_eager_transition"></p>
+<h4 id="arc-standard-vs-arc-eager"><a href="#arc-standard-vs-arc-eager" class="headerlink" title="arc standard vs. arc eager"></a>arc standard vs. arc eager</h4><ul>
+<li>1.arc standard中的transition操作只会给stack顶部的元素添加依赖关系，而且一旦添加了head-dependent的依赖关系之后，dependent元素会从stack中移除，从而后续不能再添加与该元素有关的依存关系。</li>
+<li>2.所以在arc standard的体系中，一个词在它的所有dependent被发现之前，是不可以被指定head的。这种限制会导致由 parse tree 构造训练样本的时候需要多做一些考虑。另外，如果一个词越是要等很长时间才能指定head，那么就越有可能会出错。</li>
+<li>3.arc-eager 是 arc-standard 的一个替代，它对LEFTARC，RIGHTARC操作进行了些许修改，同时增加新的REDUCE操作。这种体系可以为一个词尽早的指定head。<h4 id="Transition-Based-method-的优缺点"><a href="#Transition-Based-method-的优缺点" class="headerlink" title="Transition Based method 的优缺点"></a>Transition Based method 的优缺点</h4><ol>
+<li>efficiency，基本上只要扫一遍sentence，整个过程会产生 2*len(sentence) 个 transitions.</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>transition Based的方法很灵活，我们可以切换新的transition system而不改变整个算法流程和底层的parsing 算法。我们可以有用于各种各样的处理不同问题的transition system，比如做POS，做non-projective 依存分析，语义角色标注等等。</li>
+<li>在greedy的算法中，当oracle给出错误的transition之后，是没有回退并尝试新的transition的。另外最后只返回一个确定的 transition sequences.</li>
+<li>基本的transition based的方法只能产生projective trees<h3 id="Graph-Based-method"><a href="#Graph-Based-method" class="headerlink" title="Graph Based method"></a>Graph Based method</h3>利用了有向加权图的maximum spanning tree(MST)算法<h4 id="样例-1"><a href="#样例-1" class="headerlink" title="样例"></a>样例</h4><img src="/2018/11/22/CS224n笔记（三）/graph-method.png" alt="graph-method"><h4 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h4><script type="math/tex; mode=display">score(S,T)=\sum_{e∈T}score(S,e)</script><script type="math/tex; mode=display">score(S,e)=w·f=\sum_{i=1}^N w_if_i(S,e)</script>使用基于推断的学习结合了感知器学习法则。我们先用初始的权重 parse a sentence,如果 parse tree不正确,会做权重更新.找到incorrect parse中出现而在reference parse的不出现的feature,以一定学习率降低这些feature相应的权重。<h4 id="Graph-Based-method-的优缺点"><a href="#Graph-Based-method-的优缺点" class="headerlink" title="Graph Based method 的优缺点"></a>Graph Based method 的优缺点</h4></li>
+<li>graph based的方法可以产生 non-projective trees</li>
+<li>经验上来说，transition based的方法在依存关系比较短的时候有很高的正确率，但随着head和dependent之间的距离增大，它的准确率会显著下降。相比之下，transition based的方法使用了greedy local decisions，而Graph Based的方法尝试通过给整棵树打分来避免这种情况。<h3 id="基于神经网络的依存句法分析（Neural-Dependency-Parsing）"><a href="#基于神经网络的依存句法分析（Neural-Dependency-Parsing）" class="headerlink" title="基于神经网络的依存句法分析（Neural Dependency Parsing）"></a>基于神经网络的依存句法分析（Neural Dependency Parsing）</h3>《A Fast and Accurate Dependency Parser using Neural Networks》<br>虽然有很多深度学习模型应用在依存语法上，这部分特别 侧重于基于贪心和基于转移的神经网络依存语法分析器。<br>为什么需要神经网络句法分析器？？<br>传统特征表示稀疏、不完全、计算代价大(SVM之类的线性分类器本身是很快的，而传统的parser的95%时间都花在拼装查询特征上)。神经网络依存语法分析器性能和效果比较好。</li>
+</ol>
+<p>我们将要描述的模型采用前一部分中所讲述的arc standard transition system进行转换。最终模型的目标是预测从一些初始状态c到一个终点状态的转换序列，在模型中依存语法树被编码的。由于模型是贪心的，它基于从当前的状态c=$(\sigma,β,A)$提取特征，然后尝试一次正确地预测一次转移T∈{SHIFT，Leftarc,Rightarc}。</p>
+<p><strong><em>特征选择</em></strong>：根据该模型所需地复杂性，定义神经网络地输入是有灵活性地。对给定句子S地特征包含一些子集：</p>
+<ol>
+<li>$S_{word}$:在堆$\sigma$的顶部和缓冲区β的S中一些单词的词向量(和它们的依存).</li>
+<li>$S_{tag}$：在S中一些单词的词性标注(POS)。词性标注是由一个离散集合组成：P={NN,NNP,NNS,DT,JJ,….}</li>
+<li>$S_{label}$：在S中一些单词的依存标签。依存标签是由一个依存关系的离散集合组成：L={amod,tmod,nsubj,csubj,dobj,….}。<br>对每种特征类型，我们都有一个对应的特征的one-hot编码映射到一个d维的稠密的向量表示的嵌入矩阵。$S_{word}$的完全嵌入矩阵是$E^w∈R^{d×N_w}$,其中$N_w$是字典/词汇表的大小。相应地，POS和依存标签地嵌入矩阵分别为$E^t∈R^{d×N_t}$和$E^l∈R^{d×N_l}$,其中$N_t$和$N_l$分别为不同词性标注和依存标签地个数。最后，定义从每组特征中选出地元素的数量分别为$n_{word},n_{tag},n_{label}$。<br><img src="/2018/11/22/CS224n笔记（三）/example.png" alt="example"><br>注意我们使用一个特殊的NULL表示不存在的元素：当堆和缓冲区为空或者还没有指定依存关系时。对一个给定句子例子，我们按照上述方法选择单词、词性标注和依存标签，从嵌入矩阵$E^w,E^t,E^l$中提取它们对应的稠密的特征的表示，然后将这些向量连接起来作为输入$[x^w,x^t,x^l]$。在训练时，我们反向传播到稠密的向量表示，以及后面各层的参数。</li>
+</ol>
+<h4 id="神经网络模型"><a href="#神经网络模型" class="headerlink" title="神经网络模型"></a>神经网络模型</h4><p>这个神经网络包含一个输入层$[x^w,x^t,x^l]$,一个隐藏层，以及具有交叉熵损失函数的最终softmax层。我们可以在隐藏层中定义单个权值矩阵，与$[x^w,x^t,x^l]$进行运算，我们可以使用三个权值矩阵$[W_1^w,W_1^t,W_1^l]$,每个矩阵对应着相应的输入类型。如下图所示，然后我们应用一个非线性函数和再使用一个仿射层$[W_2]$，使得对于可能的转移次数(输出维度)，有相同数量的softmax概率。<br><img src="/2018/11/22/CS224n笔记（三）/Neural_network.png" alt="Neural_network"><br>注意上图中，使用的非线性函数是f(x)=$x^3$</p>
+<h1 id="未来的工作"><a href="#未来的工作" class="headerlink" title="未来的工作"></a>未来的工作</h1><ul>
+<li>更大更深调参调得更好(更昂贵)的神经网络</li>
+<li>Beam Search</li>
+<li>在决策序列全局进行类似CRF推断的方法<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1>1.<a href="http://www.hankcs.com/nlp/cs224n-dependency-parsing.html" target="_blank" rel="noopener">码农场-CS224n笔记6 句法分析</a><br>2.<a href="https://huangzhanpeng.github.io/2017/12/13/cs224n-lecture4-notes/#more" target="_blank" rel="noopener">CS224n自然语言处理与深度学习 Lecture Notes Four</a><br>3.<a href="http://blog.tvect.cc/archives/122" target="_blank" rel="noopener">奥卡姆的剃刀</a></li>
 </ul>
 
       
@@ -468,7 +529,7 @@
   <p><span>本文标题:</span><a href="/2018/11/22/CS224n笔记（三）/">CS224n笔记（三）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月22日 - 15:11</p>
-  <p><span>最后更新:</span>2018年11月22日 - 18:11</p>
+  <p><span>最后更新:</span>2018年11月27日 - 20:11</p>
   <p><span>原始链接:</span><a href="/2018/11/22/CS224n笔记（三）/" title="CS224n笔记（三）">http://yifdu.github.io/2018/11/22/CS224n笔记（三）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/22/CS224n笔记（三）/" aria-label="复制成功！"></i></span>
   </p>
@@ -524,6 +585,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/25/深度学习与流形学习（一）/" rel="prev" title="深度学习与流形学习（一）">
+                深度学习与流形学习（一） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -604,7 +669,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -626,7 +691,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -675,7 +740,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Dependency-parsing"><span class="nav-number">1.</span> <span class="nav-text">Dependency parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语言学的两种观点"><span class="nav-number">1.1.</span> <span class="nav-text">语言学的两种观点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#歧义-Ambiguity"><span class="nav-number">1.2.</span> <span class="nav-text">歧义(Ambiguity)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依附歧义（Attachment-ambiguities）"><span class="nav-number">1.2.1.</span> <span class="nav-text">依附歧义（Attachment ambiguities）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标注集的崛起"><span class="nav-number">1.3.</span> <span class="nav-text">标注集的崛起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依存文法与依存结构"><span class="nav-number">1.4.</span> <span class="nav-text">依存文法与依存结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些细节"><span class="nav-number">1.4.1.</span> <span class="nav-text">一些细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#句法分析可用的特征"><span class="nav-number">1.4.2.</span> <span class="nav-text">句法分析可用的特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依存句法分析"><span class="nav-number">1.4.3.</span> <span class="nav-text">依存句法分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arc-standard-transition"><span class="nav-number">1.4.4.</span> <span class="nav-text">Arc-standard transition</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Dependency-parsing"><span class="nav-number">1.</span> <span class="nav-text">Dependency parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语言学的两种观点"><span class="nav-number">1.1.</span> <span class="nav-text">语言学的两种观点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#歧义-Ambiguity"><span class="nav-number">1.2.</span> <span class="nav-text">歧义(Ambiguity)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依附歧义（Attachment-ambiguities）"><span class="nav-number">1.2.1.</span> <span class="nav-text">依附歧义（Attachment ambiguities）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标注集的崛起"><span class="nav-number">1.3.</span> <span class="nav-text">标注集的崛起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依存文法与依存结构"><span class="nav-number">1.4.</span> <span class="nav-text">依存文法与依存结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些细节"><span class="nav-number">1.4.1.</span> <span class="nav-text">一些细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#句法分析可用的特征"><span class="nav-number">1.4.2.</span> <span class="nav-text">句法分析可用的特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依存句法分析"><span class="nav-number">1.4.3.</span> <span class="nav-text">依存句法分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transition-Based-Method"><span class="nav-number">1.4.4.</span> <span class="nav-text">Transition Based Method</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#arc-standard-transition-system"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">arc standard transition system</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arc-eager-transition-sysetm"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">arc eager transition sysetm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于Greedy的算法框架"><span class="nav-number">1.4.4.3.</span> <span class="nav-text">基于Greedy的算法框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORACLE的学习"><span class="nav-number">1.4.4.4.</span> <span class="nav-text">ORACLE的学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#样例"><span class="nav-number">1.4.4.5.</span> <span class="nav-text">样例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arc-standard-vs-arc-eager"><span class="nav-number">1.4.4.6.</span> <span class="nav-text">arc standard vs. arc eager</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Transition-Based-method-的优缺点"><span class="nav-number">1.4.4.7.</span> <span class="nav-text">Transition Based method 的优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Graph-Based-method"><span class="nav-number">1.4.5.</span> <span class="nav-text">Graph Based method</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#样例-1"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">样例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型训练"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">模型训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Graph-Based-method-的优缺点"><span class="nav-number">1.4.5.3.</span> <span class="nav-text">Graph Based method 的优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于神经网络的依存句法分析（Neural-Dependency-Parsing）"><span class="nav-number">1.4.6.</span> <span class="nav-text">基于神经网络的依存句法分析（Neural Dependency Parsing）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#神经网络模型"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">神经网络模型</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#未来的工作"><span class="nav-number">2.</span> <span class="nav-text">未来的工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
