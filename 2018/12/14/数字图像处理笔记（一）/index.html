@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CV,information Processing,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是数字图像处理数字图像是由有限数量的元素组成的，每个元素都有一个特定的位置和幅值，这些元素称为像素。可以定义为二维函数f(X,y),其中，x,y是空间坐标，f(x,y)是点(x,y)的幅值.  灰度图像是一个二维灰度(或亮度)函数f(x,y) 彩色图像(如RGB,HSV)由三个二维灰度(或亮度)函数f(X,y)组成  本书将数字图像处理界定为其输入和输出都是图像的处理，另外，包含从图像中提取特">
+<meta name="keywords" content="CV,information Processing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字图像处理笔记（一）">
+<meta property="og:url" content="http://yifdu.github.io/2018/12/14/数字图像处理笔记（一）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="什么是数字图像处理数字图像是由有限数量的元素组成的，每个元素都有一个特定的位置和幅值，这些元素称为像素。可以定义为二维函数f(X,y),其中，x,y是空间坐标，f(x,y)是点(x,y)的幅值.  灰度图像是一个二维灰度(或亮度)函数f(x,y) 彩色图像(如RGB,HSV)由三个二维灰度(或亮度)函数f(X,y)组成  本书将数字图像处理界定为其输入和输出都是图像的处理，另外，包含从图像中提取特">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg">
+<meta property="og:updated_time" content="2018-12-17T02:26:20.534Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数字图像处理笔记（一）">
+<meta name="twitter:description" content="什么是数字图像处理数字图像是由有限数量的元素组成的，每个元素都有一个特定的位置和幅值，这些元素称为像素。可以定义为二维函数f(X,y),其中，x,y是空间坐标，f(x,y)是点(x,y)的幅值.  灰度图像是一个二维灰度(或亮度)函数f(x,y) 彩色图像(如RGB,HSV)由三个二维灰度(或亮度)函数f(X,y)组成  本书将数字图像处理界定为其输入和输出都是图像的处理，另外，包含从图像中提取特">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2018/12/14/数字图像处理笔记（一）/">
+
+
+
+
+
+  <title>数字图像处理笔记（一） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/12/14/数字图像处理笔记（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数字图像处理笔记（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T00:09:13+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer Vision</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg" rel="gallery_cjpxov1ws003i6owaponb0yoc" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="什么是数字图像处理"><a href="#什么是数字图像处理" class="headerlink" title="什么是数字图像处理"></a>什么是数字图像处理</h1><p>数字图像是由有限数量的元素组成的，每个元素都有一个特定的位置和幅值，这些元素称为像素。<br>可以定义为二维函数f(X,y),其中，x,y是空间坐标，f(x,y)是点(x,y)的幅值.</p>
+<ul>
+<li>灰度图像是一个二维灰度(或亮度)函数f(x,y)</li>
+<li>彩色图像(如RGB,HSV)由三个二维灰度(或亮度)函数f(X,y)组成</li>
+</ul>
+<p>本书将数字图像处理界定为其输入和输出都是图像的处理，另外，包含从图像中提取特征的处理，直至包括各个目标的识别</p>
+<h1 id="数字图像处理的基本步骤"><a href="#数字图像处理的基本步骤" class="headerlink" title="数字图像处理的基本步骤"></a>数字图像处理的基本步骤</h1><ul>
+<li>1.图像获取(第2章) —— 预处理</li>
+<li>2.图像滤波和增强(第3章和第4章)</li>
+<li>3.图像复原(第5章) ——改进图像外观的一个处理领域。与图像增强不同，图像增强是主观的，而图像复原是客观的</li>
+<li>4.彩色图像处理(第6章)</li>
+<li>5.小波和分辨率处理(第7章)——小波是以不同分辨率来描述图像的基础</li>
+<li>6.压缩(第8章)——压缩指减少图像存储量或降低传输图像带宽的处理</li>
+<li>7.形态学处理(第9章)</li>
+<li>8.分割(第10章)——分割过程将一幅图像划分为它的组成部分或目标</li>
+<li>9.表示和描述(第11章)</li>
+<li>10.目标识别(第12章)</li>
+</ul>
+<h1 id="数字图像基础"><a href="#数字图像基础" class="headerlink" title="数字图像基础"></a>数字图像基础</h1><h2 id="图像处理系统的基本组成结构"><a href="#图像处理系统的基本组成结构" class="headerlink" title="图像处理系统的基本组成结构"></a>图像处理系统的基本组成结构</h2><p>主要由三大部分组成：</p>
+<ul>
+<li>图像数字化设备，包括数码相机、数码摄像机或手机等</li>
+<li>图像处理设备，包括计算机和存储系统</li>
+<li>图像输出设备，包括打印机，也可以输出到Internet上的其他设备</li>
+</ul>
+<h2 id="数字图像处理基础"><a href="#数字图像处理基础" class="headerlink" title="数字图像处理基础"></a>数字图像处理基础</h2><h3 id="图像的采样和量化"><a href="#图像的采样和量化" class="headerlink" title="图像的采样和量化"></a>图像的采样和量化</h3><ul>
+<li>大多数传感器的输出是连续电压波形</li>
+<li>为了产生一副数字图像，需要把连续的感知数据转化为数字形式</li>
+<li>这包括两种处理：取样和量化</li>
+<li>取样：图像空间坐标的数字化[<strong>可以理解为坐标点的选取</strong>]</li>
+<li>量化：图像函数值(灰度值)的数字化[<strong>可以理解为幅值的数字化</strong>]<br>图像采样的举例：<br><img src="/2018/12/14/数字图像处理笔记（一）/Sample_1.png" alt="Sample_1"><br>图像的量化举例：<br><img src="/2018/12/14/数字图像处理笔记（一）/Sample_2.png" alt="Sample_2"><br>上述函数取值的数字化被称为图像的量化，如量化到256个灰度级。<h4 id="图像的采样与数字图像的质量"><a href="#图像的采样与数字图像的质量" class="headerlink" title="图像的采样与数字图像的质量"></a>图像的采样与数字图像的质量</h4><img src="/2018/12/14/数字图像处理笔记（一）/Sample_3.png" alt="Sample_3"><h4 id="图像的量化与数字图像的质量"><a href="#图像的量化与数字图像的质量" class="headerlink" title="图像的量化与数字图像的质量"></a>图像的量化与数字图像的质量</h4><img src="/2018/12/14/数字图像处理笔记（一）/Sample_4.png" alt="Sample_4"><h4 id="非统一的图像的采样"><a href="#非统一的图像的采样" class="headerlink" title="非统一的图像的采样"></a>非统一的图像的采样</h4>在灰度级变化尖锐的区域，用细腻的采样<br>在灰度级比较平滑的区域，用粗糙的采样<br><img src="/2018/12/14/数字图像处理笔记（一）/Sample_5.png" alt="Sample_5"><h4 id="非统一的图像的量化"><a href="#非统一的图像的量化" class="headerlink" title="非统一的图像的量化"></a>非统一的图像的量化</h4></li>
+<li>在边界附近使用较少的灰度级。剩余的灰度级可用于灰度级变化比较平滑的区域</li>
+<li>避免或减少由于量化的太粗糙，在灰度级变化比较平滑的区域出现假轮廓现象<h3 id="图像的质量"><a href="#图像的质量" class="headerlink" title="图像的质量"></a>图像的质量</h3></li>
+<li>1.层次：表示图像实际拥有的灰度级的数量，如具有32种不同取值的图像可称该图像具有32个层次。图像数据的实际层次越高，视觉效果越好。</li>
+<li>2.对比度:是指一幅图像中灰度反差的大小$对比度=最大亮度/最小亮度$</li>
+<li>3.清晰度： 与清晰度相关的主要因素：亮度、对比度、尺寸大小、细微层次、颜色饱和度<h3 id="空间和灰度分辨率"><a href="#空间和灰度分辨率" class="headerlink" title="空间和灰度分辨率"></a>空间和灰度分辨率</h3>空间分辨率是图像中可分辨的最小细节的度量。<br>灰度分辨率是指在灰度级可分辨的最小变化。灰度分辨率指的则是用于量化灰度的比特数，比如通常一幅图是256级的图像有8比特灰度分辨率<h4 id="图像内插"><a href="#图像内插" class="headerlink" title="图像内插"></a>图像内插</h4>内插是在注入放大、收缩、旋转和几何校正等任务钟广泛应用的工具。<br>从根本上看，内插是用已知数据来估计未知位置的数值的处理。例如一幅大小为500×500的图像要放大1.5倍到750×750像素。一种简单的放大方法是创建一个假想的750×750的网格。它与原始图像有相同的间隔，然后将其收缩，使其准确地与原图像匹配。显然，收缩后地750×750网格地像素间隔要小于原图像地像素间隔。为了对覆盖地每一个点赋予灰度值，<strong>我们可以用最紧邻内插法（将原图像中最近邻的灰度赋给每个新位置）</strong></li>
+</ul>
+<p><strong>另外一种内插方法叫双线性内插，该方法中，我们用4个最近邻去估计给定位置的灰度。我们可以用下面公式来赋值：</strong></p>
+<script type="math/tex; mode=display">v(x,y)=ax+by+cxy+d</script><p>其中，4个系数可由4个用(x,y)点最近邻点写出的未知方程确定。双线性内插给出了比最近邻内插好得多得结果，但随之而来的是计算量的增加<br><strong>双三次内插</strong>：<br>它包括16个最近邻。赋予点(x,y)的灰度值是使用下式得到的:</p>
+<script type="math/tex; mode=display">v(x,y)=\sum_{i=0}^3\sum_{j=0}^3a_{ij}x^iy^j</script><p>在内插中，有可能采用更多的邻点和更复杂的技术，如采用样条和小波</p>
+<h3 id="像素间的一些基本关系"><a href="#像素间的一些基本关系" class="headerlink" title="像素间的一些基本关系"></a>像素间的一些基本关系</h3><h4 id="相邻像素——4邻域"><a href="#相邻像素——4邻域" class="headerlink" title="相邻像素——4邻域"></a>相邻像素——4邻域</h4><p>4邻域:像素p(x,y)的4邻域是：(x+1,y);(x-1,y);(x,y+1);(x,y-1)<br>一般我们用$N_4(p)$表示像素p的4邻域<br><img src="/2018/12/14/数字图像处理笔记（一）/N_4.png" alt="N_4"></p>
+<h4 id="相邻像素——D领域"><a href="#相邻像素——D领域" class="headerlink" title="相邻像素——D领域"></a>相邻像素——D领域</h4><p>D邻域定义:像素p(x,y)的D邻域是:对角上的点(x+1，y+1);(x+1,y-1);(x-1,y+1);(x-1,y-1)<br>用$N_D(p)表示像素p的D邻域$<br><img src="/2018/12/14/数字图像处理笔记（一）/N_D.png" alt="N_D"></p>
+<h3 id="相邻像素——8邻域"><a href="#相邻像素——8邻域" class="headerlink" title="相邻像素——8邻域"></a>相邻像素——8邻域</h3><p>8邻域定义:像素p(x,y)的8邻域是:4邻域的点+D邻域的点<br>用$N_8(p)$表示像素p的8邻域<br><img src="/2018/12/14/数字图像处理笔记（一）/N_8.png" alt="N_8"></p>
+<h3 id="像素的连通性——4连通"><a href="#像素的连通性——4连通" class="headerlink" title="像素的连通性——4连通"></a>像素的连通性——4连通</h3><p>对于具有值V的像素p和q，如果q在集合$N_4(p)$中，则称这两个像素是4则称这两个像素是4连通的<br><img src="/2018/12/14/数字图像处理笔记（一）/N_4_1.png" alt="N_4_1"><br>同理有8连通</p>
+<h3 id="像素的连通性——m连通"><a href="#像素的连通性——m连通" class="headerlink" title="像素的连通性——m连通"></a>像素的连通性——m连通</h3><p>对于具有值V的像素p和q,如果:</p>
+<ul>
+<li>1.q在集合$N_4(p)$中，或</li>
+<li>2.q在集合$N_D(p)$中，并且$N_4(p)$与$N_4(q)$的交集为空(没有值V的像素)<br>则称这两个像素是m连通的，即4连通和D连通的混合连通<br><img src="/2018/12/14/数字图像处理笔记（一）/N_m.png" alt="N_m"><h3 id="像素的连通性——通路"><a href="#像素的连通性——通路" class="headerlink" title="像素的连通性——通路"></a>像素的连通性——通路</h3>通路的定义：一条从具有坐标(x,y)的像素p，到具有坐标(s,t)的像素q的通路，是具有坐标$(x_0,y_0),(x_1,y_1),…,(x_n,y_n)$的不同像素的序列。其中，$(x_0,y_0)=(x,y),(x_n,y_n)=(s,t)$,$(x_i,y_i)$和$(x_{i-1},y_{i-1})$是邻接的，1≤i≤n，n是路径的长度。如果$(x_0,y_0)=(x_n,y_n)$,则该通路是闭合通路。<h3 id="像素的连通性——距离"><a href="#像素的连通性——距离" class="headerlink" title="像素的连通性——距离"></a>像素的连通性——距离</h3>距离或测度必须满足三个条件：<br>1.D(p,q)≥0（D(p,q)=0,当且仅当p=q）<br>2.D(p,q)=D(q,p)<br>3.D(p,z)≤D(p,q)+D(q,z)<br>则称D是距离函数或度量<h4 id="D-4-城市距离"><a href="#D-4-城市距离" class="headerlink" title="$D_4$(城市距离)"></a>$D_4$(城市距离)</h4>像素p(x,y)和q(s,t)之间的$D_4$距离定义为:<script type="math/tex; mode=display">D_4(p,q)=|x-s|+|y-t|</script>$D_4距离的举例$<br><img src="/2018/12/14/数字图像处理笔记（一）/D_4.png" alt="D_4"><h4 id="D-8-棋盘距离"><a href="#D-8-棋盘距离" class="headerlink" title="$D_8$(棋盘距离)"></a>$D_8$(棋盘距离)</h4>像素p(x,y)和q(s,t)之间的$D_8$距离定义为：<script type="math/tex; mode=display">D_8(p,q)=max(|x-s|,|y-t|)</script>$D_8$距离的举例<br><img src="/2018/12/14/数字图像处理笔记（一）/D_8.png" alt="D_8"><h3 id="数字图像处理中所用数学工具的介绍"><a href="#数字图像处理中所用数学工具的介绍" class="headerlink" title="数字图像处理中所用数学工具的介绍"></a>数字图像处理中所用数学工具的介绍</h3><h4 id="空间操作"><a href="#空间操作" class="headerlink" title="空间操作"></a>空间操作</h4>我们把空间操作分为三大类：(1)单像素操作(2)邻域操作(3)几何空间操作</li>
+<li>1.单像素操作:s=T(z)其中z是原图像中像素的灰度，s是处理后的图像中相应像素的(映射)灰度。</li>
+<li>2.邻域操作</li>
+<li>3.几何空间变换:有尺度变换，旋转变换，平移变换<h4 id="图像变换"><a href="#图像变换" class="headerlink" title="图像变换"></a>图像变换</h4>先前我们提到的变换操作都是在空间域上进行处理的。但在有些情况下，需要先将图像转换到变化域之后执行指定的任务，然后用反变换返回到空间域效果会更好。<br>通用的变换形式是：<script type="math/tex; mode=display">T(u,v)=\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y)r(x,y,u,v)</script>该过程能将图像从空间域转换到变换域<br>反变换形式：<script type="math/tex; mode=display">f(x,y)=\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}T(u,v)s(x,y,u,v)</script><h4 id="概率方法"><a href="#概率方法" class="headerlink" title="概率方法"></a>概率方法</h4>概率以很多方式用于图像处理工作中。最简单的方式是当我们以随机量处理灰度值时。例如，令$z_i$,i=0，1，2，…L-1表示一幅M×N大小数字图像中所有可能的灰度值，则在给定图像中灰度级$z_k$出现的概率$p(z_k)$可估计为<script type="math/tex; mode=display">p(z_k)=\frac{n_k}{MN}</script>其中，$n_k$是灰度$z_k$在图像中出现的次数，MN是像素总数。显然,<script type="math/tex; mode=display">\sum_{k=0}^{L-1}p(z_k)=1</script>一旦我们知道了$p(z_k)$,就可以得出许多重要的图像特性。例如，平均灰度由下式给出:<script type="math/tex; mode=display">m=\sum_{k=0}^{L-1}z_kp(z_K)</script>类似地，灰度的方差是<script type="math/tex; mode=display">\sigma^2=\sum_{k=0}^{L-1}(z_k-m)^2p(z_k)</script>n阶矩<script type="math/tex; mode=display">\mu_n(z)=\sum_{k=0}^{L-1}(z_k-m)^np(z_k)</script>均值和方差对于图像地视觉特性有明显地直接关系，高阶矩更敏感。<br>图像灰度对比度度量时标准差值的比较。<br>对比度由低到高像素灰度的标准差也由低到高。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/14/数字图像处理笔记（一）/">数字图像处理笔记（一）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2018年12月14日 - 00:12</p>
+  <p><span>最后更新:</span>2018年12月17日 - 10:12</p>
+  <p><span>原始链接:</span><a href="/2018/12/14/数字图像处理笔记（一）/" title="数字图像处理笔记（一）">http://yifdu.github.io/2018/12/14/数字图像处理笔记（一）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/14/数字图像处理笔记（一）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CV/" rel="tag"># CV</a>
+          
+            <a href="/tags/information-Processing/" rel="tag"># information Processing</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/12/CS224n笔记（五）/" rel="next" title="CS224n笔记（五）">
+                <i class="fa fa-chevron-left"></i> CS224n笔记（五）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/CS224n笔记（六）/" rel="prev" title="CS224n笔记（六）">
+                CS224n笔记（六） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是数字图像处理"><span class="nav-number">1.</span> <span class="nav-text">什么是数字图像处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数字图像处理的基本步骤"><span class="nav-number">2.</span> <span class="nav-text">数字图像处理的基本步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数字图像基础"><span class="nav-number">3.</span> <span class="nav-text">数字图像基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图像处理系统的基本组成结构"><span class="nav-number">3.1.</span> <span class="nav-text">图像处理系统的基本组成结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字图像处理基础"><span class="nav-number">3.2.</span> <span class="nav-text">数字图像处理基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图像的采样和量化"><span class="nav-number">3.2.1.</span> <span class="nav-text">图像的采样和量化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图像的采样与数字图像的质量"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">图像的采样与数字图像的质量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图像的量化与数字图像的质量"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">图像的量化与数字图像的质量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非统一的图像的采样"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">非统一的图像的采样</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非统一的图像的量化"><span class="nav-number">3.2.1.4.</span> <span class="nav-text">非统一的图像的量化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像的质量"><span class="nav-number">3.2.2.</span> <span class="nav-text">图像的质量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间和灰度分辨率"><span class="nav-number">3.2.3.</span> <span class="nav-text">空间和灰度分辨率</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图像内插"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">图像内插</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#像素间的一些基本关系"><span class="nav-number">3.2.4.</span> <span class="nav-text">像素间的一些基本关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#相邻像素——4邻域"><span class="nav-number">3.2.4.1.</span> <span class="nav-text">相邻像素——4邻域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相邻像素——D领域"><span class="nav-number">3.2.4.2.</span> <span class="nav-text">相邻像素——D领域</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相邻像素——8邻域"><span class="nav-number">3.2.5.</span> <span class="nav-text">相邻像素——8邻域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#像素的连通性——4连通"><span class="nav-number">3.2.6.</span> <span class="nav-text">像素的连通性——4连通</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#像素的连通性——m连通"><span class="nav-number">3.2.7.</span> <span class="nav-text">像素的连通性——m连通</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#像素的连通性——通路"><span class="nav-number">3.2.8.</span> <span class="nav-text">像素的连通性——通路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#像素的连通性——距离"><span class="nav-number">3.2.9.</span> <span class="nav-text">像素的连通性——距离</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#D-4-城市距离"><span class="nav-number">3.2.9.1.</span> <span class="nav-text">$D_4$(城市距离)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#D-8-棋盘距离"><span class="nav-number">3.2.9.2.</span> <span class="nav-text">$D_8$(棋盘距离)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字图像处理中所用数学工具的介绍"><span class="nav-number">3.2.10.</span> <span class="nav-text">数字图像处理中所用数学工具的介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#空间操作"><span class="nav-number">3.2.10.1.</span> <span class="nav-text">空间操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图像变换"><span class="nav-number">3.2.10.2.</span> <span class="nav-text">图像变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#概率方法"><span class="nav-number">3.2.10.3.</span> <span class="nav-text">概率方法</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

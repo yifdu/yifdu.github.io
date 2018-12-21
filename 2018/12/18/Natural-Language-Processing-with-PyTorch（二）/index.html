@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,Pytorch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 2.A Quick Tour of Traditional NLP自然语言处理(NLP)和计算语言学(CL)是人类语言计算研究的两个领域。NLP旨在开发解决涉及语言的实际问题的方法，如信息提取、自动语音识别、机器翻译、情绪分析、问答和总结。另一方面，CL使用计算方法来理解人类语言的特性。我们如何理解语言?我们如何产生语言?我们如何学习语言?语">
+<meta name="keywords" content="NLP,Pytorch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Natural-Language-Processing-with-PyTorch（二）">
+<meta property="og:url" content="http://yifdu.github.io/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 2.A Quick Tour of Traditional NLP自然语言处理(NLP)和计算语言学(CL)是人类语言计算研究的两个领域。NLP旨在开发解决涉及语言的实际问题的方法，如信息提取、自动语音识别、机器翻译、情绪分析、问答和总结。另一方面，CL使用计算方法来理解人类语言的特性。我们如何理解语言?我们如何产生语言?我们如何学习语言?语">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
+<meta property="og:updated_time" content="2018-12-18T07:38:03.398Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Natural-Language-Processing-with-PyTorch（二）">
+<meta name="twitter:description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 2.A Quick Tour of Traditional NLP自然语言处理(NLP)和计算语言学(CL)是人类语言计算研究的两个领域。NLP旨在开发解决涉及语言的实际问题的方法，如信息提取、自动语音识别、机器翻译、情绪分析、问答和总结。另一方面，CL使用计算方法来理解人类语言的特性。我们如何理解语言?我们如何产生语言?我们如何学习语言?语">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/">
+
+
+
+
+
+  <title>Natural-Language-Processing-with-PyTorch（二） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Natural-Language-Processing-with-PyTorch（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-18T13:04:21+08:00">
+                2018-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Pytorch/" itemprop="url" rel="index">
+                    <span itemprop="name">Pytorch</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Pytorch/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" rel="gallery_cjpxov1kb00286owawevd2e7l" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <p><strong>由Yif翻译，仅供学习严禁任何商业用途</strong></p>
+<h1 id="Chapter-2-A-Quick-Tour-of-Traditional-NLP"><a href="#Chapter-2-A-Quick-Tour-of-Traditional-NLP" class="headerlink" title="Chapter 2.A Quick Tour of Traditional NLP"></a>Chapter 2.A Quick Tour of Traditional NLP</h1><p>自然语言处理(NLP)和计算语言学(CL)是人类语言计算研究的两个领域。NLP旨在开发解决涉及语言的实际问题的方法，如信息提取、自动语音识别、机器翻译、情绪分析、问答和总结。另一方面，CL使用计算方法来理解人类语言的特性。我们如何理解语言?我们如何产生语言?我们如何学习语言?语言之间有什么关系?</p>
+<p>在文献中，我们经常看到方法和研究人员的交叉，从CL到NLP，反之亦然。来自语言学习的课程内容可以用来告知NLP中的先验，统计和机器学习的方法可以用来回答CL想要回答的问题。事实上，这些问题中的一些已经扩展到它们自己的学科，如音位学、形态学、句法学、语义学和语用学。</p>
+<p>在本书中，我们只关注NLP，但是我们经常根据需要从CL中借鉴思想。在我们将自己完全归属于NLP的神经网络方法之前，有必要回顾一下一些传统的NLP概念和方法。这就是本章的目标。</p>
+<p>如果你有一些NLP的背景，你可以跳过这一章，但你也可以留下来怀旧，为未来建立一个共享的词汇表。</p>
+<h2 id="Corpora-Tokens-and-Types"><a href="#Corpora-Tokens-and-Types" class="headerlink" title="Corpora, Tokens, and Types"></a>Corpora, Tokens, and Types</h2><p>所有的NLP方法，无论是经典的还是现代的，都以文本数据集开始，也称为语料库(复数:corpora)。语料库通常有原始文本(ASCII或UTF-8格式)和与文本相关的任何元数据。原始文本是字符(字节)序列，但是大多数时候将字符分组成连续的称为令牌(Tokens)的连续单元是有用的。在英语中，令牌(Tokens)对应由空格字符或标点分隔的单词和数字序列。</p>
+<p>元数据可以是与文本相关联的任何辅助信息，例如标识符，标签和时间戳。 在机器学习术语中，文本及其元数据称为实例或数据点。 语料库（图2-1）是一组实例，也称为数据集。 鉴于本书重点关注机器学习，我们可以自由地交换术语语料库和数据集。</p>
+<p><img src="/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/metadata_1.png" alt="metadata_1" title="图2-1. 语料库:NLP任务的起点。"></p>
+<p>将文本分解为令牌(Tokens)的过程称为令牌化(tokenization)。世界语的句子,”Maria frapis la verda sorĉistino,“1有六个令牌。令牌化可能比简单地基于非字母数字字符拆分文本更加复杂，如图2-2所示。对于像土耳其语这样的粘合语言来说，分隔空格和标点符号可能是不够的，因此可能需要更专业的技术。正如您将在第4章和第6章中看到的，通过将文本表示为字节流，我们可能能够在某些神经网络模型中完全规避令牌化问题;这对于粘合语言来说变得非常重要。<br><img src="/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/Tokenization.png" alt="Tokenization" title="图2-2. 像土耳其语这样的语言的标记化很快就会变得复杂起来。"><br>最后，看看下面这条推文:<br><img src="/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/Tweet.png" alt="Tweet" title="图2-3"><br>标记化tweets涉及到保存话题标签和@handle，将smilies(如:-)和urls分割为一个单元。#MakeAMovieCold标签应该是1个令牌还是4个?虽然大多数研究论文对这一问题并没有给予太多的关注，而且事实上，许多令牌化决策往往是任意的，但是这些决策在实践中对准确性的影响要比公认的要大得多。通常被认为是预处理的繁琐工作，大多数开放源码NLP包为令牌化提供了合理的支持。示例2-1展示了来自NLTK和SpaCy的示例，这是两个用于文本处理的常用包。</p>
+<p>Example 2-1. Tokenizing text<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Input[<span class="number">0</span>]:</span><br><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line">nlp = spacy.load(‘en’)</span><br><span class="line">text = “Mary, don’t slap the green witch”</span><br><span class="line">print([str(token) <span class="keyword">for</span> token <span class="keyword">in</span> nlp(text.lower())])</span><br><span class="line">Output[<span class="number">0</span>]:</span><br><span class="line">[<span class="string">'mary'</span>, <span class="string">','</span>, <span class="string">'do'</span>, <span class="string">"n't"</span>, <span class="string">'slap'</span>, <span class="string">'the'</span>, <span class="string">'green'</span>, <span class="string">'witch'</span>, <span class="string">'.'</span>]</span><br><span class="line">Input[<span class="number">1</span>]:</span><br><span class="line"><span class="keyword">from</span> nltk.tokenize <span class="keyword">import</span> TweetTokenizer</span><br><span class="line">tweet=<span class="string">u"Snow White and the Seven Degrees</span></span><br><span class="line"><span class="string">    #MakeAMovieCold@midnight:-)"</span></span><br><span class="line">tokenizer = TweetTokenizer()</span><br><span class="line">print(tokenizer.tokenize(tweet.lower()))</span><br><span class="line">Output[<span class="number">1</span>]:</span><br><span class="line">[<span class="string">'snow'</span>, <span class="string">'white'</span>, <span class="string">'and'</span>, <span class="string">'the'</span>, <span class="string">'seven'</span>, <span class="string">'degrees'</span>, <span class="string">'#makeamoviecold'</span>, <span class="string">'@midnight'</span>, <span class="string">':-)'</span>]</span><br></pre></td></tr></table></figure></p>
+<h2 id="类型是语料库中唯一的令牌。语料库中所有类型的集合就是它的词汇表或词典。词可以区分为内容词和停止词。像冠词和介词这样的限定词主要是为了达到语法目的，就像填充物承载着内容词一样。"><a href="#类型是语料库中唯一的令牌。语料库中所有类型的集合就是它的词汇表或词典。词可以区分为内容词和停止词。像冠词和介词这样的限定词主要是为了达到语法目的，就像填充物承载着内容词一样。" class="headerlink" title="类型是语料库中唯一的令牌。语料库中所有类型的集合就是它的词汇表或词典。词可以区分为内容词和停止词。像冠词和介词这样的限定词主要是为了达到语法目的，就像填充物承载着内容词一样。"></a>类型是语料库中唯一的令牌。语料库中所有类型的集合就是它的词汇表或词典。词可以区分为内容词和停止词。像冠词和介词这样的限定词主要是为了达到语法目的，就像填充物承载着内容词一样。</h2><p>ASIDE</p>
+<h2 id="这种理解语言的语言学并将其应用于解决自然语言处理问题的过程称为特征工程。为了模型在不同语言之间的方便和可移植性，我们将这一点保持在最低限度。但是在构建和部署真实的生产系统时，特性工程是必不可少的，尽管最近的说法与此相反。对于feature-engineering的介绍，一般来说，可以阅读Zheng-2016-的书。"><a href="#这种理解语言的语言学并将其应用于解决自然语言处理问题的过程称为特征工程。为了模型在不同语言之间的方便和可移植性，我们将这一点保持在最低限度。但是在构建和部署真实的生产系统时，特性工程是必不可少的，尽管最近的说法与此相反。对于feature-engineering的介绍，一般来说，可以阅读Zheng-2016-的书。" class="headerlink" title="这种理解语言的语言学并将其应用于解决自然语言处理问题的过程称为特征工程。为了模型在不同语言之间的方便和可移植性，我们将这一点保持在最低限度。但是在构建和部署真实的生产系统时，特性工程是必不可少的，尽管最近的说法与此相反。对于feature engineering的介绍，一般来说，可以阅读Zheng(2016)的书。"></a>这种理解语言的语言学并将其应用于解决自然语言处理问题的过程称为特征工程。为了模型在不同语言之间的方便和可移植性，我们将这一点保持在最低限度。但是在构建和部署真实的生产系统时，特性工程是必不可少的，尽管最近的说法与此相反。对于feature engineering的介绍，一般来说，可以阅读Zheng(2016)的书。</h2><h2 id="Unigrams-Bigrams-Trigrams-…-Ngrams"><a href="#Unigrams-Bigrams-Trigrams-…-Ngrams" class="headerlink" title="Unigrams, Bigrams, Trigrams, …, Ngrams"></a>Unigrams, Bigrams, Trigrams, …, Ngrams</h2><p>ngram是文本中出现的固定长度(n)的连续令牌序列。bigram有两个令牌，unigram 只有一个令牌。从文本生成ngram非常简单，如示例2-2所示，但是SpaCy和NLTK等包提供了方便的方法。</p>
+<p>Example 2-2. Generating ngrams</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Input[0]:</span><br><span class="line">def n_grams(text, n):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    takes tokens or text, returns a list of n grams</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    return [text[i:i+n] for i in range(len(text)-n+1)]</span><br><span class="line"></span><br><span class="line">cleaned = [&apos;mary&apos;, &apos;,&apos;, &quot;n&apos;t&quot;, &apos;slap&apos;, green&apos;, &apos;witch&apos;, &apos;.&apos;]</span><br><span class="line">print(n_grams(cleaned, 3))</span><br><span class="line">Output[0]:</span><br><span class="line">[[&apos;mary&apos;, &apos;,&apos;, &quot;n&apos;t&quot;],</span><br><span class="line"> [&apos;,&apos;, &quot;n&apos;t&quot;, &apos;slap&apos;],</span><br><span class="line"> [&quot;n&apos;t&quot;, &apos;slap&apos;, &apos;green&apos;],</span><br><span class="line"> [&apos;slap&apos;, &apos;green&apos;, &apos;witch&apos;],</span><br><span class="line"> [&apos;green&apos;, &apos;witch&apos;, &apos;.&apos;]]</span><br></pre></td></tr></table></figure>
+<p>对于子词(subword)信息本身携带有用信息的某些情况，可能需要生成字符ngram。例如，“methanol”中的后缀“-ol”表示它是一种醇;如果您的任务涉及到对有机化合物名称进行分类，那么您可以看到ngram捕获的子单词(subword)信息是如何有用的。在这种情况下，您可以重用相同的代码，除了将每个字符ngram视为令牌。(这里的subword应该是值类似前缀后缀这种完整单词中的一部分)</p>
+<h2 id="Lemmas-and-Stems"><a href="#Lemmas-and-Stems" class="headerlink" title="Lemmas and Stems"></a>Lemmas and Stems</h2><p>Lemmas是单词的词根形式。考虑动词fly。它可以被屈折成许多不同的单词——flow、fly、flies、flying、flow等等——而fly是所有这些看似不同的单词的Lemmas。有时，为了保持向量表示的维数较低，将令牌减少到它们的Lemmas可能是有用的。这种简化称为lemmatization，您可以在示例2-3中看到它的作用。</p>
+<p>Example 2-3. Lemmatization<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Input[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line">nlp = spacy.load(‘en’)</span><br><span class="line">doc = nlp(<span class="string">u"he was running late"</span>)</span><br><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> doc:</span><br><span class="line">    print(<span class="string">'&#123;&#125; --&gt; &#123;&#125;'</span>.format(token, token.lemma_))</span><br><span class="line">Output[<span class="number">0</span>]</span><br><span class="line">he --&gt; he</span><br><span class="line">was --&gt; be</span><br><span class="line">running --&gt; run</span><br><span class="line">late --&gt; late</span><br></pre></td></tr></table></figure></p>
+<p>例如，SpaCy使用一个预定义的字典WordNet来提取Lemmas，但是lemmatization可以构建为一个机器学习问题，需要理解语言的形态学。</p>
+<p>词干是最普通的lemmatization。它涉及到使用手工制定的规则来去掉单词的结尾，从而将它们简化为一种叫做词干的常见形式。通常在开源包中实现的流行的词干分析器是Porter的Stemmer和Snowball Stemmer。我们留给您去寻找合适的SpaCy/NLTK api来执行词干提取。</p>
+<h2 id="Categorizing-Sentences-and-Documents"><a href="#Categorizing-Sentences-and-Documents" class="headerlink" title="Categorizing Sentences and Documents"></a>Categorizing Sentences and Documents</h2><p>对文档进行归类或分类可能是NLP最早的应用之一。我们在第1章中描述的表示(Term-Frequency [TF]和Term-Frequency- invere - document - frequency [TF- idf])对于对较长的文本块(如文档或句子)进行分类和分类非常有用。主题标签的分配、评论情绪的预测、垃圾邮件的过滤、语言识别和邮件分类等问题可以被定义为受监督的文档分类问题。(半监督版本，其中只使用了一个小的标记数据集，非常有用，但超出了本书的范围。)</p>
+<h2 id="Categorizing-Words-POS-Tagging"><a href="#Categorizing-Words-POS-Tagging" class="headerlink" title="Categorizing Words: POS Tagging"></a>Categorizing Words: POS Tagging</h2><p>我们可以将标记的概念从文档扩展到单个单词或标记。分类单词的一个常见示例是词性标注，如示例2-4所示。<br>Example 2-4. Parts of speech<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Input[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line">nlp = spacy.load(‘en’)</span><br><span class="line">doc = nlp(<span class="string">u"Mary slapped the green witch."</span>)</span><br><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> doc:</span><br><span class="line">    print(<span class="string">'&#123;&#125; - &#123;&#125;'</span>.format(token, token.pos_))</span><br><span class="line">Output[<span class="number">0</span>]</span><br><span class="line">Mary - PROPN</span><br><span class="line">slapped - VERB</span><br><span class="line">the - DET</span><br><span class="line">green - ADJ</span><br><span class="line">witch - NOUN</span><br><span class="line">. - PUNCT</span><br></pre></td></tr></table></figure></p>
+<h2 id="Categorizing-Spans-Chunking-and-Named-Entity-Recognition"><a href="#Categorizing-Spans-Chunking-and-Named-Entity-Recognition" class="headerlink" title="Categorizing Spans: Chunking and Named Entity Recognition"></a>Categorizing Spans: Chunking and Named Entity Recognition</h2><p>通常，我们需要标记文本的范围;即，一个连续的多令牌边界。例如，“Mary slapped the green witch.”我们可能需要识别其中的名词短语(NP)和动词短语(VP)，如下图所示:<br><img src="/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/Sentence_1.png" alt="Sentence_1" title="图2-4"><br>这称为分块(Chunking)或浅解析(Shallow parsing)。浅解析的目的是推导出由名词、动词、形容词等语法原子组成的高阶单位。如果没有训练浅解析模型的数据，可以在词性标记上编写正则表达式来近似浅解析。幸运的是，对于英语和最广泛使用的语言来说，这样的数据和预先训练的模型是存在的。示例2-5给出了一个使用SpaCy的浅解析示例。</p>
+<p>Example 2-5. Noun chunks<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input[<span class="number">0</span>]:</span><br><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line">nlp = spacy.load(‘en’)</span><br><span class="line">doc  = nlp(<span class="string">u"Mary slapped the green witch."</span>)</span><br><span class="line"><span class="keyword">for</span> chunk <span class="keyword">in</span> doc.noun_chunks:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'&#123;&#125; - &#123;&#125;'</span>.format(chunk, chunk.label_)</span><br><span class="line">Output[<span class="number">0</span>]:</span><br><span class="line">Mary - NP</span><br><span class="line">the green witch - NP</span><br></pre></td></tr></table></figure></p>
+<p>另一种有用的span类型是命名实体。命名实体是一个字符串，它提到了一个真实世界的概念，如人员、位置、组织、药品名称等等。这里有一个例子:<br><img src="/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/Nameentity.png" alt="Nameentity" title="图2-5"></p>
+<h2 id="Structure-of-Sentences"><a href="#Structure-of-Sentences" class="headerlink" title="Structure of Sentences"></a>Structure of Sentences</h2><p>浅层解析识别短语单位，而识别它们之间关系的任务称为解析(parsing)。您可能还记得，在初级英语课上，用图表表示句子，如图2-6所示。<br><img src="/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/Parase_1.png" alt="Parase_1" title="图2-6. “Mary slapped the green witch”这句话的成分解析。"></p>
+<p>解析树(Parse tree)表示句子中不同的语法单元在层次上是如何相关的。图2-6中的解析树显示了所谓的成分解析。另一种可能更有用的显示关系的方法是使用依赖项解析(dependency parsing)，如图2-7所示。<br><img src="/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/Parase_2.png" alt="Parase_2" title="图2-7. “Mary slapped the green witch.”这句话的依赖性解析"><br>要了解更多关于传统解析的信息，请参阅本章末尾的参考资料部分。</p>
+<h2 id="Word-Senses-and-Semantics"><a href="#Word-Senses-and-Semantics" class="headerlink" title="Word Senses and Semantics"></a>Word Senses and Semantics</h2><p>单词有意义，而且通常不止一个。一个词的不同含义称为它的意义(senses)。WordNet是一个长期运行的词汇资源项目，它来自普林斯顿大学，旨在对所有英语单词(嗯，大部分)的含义以及其他词汇关系进行分类。例如，考虑像“plane”这样的单词。图2-8显示了“plane”一词的不同用法。<br><img src="/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/Plane.png" alt="Plane" title="图2-8. 对“plane”这个词的意义(sense)"><br>在WordNet这样的项目中数十年的努力是值得的，即使是在有现代方法的情况下。本书后面的章节给出了在神经网络和深度学习方法的背景下使用现有语言资源的例子。词的意义也可以从上下文中归纳出来。从文本中自动发现词义实际上是半监督学习在自然语言处理中的第一个应用。尽管我们在本书中没有涉及到这一点，但我们鼓励您阅读Jurasky and Martin(2014)，第17章，Manning and Schutze(1999)，第7章。</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>在这一章中，我们回顾了NLP中的一些基本术语和思想，这些在以后的章节中会很有用。本章只涉及了传统NLP所能提供的部分内容。我们忽略了传统NLP的一些重要方面，因为我们想将本书的大部分内容用于NLP的深度学习。然而，重要的是要知道，有大量的NLP研究工作不使用神经网络，但仍具有很高的影响力(即，广泛用于建筑生产系统)。在许多情况下，基于神经网络的方法应该被看作是传统方法的补充而不是替代。有经验的实践者经常使用这两个世界的优点来构建最先进的系统。为了更多地了解NLP的传统方法，我们推荐以下参考资料部分中的标题。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>References</p>
+<ol>
+<li><p>Manning, Christopher D., and Hinrich Schütze. (1999). Foundations of statistical natural language processing. MIT press.</p>
+</li>
+<li><p>Bird, Steven, Ewan Klein, and Edward Loper. (2009). Natural language processing with Python: analyzing text with the natural language toolkit. O’Reilly Media.</p>
+</li>
+<li><p>Smith, Noah A. (2011). “Linguistic structure prediction.” Synthesis lectures on human language technologies.</p>
+</li>
+<li><p>Jurafsky, Dan, and James H. Martin. (2014). Speech and language processing. Vol. 3. London: Pearson.</p>
+</li>
+<li><p>Russell, Stuart J., and Peter Norvig. (2016). Artificial intelligence: a modern approach. Malaysia: Pearson Education Limited.</p>
+</li>
+<li><p>Zheng, Alice, and Casari, Amanda. (2018). Feature Engineering for Machine Learning: Principles and Techniques for Data Scientists. O’Reilly Media, Inc.</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/">Natural-Language-Processing-with-PyTorch（二）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2018年12月18日 - 13:12</p>
+  <p><span>最后更新:</span>2018年12月18日 - 15:12</p>
+  <p><span>原始链接:</span><a href="/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/" title="Natural-Language-Processing-with-PyTorch（二）">http://yifdu.github.io/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/18/Natural-Language-Processing-with-PyTorch（二）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/Pytorch/" rel="tag"># Pytorch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/17/数字图像处理笔记（二）/" rel="next" title="数字图像处理笔记（二）">
+                <i class="fa fa-chevron-left"></i> 数字图像处理笔记（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/19/Natural-Language-Processing-with-PyTorch（三）/" rel="prev" title="Natural-Language-Processing-with-PyTorch（三）">
+                Natural-Language-Processing-with-PyTorch（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chapter-2-A-Quick-Tour-of-Traditional-NLP"><span class="nav-number">1.</span> <span class="nav-text">Chapter 2.A Quick Tour of Traditional NLP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Corpora-Tokens-and-Types"><span class="nav-number">1.1.</span> <span class="nav-text">Corpora, Tokens, and Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型是语料库中唯一的令牌。语料库中所有类型的集合就是它的词汇表或词典。词可以区分为内容词和停止词。像冠词和介词这样的限定词主要是为了达到语法目的，就像填充物承载着内容词一样。"><span class="nav-number">1.2.</span> <span class="nav-text">类型是语料库中唯一的令牌。语料库中所有类型的集合就是它的词汇表或词典。词可以区分为内容词和停止词。像冠词和介词这样的限定词主要是为了达到语法目的，就像填充物承载着内容词一样。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这种理解语言的语言学并将其应用于解决自然语言处理问题的过程称为特征工程。为了模型在不同语言之间的方便和可移植性，我们将这一点保持在最低限度。但是在构建和部署真实的生产系统时，特性工程是必不可少的，尽管最近的说法与此相反。对于feature-engineering的介绍，一般来说，可以阅读Zheng-2016-的书。"><span class="nav-number">1.3.</span> <span class="nav-text">这种理解语言的语言学并将其应用于解决自然语言处理问题的过程称为特征工程。为了模型在不同语言之间的方便和可移植性，我们将这一点保持在最低限度。但是在构建和部署真实的生产系统时，特性工程是必不可少的，尽管最近的说法与此相反。对于feature engineering的介绍，一般来说，可以阅读Zheng(2016)的书。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unigrams-Bigrams-Trigrams-…-Ngrams"><span class="nav-number">1.4.</span> <span class="nav-text">Unigrams, Bigrams, Trigrams, …, Ngrams</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lemmas-and-Stems"><span class="nav-number">1.5.</span> <span class="nav-text">Lemmas and Stems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Categorizing-Sentences-and-Documents"><span class="nav-number">1.6.</span> <span class="nav-text">Categorizing Sentences and Documents</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Categorizing-Words-POS-Tagging"><span class="nav-number">1.7.</span> <span class="nav-text">Categorizing Words: POS Tagging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Categorizing-Spans-Chunking-and-Named-Entity-Recognition"><span class="nav-number">1.8.</span> <span class="nav-text">Categorizing Spans: Chunking and Named Entity Recognition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Structure-of-Sentences"><span class="nav-number">1.9.</span> <span class="nav-text">Structure of Sentences</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word-Senses-and-Semantics"><span class="nav-number">1.10.</span> <span class="nav-text">Word Senses and Semantics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.11.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">1.12.</span> <span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

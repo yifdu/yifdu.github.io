@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,Pytorch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Chapter 5. Embedding Words and Types在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型。 将离散类型(如单词)表示为密集向量是">
+<meta name="keywords" content="NLP,Pytorch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Natural-Language-Processing-with-PyTorch（五）">
+<meta property="og:url" content="http://yifdu.github.io/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="Chapter 5. Embedding Words and Types在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型。 将离散类型(如单词)表示为密集向量是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
+<meta property="og:updated_time" content="2018-12-21T07:03:11.153Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Natural-Language-Processing-with-PyTorch（五）">
+<meta name="twitter:description" content="Chapter 5. Embedding Words and Types在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型。 将离散类型(如单词)表示为密集向量是">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/">
+
+
+
+
+
+  <title>Natural-Language-Processing-with-PyTorch（五） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Natural-Language-Processing-with-PyTorch（五）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-21T12:10:06+08:00">
+                2018-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Pytorch/" itemprop="url" rel="index">
+                    <span itemprop="name">Pytorch</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Pytorch/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  9.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  39 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" rel="gallery_cjpxov2be005g6owas2hh96qy" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="Chapter-5-Embedding-Words-and-Types"><a href="#Chapter-5-Embedding-Words-and-Types" class="headerlink" title="Chapter 5. Embedding Words and Types"></a>Chapter 5. Embedding Words and Types</h1><p>在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型。</p>
+<p>将离散类型(如单词)表示为密集向量是NLP中深度学习成功的核心。术语“representation learning”和“embedding”是指学习从一种离散类型到向量空间中的一点的映射。当离散类型为词时，密集向量表示称为词嵌入(word embedding)。我们在第2章中看到了基于计数的嵌入方法的例子，比如term - frequency-reverse-document-frequency (TF-IDF)。在本章中，我们主要研究基于学习或基于预测(Baroni et al.， 2014)的嵌入方法，即通过最大化特定学习任务的目标来学习表征;例如，根据上下文预测一个单词。基于学习的嵌入方法由于其广泛的适用性和性能而在法理上受到限制。事实上，单词嵌入在NLP任务中的普遍性为它们赢得了“NLP的Sriracha”的称号，因为您可以在任何NLP任务中使用单词嵌入，并期望任务的性能得到改进。但是我们认为这种绰号是误导的，因为与Sriracha不同，嵌入式(embeddings)通常不是作为事后添加到模型中的，而是模型本身的基本组成部分。</p>
+<p>在这一章中，我们讨论与嵌入词相关的向量表示:嵌入词的方法，优化嵌入词的方法，用于监督和非监督语言任务，可视化嵌入词的方法，以及组合嵌入词的句子和文件的方法。但是，您必须记住，我们在这里描述的方法适用于任何离散类型。</p>
+<h2 id="Why-Learn-Embeddings"><a href="#Why-Learn-Embeddings" class="headerlink" title="Why Learn Embeddings?"></a>Why Learn Embeddings?</h2><p>在前几章中，您看到了创建单词向量表示的传统方法。具体来说，您了解到可以使用onehot表示—与词汇表大小相同的长度的向量，除了单个位置以外，其他地方都是0，值为1表示特定的单词。此外，您还看到了计数表示——向量的长度与模型中唯一单词的数量相同，但是在向量中与句子中单词的频率相对应的位置上有计数。基于计数的表示也称为分布表示，因为它们的重要内容或意义是由向量中的多个维度表示的。分布表示具有悠久的历史(Firth, 1935)，可以很好地用于许多机器学习和神经网络模型。这些表示，不是从数据中学习的，而是启发式构建的。</p>
+<p>分布式表示的名称来源于这样一个事实：由于单词现在由低得多的密集向量表示（比如d = 100，而不是整个词汇的大小，可以是大约105到106或更高）， 并且一个单词的含义和其他属性分布在这个密集向量的不同维度上。</p>
+<p>低维的学习密集表示比我们在前几章中看到的基于onehot和计数的向量有几个优点。首先，降低维度是计算效率。其次，基于计数的表示导致高维向量在多个维度上冗余地编码相似的信息，并且不共享统计强度。第三，输入中维数过高会导致机器学习和优化中的实际问题，这通常被称为“维数灾难”。“传统上，为了处理这个维度问题，我们使用了像PCA/SVD这样的降维方法，但有点讽刺的是，当维度以百万的顺序排列时(典型的NLP情况)，这些方法不能很好地进行缩放。”第四，从特定于任务的数据中学习(或微调)的表示形式最适合手头的任务。使用TF-IDF等启发式方法或SVD等低维方法，不清楚嵌入方法的优化目标是否与任务相关。</p>
+<h3 id="Efficiency-of-Embeddings"><a href="#Efficiency-of-Embeddings" class="headerlink" title="Efficiency of Embeddings"></a>Efficiency of Embeddings</h3><p>为了理解嵌入是如何工作的，让我们看一个用onehot向量乘以线性层中的权重矩阵的例子，如图5-1所示。在第3章和第4章中，onehot向量的大小与词汇表相同。这个向量被称为“one-hot”，因为它在索引中有一个1，表示存在一个特定的单词。<br><img src="/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/onehot.png" alt="onehot" title="图5-1. 一个矩阵乘法的例子使用onehot编码向量和一个线性层的权矩阵。因为onehot是0和1，所以1的位置将作为矩阵乘法的选择器。这是通过使用权重矩阵和结果向量中的着色模式直观地显示的。尽管功能强大，但这种查找方法在计算上代价高昂且效率低下，因为onehot向量将权重矩阵中的每个数字相乘，并计算每一行的和。"></p>
+<p>根据定义，接受这个onehot向量作为输入的线性层的权值矩阵必须与这个onehot向量的大小具有相同的行数。当您执行矩阵乘法时，如图5-1所示，结果向量实际上只是选择了由非零项指示的行。从这个观察结果中，我们可以跳过乘法步骤，直接使用整数作为检索所选行的索引。</p>
+<p>关于嵌入式效率的最后一点注意事项是，尽管图5-1中的示例显示的权重矩阵与传入的onehot向量具有相同的维度，但情况并非总是如此。实际上，嵌入通常用于在低维空间中表示单词，而不是使用一个onehot向量或基于计数的表示。在研究文献中，嵌入的典型尺寸从25维到500维不等，准确的选择可以归结为您必须节省的图形处理器单元(GPU)内存。</p>
+<h3 id="Approaches-to-Learning-Word-Embeddings"><a href="#Approaches-to-Learning-Word-Embeddings" class="headerlink" title="Approaches to Learning Word Embeddings"></a>Approaches to Learning Word Embeddings</h3><p>本章的目标不是教授特定的单词嵌入技术，而是理解什么是嵌入，如何以及在哪里使用它们，如何在模型中可靠地使用它们，以及理解它们的局限性。我们之所以这样做，是因为实践者很少发现自己处于需要编写嵌入训练算法的新单词的情况下。然而，在这一节中，我们将简要概述当前训练单词嵌入的方法。所有的单词嵌入方法都是用单词来训练的。但是是以一种监督的方式。这可以通过构造辅助监督任务来实现，在这些任务中，数据被隐式地标记，直观地认为，优化后用于解决辅助任务的表示形式将捕获文本语料库的许多统计和语言属性，以便普遍使用。以下是一些辅助任务的例子:</p>
+<ul>
+<li>给出一个单词序列，预测下一个单词。这也称为语言建模任务。</li>
+<li>给定单词前后的顺序，预测缺失的单词。</li>
+<li>给定一个单词，预测出现在窗口中的单词，独立于位置。</li>
+</ul>
+<p>当然，这个列表是不完整的，辅助任务的选择取决于算法设计者的直觉和计算费用。例如Glove、Continuous Bag-of-Words、Skipgrams等等。我们参考Goldberg, 2017，第10章，但我们将简要研究CBOW模型。但是，对于大多数目的来说，使用预先训练好的单词嵌入并对它们进行微调就足够了。</p>
+<h3 id="The-Practical-Use-of-Pretrained-Word-Embeddings"><a href="#The-Practical-Use-of-Pretrained-Word-Embeddings" class="headerlink" title="The Practical Use of Pretrained Word Embeddings"></a>The Practical Use of Pretrained Word Embeddings</h3><p>本章的大部分内容，以及本书的后面部分，都涉及到使用经过预先训练的单词嵌入。使用前面描述的许多方法中的一种，可以免费下载和使用预先训练过的单词嵌入、在大型语料(类似于所有新闻、维基百科和通用爬行器)上进行训练的单词嵌入。本章的其余部分将展示如何有效地加载和查找这些嵌入，研究word embedding的一些属性，并展示在NLP任务中使用预先训练的嵌入的示例。</p>
+<p>LOADING EMBEDDINGS<br>Word Embedding已经变得非常流行和普及，您可以从原始的Word2Vec、Stanford ‘s GLoVE、Facebook的FastText和许多其他版本下载许多不同的版本。通常，嵌入将以以下格式出现:每行以嵌入的单词/类型开始，然后是一系列数字(即，向量表示)。这个序列的长度就是表示的维数(也就是嵌入维数)。嵌入维数通常是数百。令牌(token)类型的数量通常是词汇表的大小，以百万计。例如，这里是来自手套的狗和猫向量的前七个维度:<br>dog:<br>-1.242  -0.360  0.573  0.367  0.600  -0.189  1.273  …<br>cat:<br>-0.964  -0.610  0.674  0.351  0.413  -0.212  1.380  …</p>
+<p>为了有效地加载和处理嵌入，我们描述了一个实用工具类，即预训练。该类在内存中构建所有单词向量的索引，以方便使用近似的最近邻包进行快速查找和最近邻查询。这个类显示在示例5-1中的第一个输入中。</p>
+<p>Example 5-1. Using pretrained word embeddings<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">Input[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> annoy <span class="keyword">import</span> AnnoyIndex</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PreTrainedEmbeddings</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, word_to_index, word_vectors)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            word_to_index (dict): mapping from word to integers</span></span><br><span class="line"><span class="string">            word_vectors (list of numpy arrays)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.word_to_index = word_to_index</span><br><span class="line">        self.word_vectors = word_vectors</span><br><span class="line">        self.index_to_word = \</span><br><span class="line">            &#123;v: k <span class="keyword">for</span> k, v <span class="keyword">in</span> self.word_to_index.items()&#125;</span><br><span class="line">        self.index = AnnoyIndex(len(word_vectors[<span class="number">0</span>]),</span><br><span class="line">                                metric=<span class="string">'euclidean'</span>)</span><br><span class="line">        <span class="keyword">for</span> _, i <span class="keyword">in</span> self.word_to_index.items():</span><br><span class="line">            self.index.add_item(i, self.word_vectors[i])</span><br><span class="line">        self.index.build(<span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_embeddings_file</span><span class="params">(cls, embedding_file)</span>:</span></span><br><span class="line">        <span class="string">"""Instantiate from pre-trained vector file.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Vector file should be of the format:</span></span><br><span class="line"><span class="string">            word0 x0_0 x0_1 x0_2 x0_3 ... x0_N</span></span><br><span class="line"><span class="string">            word1 x1_0 x1_1 x1_2 x1_3 ... x1_N</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            embedding_file (str): location of the file</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            instance of PretrainedEmbeddings</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        word_to_index = &#123;&#125;</span><br><span class="line">        word_vectors = []</span><br><span class="line">        <span class="keyword">with</span> open(embedding_file) <span class="keyword">as</span> fp:</span><br><span class="line">            <span class="keyword">for</span> line <span class="keyword">in</span> fp.readlines():</span><br><span class="line">                line = line.split(<span class="string">" "</span>)</span><br><span class="line">                word = line[<span class="number">0</span>]</span><br><span class="line">                vec = np.array([float(x) <span class="keyword">for</span> x <span class="keyword">in</span> line[<span class="number">1</span>:]])</span><br><span class="line"></span><br><span class="line">                word_to_index[word] = len(word_to_index)</span><br><span class="line">                word_vectors.append(vec)</span><br><span class="line">        <span class="keyword">return</span> cls(word_to_index, word_vectors)</span><br><span class="line">Input[<span class="number">1</span>]</span><br><span class="line">embeddings = \</span><br><span class="line">    PreTrainedEmbeddings.from_embeddings_file(<span class="string">'glove.6B.100d.txt'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>在这些例子中，我们使用Glove word embeddings。下载它们之后，可以使用PretrainedEmbeddings类进行实例化，如示例5-1中的第二个输入所示。</p>
+<p>RELATIONSHIPS BETWEEN WORD EMBEDDINGS<br>词嵌入的核心特征是对句法和语义关系进行编码，这些句法和语义关系表现为词的使用规律。例如，人们谈论猫和狗的方式非常相似(讨论宠物、喂食等)。因此，它们的嵌入彼此之间的距离比它们与其他动物(如鸭子和大象)的距离要近得多。<br>我们可以从几个方面探讨嵌入词编码的语义关系。最流行的一种方法是类比任务(SAT等考试中常见的推理任务):<br>Word1 : Word2 :: Word3 : <strong>__</strong></p>
+<p>在这个任务中，你被提供了前三个单词，需要确定第四个单词与前两个单词之间的关系是一致的。使用嵌入词，我们可以对其进行空间编码。首先，我们从单词1中减去单词2。这个差异向量编码了Word1和Word2之间的关系。然后可以将这个差异添加到Word3中，从而生成一个接近第四个单词的向量，即空白符号所在的位置。使用这个结果向量对索引执行最近邻查询可以解决类比问题。计算这个的函数，如例5-2所示，完成了刚刚描述的工作:使用向量算法和近似的最近邻索引，完成类比。</p>
+<p>Example 5-2. The analogy task using word embeddings<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">Input[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> annoy <span class="keyword">import</span> AnnoyIndex</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PreTrainedEmbeddings</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">""" implementation continued from previous code box"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_embedding</span><span class="params">(self, word)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            word (str)</span></span><br><span class="line"><span class="string">        Returns</span></span><br><span class="line"><span class="string">            an embedding (numpy.ndarray)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> self.word_vectors[self.word_to_index[word]]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_closest_to_vector</span><span class="params">(self, vector, n=<span class="number">1</span>)</span>:</span></span><br><span class="line">        <span class="string">"""Given a vector, return its n nearest neighbors</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            vector (np.ndarray): should match the size of the vectors</span></span><br><span class="line"><span class="string">                in the Annoy index</span></span><br><span class="line"><span class="string">            n (int): the number of neighbors to return</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            [str, str, ...]: words nearest to the given vector.</span></span><br><span class="line"><span class="string">                The words are not ordered by distance</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        nn_indices = self.index.get_nns_by_vector(vector, n)</span><br><span class="line">        <span class="keyword">return</span> [self.index_to_word[neighbor]</span><br><span class="line">                   <span class="keyword">for</span> neighbor <span class="keyword">in</span> nn_indices]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">compute_and_print_analogy</span><span class="params">(self, word1, word2, word3)</span>:</span></span><br><span class="line">        <span class="string">"""Prints the solutions to analogies using word embeddings</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Analogies are word1 is to word2 as word3 is to __</span></span><br><span class="line"><span class="string">        This method will print: word1 : word2 :: word3 : word4</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            word1 (str)</span></span><br><span class="line"><span class="string">            word2 (str)</span></span><br><span class="line"><span class="string">            word3 (str)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        vec1 = self.get_embedding(word1)</span><br><span class="line">        vec2 = self.get_embedding(word2)</span><br><span class="line">        vec3 = self.get_embedding(word3)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Simple hypothesis: Analogy is a spatial relationship</span></span><br><span class="line">        spatial_relationship = vec2 - vec1</span><br><span class="line">        vec4 = vec3 + spatial_relationship</span><br><span class="line"></span><br><span class="line">        closest_words = self.get_closest_to_vector(vec4, n=<span class="number">4</span>)</span><br><span class="line">        existing_words = set([word1, word2, word3])</span><br><span class="line">        closest_words = [word <span class="keyword">for</span> word <span class="keyword">in</span> closest_words</span><br><span class="line">                              <span class="keyword">if</span> word <span class="keyword">not</span> <span class="keyword">in</span> existing_words]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> len(closest_words) == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">"Could not find nearest neighbors for the vector!"</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> word4 <span class="keyword">in</span> closest_words:</span><br><span class="line">            print(<span class="string">"&#123;&#125; : &#123;&#125; :: &#123;&#125; : &#123;&#125;"</span>.format(word1, word2, word3,</span><br><span class="line">                                              word4))</span><br></pre></td></tr></table></figure></p>
+<p>有趣的是，简单的单词类比任务可以证明单词嵌入捕获了各种语义和语法关系，如示例5-3所示。<br>Example 5-3. A set of linguistic relationships are encoded in vector analogy<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Input[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># Relationship 1: the relationship between gendered nouns and pronouns</span></span><br><span class="line">embeddings.compute_and_print_analogy(<span class="string">'man'</span>, <span class="string">'he'</span>, <span class="string">'woman'</span>)</span><br><span class="line">Output[<span class="number">0</span>]</span><br><span class="line">man : he :: woman : she</span><br><span class="line">Input[<span class="number">1</span>]</span><br><span class="line"><span class="comment"># Relationship 2: Verb-Noun relationships</span></span><br><span class="line">embeddings.compute_and_print_analogy(<span class="string">'fly'</span>, <span class="string">'plane'</span>, <span class="string">'sail'</span>)</span><br><span class="line">Output[<span class="number">1</span>]</span><br><span class="line">fly : plane :: sail : ship</span><br><span class="line">Input[<span class="number">2</span>]</span><br><span class="line"><span class="comment"># Relationship 3: Noun-Noun relationships</span></span><br><span class="line">embeddings.compute_and_print_analogy(<span class="string">'cat'</span>, <span class="string">'kitten'</span>, <span class="string">'dog'</span>)</span><br><span class="line">Output[<span class="number">2</span>]</span><br><span class="line">cat : kitten :: dog : puppy</span><br><span class="line">Input[<span class="number">3</span>]</span><br><span class="line"><span class="comment"># Relationship 4: Hypernymy (broader category)</span></span><br><span class="line">embeddings.compute_and_print_analogy(<span class="string">'blue'</span>, <span class="string">'color'</span>, <span class="string">'dog'</span>)</span><br><span class="line">Output[<span class="number">3</span>]</span><br><span class="line">blue : color :: dog : animal</span><br><span class="line">Input[<span class="number">4</span>]</span><br><span class="line"><span class="comment"># Relationship 5: Meronymy (part-to-whole)</span></span><br><span class="line">embeddings.compute_and_print_analogy(<span class="string">'toe'</span>, <span class="string">'foot'</span>, <span class="string">'finger'</span>)</span><br><span class="line">Output[<span class="number">4</span>]</span><br><span class="line">toe : foot :: finger : hand</span><br><span class="line">Input[<span class="number">5</span>]</span><br><span class="line"><span class="comment"># Relationship 6: Troponymy (difference in manner)</span></span><br><span class="line">embeddings.compute_and_print_analogy(<span class="string">'talk'</span>, <span class="string">'communicate'</span>, <span class="string">'read'</span>)</span><br><span class="line">Output[<span class="number">5</span>]</span><br><span class="line">talk : communicate :: read : interpret</span><br><span class="line">Input[<span class="number">6</span>]</span><br><span class="line"><span class="comment"># Relationship 7: Metonymy (convention / figures of speech)</span></span><br><span class="line">embeddings.compute_and_print_analogy(<span class="string">'blue'</span>, <span class="string">'democrat'</span>, <span class="string">'red'</span>)</span><br><span class="line">Output[<span class="number">6</span>]</span><br><span class="line">blue : democrat :: red : republican</span><br><span class="line">Input[<span class="number">7</span>]</span><br><span class="line"><span class="comment"># Relationship 8: Adjectival Scales</span></span><br><span class="line">embeddings.compute_and_print_analogy(<span class="string">'fast'</span>, <span class="string">'fastest'</span>, <span class="string">'young'</span>)</span><br><span class="line">Output[<span class="number">7</span>]</span><br><span class="line">fast : fastest :: young : youngest</span><br></pre></td></tr></table></figure></p>
+<p>虽然这种关系似乎是系统的语言功能，事情可能变得棘手。如例5-4所示，由于单词向量只是基于共现，关系可能是错误的。</p>
+<p>Example 5-4. The analogy can fail on simple scales<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input[<span class="number">0</span>]</span><br><span class="line">embeddings.compute_and_print_analogy(<span class="string">'fast'</span>, <span class="string">'fastest'</span>, <span class="string">'small'</span>)</span><br><span class="line">Output[<span class="number">0</span>]</span><br><span class="line">fast : fastest :: small : largest</span><br></pre></td></tr></table></figure></p>
+<p>示例5-5说明了最常见的类比对之一是如何编码带有性别的角色。</p>
+<p>Example 5-5. Gender encoded in vector analogy<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input[<span class="number">0</span>]</span><br><span class="line">embeddings.compute_and_print_analogy(<span class="string">'man'</span>, <span class="string">'king'</span>, <span class="string">'woman'</span>)</span><br><span class="line">Output[<span class="number">0</span>]</span><br><span class="line">man : king :: woman : queen</span><br></pre></td></tr></table></figure></p>
+<p>事实证明，区分语言规则和文化偏见是困难的。例如，医生并不是事实上的男性，护士也不是事实上的女性，但是这些长期存在于文化中的偏见被观察到作为语言的规律性，并被编入vector这个词中，如例5-6所示。</p>
+<p>Example 5-6. Cultural gender bias encoded in vector analogy<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input[<span class="number">0</span>]</span><br><span class="line">embeddings.compute_and_print_analogy(<span class="string">'man'</span>, <span class="string">'doctor'</span>, <span class="string">'woman'</span>)</span><br><span class="line">Output[<span class="number">0</span>]</span><br><span class="line">man : doctor :: woman : nurse</span><br></pre></td></tr></table></figure></p>
+<p>考虑到embedding在NLP应用程序中的流行程度和使用正在上升，您需要注意embedding中的偏差。去偏现有词嵌入在一个新的和令人兴奋的研究领域(Bolukbasi et al.， 2016)。此外，我们建议您访问ethicsinnlp.org，以获取伦理与NLP交叉的最新结果。</p>
+<h2 id="Example-Learning-the-Continuous-Bag-of-Words-Embeddings"><a href="#Example-Learning-the-Continuous-Bag-of-Words-Embeddings" class="headerlink" title="Example: Learning the Continuous Bag of Words Embeddings"></a>Example: Learning the Continuous Bag of Words Embeddings</h2><p>在本例中，我们将介绍构建和学习通用嵌入词的最著名模型之一，即Word2Vec连续词包(CBOW)模型。在本节中，当我们提到“CBOW任务”或“CBOW分类任务”时，隐含的意思是我们构建分类任务的目的是为了学习CBOW嵌入。CBOW模型是一种多类分类任务，其表现为对单词文本进行扫描，创建单词的上下文窗口，从上下文窗口中删除中心单词，并将上下文窗口分类为丢失的单词。直觉上，你可以把它想象成一个填空任务。有一个句子缺了一个词，模特的工作就是找出那个词应该是什么。</p>
+<p>这个例子的目的是介绍nn.Embedding 层，封装嵌入矩阵(embedding matrix)的PyTorch模块。利用嵌入层，我们可以将令牌的整数ID映射到用于神经网络计算的向量上。当优化器更新模型权重以最小化损失时，它还更新向量的值。通过这个过程，模型将学习如何以最有效的方式嵌入单词。</p>
+<p>在本例的其余部分中，我们遵循标准的示例格式。在第一部分，我们介绍数据集，Mary Shelley’s Frankenstein。然后，我们讨论了从令牌到向量化小批处理的向量化pipline。然后，我们概述了CBOW分类模型以及如何使用嵌入层。接下来，我们将介绍训练程序;尽管如此，如果你已经连续阅读了这本书，在这一点上训练应该是相当常规的。最后，我们讨论了模型评估、模型推理以及如何检查模型。</p>
+<h3 id="Frankenstein-Dataset"><a href="#Frankenstein-Dataset" class="headerlink" title="Frankenstein Dataset"></a>Frankenstein Dataset</h3><p>在本例中，我们将从玛丽·雪莱(Mary Shelley)的小说《弗兰肯斯坦》(Frankenstein)的数字化版本构建一个文本数据集，可以通过古登堡计划(Project Gutenberg)获得。本节介绍预处理过程，为这个文本数据集构建一个PyTorch数据集类，最后将数据集分解为训练、验证和测试集。</p>
+<p>从Project Gutenberg分发的原始文本文件开始，预处理是最小的:我们使用NLTK的Punkt标记器将文本分割成不同的句子。然后，将每个句子转换为小写字母，并完全去掉标点符号。这种预处理允许我们稍后在空白中拆分字符串，以便检索令牌列表。这一预处理功能是从“示例:餐厅评论情绪分类”中重用的。<br><img src="/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/Example.png" alt="Example" title="图5-2. CBOW任务:用左右语境预测一个单词。上下文窗口在两边的长度都是2。在文本上滑动窗口会产生许多“受监督”的示例，每个示例都有目标词（在中间）。长度不为2的窗口被适当地填充。例如，对于窗口3，考虑到上下文i pitied和my pity，CBOW分类器是用来预测frankenstein的。"><br>下一步是将数据集枚举为一系列窗口，以便对CBOW模型进行优化。为此，我们迭代每个句子中的令牌列表，并将它们分组到指定窗口大小的窗口中，如图5-2所示。</p>
+<p>构建数据集的最后一步是将数据分割为三个集:培训集、验证集和测试集。回想一下，训练和验证集是在模型训练期间使用的:训练集用于更新参数，验证集用于度量模型的性能。测试集最多使用一次，以提供偏差较小的测量。在本例中(以及本书中的大多数示例中)，我们使用了70%的训练集、15%的验证集和15%的测试集。</p>
+<p>windows和目标的结果数据集装载了一个panda DataFrame，并在CBOW Dataset类中建立了索引。示例5-7展示了<strong>getitem</strong>代码片段，该代码片段利用矢量化器将上下文(左右窗口)转换为矢量。目标——窗口中心的单词——使用词汇表转换为整数。</p>
+<p>Example 5-7. Constructing a dataset class for the CBOW task<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CBOWDataset</span><span class="params">(Dataset)</span>:</span></span><br><span class="line">    <span class="comment"># ... existing implementation from Section 3.5</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load_dataset_and_make_vectorizer</span><span class="params">(cls, cbow_csv)</span>:</span></span><br><span class="line">        <span class="string">"""Load dataset and make a new vectorizer from scratch</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            cbow_csv (str): location of the dataset</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            an instance of CBOWDataset</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        cbow_df = pd.read_csv(cbow_csv)</span><br><span class="line">        train_cbow_df = cbow_df[cbow_df.split==<span class="string">'train'</span>]</span><br><span class="line">        <span class="keyword">return</span> cls(cbow_df, CBOWVectorizer.from_dataframe(train_cbow_df))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        <span class="string">"""the primary entry point method for PyTorch datasets</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            index (int): the index to the data point</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            a dict with features (x_data) and label (y_target)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        row = self._target_df.iloc[index]</span><br><span class="line"></span><br><span class="line">        context_vector = \</span><br><span class="line">            self._vectorizer.vectorize(row.context, self._max_seq_length)</span><br><span class="line">        target_index = self._vectorizer.cbow_vocab.lookup_token(row.target)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">'x_data'</span>: context_vector,</span><br><span class="line">                <span class="string">'y_target'</span>: target_index&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Vocabulary-Vectorizer-and-DataLoader"><a href="#Vocabulary-Vectorizer-and-DataLoader" class="headerlink" title="Vocabulary, Vectorizer, and DataLoader"></a>Vocabulary, Vectorizer, and DataLoader</h3><p>在CBOW分类任务中，从文本到向量化的迷你批处理的管道大部分都是标准的:词汇表和DataLoader功能都与“示例:餐厅评论分类情感”中的示例完全一样。然而，与我们在第3章和第4章中看到的矢量化器不同，矢量化器不构造onehot向量。相反，构造并返回一个表示上下文索引的整数向量。示例5-8给出了向量化函数的代码。<br>Example 5-8. A Vectorizer for the CBOW data<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CBOWVectorizer</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">""" The Vectorizer which coordinates the Vocabularies and puts them to use"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">vectorize</span><span class="params">(self, context, vector_length=<span class="number">-1</span>)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            context (str): the string of words separated by a space</span></span><br><span class="line"><span class="string">            vector_length (int): an argument for forcing the length of index vector</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line"></span><br><span class="line">        indices = \</span><br><span class="line">            [self.cbow_vocab.lookup_token(token) <span class="keyword">for</span> token <span class="keyword">in</span> context.split(<span class="string">' '</span>)]</span><br><span class="line">        <span class="keyword">if</span> vector_length &lt; <span class="number">0</span>:</span><br><span class="line">            vector_length = len(indices)</span><br><span class="line"></span><br><span class="line">        out_vector = np.zeros(vector_length, dtype=np.int64)</span><br><span class="line">        out_vector[:len(indices)] = indices</span><br><span class="line">        out_vector[len(indices):] = self.cbow_vocab.mask_index</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> out_vector</span><br></pre></td></tr></table></figure></p>
+<p>请注意，如果上下文中的标记数量小于最大长度，则其余条目将被填入零。但在实践中,这可以称为用零填充。</p>
+<h3 id="The-CBOW-Classifier"><a href="#The-CBOW-Classifier" class="headerlink" title="The CBOW Classifier"></a>The CBOW Classifier</h3><p>示例5-9中显示的CBOW分类器有三个基本步骤。首先，将表示上下文单词的索引与嵌入层一起使用，为上下文中的每个单词创建向量。其次，目标是以某种方式组合这些向量，使其能够捕获整个上下文。在这个例子中，我们对向量求和。然而，其他选项包括取最大值、平均值，甚至在顶部使用多层感知器(MLP)。第三，上下文向量与线性层一起用来计算预测向量。这个预测向量是整个词汇表的概率分布。预测向量中最大(最可能)的值表示目标词的可能预测——上下文中缺少的中心词。</p>
+<p>这里使用的嵌入层主要由两个数字参数化:嵌入的数量(词汇表的大小)和嵌入的大小(嵌入维度)。示例5-9中的代码片段中使用了第三个参数:padding_idx。对于像我们这样数据点长度可能不相同的情况，这个参数被用作嵌入层的标记值。该层强制与该索引对应的向量及其梯度都为0。</p>
+<p>Example 5-9. The CBOW Classifier model<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CBOWClassifier</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, vocabulary_size, embedding_size, padding_idx=<span class="number">0</span>)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            vocabulary_size (int): number of vocabulary items, controls the</span></span><br><span class="line"><span class="string">                number of embeddings and prediction vector size</span></span><br><span class="line"><span class="string">            embedding_size (int): size of the embeddings</span></span><br><span class="line"><span class="string">            padding_idx (int): default 0; Embedding will not use this index</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        super(CBOWClassifier, self).__init__()</span><br><span class="line"></span><br><span class="line">        self.embedding =  nn.Embedding(num_embeddings=vocabulary_size,</span><br><span class="line">                                       embedding_dim=embedding_size,</span><br><span class="line">                                       padding_idx=padding_idx)</span><br><span class="line">        self.fc1 = nn.Linear(in_features=embedding_size,</span><br><span class="line">                             out_features=vocabulary_size)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x_in, apply_softmax=False)</span>:</span></span><br><span class="line">        <span class="string">"""The forward pass of the classifier</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            x_in (torch.Tensor): an input data tensor.</span></span><br><span class="line"><span class="string">                x_in.shape should be (batch, input_dim)</span></span><br><span class="line"><span class="string">            apply_softmax (bool): a flag for the softmax activation</span></span><br><span class="line"><span class="string">                should be false if used with the Cross Entropy losses</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            the resulting tensor. tensor.shape should be (batch, output_dim)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        x_embedded_sum = self.embedding(x_in).sum(dim=<span class="number">1</span>)</span><br><span class="line">        y_out = self.fc1(x_embedded_sum)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> apply_softmax:</span><br><span class="line">            y_out = F.softmax(y_out, dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> y_out</span><br></pre></td></tr></table></figure></p>
+<h3 id="Training-Routine"><a href="#Training-Routine" class="headerlink" title="Training Routine"></a>Training Routine</h3><p>在这个例子中，训练程序遵循我们在整本书中使用的标准。首先，初始化数据集、向量化器、模型、损失函数和优化器。然后，对数据集的训练和验证部分进行一定次数的迭代，优化训练部分的损失最小化，测量验证部分的进度。关于训练程序的更多细节，我们建议您参考“示例:餐厅评论的情绪分类”，在这里我们将详细介绍。示例5-10展示了我们用于训练的参数。<br>Example 5-10. Arguments to the CBOW training script<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Input[<span class="number">0</span>]</span><br><span class="line">args = Namespace(</span><br><span class="line">    <span class="comment"># Data and Path information</span></span><br><span class="line">    cbow_csv=<span class="string">"data/books/frankenstein_with_splits.csv"</span>,</span><br><span class="line">    vectorizer_file=<span class="string">"vectorizer.json"</span>,</span><br><span class="line">    model_state_file=<span class="string">"model.pth"</span>,</span><br><span class="line">    save_dir=<span class="string">"model_storage/ch5/cbow"</span>,</span><br><span class="line">    <span class="comment"># Model hyper parameters</span></span><br><span class="line">    embedding_size=<span class="number">300</span>,</span><br><span class="line">    <span class="comment"># Training hyper parameters</span></span><br><span class="line">    seed=<span class="number">1337</span>,</span><br><span class="line">    num_epochs=<span class="number">100</span>,</span><br><span class="line">    learning_rate=<span class="number">0.001</span>,</span><br><span class="line">    batch_size=<span class="number">128</span>,</span><br><span class="line">    early_stopping_criteria=<span class="number">5</span>,</span><br><span class="line">    <span class="comment"># Runtime options omitted for space</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Model-Evaluation-and-Prediction"><a href="#Model-Evaluation-and-Prediction" class="headerlink" title="Model Evaluation and Prediction"></a>Model Evaluation and Prediction</h3><p>本例中的评估是为测试集中的每个目标和上下文对从提供的单词上下文预测目标单词。正确分类的单词意味着模型正在学习从上下文预测单词。在本例中，该模型在测试集上达到了15%的目标词分类准确率。首先，本例中CBOW的构建旨在说明如何构建通用嵌入。因此，原始实现的许多特性被忽略了，因为它们增加了不必要的复杂性，但对于优化性能却是必要的。第二，我们使用的数据集是微不足道的——一本大约7万字的书不足以在从零开始训练时识别出许多规律。相比之下，最先进Embedding技术通常是在文本为tb的数据集上进行训练。</p>
+<p>在这个例子中，我们展示了如何使用PyTorch nn.Embedding层通过设置一个名为CBOW Classification的人工监督任务来从头开始训练嵌入。 在下一个示例中，我们将研究如何在一个语料库中进行预训练嵌入，如何使用它并对其进行微调以进行其他任务。 在机器学习中，使用在一个任务上训练的模型作为另一个任务的初始化器称为转移学习(transfer learning)。</p>
+<h2 id="Example-Transfer-Learning-Using-Pretrained-Embeddings-for-Document-Classification"><a href="#Example-Transfer-Learning-Using-Pretrained-Embeddings-for-Document-Classification" class="headerlink" title="Example: Transfer Learning Using Pretrained Embeddings for Document Classification"></a>Example: Transfer Learning Using Pretrained Embeddings for Document Classification</h2><p>前面的示例使用一个嵌入层(embedding layer)做简单分类,这个例子构建在三个方面:首先,通过加载pretrained word embedding,然后微调这些pretrained嵌入整个新闻文章分类,最后用卷积神经网络(CNN)来捕获单词之间的空间关系。</p>
+<p>在这个例子中，我们使用AG News数据集。为了对AG News中的单词序列进行建模，我们引入了词汇表类的一个变体SequenceVocabulary，以捆绑一些对建模序列至关重要的标记。矢量化器演示了如何使用这个类。</p>
+<p>在描述了数据集以及向量化的小批处理是如何构建的之后，我们将逐步将预先训练好的单词向量加载到一个Embedding层中，并演示如何根据我们的设置对它们进行定制。然后，将预训练的Embedding层与“用CNN对姓氏进行分类的例子”中使用的CNN结合起来。为了将模型的复杂性扩大到更实际的结构，我们还确定了使用dropout作为正则化技术的地方。给出了模型描述，然后讨论了训练过程。您可能不会感到惊讶的是，与第4章和本章中的前两个示例相比，训练例程几乎没有什么变化。最后，通过在测试集上对模型进行评价并对结果进行讨论，得出了算例。</p>
+<h3 id="The-AG-News-Dataset"><a href="#The-AG-News-Dataset" class="headerlink" title="The AG News Dataset"></a>The AG News Dataset</h3><p>AG news数据集是由学者们在2005年为实验数据挖掘和信息提取方法而收集的100多万篇新闻文章的集合。这个例子的目的是说明预先训练的词嵌入在文本分类中的有效性。在本例中，我们使用精简版的120,000篇新闻文章，这些文章平均分为四类:体育、科学/技术、世界和商业。除了精简数据集之外，我们还将文章标题作为我们的观察重点，并创建多类分类任务来预测给定标题的类别。</p>
+<p>和以前一样，我们通过删除标点符号、在标点符号周围添加空格(如逗号、撇号和句点)来预处理文本，并将文本转换为小写。另外，我们将数据集分解为训练、验证和测试集，首先通过类标签聚合数据点，然后将每个数据点分配给三个分割中的一个。通过这种方式，保证了跨分支的类分布是相同的。</p>
+<p>AG news dataset的<strong>getitem</strong>,第5-11所示的例子,是一个相当基本的公式你现在应该熟悉:检索的字符串表示模型的输入数据集从一个特定的行,Vectorizer矢量化,并搭配整数代表新闻类别(类标签)。</p>
+<p>Example 5-11. The AG News aataset’s__getitem__ method<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsDataset</span><span class="params">(Dataset)</span>:</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load_dataset_and_make_vectorizer</span><span class="params">(cls, news_csv)</span>:</span></span><br><span class="line">        <span class="string">"""Load dataset and make a new vectorizer from scratch</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            surname_csv (str): location of the dataset</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            an instance of SurnameDataset</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        news_df = pd.read_csv(news_csv)</span><br><span class="line">        train_news_df = news_df[news_df.split==<span class="string">'train'</span>]</span><br><span class="line">        <span class="keyword">return</span> cls(news_df, NewsVectorizer.from_dataframe(train_news_df))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        <span class="string">"""the primary entry point method for PyTorch datasets</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            index (int): the index to the data point</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            a dict holding the data point's features (x_data) and label (y_target)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        row = self._target_df.iloc[index]</span><br><span class="line"></span><br><span class="line">        title_vector = \</span><br><span class="line">            self._vectorizer.vectorize(row.title, self._max_seq_length)</span><br><span class="line"></span><br><span class="line">        category_index = \</span><br><span class="line">            self._vectorizer.category_vocab.lookup_token(row.category)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">'x_data'</span>: title_vector,</span><br><span class="line">                <span class="string">'y_target'</span>: category_index&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Vocabulary-Vectorizer-and-DataLoader-1"><a href="#Vocabulary-Vectorizer-and-DataLoader-1" class="headerlink" title="Vocabulary, Vectorizer, and DataLoader"></a>Vocabulary, Vectorizer, and DataLoader</h3><p>在这个例子中，我们引入了SequenceVocabulary，它是标准Vocabulary类的子类，它捆绑了用于序列数据的四个特殊标记：UNK标记，MASK标记，BEGIN-SEQUENCE标记和END-SEQUENCE标记。 我们在第6章中更详细地描述了这些令牌，但简而言之，它们有三个不同的用途。 我们在第4章中看到的UNK标记（Unknown的缩写）允许模型学习稀有单词的表示，以便它可以容纳在测试时从未见过的单词。 当我们有可变长度的序列时，MASK令牌充当嵌入层和损失计算的标记。 最后，BEGIN-SEQUENCE和END-SEQUENCE标记给出了关于序列边界的神经网络提示。 图5-3显示了在更广泛的矢量化管道中使用这些特殊标记的结果。</p>
+<p><img src="/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/Vec.png" alt="Vec"><br>图5-3. 矢量化管道的一个简单示例从基本序列序列开始。Sequencevocabulary有四个特殊标记描述在文本。首先，它用于将单词映射到整数序列。因为单词“Jerry”不在序列表中，所以它被映射到<unk>整数。接下来，标记句子边界的特殊标记放在前面并附加到整数中。最后，整数用0填充到特定的长度，这允许数据集中的每个向量都是相同的长度。</unk></p>
+<p>text-to-vectorized-minibatch管道中的第二个组件是Vectorizer，它实例化并封装了SequenceVocabulary的使用。 在这个例子中，Vectorizer遵循我们在第3-5节中演示的模式，通过对特定频率进行计数和阈值处理来限制词汇表中允许的总词集。 此操作的核心目的是通过消除噪声，低频字并限制内存模型的内存使用来提高模型的信号质量。</p>
+<p>实例化后，Vectorizer的vectorize（）方法将新闻标题作为输入，并返回与数据集中最长标题一样长的向量。重要的是，它有两个关键行为。第一个是它在本地存储最大序列长度。通常，数据集跟踪最大序列长度，并且在推断时，测试序列的长度被视为向量的长度。但是，因为我们有CNN模型，所以即使在推理时也要保持静态大小。示例5-11中的代码片段中显示的第二个键行为是它输出一个零填充的整数向量，它表示序列中的单词。此外，这个整数向量具有前缀为开头的BEGIN-SEQUENCE标记的整数，以及附加到向量末尾的END-SEQUENCE标记的整数。从分类器的角度来看，这些特殊标记提供了序列边界的证据，使其能够对边界附近的单词作出反应，而不是对靠近中心的单词作出反应。</p>
+<p>Example 5-12. Implementing a Vectorizer for the AG News dataset<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsVectorizer</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">vectorize</span><span class="params">(self, title, vector_length=<span class="number">-1</span>)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            title (str): the string of words separated by a space</span></span><br><span class="line"><span class="string">            vector_length (int): forces the length of index vector</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            the vectorized title (numpy.array)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        indices = [self.title_vocab.begin_seq_index]</span><br><span class="line">        indices.extend(self.title_vocab.lookup_token(token)</span><br><span class="line">                       <span class="keyword">for</span> token <span class="keyword">in</span> title.split(<span class="string">" "</span>))</span><br><span class="line">        indices.append(self.title_vocab.end_seq_index)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> vector_length &lt; <span class="number">0</span>:</span><br><span class="line">            vector_length = len(indices)</span><br><span class="line"></span><br><span class="line">        out_vector = np.zeros(vector_length, dtype=np.int64)</span><br><span class="line">        out_vector[:len(indices)] = indices</span><br><span class="line">        out_vector[len(indices):] = self.title_vocab.mask_index</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> out_vector</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_dataframe</span><span class="params">(cls, news_df, cutoff=<span class="number">25</span>)</span>:</span></span><br><span class="line">        <span class="string">"""Instantiate the vectorizer from the dataset dataframe</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            news_df (pandas.DataFrame): the target dataset</span></span><br><span class="line"><span class="string">            cutoff (int): frequency threshold for including in Vocabulary</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            an instance of the NewsVectorizer</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        category_vocab = Vocabulary()        </span><br><span class="line">        <span class="keyword">for</span> category <span class="keyword">in</span> sorted(set(news_df.category)):</span><br><span class="line">            category_vocab.add_token(category)</span><br><span class="line"></span><br><span class="line">        word_counts = Counter()</span><br><span class="line">        <span class="keyword">for</span> title <span class="keyword">in</span> news_df.title:</span><br><span class="line">            <span class="keyword">for</span> token <span class="keyword">in</span> title.split(<span class="string">" "</span>):</span><br><span class="line">                <span class="keyword">if</span> token  <span class="keyword">not</span> <span class="keyword">in</span> string.punctuation:</span><br><span class="line">                    word_counts[token] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        title_vocab = SequenceVocabulary()</span><br><span class="line">        <span class="keyword">for</span> word, word_count <span class="keyword">in</span> word_counts.items():</span><br><span class="line">            <span class="keyword">if</span> word_count &gt;= cutoff:</span><br><span class="line">                title_vocab.add_token(word)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cls(title_vocab, category_vocab)</span><br></pre></td></tr></table></figure></p>
+<h3 id="The-News-Classifier"><a href="#The-News-Classifier" class="headerlink" title="The News Classifier"></a>The News Classifier</h3><p>在本章的前面，我们看到了如何从磁盘加载预训练嵌入，并使用Spotify的Annoy库中的近似最近邻数据结构有效地使用它们。 在该示例中，我们将向量相互比较以发现有趣的语言学见解。 但是，预训练的单词向量具有更有效的用途：我们可以使用它们来初始化嵌入层的嵌入矩阵。</p>
+<p>使用单词嵌入(word embedding)作为初始嵌入矩阵的过程首先从磁盘加载嵌入，然后为数据中实际存在的单词选择正确的嵌入子集，然后最后设置嵌入层的权重矩阵 作为加载的子集。 在例5-13中演示了选择子集的第一步和第二步。 通常出现的一个问题是数据集中存在的单词，但不包含在预训练的GloVe嵌入中。 处理此问题的一种常用方法是使用PyTorch库中的初始化方法，例如Xavier Uniform方法，如例5-13所示（Glorot和Bengio，2010）。</p>
+<p>Example 5-13. Selecting a subset of the word embeddings based on the vocabulary<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_glove_from_file</span><span class="params">(glove_filepath)</span>:</span></span><br><span class="line">    <span class="string">"""Load the GloVe embeddings</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        glove_filepath (str): path to the glove embeddings file</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        word_to_index (dict), embeddings (numpy.ndarray)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    word_to_index = &#123;&#125;</span><br><span class="line">    embeddings = []</span><br><span class="line">    <span class="keyword">with</span> open(glove_filepath, <span class="string">"r"</span>) <span class="keyword">as</span> fp:</span><br><span class="line">        <span class="keyword">for</span> index, line <span class="keyword">in</span> enumerate(fp):</span><br><span class="line">            line = line.split(<span class="string">" "</span>) <span class="comment"># each line: word num1 num2 ...</span></span><br><span class="line">            word_to_index[line[<span class="number">0</span>]] = index <span class="comment"># word = line[0]</span></span><br><span class="line">            embedding_i = np.array([float(val) <span class="keyword">for</span> val <span class="keyword">in</span> line[<span class="number">1</span>:]])</span><br><span class="line">            embeddings.append(embedding_i)</span><br><span class="line">    <span class="keyword">return</span> word_to_index, np.stack(embeddings)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_embedding_matrix</span><span class="params">(glove_filepath, words)</span>:</span></span><br><span class="line">    <span class="string">"""Create embedding matrix for a specific set of words.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        glove_filepath (str): file path to the glove embeddings</span></span><br><span class="line"><span class="string">        words (list): list of words in the dataset</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        final_embeddings (numpy.ndarray): embedding matrix</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    word_to_idx, glove_embeddings = load_glove_from_file(glove_filepath)</span><br><span class="line">    embedding_size = glove_embeddings.shape[<span class="number">1</span>]</span><br><span class="line">    final_embeddings = np.zeros((len(words), embedding_size))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, word <span class="keyword">in</span> enumerate(words):</span><br><span class="line">        <span class="keyword">if</span> word <span class="keyword">in</span> word_to_idx:</span><br><span class="line">            final_embeddings[i, :] = glove_embeddings[word_to_idx[word]]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            embedding_i = torch.ones(<span class="number">1</span>, embedding_size)</span><br><span class="line">            torch.nn.init.xavier_uniform_(embedding_i)</span><br><span class="line">            final_embeddings[i, :] = embedding_i</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> final_embeddings</span><br></pre></td></tr></table></figure></p>
+<p>此示例中的NewsClassifier建立在第4-4节中的ConvNet分类器上，其中我们使用CNN对字符的onehot嵌入对姓氏进行分类。 具体来说，我们使用嵌入层，它将输入标记索引映射到矢量表示。 我们通过替换嵌入层的权重矩阵来使用预训练嵌入子集，如例5-14所示。 然后在前向方法中使用嵌入以从索引映射到向量。 除了嵌入层，一切都与第4-4节中的示例完全相同。</p>
+<p>Example 5-14. Implementing the News Classifier<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsClassifier</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, embedding_size, num_embeddings, num_channels,</span></span></span><br><span class="line"><span class="function"><span class="params">                 hidden_dim, num_classes, dropout_p,</span></span></span><br><span class="line"><span class="function"><span class="params">                 pretrained_embeddings=None, padding_idx=<span class="number">0</span>)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            embedding_size (int): size of the embedding vectors</span></span><br><span class="line"><span class="string">            num_embeddings (int): number of embedding vectors</span></span><br><span class="line"><span class="string">            filter_width (int): width of the convolutional kernels</span></span><br><span class="line"><span class="string">            num_channels (int): number of convolutional kernels per layer</span></span><br><span class="line"><span class="string">            hidden_dim (int): the size of the hidden dimension</span></span><br><span class="line"><span class="string">            num_classes (int): the number of classes in classification</span></span><br><span class="line"><span class="string">            dropout_p (float): a dropout parameter</span></span><br><span class="line"><span class="string">            pretrained_embeddings (numpy.array): previously trained word embeddings</span></span><br><span class="line"><span class="string">                default is None. If provided,</span></span><br><span class="line"><span class="string">            padding_idx (int): an index representing a null position</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        super(NewsClassifier, self).__init__()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> pretrained_embeddings <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            self.emb = nn.Embedding(embedding_dim=embedding_size,</span><br><span class="line">                                    num_embeddings=num_embeddings,</span><br><span class="line">                                    padding_idx=padding_idx)        </span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            pretrained_embeddings = torch.from_numpy(pretrained_embeddings).float()</span><br><span class="line">            self.emb = nn.Embedding(embedding_dim=embedding_size,</span><br><span class="line">                                    num_embeddings=num_embeddings,</span><br><span class="line">                                    padding_idx=padding_idx,</span><br><span class="line">                                    _weight=pretrained_embeddings)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        self.convnet = nn.Sequential(</span><br><span class="line">            nn.Conv1d(in_channels=embedding_size,</span><br><span class="line">                   out_channels=num_channels, kernel_size=<span class="number">3</span>),</span><br><span class="line">            nn.ELU(),</span><br><span class="line">            nn.Conv1d(in_channels=num_channels, out_channels=num_channels,</span><br><span class="line">                   kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">            nn.ELU(),</span><br><span class="line">            nn.Conv1d(in_channels=num_channels, out_channels=num_channels,</span><br><span class="line">                   kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>),</span><br><span class="line">            nn.ELU(),</span><br><span class="line">            nn.Conv1d(in_channels=num_channels, out_channels=num_channels,</span><br><span class="line">                   kernel_size=<span class="number">3</span>),</span><br><span class="line">            nn.ELU()</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        self._dropout_p = dropout_p</span><br><span class="line">        self.fc1 = nn.Linear(num_channels, hidden_dim)</span><br><span class="line">        self.fc2 = nn.Linear(hidden_dim, num_classes)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x_in, apply_softmax=False)</span>:</span></span><br><span class="line">        <span class="string">"""The forward pass of the classifier</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            x_in (torch.Tensor): an input data tensor.</span></span><br><span class="line"><span class="string">                x_in.shape should be (batch, dataset._max_seq_length)</span></span><br><span class="line"><span class="string">            apply_softmax (bool): a flag for the softmax activation</span></span><br><span class="line"><span class="string">                should be false if used with the Cross Entropy losses</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            the resulting tensor. tensor.shape should be (batch, num_classes)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># embed and permute so features are channels</span></span><br><span class="line">        x_embedded = self.emb(x_in).permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        features = self.convnet(x_embedded)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># average and remove the extra dimension</span></span><br><span class="line">        remaining_size = features.size(dim=<span class="number">2</span>)</span><br><span class="line">        features = F.avg_pool1d(features, remaining_size).squeeze(dim=<span class="number">2</span>)</span><br><span class="line">        features = F.dropout(features, p=self._dropout_p)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># final linear layer to produce classification outputs</span></span><br><span class="line">        intermediate_vector = F.relu(F.dropout(self.fc1(features),</span><br><span class="line">                                               p=self._dropout_p))</span><br><span class="line">        prediction_vector = self.fc2(intermediate_vector)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> apply_softmax:</span><br><span class="line">            prediction_vector = F.softmax(prediction_vector, dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> prediction_vector</span><br></pre></td></tr></table></figure></p>
+<h3 id="The-Training-Routine"><a href="#The-Training-Routine" class="headerlink" title="The Training Routine"></a>The Training Routine</h3><p>训练例程包括以下操作序列：实例化数据集; 实例化模型; 实例化损失函数; 实例化优化器; 迭代数据集的训练分区并更新模型参数，迭代数据集的验证分区并测量性能; 然后重复数据集迭代一定次数。 此时，您应该非常熟悉这个序列。 示例5-15中显示了此示例的超参数和其他训练参数。</p>
+<p>Example 5-15. Arguments to the CNN news classifier using pretrained embeddings<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">args = Namespace(</span><br><span class="line">    <span class="comment"># Data and path hyper parameters</span></span><br><span class="line">    news_csv=<span class="string">"data/ag_news/news_with_splits.csv"</span>,</span><br><span class="line">    vectorizer_file=<span class="string">"vectorizer.json"</span>,</span><br><span class="line">    model_state_file=<span class="string">"model.pth"</span>,</span><br><span class="line">    save_dir=<span class="string">"model_storage/ch5/document_classification"</span>,</span><br><span class="line">    <span class="comment"># Model hyper parameters</span></span><br><span class="line">    glove_filepath=<span class="string">'data/glove/glove.6B.100d.txt'</span>,</span><br><span class="line">    use_glove=<span class="keyword">False</span>,</span><br><span class="line">    embedding_size=<span class="number">100</span>,</span><br><span class="line">    hidden_dim=<span class="number">100</span>,</span><br><span class="line">    num_channels=<span class="number">100</span>,</span><br><span class="line">    <span class="comment"># Training hyper parameter</span></span><br><span class="line">    seed=<span class="number">1337</span>,</span><br><span class="line">    learning_rate=<span class="number">0.001</span>,</span><br><span class="line">    dropout_p=<span class="number">0.1</span>,</span><br><span class="line">    batch_size=<span class="number">128</span>,</span><br><span class="line">    num_epochs=<span class="number">100</span>,</span><br><span class="line">    early_stopping_criteria=<span class="number">5</span>,                  </span><br><span class="line">    <span class="comment"># ... runtime options not shown for space</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Model-Evaluation-and-Prediction-1"><a href="#Model-Evaluation-and-Prediction-1" class="headerlink" title="Model Evaluation and Prediction"></a>Model Evaluation and Prediction</h3><p>在这个例子中，任务是将新闻标题分类到它们各自的类别。正如您在前面的示例中看到的，有两种方法可以理解模型执行任务的好坏:使用测试数据集的定量评估，以及亲自检查分类结果的定性评估。</p>
+<h3 id="Evaluating-on-the-test-dataset"><a href="#Evaluating-on-the-test-dataset" class="headerlink" title="Evaluating on the test dataset"></a>Evaluating on the test dataset</h3><p>虽然这是你第一次看到的任务分类新闻头条,定量评价例程应该出现一模一样的每一评估程序:设置模型在eval模式关掉辍学和反向传播(使用classifier.eval()),然后遍历测试集以同样的方式作为训练集和验证集。在典型的环境中，您应该尝试不同的训练选项，当您满意时，您应该执行模型评估。我们会把这个留到练习结束。在这个测试集中你能得到的最终准确度是多少?请记住，在整个实验过程中，您只能使用测试集一次。</p>
+<p>Predicting the category of novel news headlines<br>训练分类器的目标是将其部署到生产环境中，以便能够对不可见的新闻标题执行推理或预测。要预测尚未处理和数据集中的新闻标题的类别，有几个步骤。第一种是对文本进行预处理，其方式类似于对训练中的数据进行预处理。对于推理，我们对输入使用与训练中相同的预处理函数。该预处理字符串使用训练期间使用的矢量化器向量化，并转换为PyTorch张量。接下来，对它应用分类器。计算预测向量的最大值以查找类别的名称。示例5-16给出了代码。</p>
+<p>Example 5-16. Predicting with the trained model<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict_category</span><span class="params">(title, classifier, vectorizer, max_length)</span>:</span></span><br><span class="line">    <span class="string">"""Predict a News category for a new title</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        title (str): a raw title string</span></span><br><span class="line"><span class="string">        classifier (NewsClassifier): an instance of the trained classifier</span></span><br><span class="line"><span class="string">        vectorizer (NewsVectorizer): the corresponding vectorizer</span></span><br><span class="line"><span class="string">        max_length (int): the max sequence length</span></span><br><span class="line"><span class="string">            Note: CNNs are sensitive to the input data tensor size.</span></span><br><span class="line"><span class="string">                  This ensures to keep it the same size as the training data</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    title = preprocess_text(title)</span><br><span class="line">    vectorized_title = \</span><br><span class="line">        torch.tensor(vectorizer.vectorize(title, vector_length=max_length))</span><br><span class="line">    result = classifier(vectorized_title.unsqueeze(<span class="number">0</span>), apply_softmax=<span class="keyword">True</span>)</span><br><span class="line">    probability_values, indices = result.max(dim=<span class="number">1</span>)</span><br><span class="line">    predicted_category = vectorizer.category_vocab.lookup_index(indices.item())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">'category'</span>: predicted_category,</span><br><span class="line">            <span class="string">'probability'</span>: probability_values.item()&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>在本章中，我们研究了单词嵌入，这是一种在空间中将单词（如单词）表示为固定维度向量的方式，使得向量之间的距离编码各种语言属性。 重要的是要记住，本章介绍的技术适用于任何离散单元，如句子，段落，文档，数据库记录等。 这使得嵌入技术对于深度学习是必不可少的，特别是在NLP中。 我们展示了如何以黑盒方式使用预训练嵌入。 我们简要讨论了直接从数据中学习这些嵌入的几种方法，包括连续词袋（CBOW）方法。 我们展示了如何在语言建模的背景下训练CBOW模型。 最后，我们通过一个在文档分类等任务中使用预训练embedding和微调embedding的示例。</p>
+<p>不幸的是，本章由于缺乏空间而遗漏了许多重要的主题，例如消除词嵌入，建模上下文和一词多义。语言数据是世界的反映。社会偏见可以通过有偏见的训练语料库编码成模型。在一项研究中，最接近代词“她”的词是家庭主妇，护士，接待员，图书管理员，理发师等，而最接近“他”的词则是外科医生，保护者，哲学家，建筑师，金融家等等。 。对这种有偏见的嵌入进行过培训的模型可以继续做出可能产生不公平结果的决策。不再使用单词嵌入仍然是一个新生的领域，我们建议您阅读Bolukbasi等人.（2016年）和最近的论文引用了这一点。我们使用的嵌入词不依赖于上下文。例如，根据上下文，单词“play”可能有两个不同的含义，但这里讨论的所有嵌入(embedding)方法都会破坏这两个含义。最近的作品如Peters（2018）探索了以上下文为条件提供嵌入的方法。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/">Natural-Language-Processing-with-PyTorch（五）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2018年12月21日 - 12:12</p>
+  <p><span>最后更新:</span>2018年12月21日 - 15:12</p>
+  <p><span>原始链接:</span><a href="/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/" title="Natural-Language-Processing-with-PyTorch（五）">http://yifdu.github.io/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/Pytorch/" rel="tag"># Pytorch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/20/Natural-Language-Processing-with-PyTorch（四）/" rel="next" title="Natural-Language-Processing-with-PyTorch（四）">
+                <i class="fa fa-chevron-left"></i> Natural-Language-Processing-with-PyTorch（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chapter-5-Embedding-Words-and-Types"><span class="nav-number">1.</span> <span class="nav-text">Chapter 5. Embedding Words and Types</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-Learn-Embeddings"><span class="nav-number">1.1.</span> <span class="nav-text">Why Learn Embeddings?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Efficiency-of-Embeddings"><span class="nav-number">1.1.1.</span> <span class="nav-text">Efficiency of Embeddings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Approaches-to-Learning-Word-Embeddings"><span class="nav-number">1.1.2.</span> <span class="nav-text">Approaches to Learning Word Embeddings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Practical-Use-of-Pretrained-Word-Embeddings"><span class="nav-number">1.1.3.</span> <span class="nav-text">The Practical Use of Pretrained Word Embeddings</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-Learning-the-Continuous-Bag-of-Words-Embeddings"><span class="nav-number">1.2.</span> <span class="nav-text">Example: Learning the Continuous Bag of Words Embeddings</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Frankenstein-Dataset"><span class="nav-number">1.2.1.</span> <span class="nav-text">Frankenstein Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vocabulary-Vectorizer-and-DataLoader"><span class="nav-number">1.2.2.</span> <span class="nav-text">Vocabulary, Vectorizer, and DataLoader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-CBOW-Classifier"><span class="nav-number">1.2.3.</span> <span class="nav-text">The CBOW Classifier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-Routine"><span class="nav-number">1.2.4.</span> <span class="nav-text">Training Routine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Evaluation-and-Prediction"><span class="nav-number">1.2.5.</span> <span class="nav-text">Model Evaluation and Prediction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-Transfer-Learning-Using-Pretrained-Embeddings-for-Document-Classification"><span class="nav-number">1.3.</span> <span class="nav-text">Example: Transfer Learning Using Pretrained Embeddings for Document Classification</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-AG-News-Dataset"><span class="nav-number">1.3.1.</span> <span class="nav-text">The AG News Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vocabulary-Vectorizer-and-DataLoader-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">Vocabulary, Vectorizer, and DataLoader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-News-Classifier"><span class="nav-number">1.3.3.</span> <span class="nav-text">The News Classifier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Training-Routine"><span class="nav-number">1.3.4.</span> <span class="nav-text">The Training Routine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Evaluation-and-Prediction-1"><span class="nav-number">1.3.5.</span> <span class="nav-text">Model Evaluation and Prediction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Evaluating-on-the-test-dataset"><span class="nav-number">1.3.6.</span> <span class="nav-text">Evaluating on the test dataset</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.4.</span> <span class="nav-text">Summary</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

@@ -99,7 +99,7 @@
 <meta property="og:description" content="决策树模型的简介分类决策树模型是一种描述对实例进行分类的树形结构。我们可以理解这种树形结构是符合if-then的规则，也可以认为是定义在特征空间与类空间上的条件概率分布。我们希望我们构建的树结构的泛化能力尽可能强。在学习时，我们利用训练数据，根据损失函数最小化的原则建立决策树模型。预测时，对新数据利用决策树模型进行分类。   决策树学习通常包括三个步骤：1.特征选择 2.决策树的生成和 3. 决策">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543933865494&di=e9d60d4c2a0d74d7e1ed89ba0604c036&imgtype=0&src=http%3A%2F%2Faliyunzixunbucket.oss-cn-beijing.aliyuncs.com%2Fjpg%2Fcc6710868e2d886eb30524dd9450ed38.jpg%3Fx-oss-process%3Dimage%2Fresize%2Cp_100%2Fauto-orient%2C1%2Fquality%2Cq_90%2Fformat%2Cjpg%2Fwatermark%2Cimage_eXVuY2VzaGk%3D%2Ct_100">
-<meta property="og:updated_time" content="2018-12-10T04:34:26.812Z">
+<meta property="og:updated_time" content="2018-12-17T12:40:25.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（三）——决策树">
 <meta name="twitter:description" content="决策树模型的简介分类决策树模型是一种描述对实例进行分类的树形结构。我们可以理解这种树形结构是符合if-then的规则，也可以认为是定义在特征空间与类空间上的条件概率分布。我们希望我们构建的树结构的泛化能力尽可能强。在学习时，我们利用训练数据，根据损失函数最小化的原则建立决策树模型。预测时，对新数据利用决策树模型进行分类。   决策树学习通常包括三个步骤：1.特征选择 2.决策树的生成和 3. 决策">
@@ -366,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4.7k 字
+                  5.6k 字
                 </span>
               
 
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  18 分钟
+                  21 分钟
                 </span>
               
             </div>
@@ -405,7 +405,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543933865494&di=e9d60d4c2a0d74d7e1ed89ba0604c036&imgtype=0&src=http%3A%2F%2Faliyunzixunbucket.oss-cn-beijing.aliyuncs.com%2Fjpg%2Fcc6710868e2d886eb30524dd9450ed38.jpg%3Fx-oss-process%3Dimage%2Fresize%2Cp_100%2Fauto-orient%2C1%2Fquality%2Cq_90%2Fformat%2Cjpg%2Fwatermark%2Cimage_eXVuY2VzaGk%3D%2Ct_100" rel="gallery_cjpp4g8um003qwowaxkvpdaw3" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543933865494&di=e9d60d4c2a0d74d7e1ed89ba0604c036&imgtype=0&src=http%3A%2F%2Faliyunzixunbucket.oss-cn-beijing.aliyuncs.com%2Fjpg%2Fcc6710868e2d886eb30524dd9450ed38.jpg%3Fx-oss-process%3Dimage%2Fresize%2Cp_100%2Fauto-orient%2C1%2Fquality%2Cq_90%2Fformat%2Cjpg%2Fwatermark%2Cimage_eXVuY2VzaGk%3D%2Ct_100" rel="gallery_cjpxov22p004r6owaxdck2xzq" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543933865494&di=e9d60d4c2a0d74d7e1ed89ba0604c036&imgtype=0&src=http%3A%2F%2Faliyunzixunbucket.oss-cn-beijing.aliyuncs.com%2Fjpg%2Fcc6710868e2d886eb30524dd9450ed38.jpg%3Fx-oss-process%3Dimage%2Fresize%2Cp_100%2Fauto-orient%2C1%2Fquality%2Cq_90%2Fformat%2Cjpg%2Fwatermark%2Cimage_eXVuY2VzaGk%3D%2Ct_100" itemprop="contentUrl">
               </a>
             
@@ -421,23 +421,31 @@
 <p>  决策树学习通常包括三个步骤：1.特征选择 2.决策树的生成和 3. 决策树的修剪。</p>
 <p>  决策树的模型有许多种，主要的区别就是信息增益的计算函数不同。</p>
 <h1 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h1><p>特征选择在于选取对训练数据具有分类能力的特征。这样可以提高决策树学习的效率。如果利用一个特征进行分类的结果与随即分类的结果没有很大擦汗别，则称这个特征是没有分类能力的。经验上扔掉这样的特征对决策树学习的精度影响不大。通常特征选择的准则是信息增益或信息增益比。<br>我们进行特征选择是希望决定用哪个特征来划分特征空间。<br>直观熵，如果一个特征具有更好的分类能力，或者说，按照这一特征将训练数据集分割成子集，使得各个子集在当前条件下具有最好的分类，那么就更应该选择这个特征。信息增益(information gain)就能够很好地表示这一直观地准测。</p>
+<p>这里会用到的信息论知识：</p>
+<ul>
+<li>1.信息熵(information entropy)</li>
+<li>2.信息增益(information gain)</li>
+<li>3.信息增益率(information gain ratio)</li>
+<li>4.基尼指数(Gini index)</li>
+</ul>
 <h2 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h2><p>在信息论与概率统计中，熵(entropy)是表示随机变量不确定性地度量，设X是一个取有限个值的离散随机变量，其概率分布为$P(X=x_i)=p_i$, i=1,2,3….,n</p>
 <h3 id="熵"><a href="#熵" class="headerlink" title="熵"></a>熵</h3><p>则随机变量X的熵定义为：</p>
 <script type="math/tex; mode=display">H(X)=-\sum_{i=1}^np_ilogp_i</script><p>也常称为经验熵</p>
 <h3 id="条件熵"><a href="#条件熵" class="headerlink" title="条件熵"></a>条件熵</h3><p>条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y的不确定性。</p>
 <script type="math/tex; mode=display">H(Y|X)=\sum_{i=1}^np_iH(Y|X=x_i)</script><p>其中$p_i=P(X=x_i)$,i=1,2,…,n</p>
 <p>也常称为经验条件熵</p>
-<p>信息增益： 特征A对训练数据集D的信息增益g(D,A)，定义为集合D的经验熵与特征A给定跳进啊下D的经验条件熵H(D|A)之差。</p>
+<p>信息增益(information gain)： 特征A对训练数据集D的信息增益g(D,A)，定义为集合D的经验熵与特征A给定跳进啊下D的经验条件熵H(D|A)之差。</p>
 <script type="math/tex; mode=display">g(D,A)=H(D)-H(D|A)</script><p>一般地，熵H(Y)与条件熵H(Y|X)之差称为互信息。决策树学习中的信息增益等价于训练数据集中类与特征的互信息。</p>
 <p>直观的理解互信息，就是在我们给定特征X以后，训练集的确定性增加的量。</p>
 <p>根据信息增益准则的特征选择方法是：对训练数据集(或子集)D,计算其每个特征的信息增益，并比较它们的大小，选择信息增益最大的特征。</p>
-<p>信息增益算法：<br>输入：训练数据集D和特征A<br>输出：特征A对训练数据集D的信息增益g(D,A)<br>(1)计算数据集D的经验熵H(D)</p>
+<p>信息增益(information gain)算法：<br>输入：训练数据集D和特征A<br>输出：特征A对训练数据集D的信息增益g(D,A)<br>(1)计算数据集D的经验熵H(D)</p>
 <script type="math/tex; mode=display">H(D)=-\sum_{k=1}^K\frac{|C_k|}{|D|}log_2\frac{|C_k|}{|D|}</script><p>(2)计算特征A对数据集D的经验条件熵H(D|A)</p>
 <script type="math/tex; mode=display">H(D|A)=-\sum_{i=1}^n\frac{|D_i|}{|D|}H(D_i)=-\sum_{i=1}^n\frac{|D_i|}{|D|}\sum_{k=1}^K\frac{|D_{ik}|}{|D_i|}log_2\frac{|D_{ik}|}{|D_i|}</script><p>(3)计算信息增益</p>
-<script type="math/tex; mode=display">g(D,A)=H(D)-H(D|A)</script><h1 id="决策树的生成"><a href="#决策树的生成" class="headerlink" title="决策树的生成"></a>决策树的生成</h1><h2 id="ID3算法"><a href="#ID3算法" class="headerlink" title="ID3算法"></a>ID3算法</h2><p>ID3算法的核心是在决策树各个结点上应用信息增益准则选择特征，递归地构建决策树。具体方法是：从根节点(root node)开始，对结点计算所有可能的特征的信息增益，选择信息增益最大的特征作为结点的特征，由该特征的不同取值建立子结点；再对子结点递归地调用以上方法，构建决策树；直到所有特征的信息增益均很小或者没有特征可以选择为止。最后得到一个决策树。ID3相当于用极大似然法进行概率模型的选择。</p>
+<script type="math/tex; mode=display">g(D,A)=H(D)-H(D|A)</script><h1 id="决策树的生成"><a href="#决策树的生成" class="headerlink" title="决策树的生成"></a>决策树的生成</h1><p><img src="/2018/12/04/机器学习（三）——决策树/algorithms.png" alt="algorithms"></p>
+<h2 id="ID3算法"><a href="#ID3算法" class="headerlink" title="ID3算法"></a>ID3算法</h2><p>ID3算法的核心是在决策树各个结点上应用信息增益准则选择特征，递归地构建决策树。具体方法是：从根节点(root node)开始，对结点计算所有可能的特征的信息增益，选择信息增益最大的特征作为结点的特征，由该特征的不同取值建立子结点；再对子结点递归地调用以上方法，构建决策树；直到所有特征的信息增益均很小或者没有特征可以选择为止。最后得到一个决策树。ID3相当于用极大似然法进行概率模型的选择。</p>
 <p>ID3算法：<br>输入：训练数据集D,特征集A,阈值$\epsilon$<br>输出：决策树T<br>(1)若D中所有实例属于同一类$C_k$,则T为单节点树，并将类$C_k$作为该结点的类标记，返回T<br>(2)若A=$\empty$，则T为单结点树，并将D中实例数最大的类$C_k$作为该结点的类标记，返回T;<br>(3)否则，按信息增益算法计算A中各个特征对D的信息增益，选择信息增益最大的特征$A_g$;<br>(4)如果$A_g$的信息增益小于阈值$\epsilon$,则置T为单结点树，并将D中实例数最大的类$C_k$作为该结点的类标记，返回T<br>(5)否则，对$A_g$的每一可能值$a_i$,依$A_g=a_i$将D分割为若干非空子集$D_i$,将$D_i$中的实例数最大的类作为标记，构建子结点，由结点及其子结点构成树T,返回$T$;<br>(6)对第i个子结点，以$D_i$为训练集，以$A-{A_g}$为特征集，递归地调用步(1)~(5),得到子树$T_i$,返回$T_i$</p>
 <p>ID3算法只有树地生成，所以该算法生成的树容易产生过拟合</p>
-<h2 id="C4-5算法"><a href="#C4-5算法" class="headerlink" title="C4.5算法"></a>C4.5算法</h2><p>C4.5是对ID3的改进。C4.5在生成的过程中，用信息增益比来选择特征</p>
+<h2 id="C4-5算法"><a href="#C4-5算法" class="headerlink" title="C4.5算法"></a>C4.5算法</h2><p>C4.5是对ID3的改进。C4.5在生成的过程中，用信息增益比(information gain ratio)来选择特征</p>
 <p>C4.5算法<br>输入：训练数据集D,特征集A,阈值$\epsilon$<br>输出：决策树T<br>(1)若D中所有实例属于同一类$C_k$,则T为单节点树，并将类$C_k$作为该结点的类标记，返回T<br>(2)若A=$\empty$，则T为单结点树，并将D中实例数最大的类$C_k$作为该结点的类标记，返回T;<br>(3)否则，按下式计算A中各特征对D的信息增益比，选择信息增益比最大的特征$A_g$</p>
 <script type="math/tex; mode=display">g_k(D,A)=\frac{g(D,A)}{H_A(D)}</script><p>其中，$H_A(D)=-\sum_{i=1}^n\frac{|D_i|}{|D|}log_2\frac{|D_i|}{|D|}$, n是特征A的取值的个数<br>(4)若果$A_g$的信息增益比小于阈值$\epsilon$,则置T为单结点树，并将D中实例数最大的类$C_k$作为该结点的类，返回T<br>(5)否则,对$A_g$的每一可能值$a_i$，依$A_g=a_i$将D分割为子集若干非空$D_i$,将$D_i$中实例数最大的类作为标记，构建子结点，由结点及其子结点构建树T,返回T；<br>(6)对结点i,以$D_i$为训练集，以$A-{A_g}$为特征集,递归地调用步(1)~步(5),得到子数$T_i$,返回$T_i$</p>
 <h2 id="CART算法"><a href="#CART算法" class="headerlink" title="CART算法"></a>CART算法</h2><p>CART的全程是classification and regression tree 分类与回归树模型。CART同样由特征选择、树的生成及剪枝组成，既可以用于分类也可以用于回归。</p>
@@ -450,12 +458,17 @@
 <p>最小回归树生成算法：<br>输入:训练数据集D<br>输出:回归树f(x)<br>在训练数据集所在的输入空进啊中，递归地将每个区域划分为两个子区域并决定每个子区域上的输出值。构建二叉决策树：<br>(1)选择最优切分变量j与切分点s，求解</p>
 <script type="math/tex; mode=display">min_{j,s}[min_{c_1}\sum_{x_i∈R_1(j,s)}(y_i-c_1)^2+min_{c_2}\sum_{x_i∈R_2(j,s)}(y_i-c_2)^2]</script><p>遍历变量j，对固定的切分变量j扫描切分点s，选择使上式达到最小的对(j,s)<br>(2)用选定的对(j,s)划分区域并决定相应的输出值:<br>$R_1(j,s)={x|x^{(j)}≤s}$, $R_2(j,s)={x|x^{(j)}＞s}$</p>
 <script type="math/tex; mode=display">\hat{c_m}=\frac{1}{N_m}\sum_{x_i∈R_m(j,s)}y_i,\ \ \ x∈R_m, m=1,2</script><p>(3)继续对两个子区域调用步骤(1)(2)，直到满足停止条件<br>(4)将输入空间划分为M个区域$R_1,R_2,…,R_M,$生成决策树：</p>
-<script type="math/tex; mode=display">f(x)=\sum_{m=1}^M\hat{c_m}I(x∈R_m)</script><h3 id="分类树的生成"><a href="#分类树的生成" class="headerlink" title="分类树的生成"></a>分类树的生成</h3><p>分类树用基尼指数选择最优特征，同时决定该特征的最优二值切分点</p>
+<script type="math/tex; mode=display">f(x)=\sum_{m=1}^M\hat{c_m}I(x∈R_m)</script><h3 id="分类树的生成"><a href="#分类树的生成" class="headerlink" title="分类树的生成"></a>分类树的生成</h3><p>分类树用基尼指数(Gini index)选择最优特征，同时决定该特征的最优二值切分点</p>
 <p>基尼指数：<br>分类问题中，假设有K个类，样本点属于第k类的概率为$p_k$，则概率分布的基尼指数定义为</p>
 <script type="math/tex; mode=display">Gini(p)=\sum_{k=1}^Kp_k(1-p_k)=1-\sum_{k=1}^Kp_k^2</script><p>如果样本集合D根据特征A是否取某一可能值a被分割成$D_1$和$D_2$两部分，即</p>
 <script type="math/tex; mode=display">D_1={(x,y)∈D|A(x)∈a},\ \ \ \ D_2=D-D_1</script><p>则在特征A的条件下，集合D的基尼指数定义为</p>
 <script type="math/tex; mode=display">Gini(D,A)=\frac{|D_1|}{|D|}Gini(D_1)+\frac{|D_2|}{|D|}Gini(D_2)</script><p>基尼指数Gini(D)表示集合D的不确定性，基尼指数Gini(D,A)表示A=a分割后集合D的不确定性。基尼指数值越大，样本集合的不确定性也就越大。这与熵类似。</p>
 <p>CART生成算法<br>输入:训练数据集D,停止计算的条件;<br>输出:CART决策树<br>(1)设结点的训练数据集为D,计算现有特征对该数据集的基尼指数。此时，对每一个特征A,对其可能的每个值a，根据样本点对A=a的测试为”是”或否将D分割为$D_1$和$D_2$两部分，利用Gini(D,A)的公式其中A=a.<br>(2)在所有可能的特征A以及它们所有可能的切分点a中，选择基尼指数最小的特征及其对应的切分点作为最优特征和最优切分点.依最优特征与最优切分点，从现结点生成两个子结点，将训练数据集依特征分配到两个子结点中去<br>(3)对两个子结点递归地调用(1)(2)直至满足停止条件<br>(4)生成CART决策树<br>算法停止计算地条件是结点中的样本个数i小于预定阈值，或样本集的基尼指数小于预定阈值(样本基本属于同一类)，或者没有更多特征。</p>
+<h2 id="三种决策树对比"><a href="#三种决策树对比" class="headerlink" title="三种决策树对比"></a>三种决策树对比</h2><p>ID3是采用信息增益作为评价标准，往往会倾向于取值较多的特征。因为，信息增益反映的是给定条件以后不确定性减少的程度。特征取值越多就意味着确定性越高，也就是条件熵越小，信息增益越大。这实际熵是一个缺陷。</p>
+<p>C4.5实际上是对ID3进行优化，通过引入信息增益比，一定程度上对取值比较多的特征进行惩罚，避免ID3出现过拟合的特性，提升决策树的泛化能力</p>
+<p>从样本类型的角度上来看，ID3只能处理离散型变量，而C4.5和CART都可以处理连续型变量。C4.5处理连续型变量时，通过对数据排序之后找到类别不同的分割线作为切分点，根据切分点把连续属性转换为布尔型，从而将连续型变量转换为多个取值区间的离散型变量。而对于CART,由于其构建时每次都会对特征进行二值划分，因此可以很好地适用于连续性变量</p>
+<p>从应用的角度，ID3和C4.5只能用于分类任务，而CART从名字就可以看出来不仅可以用于分类还可以应用于回归任务(回归树使用最小平方误差准则)。</p>
+<p>从实现细节、优化过程等角度，这三种决策树还有一些不同。比如，ID3对样本特征缺失比较敏感，而C4.5和CART可以对缺失值进行不同方式的处理;ID3和C4.5可以在每个结点上产生出多叉分支，且每个特征在层级之间不会复用，而CART每个结点只会产生两个分支，因此最后会形成一棵二叉树，且每个特征可以重复使用。ID3和C4.5通过剪枝来权衡树的准确性和泛化能力，而CART直接利用全部数据发现所有可能的树结构进行对比。</p>
 <h1 id="决策树的剪枝"><a href="#决策树的剪枝" class="headerlink" title="决策树的剪枝"></a>决策树的剪枝</h1><p>决策树生成算法递归地产生决策树，直到不能继续下去为止。这样产生的树往往对训练数据的分类很准确，但对未知的测试数据的分类却没有那么准确，即出现过拟合。过拟合的原因在于学习时过多地考虑如何提高对训练数据地正确分类，从而构建出了过于复杂地决策树。</p>
 <p>在决策树学习中将已生成的树进行简化的过程的过程称为剪枝(pruning).具体地，剪枝从已生成的树上裁掉一些子树或叶结点，并将其根节点或父结点作为新的叶结点，从而简化分类树模型。</p>
 <p>决策树的剪枝往往通过极小化决策树整体的损失函数或代价函数来实现。设树T的叶结点个树为|T|，t是树T的叶结点，叶结点有$N_t$个样本点，其中k类的样本点有$N_{tk}$个，k=1,2,…,K，$H_t(T)$为叶结点t上的经验熵，α≥0为参数，则决策树学习的损失函数可以定义为：</p>
@@ -478,8 +491,20 @@
 <p>如此剪枝下去，直至得到根节点。在这一过程中不断地增加α的值，产生新的区间。</p>
 <p>2.在剪枝得到的子树序列$T_0,T_1,…,T_n$中通过交叉验证选取最优子树$T_α$</p>
 <p>具体地，利用独立的验证数据集，测试子树序列$T_0,T_1,…,T_n$中各棵子树的平方误差或基尼指数.平方误差或基尼指数.平方误差或基尼指数最小的决策树被认为是最优的决策树.在子树序列中，每棵子树$T_1,T_2,…,T_n$都对应于一个参数$α_1,α_2,..α_n$.所以当最优子树$T_k$确定时,对应的$α_k$也确定了，即得到最优决策树$T_α$.</p>
-<p>CART剪枝算法<br>输入:CART算法生成的决策树$T_0$;<br>输出:最优决策树$T_α$<br>(1)设k=0,T=$T_0$<br>(2)设α=+∞.<br>(3)自上而下地对各内部结点t计算$C(T_t)$,|T_t|以及</p>
+<p>CART剪枝算法<br>输入:CART算法生成的决策树$T_0$;<br>输出:最优决策树$T_α$<br>(1)设k=0,T=$T_0$<br>(2)设α=+∞.<br>(3)自上而下地对各内部结点t计算$C(T_t)$,$|T_t|$以及</p>
 <script type="math/tex; mode=display">g(t)=\frac{C(t)-C(T_t)}{|T_t|-1}</script><script type="math/tex; mode=display">α=min(α,g(t))</script><p>这里，$T_t$表示以t为根结点的子树。$C(T_t)$是对训练数据的预测误差,$|T_t|是T_t$的叶结点个数.<br>(4)自上而下地访问内部结点t,如果有g(t)=α,进行剪枝,并对叶结点t以多数表决法决定其类,得到树T.<br>(5)设k=k+1,$α_k$=α,$T_k$=T.<br>(6)如果T不是由根结点单独构成的树,则回到步骤(4)<br>(7)采用交叉验证法在子树序列$T_0,T_1,…,T_n$中选取最优子树$T_α$</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>决策树的优劣：<br>优点：</p>
+<ul>
+<li>1 决策树易于理解和实现.人们在通过解释后都有能力去理解决策树所表达的意义。</li>
+<li>2 对于决策树，数据的准备往往是简单或者是不必要的.其他的技术往往要求先把数据一般化，比如去掉多余的或者空白的属性。</li>
+<li>3 能够同时处理数据型和常规型属性。其他的技术往往要求数据属性的单一。</li>
+<li>4 是一个白盒模型如果给定一个观察的模型，那么根据所产生的决策树很容易推出相应的逻辑表达式。</li>
+<li>5 易于通过静态测试来对模型进行评测。表示有可能测量该模型的可信度。</li>
+<li>6 在相对短的时间内能够对大型数据源做出可行且效果良好的结果。</li>
+<li>7 计算复杂度不高，输出结果易于理解，数据有缺失也能跑，可以处理不相关特征。<br>缺点:</li>
+<li>1 容易过拟合。</li>
+<li>2 对于那些各类别样本数量不一致的数据，在决策树当中信息增益的结果偏向于那些具有更多数值的特征。</li>
+</ul>
 
       
     </div>
@@ -504,7 +529,7 @@
   <p><span>本文标题:</span><a href="/2018/12/04/机器学习（三）——决策树/">机器学习（三）——决策树</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年12月04日 - 19:12</p>
-  <p><span>最后更新:</span>2018年12月10日 - 12:12</p>
+  <p><span>最后更新:</span>2018年12月17日 - 20:12</p>
   <p><span>原始链接:</span><a href="/2018/12/04/机器学习（三）——决策树/" title="机器学习（三）——决策树">http://yifdu.github.io/2018/12/04/机器学习（三）——决策树/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/04/机器学习（三）——决策树/" aria-label="复制成功！"></i></span>
   </p>
@@ -644,7 +669,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -655,7 +680,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -666,7 +691,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -715,7 +740,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#决策树模型的简介"><span class="nav-number">1.</span> <span class="nav-text">决策树模型的简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征选择"><span class="nav-number">2.</span> <span class="nav-text">特征选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#信息增益"><span class="nav-number">2.1.</span> <span class="nav-text">信息增益</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#熵"><span class="nav-number">2.1.1.</span> <span class="nav-text">熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件熵"><span class="nav-number">2.1.2.</span> <span class="nav-text">条件熵</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策树的生成"><span class="nav-number">3.</span> <span class="nav-text">决策树的生成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ID3算法"><span class="nav-number">3.1.</span> <span class="nav-text">ID3算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C4-5算法"><span class="nav-number">3.2.</span> <span class="nav-text">C4.5算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CART算法"><span class="nav-number">3.3.</span> <span class="nav-text">CART算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回归树生成"><span class="nav-number">3.3.1.</span> <span class="nav-text">回归树生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分类树的生成"><span class="nav-number">3.3.2.</span> <span class="nav-text">分类树的生成</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策树的剪枝"><span class="nav-number">4.</span> <span class="nav-text">决策树的剪枝</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CART-剪枝"><span class="nav-number">4.1.</span> <span class="nav-text">CART 剪枝</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#决策树模型的简介"><span class="nav-number">1.</span> <span class="nav-text">决策树模型的简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征选择"><span class="nav-number">2.</span> <span class="nav-text">特征选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#信息增益"><span class="nav-number">2.1.</span> <span class="nav-text">信息增益</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#熵"><span class="nav-number">2.1.1.</span> <span class="nav-text">熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件熵"><span class="nav-number">2.1.2.</span> <span class="nav-text">条件熵</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策树的生成"><span class="nav-number">3.</span> <span class="nav-text">决策树的生成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ID3算法"><span class="nav-number">3.1.</span> <span class="nav-text">ID3算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C4-5算法"><span class="nav-number">3.2.</span> <span class="nav-text">C4.5算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CART算法"><span class="nav-number">3.3.</span> <span class="nav-text">CART算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回归树生成"><span class="nav-number">3.3.1.</span> <span class="nav-text">回归树生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分类树的生成"><span class="nav-number">3.3.2.</span> <span class="nav-text">分类树的生成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三种决策树对比"><span class="nav-number">3.4.</span> <span class="nav-text">三种决策树对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策树的剪枝"><span class="nav-number">4.</span> <span class="nav-text">决策树的剪枝</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CART-剪枝"><span class="nav-number">4.1.</span> <span class="nav-text">CART 剪枝</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

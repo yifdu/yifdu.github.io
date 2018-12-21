@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="Convolution neural network,Recurrent neural network,cs224n,">
+  <meta name="keywords" content="cs224n,Convolution neural network,Recurrent neural network,">
 
 
 
@@ -91,7 +91,7 @@
 
 
 <meta name="description" content="传统的自然语言处理模型 1.传统的词袋模型或者连续词袋模型(CBOW)都可以通过构建一个全连接的神经网络对句子进行情感标签的分类，但是这样存在一个问题，我们通过激活函数可以让某些结点激活，但由于在这样网络构建里，句子中词语的顺序被忽略，也许同样两个句子都出现了not和hate但是一个句子(I do not hate this movie)表示的是good的情感，另一个句子(I hate this">
-<meta name="keywords" content="Convolution neural network,Recurrent neural network,cs224n">
+<meta name="keywords" content="cs224n,Convolution neural network,Recurrent neural network">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS224n笔记（六）">
 <meta property="og:url" content="http://yifdu.github.io/2018/12/15/CS224n笔记（六）/index.html">
@@ -99,7 +99,7 @@
 <meta property="og:description" content="传统的自然语言处理模型 1.传统的词袋模型或者连续词袋模型(CBOW)都可以通过构建一个全连接的神经网络对句子进行情感标签的分类，但是这样存在一个问题，我们通过激活函数可以让某些结点激活，但由于在这样网络构建里，句子中词语的顺序被忽略，也许同样两个句子都出现了not和hate但是一个句子(I do not hate this movie)表示的是good的情感，另一个句子(I hate this">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png">
-<meta property="og:updated_time" content="2018-12-15T07:01:22.663Z">
+<meta property="og:updated_time" content="2018-12-18T14:52:59.499Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS224n笔记（六）">
 <meta name="twitter:description" content="传统的自然语言处理模型 1.传统的词袋模型或者连续词袋模型(CBOW)都可以通过构建一个全连接的神经网络对句子进行情感标签的分类，但是这样存在一个问题，我们通过激活函数可以让某些结点激活，但由于在这样网络构建里，句子中词语的顺序被忽略，也许同样两个句子都出现了not和hate但是一个句子(I do not hate this movie)表示的是good的情感，另一个句子(I hate this">
@@ -366,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.8k 字
+                  2.6k 字
                 </span>
               
 
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  9 分钟
                 </span>
               
             </div>
@@ -405,7 +405,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjpp4g8a00000wowabu6vwxh3" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjpxov1jw00246owams77ur41" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" itemprop="contentUrl">
               </a>
             
@@ -423,14 +423,48 @@
 </ul>
 <h1 id="自然语言处理中的卷积神经网络"><a href="#自然语言处理中的卷积神经网络" class="headerlink" title="自然语言处理中的卷积神经网络"></a>自然语言处理中的卷积神经网络</h1><h2 id="单层CNN"><a href="#单层CNN" class="headerlink" title="单层CNN"></a>单层CNN</h2><p>假设词向量$x_i∈R^k$,那么n个单词的句子可视作词向量(列向量)的按列拼接。对于h个单词上的卷积滤波器w∈$R^{hk}$,比如k=2,n=5,h=3,下图就是NLP中的单层CNN：<br><img src="/2018/12/15/CS224n笔记（六）/Single_CNN_1.png" alt="Single_CNN_1"><br>也就是说，每相邻3个词语的组合对应卷积结果中的一个标量。卷积滤波器的权值w也是一个向量，最终得到每个卷积结果$c_i=f(w^Tx_{i:i+h-1}+b)$,组合得到向量$c=[c_1,c_2,..c_{n-h+1}]∈R^{n-h+1}$<br>对最后两个词语，由于不够长(h=3),常见的技巧是补零:<br><img src="/2018/12/15/CS224n笔记（六）/Single_CNN_2.png" alt="Single_CNN_2"><br>一个滤波器就是一个向量，卷积运算的子运算实际上就是与某个n-gram的内积，内急代表相似性。于是卷积核实际上在挑选与自己相似的那种pattern，比如正面情感的n-gram。</p>
 <h2 id="池化"><a href="#池化" class="headerlink" title="池化"></a>池化</h2><p>卷积不是最终目的，最终目的是将卷积结果输入到其他网络中去。在不补零的情况下，卷积结果c中有n-h+1个数，与n有关；而我们想要一个定长的输入。一个解决办法是max-pooling,输入是CNN结果$c∈R^{n-h+1}$,输出是一个标量$\hat{c}=max{c}$，其中$\hat{c}∈R$<br>当然也可以用min，但是RELU时经常结果是0，所以没有什么意义。max的意义是，这个滤波器就是要过滤出最强烈的那个n-gram,作为整段话的中心意思。<br>为了得到多个卷积特征，简单地使用多个卷积核(不需要大小一致)，然后把池化结果拼接起来。另外，有一个关于词向量的技巧。如果任由梯度流入词向量，则词向量会根据分类任务目标而移动，丢失语义上泛化的相似性。解决办法是用两份相同的词向量，称作两个通道(channel)。一个通道可变，一个通道固定。将两个通道的卷积结果输入到max-pooling中。</p>
+<p>常见的几种池化方式：<br><img src="/2018/12/15/CS224n笔记（六）/Pooling.png" alt="Pooling"></p>
+<p>Max-Pooling 最为常见，最大池化是取整个区域的最大值作为特征，在自然语言处理中常用于分类问题，希望观察到的特征是强特征，以便可以区分出是哪一个类别。Average-Pooling通常是用于主题模型，常常是一个句子不止一个主题标签，如果是使用Max-Pooling的话信息过少，所以使用Average的话可以广泛反映这个区域的特征。K-max pooling是选取一个区域的前K个最大的特征。Dynamic Pooling是根据网络结构动态调整取特征的个数。</p>
 <h2 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h2><p>同样自然语言中也可以像图像处理中的那样，用到Dropout。<br>dropout作用就是在数据上采样子集训练，然后平均起来(ensemble)。</p>
 <h2 id="CNN在自然语言中的使用"><a href="#CNN在自然语言中的使用" class="headerlink" title="CNN在自然语言中的使用"></a>CNN在自然语言中的使用</h2><p>在图像中卷积核通常是对图像的一小块区域进行计算，而在文本中，一句话所构成的词向量作为输入。每一行代表一个词的词向量，所以在处理文本时，卷积核通常覆盖上下几行的词，所以此时卷积核的宽度与输入的宽度相同，通过这样的方式我们就能够捕捉到多个连续词之间的特征(只要通过设置卷积核的尺寸，卷积核的宽度一般和词向量的长度一致，长度可以用1，2，3这类的值，当取3时就会将3个连续词的特征表示出来)，并且能够在同一类特征计算时共享权重。<br><img src="/2018/12/15/CS224n笔记（六）/cnn_1.png" alt="cnn_1"><br>如上图所示，不同长度的卷积核，会获得不同长度的输出值，但是在之后的池化层中又会得到相同的长度(比如上面的深红色的卷积核是4×5,对于输入值为7×5的输入值，卷积之后的输出值是4×1,最大池化之后就是1×1;深绿色的卷积核是3×5，卷积之后的输出值是5×1，最大池化之后就是1×1),最后将所有池化后的值组合在一起，这样有一点好处，无论输入值的大小是否相同(输入值行一般不相等,对于输入值列是词向量的长度，一般是相等，但是行是和文本中词的数量有关)，要用相同数量的卷积核进行卷积，之后再池化就会获得相同长度的向量(向量的长度和卷积核的数量相等)，这样在之后就可以用全连接层了(全连接层的输入值的向量大小必须是一致的)。</p>
 <h1 id="CNN在自然语言中做出的改进"><a href="#CNN在自然语言中做出的改进" class="headerlink" title="CNN在自然语言中做出的改进"></a>CNN在自然语言中做出的改进</h1><ul>
 <li>1.扩展CNN的输入：扩充词向量的维度,加入新的特征( Event Detection and Domain Adaptation with Convolutional Neural Networks);将RNN的输出作为CNN的输入(Recurrent Convolutional Neural Network for Text Classification)<br><img src="/2018/12/15/CS224n笔记（六）/CNN1.png" alt="CNN1"></li>
 <li>2.卷积层的改造。如：将word2vec横向组合，以发现句子层级的特征(Event Extraction via Dynamic Multi-Pooling Convolutional Neural Networks);卷积层的非线性改造( Molding CNNs for text: non-linear, non-consecutive convolutions)<br><img src="/2018/12/15/CS224n笔记（六）/CNN2.png" alt="CNN2"></li>
 <li>3.Pooling层的改造：使用K-max Pooling以保留更多的特征(An Architecture for General Matching of Text Chunks on Multiple Levels of Granularity);分段pooling(Distant Supervision for Relation Extraction via Piecewise Convolutional Neural Networks)</li>
-<li>4.CNN模型的组合。对同一输入做多重cnn分类，组合结果(Question Answering over Freebase with Multi-Column Convolutional Neural Networks);一个句子一个CNN(Learning to Rank Short Text Pairs with Convolutional Deep Neural Networks)<br><img src="/2018/12/15/CS224n笔记（六）/CNN3.png" alt="CNN3"><h1 id="CNN在NLP中应用的不足"><a href="#CNN在NLP中应用的不足" class="headerlink" title="CNN在NLP中应用的不足"></a>CNN在NLP中应用的不足</h1>目前我们所看到的CNN在NLP中的应用，大部分的网络结构都非常浅，主要是对于文本的不定长的特点，不好用多层CNN网络去训练，但是如果网络不够深，似乎又无法捕捉到更深层次的特征。因此，我们到底应不应该在NLP中应用多层CNN的结构，如果应该，该采用怎样的策略?</li>
+<li>4.CNN模型的组合。对同一输入做多重cnn分类，组合结果(Question Answering over Freebase with Multi-Column Convolutional Neural Networks);一个句子一个CNN(Learning to Rank Short Text Pairs with Convolutional Deep Neural Networks)<br><img src="/2018/12/15/CS224n笔记（六）/CNN3.png" alt="CNN3"><h1 id="CNN在NLP中应用的不足"><a href="#CNN在NLP中应用的不足" class="headerlink" title="CNN在NLP中应用的不足"></a>CNN在NLP中应用的不足</h1>目前我们所看到的CNN在NLP中的应用，大部分的网络结构都非常浅，主要是对于文本的不定长的特点，不好用多层CNN网络去训练，但是如果网络不够深，似乎又无法捕捉到更深层次的特征。因此，我们到底应不应该在NLP中应用多层CNN的结构，如果应该，该采用怎样的策略?<h1 id="总结-Q-amp-A（转自知乎）"><a href="#总结-Q-amp-A（转自知乎）" class="headerlink" title="总结/Q&amp;A（转自知乎）"></a>总结/Q&amp;A（转自<a href="https://zhuanlan.zhihu.com/p/30268946?utm_source=wechat_timeline&amp;utm_medium=social&amp;from=timeline" target="_blank" rel="noopener">知乎</a>）</h1></li>
 </ul>
+<p>本篇综述中具体介绍了卷积神经网络的结构以及应用于自然语言处理中的场景，最后再做一个简单地归纳总结。</p>
+<p><img src="/2018/12/15/CS224n笔记（六）/Reference.png" alt="Reference"><br>还有一些有关卷积神经网络细节上的问题与答案，与大家分享。<br>. 卷积层和池化层有什么区别？</p>
+<p>首先可以从结构上可以看出，卷积之后输出层的维度减小，深度变深。但池化层深度不变。同时池化可以把很多数据用最大值或者平均值代替。目的是降低数据量。降低训练的参数。对于输入层，当其中像素在邻域发生微小位移时，池化层的输出是不变的，从而能提升鲁棒性。而卷积则是把数据通过一个卷积核变化成特征，便于后面的分离。</p>
+<ol>
+<li>采用宽卷积的好处有什么？</li>
+</ol>
+<p>通过将输入边角的值纳入到滑窗中心进行计算，以便损失更少的信息。</p>
+<ol>
+<li>卷积输出的深度与哪个部件的个数相同？</li>
+</ol>
+<p>输出深度（通道）与卷积核（滤波器）的个数相等。</p>
+<ol>
+<li>激活函数通常放在卷积神经网络的那个操作之后？</li>
+</ol>
+<p>通常放在卷积层之后。</p>
+<ol>
+<li>为什么激活函数通常都是采用非线性的函数？</li>
+</ol>
+<p>如果网络中都采用线性函数的组合，那么线性的组合还是线性，那么使用多次线性组合就等同于使用了一次线性函数。因此采用非线性函数可以来逼近任意函数。</p>
+<ol>
+<li>非线性激活函数中sigmod函数存在哪些不足？</li>
+</ol>
+<p>Sigmod函数存在饱和状态，尤其是值过大时，当进入饱和状态时，进行梯度下降计算时，很容易出现梯度消失的情况，求导的精确值不能保证。</p>
+<ol>
+<li>ReLU和SoftPlus激活函数有哪些优势？</li>
+</ol>
+<p>与sigmod相比，不存在指数计算，求导计算量变小，同时缓解了过拟合的情况，一部分输出为0，减少了参数的相互依存。</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ol>
+<li><a href="http://www.jeyzhang.com/cnn-apply-on-modelling-sentence.html" target="_blank" rel="noopener">卷积神经网络(CNN)在句子建模上的应用</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/30268946?utm_source=wechat_timeline&amp;utm_medium=social&amp;from=timeline" target="_blank" rel="noopener">从CNN视角看在自然语言处理上的应用</a></li>
+<li><a href="https://www.csdn.net/article/2015-11-11/2826192" target="_blank" rel="noopener">卷积神经网络在自然语言处理的应用</a></li>
+</ol>
 
       
     </div>
@@ -455,7 +489,7 @@
   <p><span>本文标题:</span><a href="/2018/12/15/CS224n笔记（六）/">CS224n笔记（六）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年12月15日 - 13:12</p>
-  <p><span>最后更新:</span>2018年12月15日 - 15:12</p>
+  <p><span>最后更新:</span>2018年12月18日 - 22:12</p>
   <p><span>原始链接:</span><a href="/2018/12/15/CS224n笔记（六）/" title="CS224n笔记（六）">http://yifdu.github.io/2018/12/15/CS224n笔记（六）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/15/CS224n笔记（六）/" aria-label="复制成功！"></i></span>
   </p>
@@ -487,11 +521,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/cs224n/" rel="tag"># cs224n</a>
+          
             <a href="/tags/Convolution-neural-network/" rel="tag"># Convolution neural network</a>
           
             <a href="/tags/Recurrent-neural-network/" rel="tag"># Recurrent neural network</a>
-          
-            <a href="/tags/cs224n/" rel="tag"># cs224n</a>
           
         </div>
       
@@ -504,8 +538,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/12/CS224n笔记（五）/" rel="next" title="CS224n笔记（五）">
-                <i class="fa fa-chevron-left"></i> CS224n笔记（五）
+              <a href="/2018/12/14/数字图像处理笔记（一）/" rel="next" title="数字图像处理笔记（一）">
+                <i class="fa fa-chevron-left"></i> 数字图像处理笔记（一）
               </a>
             
           </div>
@@ -513,6 +547,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/机器学习（四）——集成学习/" rel="prev" title="机器学习（四）——集成学习">
+                机器学习（四）——集成学习 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -593,7 +631,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -604,7 +642,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -615,7 +653,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -664,7 +702,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#传统的自然语言处理模型"><span class="nav-number">1.</span> <span class="nav-text">传统的自然语言处理模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理中的卷积神经网络"><span class="nav-number">2.</span> <span class="nav-text">自然语言处理中的卷积神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单层CNN"><span class="nav-number">2.1.</span> <span class="nav-text">单层CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化"><span class="nav-number">2.2.</span> <span class="nav-text">池化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dropout"><span class="nav-number">2.3.</span> <span class="nav-text">Dropout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN在自然语言中的使用"><span class="nav-number">2.4.</span> <span class="nav-text">CNN在自然语言中的使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CNN在自然语言中做出的改进"><span class="nav-number">3.</span> <span class="nav-text">CNN在自然语言中做出的改进</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CNN在NLP中应用的不足"><span class="nav-number">4.</span> <span class="nav-text">CNN在NLP中应用的不足</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#传统的自然语言处理模型"><span class="nav-number">1.</span> <span class="nav-text">传统的自然语言处理模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理中的卷积神经网络"><span class="nav-number">2.</span> <span class="nav-text">自然语言处理中的卷积神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单层CNN"><span class="nav-number">2.1.</span> <span class="nav-text">单层CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化"><span class="nav-number">2.2.</span> <span class="nav-text">池化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dropout"><span class="nav-number">2.3.</span> <span class="nav-text">Dropout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN在自然语言中的使用"><span class="nav-number">2.4.</span> <span class="nav-text">CNN在自然语言中的使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CNN在自然语言中做出的改进"><span class="nav-number">3.</span> <span class="nav-text">CNN在自然语言中做出的改进</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CNN在NLP中应用的不足"><span class="nav-number">4.</span> <span class="nav-text">CNN在NLP中应用的不足</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结-Q-amp-A（转自知乎）"><span class="nav-number">5.</span> <span class="nav-text">总结/Q&amp;A（转自知乎）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>
