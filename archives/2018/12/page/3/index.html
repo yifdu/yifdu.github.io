@@ -92,7 +92,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="深度智障">
-<meta property="og:url" content="http://yifdu.github.io/tags/Cs224n/index.html">
+<meta property="og:url" content="http://yifdu.github.io/archives/2018/12/page/3/index.html">
 <meta property="og:site_name" content="深度智障">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yifdu.github.io/tags/Cs224n/">
+  <link rel="canonical" href="http://yifdu.github.io/archives/2018/12/page/3/">
 
 
 
 
 
-  <title>标签: Cs224n | 深度智障</title>
+  <title>归档 | 深度智障</title>
   
 
 
@@ -151,7 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-archive">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -260,15 +260,32 @@
   
   
   
-  <div class="post-block tag">
-
+  <div class="post-block archive">
     <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Cs224n<small>标签</small>
-        </h1>
-      </div>
+      <span class="archive-move-on"></span>
+
+      <span class="archive-page-counter">
+        
+        
+         
+        
+        OK! 目前共计 38 篇日志。 继续努力。
+      </span>
 
       
+
+        
+        
+        
+
+        
+          
+          <div class="collection-title">
+            <h1 class="archive-year" id="archive-year-2018">2018</h1>
+          </div>
+        
+        
+
         
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
@@ -276,17 +293,17 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/10/30/CS224n笔记（一）/" itemprop="url">
+            <a class="post-title-link" href="/2018/12/04/机器学习（三）——决策树/" itemprop="url">
               
-                <span itemprop="name">CS224n笔记（一）</span>
+                <span itemprop="name">机器学习（三）——决策树</span>
               
             </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-10-30T21:35:50+08:00" content="2018-10-30">
-          10-30
+        <time class="post-time" itemprop="dateCreated" datetime="2018-12-04T19:38:10+08:00" content="2018-12-04">
+          12-04
         </time>
       </div>
 
@@ -294,15 +311,21 @@
   </article>
 
 
-      
-    </div>
 
+      
+
+    </div>
   </div>
   
   
   
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/archives/2018/12/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2018/12/">1</a><a class="page-number" href="/archives/2018/12/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
+
 
 
           </div>
@@ -993,64 +1016,6 @@
 }
 #selectionCopyright::before {
     content: "";
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 6px 8px 6px 0;
-    border-color: transparent rgba(244,67,54,.7) transparent transparent;
-    position: absolute;
-    left: -8px;
-    top:50%;
-    transform:translateY(-50%);
-}
-</style>
-
-<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
-
-<script>
-window.onload = function() {
-    function selectText() {
-        if (document.selection) { //IE浏览器下
-            return document.selection.createRange().text; //返回选中的文字
-        } else { //非IE浏览器下
-            return window.getSelection().toString(); //返回选中的文字
-        }
-    }
-    var content = document.getElementsByTagName("body")[0];
-    var scTip = document.getElementById('selectionCopyright');
-
-    content.onmouseup = function(ev) { //设定一个onmouseup事件
-        var ev = ev || window.event;
-        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
-        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
-        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
-        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
-        if (selectText().length > 0) {
-            setTimeout(function() { //设定一个定时器
-                scTip.style.display = 'inline-block';
-                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
-                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
-            }, 100);
-        } else {
-            scTip.style.display = 'none';
-        }
-    };
-
-    content.onclick = function(ev) {
-        var ev = ev || window.event;
-        ev.cancelBubble = true;
-    };
-    document.onclick = function() {
-        scTip.style.display = 'none';
-    };
-};
-</script>
-
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
-</html>
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
-tent: "";
     width: 0;
     height: 0;
     border-style: solid;

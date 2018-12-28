@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Machine Learning,K-means,">
 
 
 
@@ -90,13 +90,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="深度智障">
-<meta property="og:url" content="http://yifdu.github.io/tags/Cs224n/index.html">
+<meta name="description" content="K-means 与KNN尽管K-means与KNN都是K字辈的算法，但这两个算法是完全不同的。KNN为监督学习中的一种分类算法，K-means为非监督学习中的聚类算法。 两者相同之处是均利用近邻信息来标注类别。但本质上还是有巨大的差别的。 引言在实际工作中，我们常会遇到这样一类问题:给机器输入大量的特征数据，并期望机器通过学习找到数据中存在的某种共性特征或者结构，亦或是数据之间存在的某种关联。例如">
+<meta name="keywords" content="Machine Learning,K-means">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习（五）——K-means">
+<meta property="og:url" content="http://yifdu.github.io/2018/12/28/机器学习（五）——K-means/index.html">
 <meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="K-means 与KNN尽管K-means与KNN都是K字辈的算法，但这两个算法是完全不同的。KNN为监督学习中的一种分类算法，K-means为非监督学习中的聚类算法。 两者相同之处是均利用近邻信息来标注类别。但本质上还是有巨大的差别的。 引言在实际工作中，我们常会遇到这样一类问题:给机器输入大量的特征数据，并期望机器通过学习找到数据中存在的某种共性特征或者结构，亦或是数据之间存在的某种关联。例如">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545983636136&di=8ca9a349868979fdb323c5b103771558&imgtype=0&src=http%3A%2F%2Fimg2018.cnblogs.com%2Fblog%2F1484620%2F201810%2F1484620-20181011141245778-1002518076.png">
+<meta property="og:updated_time" content="2018-12-28T07:36:51.329Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深度智障">
+<meta name="twitter:title" content="机器学习（五）——K-means">
+<meta name="twitter:description" content="K-means 与KNN尽管K-means与KNN都是K字辈的算法，但这两个算法是完全不同的。KNN为监督学习中的一种分类算法，K-means为非监督学习中的聚类算法。 两者相同之处是均利用近邻信息来标注类别。但本质上还是有巨大的差别的。 引言在实际工作中，我们常会遇到这样一类问题:给机器输入大量的特征数据，并期望机器通过学习找到数据中存在的某种共性特征或者结构，亦或是数据之间存在的某种关联。例如">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545983636136&di=8ca9a349868979fdb323c5b103771558&imgtype=0&src=http%3A%2F%2Fimg2018.cnblogs.com%2Fblog%2F1484620%2F201810%2F1484620-20181011141245778-1002518076.png">
 
 
 
@@ -126,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yifdu.github.io/tags/Cs224n/">
+  <link rel="canonical" href="http://yifdu.github.io/2018/12/28/机器学习（五）——K-means/">
 
 
 
 
 
-  <title>标签: Cs224n | 深度智障</title>
+  <title>机器学习（五）——K-means | 深度智障</title>
   
 
 
@@ -151,7 +158,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -257,52 +264,287 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Cs224n<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/12/28/机器学习（五）——K-means/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/10/30/CS224n笔记（一）/" itemprop="url">
-              
-                <span itemprop="name">CS224n笔记（一）</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">机器学习（五）——K-means</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-10-30T21:35:50+08:00" content="2018-10-30">
-          10-30
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-28T13:04:07+08:00">
+                2018-12-28
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  498 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545983636136&di=8ca9a349868979fdb323c5b103771558&imgtype=0&src=http%3A%2F%2Fimg2018.cnblogs.com%2Fblog%2F1484620%2F201810%2F1484620-20181011141245778-1002518076.png" rel="gallery_cjq7q6oys000m50waqobebm9z" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545983636136&di=8ca9a349868979fdb323c5b103771558&imgtype=0&src=http%3A%2F%2Fimg2018.cnblogs.com%2Fblog%2F1484620%2F201810%2F1484620-20181011141245778-1002518076.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="K-means-与KNN"><a href="#K-means-与KNN" class="headerlink" title="K-means 与KNN"></a>K-means 与KNN</h1><p>尽管K-means与KNN都是K字辈的算法，但这两个算法是完全不同的。KNN为监督学习中的一种分类算法，K-means为非监督学习中的聚类算法。</p>
+<p>两者相同之处是均利用近邻信息来标注类别。但本质上还是有巨大的差别的。</p>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>在实际工作中，我们常会遇到这样一类问题:给机器输入大量的特征数据，并期望机器通过学习找到数据中存在的某种共性特征或者结构，亦或是数据之间存在的某种关联。例如在推荐系统中的根据用户的行为，对用户进行分组。这类问题被称为”非监督学习”问题。它并不像监督学习那样希望预测出某种输出结果。相比于监督学习，非监督学习的输入数据没有标签信息，需要通过算法模型来挖掘数据内在的结构和模式。非监督学习主要包含两大类学习方法：数据聚类和特征变量关联。其中，聚类算法往往是通过多次迭代找到数据的最优分割，而特征变量关联则是利用各种相关性分析方法来找到变量之间的关系。</p>
+<h1 id="K-means-基本算法"><a href="#K-means-基本算法" class="headerlink" title="K-means 基本算法"></a>K-means 基本算法</h1><p>简述K-means算法的具体步骤<br>K-means算法的核心目标是给定的数据集划分成K个簇，并给出每个数据对应的簇中心点。算法具体步骤：<br>（1）数据预处理,如归一化、离群点处理等<br>（2）随机选取K个簇中心，记为$\mu_1^{(0)},\mu_2^{(0)},…,\mu_K^{(0)}$<br>（3）定义代价函数：$J(c,\mu)=min_{\mu}min_{c}\sum_{i=1}^M||x_i-\mu_{c_i}||^2$<br>（4）令t=0,1,2,…为迭代步数，重复下面过程直到J收敛：</p>
+<ul>
+<li>对于每个样本$x_i$，将其分配到距离最近的簇<script type="math/tex; mode=display">c_i^{(t)}<——argmin_k||x_i-\mu_k^{(t)}||^2</script></li>
+<li>对于每个类簇k,重新计算该类簇的中心<script type="math/tex; mode=display">\mu_k^{(t+1)}<——argmin_{\mu}\sum_{i:c_i^{(t)=k}}||x_i-\mu||^2</script></li>
+</ul>
+<p>K均值算法在迭代时，假设当前J没有达到最小值，那么首先固定簇中心$\{\mu_k\}$,调整每个样例$x_i$所属的类别$c_i$来让J函数减少；然后固定$\{c_i\}$,调整簇中心$\{\mu_k\}$使J减小。这两个过程交替循环，J单调递减:当J递减到最小值时，$\{\mu_k\}$和$\{c_i\}$也同时收敛。</p>
+<hr>
+<p><strong>坐标下降法(Coordinate descent)</strong><br>坐标下降法属于一种非梯度优化的方法，它在每步迭代中沿一个坐标方向进行搜索，通过循环使用不同的坐标方法来达到目标函数的局部极小值。<br>算法过程：<br>假设目标函数是求解f(x)的极小值，其中$\vec{x}=(x_1,x_2,…,x_n)$是一个n维的向量，我们从初始点x^0开始(x^0是我们猜想的一个初始值)对k进行循环：</p>
+<script type="math/tex; mode=display">x_1^{(k)}=arg min_{x_1}f(x_1,x_2^{(k-1)},...,x_n^{(k-1)})</script><script type="math/tex; mode=display">x_2^{(k)}=arg min_{x_2}f(x_2^{(k)},x_2,...,x_n^{(k-1)})</script><p>…..</p>
+<script type="math/tex; mode=display">x_n^{(k)}=arg min_{x_n}f(x_1^{(k)},x_2^{(k)},...,x_n)</script><p>相当于每次迭代都只是更新$\vec{x}$的一个维度，把该维度视为变量，剩下的n-1个维度的值当作常量，最小化f(x),找到该维度对应的新的值。坐标下降法就是通过不断地迭代构造序列$x^0,x^1,…$来求解问题，即最终点收敛到期望的局部最小值点</p>
+<script type="math/tex; mode=display">f(x^{(0)})＞f(x^{(1)})＞.....</script><p>很显然，K-means这里用到的就是坐标下降法。</p>
+<p>在SVM中,我们也有用到坐标下降法，SMO中有出现。</p>
+<hr>
+<p><img src="/2018/12/28/机器学习（五）——K-means/K_means.png" alt="K_means"></p>
+<h2 id="K-means存在缺点"><a href="#K-means存在缺点" class="headerlink" title="K-means存在缺点"></a>K-means存在缺点</h2><ol>
+<li>K-means是局部最优的，容易受到初始质心的影响;比如在下图中，因选择初始质心不恰当而造成次优的聚类结果</li>
+<li>同时K值得选取也会直接影响聚类结果，最优聚类得K值应与样本数据本身得结构信息相吻合，而这种结构信息很难去掌握，因此选取最优k值是非常困难的</li>
+</ol>
+<h2 id="如何选择K值"><a href="#如何选择K值" class="headerlink" title="如何选择K值"></a>如何选择K值</h2><p>K值得选择一般基于经验和多次实验结果。可以尝试不同的K值，并将不同K值所对应的损失函数画成折线，横轴为K的取值，纵轴为误差平方和所定义的损失函数。由此可以找到一个最佳点。但是这种方法的缺点就是不够自动化。（手肘法）</p>
+<p>Gap Statistic方法：<br>不需要肉眼判断，而只需要找到最大的Gap Statistic所对应的K即可。因此该方法也适用于批量化作业。在这里我们继续使用上面的损失函数，当分为K簇时，对应的损失函数记为$D_k$。Gap Statistic定义为：</p>
+<script type="math/tex; mode=display">Gap(K)=E(logD_k)-logD_k</script><p>其中$E(logD_k)$是$log(D_k)$的期望，一般通过蒙特卡洛模拟产生.我们在样本所在的区域内按照均匀分布随机地产生和原始样本数一样多地随机样本，并对这个随机样本做K均值，得到$D_k$；重复多次就可以计算处$E(logD_k)$的近似值。那么Gap(K)的物理意义是什么呢？它们可以视为随机样本的损失与实际样本的损失之差。试想实际样本对应的最佳簇数为K,那么实际样本的损失应该相对较小，从而Gap(K)取得最大值所对应的K值就是最佳的簇数。</p>
+<h1 id="K-means-算法"><a href="#K-means-算法" class="headerlink" title="K-means++算法"></a>K-means++算法</h1><p>总结一下K-means的缺点<br>(1)需要人工预先确定初始K值，且该值和真实的数据分布未必吻合<br>(2)K均值智能收敛到局部最优，效果受到初始值很大影响<br>(3)易受噪声点影响<br>(4)样本点只能被划分到单一的类中</p>
+<p>K-means++的思路：<br>假设已经选取了n个初始聚类中心(0＜n＜K),则在选取第n+1个聚类中心时，距离当前n个聚类中心越远的点会有更高的概率被选为第n+1个聚类中心。在选取第1个聚类中心(n=1)时同样通过随机的方法，可以说这也符合我们的直觉，聚类中心当然是互相离得越远越好。当选择完初始点后，K-means++后续的执行和经典K-means算法相同。</p>
+<h1 id="ISODATA算法"><a href="#ISODATA算法" class="headerlink" title="ISODATA算法"></a>ISODATA算法</h1><p>当K值大小不确定时，可以使用ISODATA算法，ISODATA算法的全称是迭代自组织数据分析法。在K-means算法中，聚类个数K的值需要预先人为确定;并且在整个算法过程中无法更改。而当遇到高纬度、海量的数据集时，人们往往很难准确地估计出K的大小。ISODATA算法就是针对这个问题进行改进的，它的思想也很直观。当属于某个类别的样本数过少时，把该类别去除;当属于某个类别的样本数过多、分散程度较大时，把该类别分为两个子类别。ISODATA算法在K均值算法的基础之上增加了两个操作，一是分裂操作，对应着增加聚类中心数;二是合并操作，对应着减少聚类中心数。ISODATA算法是一个比较常见的算法，其缺点是需要指定的参数比较多，不仅仅需要一个参考的聚类数量$K_0$,还需要制定3个阈值。下面介绍ISODATA算法的各个输入参数。</p>
+<p>下面介绍ISODATA算法的各个输入参数<br>(1)预期的聚类中心个数$K_0$.在ISODATA运行过程中聚类中心可以变化，$K_0$是一个用户指定的参考值，该算法的聚类中心数目变动范围也由其决定。具体地，最终输出的聚类中心数目常见范围是从$K_0$的一半，到两倍$K_0$<br>(2)每个类所要求的最小样本数目$N_min$。若果分裂后会导致某个子类别所包含样本数目小于该阈值，就不会对该类别进行分裂操作<br>(3)最大方差Sigma。用于控制某个类别中样本的分散程度，当样本的分散程度超过这个阈值时，且分裂后满足(1),进行分裂操作<br>(4)每个聚类中心之间所允许最小距离$D_{min}$.如果两个类靠得非常近(即这两个类别对应聚类中心之间的距离非常小)，小于该阈值时，则对这两个类进行合并操作。</p>
 
       
     </div>
+    
+    
+    
 
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/28/机器学习（五）——K-means/">机器学习（五）——K-means</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2018年12月28日 - 13:12</p>
+  <p><span>最后更新:</span>2018年12月28日 - 15:12</p>
+  <p><span>原始链接:</span><a href="/2018/12/28/机器学习（五）——K-means/" title="机器学习（五）——K-means">http://yifdu.github.io/2018/12/28/机器学习（五）——K-means/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/28/机器学习（五）——K-means/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/K-means/" rel="tag"># K-means</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/" rel="next" title="Natural-Language-Processing-with-PyTorch（九）">
+                <i class="fa fa-chevron-left"></i> Natural-Language-Processing-with-PyTorch（九）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -310,6 +552,12 @@
 
 
           
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
 
         </div>
         
@@ -330,8 +578,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -409,6 +666,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#K-means-与KNN"><span class="nav-number">1.</span> <span class="nav-text">K-means 与KNN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">2.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-means-基本算法"><span class="nav-number">3.</span> <span class="nav-text">K-means 基本算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#K-means存在缺点"><span class="nav-number">3.1.</span> <span class="nav-text">K-means存在缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何选择K值"><span class="nav-number">3.2.</span> <span class="nav-text">如何选择K值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-means-算法"><span class="nav-number">4.</span> <span class="nav-text">K-means++算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ISODATA算法"><span class="nav-number">5.</span> <span class="nav-text">ISODATA算法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -559,6 +832,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -599,6 +876,22 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
 
   
@@ -993,64 +1286,6 @@
 }
 #selectionCopyright::before {
     content: "";
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 6px 8px 6px 0;
-    border-color: transparent rgba(244,67,54,.7) transparent transparent;
-    position: absolute;
-    left: -8px;
-    top:50%;
-    transform:translateY(-50%);
-}
-</style>
-
-<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
-
-<script>
-window.onload = function() {
-    function selectText() {
-        if (document.selection) { //IE浏览器下
-            return document.selection.createRange().text; //返回选中的文字
-        } else { //非IE浏览器下
-            return window.getSelection().toString(); //返回选中的文字
-        }
-    }
-    var content = document.getElementsByTagName("body")[0];
-    var scTip = document.getElementById('selectionCopyright');
-
-    content.onmouseup = function(ev) { //设定一个onmouseup事件
-        var ev = ev || window.event;
-        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
-        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
-        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
-        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
-        if (selectText().length > 0) {
-            setTimeout(function() { //设定一个定时器
-                scTip.style.display = 'inline-block';
-                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
-                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
-            }, 100);
-        } else {
-            scTip.style.display = 'none';
-        }
-    };
-
-    content.onclick = function(ev) {
-        var ev = ev || window.event;
-        ev.cancelBubble = true;
-    };
-    document.onclick = function() {
-        scTip.style.display = 'none';
-    };
-};
-</script>
-
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
-</html>
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
-tent: "";
     width: 0;
     height: 0;
     border-style: solid;
