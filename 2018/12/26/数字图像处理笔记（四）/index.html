@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CV,彩色图像处理,Image enhancement,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基于内容的图像检索为什么需要基于内容的图像检索？ 提供图像的检索功能 不需要人手工标准，计算机自动分析和检索，节省人力和时间 使海量图像的管理和索引成为可能 存在的问题：1.人类高级语义特征与计算机底层特征表示的矛盾；2.查询方式问题具体内容特征提取 颜色特征 纹理特征 形状特征 空间关系特征颜色空间   RGB CMY或CMYK HSI HSV:比HSI模型更与人类对颜色的感知接近 均匀颜色空间">
+<meta name="keywords" content="CV,彩色图像处理,Image enhancement">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字图像处理笔记（四）">
+<meta property="og:url" content="http://yifdu.github.io/2018/12/26/数字图像处理笔记（四）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="基于内容的图像检索为什么需要基于内容的图像检索？ 提供图像的检索功能 不需要人手工标准，计算机自动分析和检索，节省人力和时间 使海量图像的管理和索引成为可能 存在的问题：1.人类高级语义特征与计算机底层特征表示的矛盾；2.查询方式问题具体内容特征提取 颜色特征 纹理特征 形状特征 空间关系特征颜色空间   RGB CMY或CMYK HSI HSV:比HSI模型更与人类对颜色的感知接近 均匀颜色空间">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg">
+<meta property="og:updated_time" content="2018-12-27T12:38:15.109Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数字图像处理笔记（四）">
+<meta name="twitter:description" content="基于内容的图像检索为什么需要基于内容的图像检索？ 提供图像的检索功能 不需要人手工标准，计算机自动分析和检索，节省人力和时间 使海量图像的管理和索引成为可能 存在的问题：1.人类高级语义特征与计算机底层特征表示的矛盾；2.查询方式问题具体内容特征提取 颜色特征 纹理特征 形状特征 空间关系特征颜色空间   RGB CMY或CMYK HSI HSV:比HSI模型更与人类对颜色的感知接近 均匀颜色空间">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2018/12/26/数字图像处理笔记（四）/">
+
+
+
+
+
+  <title>数字图像处理笔记（四） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/12/26/数字图像处理笔记（四）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数字图像处理笔记（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T17:02:08+08:00">
+                2018-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer Vision</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg" rel="gallery_cjq7hypza001fhgwafu9scx09" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="基于内容的图像检索"><a href="#基于内容的图像检索" class="headerlink" title="基于内容的图像检索"></a>基于内容的图像检索</h1><h2 id="为什么需要基于内容的图像检索？"><a href="#为什么需要基于内容的图像检索？" class="headerlink" title="为什么需要基于内容的图像检索？"></a>为什么需要基于内容的图像检索？</h2><ul>
+<li>提供图像的检索功能</li>
+<li>不需要人手工标准，计算机自动分析和检索，节省人力和时间</li>
+<li>使海量图像的管理和索引成为可能</li>
+<li>存在的问题：1.人类高级语义特征与计算机底层特征表示的矛盾；2.查询方式问题<h2 id="具体内容"><a href="#具体内容" class="headerlink" title="具体内容"></a>具体内容</h2><h3 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h3></li>
+<li>颜色特征</li>
+<li>纹理特征</li>
+<li>形状特征</li>
+<li>空间关系特征<h4 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h4></li>
+</ul>
+<ol>
+<li>RGB</li>
+<li>CMY或CMYK</li>
+<li>HSI</li>
+<li>HSV:比HSI模型更与人类对颜色的感知接近</li>
+<li>均匀颜色空间模型：MTM，LUV和Lab<br>均匀颜色空间模型</li>
+</ol>
+<ul>
+<li>从图像处理的角度，对颜色的描述应该与人对颜色的感知越接近越好</li>
+<li>从视觉感知均匀的角度，人所感知到的两个颜色的距离应该与这两个颜色在表达它们的颜色空间中的距离越成比例越好。</li>
+<li>如果在一个颜色空间中，人所观察到的两种颜色的区别程度与该颜色空间中两点间的欧氏距离对应，则称该空间为均匀颜色空间</li>
+<li>典型的例子：MTM,Luv和Lab<h4 id="颜色特征"><a href="#颜色特征" class="headerlink" title="颜色特征"></a>颜色特征</h4></li>
+<li>统计直方图</li>
+<li>累积直方图</li>
+<li>颜色布局:MPEG-7中建议了一种颜色布局描述符；表达颜色的空间分布信息</li>
+<li>颜色分块</li>
+<li>颜色相似度匹配算法</li>
+</ul>
+<ol>
+<li>直方图相交法<br>令$H_Q(k)$和$H_D(k)$分别为查询图像Q和数据库图像D的(某一)特征的统计直方图,则两图像之间的相似值为<script type="math/tex; mode=display">P(Q,D)=\frac{\sum_{k=0}^{L-1}min{H_Q(k),H_D(k)}}{\sum_{k=0}^{L-1}H_Q(k)}</script>距离为：$d_{L_1}=1-P(Q,D)$</li>
+</ol>
+<p>如果用HSV直方图表示每幅图像，则两幅图像Q和D的直方图交表示为:</p>
+<script type="math/tex; mode=display">P(Q,D)=\frac{\sum_H\sum_S\sum_V min\{H_Q(H,S,V),H_D(H,S,V)\}}{min\{\sum_H\sum_S\sum_V H_Q(H,S,V),\sum_H\sum_S\sum_V H_D(H,S,V)\}}</script><script type="math/tex; mode=display">P(Q,D)=\frac{\sum_H\sum_S\sum_V min\{H_Q(H,S,V),H_D(H,S,V)\}}{\sum_H\sum_S\sum_V H_Q(H,S,V)}</script><ol>
+<li>欧氏距离<br>$P_E(Q,D)=\sqrt{\sum_{i=0}^{L-1}[H_Q(i)-H_D(i)]^2}$<br>加权的欧氏距离法：<br>$P_w(Q,D)=\sqrt{\sum_{i=0}^{L-1}[H_Q(i)-H_D(i)]^2}$<script type="math/tex; mode=display">W_i=
+\begin{cases}
+H_Q(i) \ \ \ \ \ \ H_Q(i),H_D(i)＞0 \\
+1  \ \ \ \ \ \ \ \ \ \ \ \ \ \  H_Q(i)或H_D(i)=0 \\
+\end{cases}</script></li>
+<li>距离法<br>为减少计算量，可借助直方图的均值来粗略地表达颜色信息。如果图像用R,G,B三个分量表示，则图像的特征向量由这三个分量的均值组成<script type="math/tex; mode=display">f=[\mu_R,\mu_G,\mu_B]^T</script>此时图像Q和D的相似值为<script type="math/tex; mode=display">P(Q,D)=\sqrt{(f_Q-f_D)^2}=\sqrt{\sum_{R,G,B}(\mu_Q-\mu_D)^2}</script></li>
+</ol>
+<p>MPEG-7中建议的颜色布局描述符在匹配时使用了类似的距离公式</p>
+<script type="math/tex; mode=display">P(Q,D)=\sqrt{\sum_iW_Y(Y_{i,Q}-Y_{i,D})^2}+\sqrt{\sum_iW_{cr}(Cr_{i,Q}-Cr_{i,D})^2}+\sqrt{\sum_iW_{Cb}(Cb_{i,Q}-Cb_{i,D})^2}</script><ol>
+<li>中心矩法</li>
+</ol>
+<ul>
+<li>对直方图来说，均值是其零阶矩,更高阶的矩也可以用于匹配</li>
+<li>对一幅灰度级为L的图像，其直方图为H(i),则该图像的前三阶中心距分别为<script type="math/tex; mode=display">M_1=\frac{1}{L}\sum_{i=0}^{L-1}H(i)</script><script type="math/tex; mode=display">M_2=[\frac{1}{L}\sum_{i=0}^{L-1}(H(i)-M_1)^2]^{\frac{1}{2}}</script><script type="math/tex; mode=display">M_3=[\frac{1}{2}\sum_{i=0}^{L-1}(H(i)-M_1)^3]^{\frac{1}{3}}</script></li>
+</ul>
+<ol>
+<li>参考颜色表法</li>
+</ol>
+<p>总结：<br>这是一种全局特征，描述了图像或图像区域所对应景物的表面性质<br>由于颜色对图像或图像区域的方向、大小等变换不敏感，所以颜色特征不能很好地捕捉图像中对象的局部特征<br>颜色直方图表示的优点：不受图像旋转和平移变化的影响，归一化可不受图像尺度变化的影响<br>颜色直方图表示的优点:没有颜色空间分布的信息？</p>
+<h4 id="纹理特征"><a href="#纹理特征" class="headerlink" title="纹理特征"></a>纹理特征</h4><p>纹理概述</p>
+<ul>
+<li>描述图像时常用的一个概念，类似于颜色，也常取决于感知</li>
+<li>对纹理的感受是与心理效果相结合的。</li>
+<li>类似于布纹、草地、砖墙等重复性结构的图像称为纹理图像</li>
+</ul>
+<p>纹理可认为是灰度(颜色)在空间以一定的形式变化而产生的图案(模式)<br>一般来说，纹理图像中灰度分布具有某种周期性，即便灰度变化是随机的，它也具有一定的统计特性；<br>纹理通常和图像频谱中的高频分量是密切联系的，光滑的图像(主要包括低频分量)一般不认为是纹理图像。</p>
+<ul>
+<li>纹理表示</li>
+</ul>
+<ol>
+<li>Tamura表示法<br>对比度、粗细度和方向性是描述纹理的3个量<br>利用这3个量可组合成一个3-D空间<br>在这个3D空间中，两点间的欧氏距离与人对纹理感知的差距很接近</li>
+</ol>
+<p>对比度依赖于像素的灰度分布，它可测量图像中局部的灰度变化，也常用作对图像整体感知的一种描述<br>一般来说，图像的对比度与图像灰度的动态范围及图像中边缘的尖锐程度都有关</p>
+<script type="math/tex; mode=display">contrast=\frac{\sigma}{[\mu_4/\sigma^4]^{\frac{1}{4}}}</script><p>其中，$\sigma$是图像灰度的标准方差，$\mu_4$是图像灰度的4阶中心距</p>
+<p>粗细度测量纹理的间隔尺寸/粒度，与图像的分辨率有关，分辨率大则纹理比较粗，即组成纹理的元素尺寸比较大</p>
+<script type="math/tex; mode=display">coarseness=\frac{1}{mn}\sum_{ij}2^kf(i,j)</script><p>其中，窗口尺寸是$2^k×2^k$,k能使X和Y方向的$\sum_{ij}f(i,j)/2^{2k}$最大化,k的取值在0到5之间。</p>
+<p>方向性是一个全局的纹理特征，它描述纹理是如何沿某些方向散布或集中的<br>一般来说，方向性和纹理基元的形状以及如何将这些纹理基元排列的规则有关</p>
+<ol>
+<li>联合概率矩阵表示<br>用纹理特征的联合概率矩阵表示。这种方法考察了纹理在灰度级空间中的相关性<br>首先基于像素间的距离和方向建立联合概率矩阵<br>然后从联合概率矩阵中提取出有意义的统计量作为纹理描述</li>
+<li>小波表示</li>
+</ol>
+<p>总结：<br>纹理特征也是一种全局特征，描述了图像或图像区域所对应景物的表面性质<br>仅仅利用纹理特征是无法获得高层次图像内容。<br>不像颜色特征基于像素点，纹理需要在包含多个像素点的区域中进行统计计算<br>具有旋转不变性，并且对于噪声有较强的抵抗能力</p>
+<p>纹理特征缺点：<br>当图像的分辨率发生变化，所计算出来的纹理可能会有较大偏差<br>可能受到光照、反射情况的影响，用于检索时，這些虚假的纹理会导致误导</p>
+<h4 id="形状特征"><a href="#形状特征" class="headerlink" title="形状特征"></a>形状特征</h4><ul>
+<li>从不同视角获取的图像中目标形状可能会有很大差别</li>
+<li>为准确进行形状匹配，需要解决平移、尺度、旋转变换不变性的问题</li>
+</ul>
+<p>通常形状表示方法可分为两类：</p>
+<ol>
+<li>一类是基于边缘的形状表示</li>
+<li>另一类是基于区域的形状表示</li>
+</ol>
+<p>描述方法</p>
+<ol>
+<li>傅里叶描述子：利用傅里叶变化的边界作为形状的特征</li>
+<li>不变矩描述子：利用基于区域的矩作为形状特征</li>
+<li>有限元素法、旋转函数、小波描述子等</li>
+</ol>
+<p>形状特征总结：<br>可以有效利用图像中感兴趣的目标来进行检索<br>存在的问题：</p>
+<ul>
+<li>缺乏比较完善的数学模型</li>
+<li>如果目标有变形时，检索结果不太可靠</li>
+<li>仅仅描述了目标局部的性质，要全面描述目标常常对计算时间和存储量有较高的要求</li>
+<li>许多形状特征所反映的目标形状信息与人的直观感觉不完全一致</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/26/数字图像处理笔记（四）/">数字图像处理笔记（四）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2018年12月26日 - 17:12</p>
+  <p><span>最后更新:</span>2018年12月27日 - 20:12</p>
+  <p><span>原始链接:</span><a href="/2018/12/26/数字图像处理笔记（四）/" title="数字图像处理笔记（四）">http://yifdu.github.io/2018/12/26/数字图像处理笔记（四）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/26/数字图像处理笔记（四）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CV/" rel="tag"># CV</a>
+          
+            <a href="/tags/彩色图像处理/" rel="tag"># 彩色图像处理</a>
+          
+            <a href="/tags/Image-enhancement/" rel="tag"># Image enhancement</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/26/深度学习中各种Normalization/" rel="next" title="深度学习中各种Normalization">
+                <i class="fa fa-chevron-left"></i> 深度学习中各种Normalization
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/28/Natural-Language-Processing-with-PyTorch（八）/" rel="prev" title="Natural-Language-Processing-with-PyTorch（八）">
+                Natural-Language-Processing-with-PyTorch（八） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基于内容的图像检索"><span class="nav-number">1.</span> <span class="nav-text">基于内容的图像检索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要基于内容的图像检索？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么需要基于内容的图像检索？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体内容"><span class="nav-number">1.2.</span> <span class="nav-text">具体内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征提取"><span class="nav-number">1.2.1.</span> <span class="nav-text">特征提取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#颜色空间"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">颜色空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#颜色特征"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">颜色特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#纹理特征"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">纹理特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#形状特征"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">形状特征</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CV,彩色图像处理,Image enhancement,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="彩色基础知识 彩色图像处理可分为：   全彩色处理：数码相机、数码摄像机、彩色扫码仪 伪彩色处理： 对不同的灰度或灰度范围赋予不同的颜色   光是颜色科学的核心 描述彩色光的3个基本量：   辐射率：从光源流出能量的总量，用瓦特(W)度量 光强:观察者从光源接收的能量总和 亮度:主观描绘子  彩色空间 RGB   CCD技术直接感知RGB三个分量 是图像成像、显示、打印等设备的基础   CMY 和">
+<meta name="keywords" content="CV,彩色图像处理,Image enhancement">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字图像处理笔记（三）">
+<meta property="og:url" content="http://yifdu.github.io/2018/12/21/数字图像处理笔记（三）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="彩色基础知识 彩色图像处理可分为：   全彩色处理：数码相机、数码摄像机、彩色扫码仪 伪彩色处理： 对不同的灰度或灰度范围赋予不同的颜色   光是颜色科学的核心 描述彩色光的3个基本量：   辐射率：从光源流出能量的总量，用瓦特(W)度量 光强:观察者从光源接收的能量总和 亮度:主观描绘子  彩色空间 RGB   CCD技术直接感知RGB三个分量 是图像成像、显示、打印等设备的基础   CMY 和">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg">
+<meta property="og:updated_time" content="2018-12-26T09:01:17.357Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数字图像处理笔记（三）">
+<meta name="twitter:description" content="彩色基础知识 彩色图像处理可分为：   全彩色处理：数码相机、数码摄像机、彩色扫码仪 伪彩色处理： 对不同的灰度或灰度范围赋予不同的颜色   光是颜色科学的核心 描述彩色光的3个基本量：   辐射率：从光源流出能量的总量，用瓦特(W)度量 光强:观察者从光源接收的能量总和 亮度:主观描绘子  彩色空间 RGB   CCD技术直接感知RGB三个分量 是图像成像、显示、打印等设备的基础   CMY 和">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2018/12/21/数字图像处理笔记（三）/">
+
+
+
+
+
+  <title>数字图像处理笔记（三） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/12/21/数字图像处理笔记（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数字图像处理笔记（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-21T15:08:20+08:00">
+                2018-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer Vision</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg" rel="gallery_cjq7hypz7001ehgwa1uh2fver" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="彩色基础知识"><a href="#彩色基础知识" class="headerlink" title="彩色基础知识"></a>彩色基础知识</h1><ul>
+<li>彩色图像处理可分为：</li>
+</ul>
+<ol>
+<li>全彩色处理：数码相机、数码摄像机、彩色扫码仪</li>
+<li>伪彩色处理： 对不同的灰度或灰度范围赋予不同的颜色</li>
+</ol>
+<ul>
+<li>光是颜色科学的核心</li>
+<li>描述彩色光的3个基本量：</li>
+</ul>
+<ol>
+<li>辐射率：从光源流出能量的总量，用瓦特(W)度量</li>
+<li>光强:观察者从光源接收的能量总和</li>
+<li>亮度:主观描绘子</li>
+</ol>
+<h1 id="彩色空间"><a href="#彩色空间" class="headerlink" title="彩色空间"></a>彩色空间</h1><ul>
+<li>RGB</li>
+</ul>
+<ol>
+<li>CCD技术直接感知RGB三个分量</li>
+<li>是图像成像、显示、打印等设备的基础</li>
+</ol>
+<ul>
+<li>CMY 和CMYK<br>CMY(青、深红、黄)、CMYK(青、深红、黄、黑)</li>
+<li>HSI(色调、饱和度、亮度)</li>
+</ul>
+<ol>
+<li>两个特点：I分量与图像的彩色信息无关；H和S分量分量与人感受颜色的方式是紧密相连的</li>
+<li>将亮度(I)和色调(H)和饱和度(S)分开</li>
+<li>避免颜色受到光照明暗(I)等条件的干扰</li>
+<li>仅仅分析反映色彩本质的色调和饱和度</li>
+<li>广泛用于计算机视觉、图像检索和视频检索</li>
+</ol>
+<ul>
+<li>YIQ</li>
+</ul>
+<ol>
+<li>Y指亮度(Brightness),即灰度值</li>
+<li>I和Q指色调，描述色彩及饱和度</li>
+<li>用于彩色电视广播，被北美的电视系统所采用(属于NTSC系统)</li>
+<li>Y分量可提供黑白电视机的所有影像信息</li>
+</ol>
+<ul>
+<li>YUV</li>
+</ul>
+<ol>
+<li>Y指亮度，与YIQ的Y相同</li>
+<li>U和V也指色调，不同于YIQ的I和Q</li>
+<li>用于彩色电视直播</li>
+<li>Y分量也可提供黑白电视机的所有影响信息</li>
+</ol>
+<ul>
+<li>YCbCr</li>
+</ul>
+<ol>
+<li>Y指亮度，与YIQ和YUV的Y相同</li>
+<li>Cb和Cr由U和V调整</li>
+<li>JPEG采用的彩色空间</li>
+</ol>
+<h2 id="彩色空间转换"><a href="#彩色空间转换" class="headerlink" title="彩色空间转换"></a>彩色空间转换</h2><ol>
+<li>RGB与CMY的转换<br>$<br>\begin{bmatrix}<br>C     \\<br>M     \\<br>Y     \\<br>\end{bmatrix}<br>$=$\begin{bmatrix}<br>1 \\<br>1 \\<br>1 \\<br>\end{bmatrix}<br>$-$<br>\begin{bmatrix}<br>R \\<br>G \\<br>B \\<br>\end{bmatrix}<br>$<br>RGB和CMY都归一化到[0,1]</li>
+<li><p>RGB——&gt;HSI</p>
+<script type="math/tex; mode=display">
+H=
+\begin{cases}
+\theta  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ B≤G\\
+\ 360-\theta \ \ \ \ \ B＞G\\
+\end{cases}</script><script type="math/tex; mode=display">
+\theta=arccos{\frac{\frac{1}{2}[(R-G)+(R-B)]}{[(R-G)^2+(R-G)(G-B)]^{\frac{1}{2}}}}</script><script type="math/tex; mode=display">
+S=1-\frac{3}{(R+G+B)}[min(R,G,B)]</script><script type="math/tex; mode=display">
+I=\frac{1}{3}(R+G+B)</script><p><img src="/2018/12/21/数字图像处理笔记（三）/HSI.png" alt="HSI"></p>
+</li>
+<li><p>HSI——&gt;RGB<br>0°≤H＜120°<br>$R=I[1+\frac{S cosH}{cos(60°-H)}]$  G=1-(R+B) B=I(1-s)<br>120°≤H＜240°    H=H-120°<br>$G=I[1+\frac{S cos H}{cos(60°-H)}]$  B=1-(R+G)   R=I(1-s)<br>240°≤H＜360°   H=H-240°<br>$B=I[1+\frac{S cosH}{cos(60°-H)}]$  R=1-(G+B)  G=I(1-s)</p>
+</li>
+<li><p>RGB与YIQ的转换<br>$\begin{bmatrix}<br>Y \\<br>I \\<br>Q \\<br>\end{bmatrix}<br>$=$<br>\begin{bmatrix}<br>0.299 &amp;0.587 &amp;0.114\\<br>0.596 &amp;-0.274 &amp;-0.322\\<br>0.211 &amp;-0.523 &amp;0.312\\<br>\end{bmatrix}<br>\begin{bmatrix}<br>R\\<br>G\\<br>B\\<br>\end{bmatrix}<br>$</p>
+</li>
+</ol>
+<p>$\begin{bmatrix}<br>R \\<br>G \\<br>B \\<br>\end{bmatrix}<br>$=$<br>\begin{bmatrix}<br>1 &amp;0.956 &amp;0.621\\<br>1 &amp;-0.272 &amp;-0.647\\<br>1 &amp;-1.106 &amp;1.703\\<br>\end{bmatrix}<br>\begin{bmatrix}<br>Y\\<br>I\\<br>Q\\<br>\end{bmatrix}<br>$</p>
+<p>4.RGB与YUV转换<br>$\begin{bmatrix}<br>Y \\<br>U \\<br>V \\<br>\end{bmatrix}<br>$=$<br>\begin{bmatrix}<br>0.299 &amp;0.587 &amp;0.114\\<br>-0.148 &amp;-0.289 &amp;0.437\\<br>0.615 &amp;-0.515 &amp;0.100\\<br>\end{bmatrix}<br>\begin{bmatrix}<br>R\\<br>G\\<br>B\\<br>\end{bmatrix}<br>$<br>$\begin{bmatrix}<br>R \\<br>G \\<br>B \\<br>\end{bmatrix}<br>$=$<br>\begin{bmatrix}<br>1 &amp;0 &amp;1.140\\<br>1 &amp;-0.395 &amp;-0.581\\<br>1 &amp;2.032 &amp;0\\<br>\end{bmatrix}<br>\begin{bmatrix}<br>Y\\<br>U\\<br>V\\<br>\end{bmatrix}<br>$<br>5.RGB与YCbCr的转换<br>$\begin{bmatrix}<br>Y \\<br>Cb \\<br>Cr \\<br>1  \\<br>\end{bmatrix}<br>$=$<br>\begin{bmatrix}<br>0.299 &amp;0.587 &amp;0.114 &amp;0\\<br>-0.1687 &amp;-0.3313 &amp;0.5000 &amp;128\\<br>0.5000 &amp;-0.4187 &amp;-0.0813 &amp;128\\<br>0 &amp;0 &amp;0 &amp;1\\<br>\end{bmatrix}<br>\begin{bmatrix}<br>R\\<br>G\\<br>B\\<br>1\\<br>\end{bmatrix}<br>$<br>$\begin{bmatrix}<br>R \\<br>G \\<br>B \\<br>\end{bmatrix}<br>$=$<br>\begin{bmatrix}<br>1 &amp;1.40200 &amp;0\\<br>1 &amp;-0.34414 &amp;-0.7414\\<br>1 &amp;1.77200 &amp;0\\<br>\end{bmatrix}<br>\begin{bmatrix}<br>Y\\<br>Cb-128\\<br>Cr-128\\<br>\end{bmatrix}<br>$</p>
+<h1 id="伪彩色处理"><a href="#伪彩色处理" class="headerlink" title="伪彩色处理"></a>伪彩色处理</h1><p>什么叫伪彩色图像处理？<br>根据一定的准则对灰度值赋以彩色处理<br>区分：伪彩色图像、真彩色图像、单彩色图像<br><strong>为什么需要伪彩色处理?</strong><br>人类可以辨别上千种颜色和强度，只能辨别20多种灰度<br>应用：为人们观察和解释图像种的灰度目标<br>怎样进行伪彩色图像处理:<br>1.强度分层技术<br>2.灰度到彩色转换技术</p>
+<h2 id="强度分层技术"><a href="#强度分层技术" class="headerlink" title="强度分层技术"></a>强度分层技术</h2><ul>
+<li>把一幅图像描述为三维函数(x,y,f(x,y))</li>
+<li>分层技术:放置平行于(x,y)坐标面的平面</li>
+<li>每一个平面在相交区域切割图像函数<br><img src="/2018/12/21/数字图像处理笔记（三）/Fenceng.png" alt="Fenceng"><br>定义：令[0,L-1]表示灰度级，使$l_0$表示黑色(f(x,y)=0),$l_{L+1}$表示白色(f(x,y)=L-1).假设垂直于强度轴的P个平面定义为量级$l_1,l_2,…,l_p$.0＜P＜L-1,P个平面将灰度级分为P+1个间隔，$V_1,V_2,…,V_{P+1}$，则灰度级到彩色的赋值关系:<script type="math/tex; mode=display">f(x,y)=c_k \ \ \ \ \ f(x,y)∈V_k</script>$c_k$是与强度间隔$V_k$第K级强度有关的颜色<br>$V_k$是由在l=k-1和l=k分割平面定义的</li>
+</ul>
+<p>例如甲状腺模型<br><img src="/2018/12/21/数字图像处理笔记（三）/jiazhuangxian.png" alt="jiazhuangxian"><br>作图的恒定强度难以区分病变，右图强度分层结果，清楚的显示恒定强度的不同区域。<br>例如用颜色突出降雨水平<br><img src="/2018/12/21/数字图像处理笔记（三）/rain.png" alt="rain"></p>
+<h2 id="灰度到彩色的转换"><a href="#灰度到彩色的转换" class="headerlink" title="灰度到彩色的转换"></a>灰度到彩色的转换</h2><ul>
+<li>对任何输入像素的灰度级执行3个独立变换</li>
+<li>3个变换结果分别送入彩色监视器的红、绿、蓝三个通道</li>
+<li>产生一幅合成图像<br><img src="/2018/12/21/数字图像处理笔记（三）/Three.png" alt="Three"></li>
+</ul>
+<h1 id="全彩色图像处理"><a href="#全彩色图像处理" class="headerlink" title="全彩色图像处理"></a>全彩色图像处理</h1><p>全彩色图像处理研究分为两大类:</p>
+<ul>
+<li>分别处理每一分量图像，然后合成彩色图像</li>
+<li>直接对彩色像素处理:3个颜色分量表示像素向量。令c代表RGB彩色空间中的任意向量<script type="math/tex; mode=display">
+c=\begin{bmatrix}
+c_R\\
+c_G\\
+c_B\\
+\end{bmatrix}
+=\begin{bmatrix}
+R\\
+G\\
+B\\
+\end{bmatrix}</script></li>
+</ul>
+<h1 id="彩色变换"><a href="#彩色变换" class="headerlink" title="彩色变换"></a>彩色变换</h1><p>彩色变换函数<br>g(x,y)=T[f(x,y)]<br>其中f(x,y)是彩色输入图像<br>g(x,y)是变换或处理过的彩色输出图像<br>T是在空间邻域(x,y)上对f的操作<br>彩色变换的简单形式</p>
+<script type="math/tex; mode=display">s_i=T_i(r_1,r_2,..,r_n) \ \ \ \ \ i=1,2,...,n</script><p>$r_i$和$s_i$是f(x,y)和g(x,y)在任何点处彩色分量的变量<br>${T_1,T_2,…,T_n}$是一个对$r_i$操作产生$s_i$的变换或彩色映射函数集<br>选择的彩色空间决定n的值，如RGB彩色空间，n=3,<br>$r_1,r_2,r_3$表示红、绿、蓝分量；CMYK,则n=4</p>
+<p>补色:在如图所示的彩色环上，与一种色调直接相对立的另一种色调称为补色<br><img src="/2018/12/21/数字图像处理笔记（三）/buse.png" alt="buse"><br>作用:增强嵌在彩色图像暗区的细节</p>
+<h1 id="彩色图像平滑和尖锐化"><a href="#彩色图像平滑和尖锐化" class="headerlink" title="彩色图像平滑和尖锐化"></a>彩色图像平滑和尖锐化</h1><p>令$S_{xy}$表示在RGB彩色图像中定义一个中心在(x,y)的邻域的坐标集，在该领域种RGB分量的平均值为:</p>
+<script type="math/tex; mode=display">\overline{c}(x,y)=\frac{1}{k}\sum_{(x,y)∈S_{xy}}c(x,y)</script><script type="math/tex; mode=display">
+\overline{c}(x,y)=
+\begin{bmatrix}
+\frac{1}{K}\sum_{(x,y)∈S_{xy}}R(x,y)\\
+\frac{1}{K}\sum_{(x,y)∈S_{xy}}G(x,y)\\
+\frac{1}{K}\sum_{(x,y)∈S_{xy}}B(x,y)\\
+\end{bmatrix}</script><p>彩色图像尖锐化<br>RGB彩色空间，分别计算每一分量图像的拉普拉斯变换</p>
+<script type="math/tex; mode=display">▽^2[c(x,y)]=
+\begin{bmatrix}
+▽^2R(x,y) \\
+▽^2G(x,y) \\
+▽^2B(x,y) \\
+\end{bmatrix}</script><p>$g(x,y)=f(x,y)-▽^2f(x,y)=f(x,y)-\{[f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)]-4f(x,y)\}$</p>
+<p>彩色分割(把一幅图像分成区域)</p>
+<ul>
+<li>HSI彩色空间分割——直观</li>
+</ul>
+<ol>
+<li>H色调图像方便描述彩色</li>
+<li>S饱和度图像做模板分离感兴趣的特征区</li>
+<li>I强度图像不携带彩色信息</li>
+</ol>
+<ul>
+<li>RGB彩色空间——直接<br><img src="/2018/12/21/数字图像处理笔记（三）/Segment.png" alt="Segment"><br><img src="/2018/12/21/数字图像处理笔记（三）/Segment1.png" alt="Segment1"></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/21/数字图像处理笔记（三）/">数字图像处理笔记（三）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2018年12月21日 - 15:12</p>
+  <p><span>最后更新:</span>2018年12月26日 - 17:12</p>
+  <p><span>原始链接:</span><a href="/2018/12/21/数字图像处理笔记（三）/" title="数字图像处理笔记（三）">http://yifdu.github.io/2018/12/21/数字图像处理笔记（三）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/21/数字图像处理笔记（三）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CV/" rel="tag"># CV</a>
+          
+            <a href="/tags/彩色图像处理/" rel="tag"># 彩色图像处理</a>
+          
+            <a href="/tags/Image-enhancement/" rel="tag"># Image enhancement</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/" rel="next" title="Natural-Language-Processing-with-PyTorch（五）">
+                <i class="fa fa-chevron-left"></i> Natural-Language-Processing-with-PyTorch（五）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/24/Natural-Language-Processing-with-PyTorch（六）/" rel="prev" title="Natural-Language-Processing-with-PyTorch（六）">
+                Natural-Language-Processing-with-PyTorch（六） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#彩色基础知识"><span class="nav-number">1.</span> <span class="nav-text">彩色基础知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#彩色空间"><span class="nav-number">2.</span> <span class="nav-text">彩色空间</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#彩色空间转换"><span class="nav-number">2.1.</span> <span class="nav-text">彩色空间转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伪彩色处理"><span class="nav-number">3.</span> <span class="nav-text">伪彩色处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#强度分层技术"><span class="nav-number">3.1.</span> <span class="nav-text">强度分层技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#灰度到彩色的转换"><span class="nav-number">3.2.</span> <span class="nav-text">灰度到彩色的转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全彩色图像处理"><span class="nav-number">4.</span> <span class="nav-text">全彩色图像处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#彩色变换"><span class="nav-number">5.</span> <span class="nav-text">彩色变换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#彩色图像平滑和尖锐化"><span class="nav-number">6.</span> <span class="nav-text">彩色图像平滑和尖锐化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

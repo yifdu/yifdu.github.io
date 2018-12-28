@@ -90,19 +90,19 @@
 
 
 
-<meta name="description" content="Chapter 5. Embedding Words and Types在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型。 将离散类型(如单词)表示为密集向量是">
+<meta name="description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 5. Embedding Words and Types在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型">
 <meta name="keywords" content="NLP,Pytorch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Natural-Language-Processing-with-PyTorch（五）">
 <meta property="og:url" content="http://yifdu.github.io/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/index.html">
 <meta property="og:site_name" content="深度智障">
-<meta property="og:description" content="Chapter 5. Embedding Words and Types在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型。 将离散类型(如单词)表示为密集向量是">
+<meta property="og:description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 5. Embedding Words and Types在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
-<meta property="og:updated_time" content="2018-12-21T07:03:11.153Z">
+<meta property="og:updated_time" content="2018-12-28T03:44:54.324Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Natural-Language-Processing-with-PyTorch（五）">
-<meta name="twitter:description" content="Chapter 5. Embedding Words and Types在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型。 将离散类型(如单词)表示为密集向量是">
+<meta name="twitter:description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 5. Embedding Words and Types在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
 
 
@@ -416,7 +416,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" rel="gallery_cjpxov2be005g6owas2hh96qy" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" rel="gallery_cjq7hyr0f0069hgwa3gmzytjw" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" itemprop="contentUrl">
               </a>
             
@@ -428,7 +428,8 @@
       
 
       
-        <h1 id="Chapter-5-Embedding-Words-and-Types"><a href="#Chapter-5-Embedding-Words-and-Types" class="headerlink" title="Chapter 5. Embedding Words and Types"></a>Chapter 5. Embedding Words and Types</h1><p>在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型。</p>
+        <p><strong>由Yif翻译，仅供学习严禁任何商业用途</strong></p>
+<h1 id="Chapter-5-Embedding-Words-and-Types"><a href="#Chapter-5-Embedding-Words-and-Types" class="headerlink" title="Chapter 5. Embedding Words and Types"></a>Chapter 5. Embedding Words and Types</h1><p>在实现自然语言处理(NLP)任务时，我们需要处理不同类型的离散类型。最明显的例子是单词。单词来自一个有限的集合(也就是词汇表)。其他离散类型的示例包括字符、部分语言标记、命名实体、命名实体类型、解析特性、产品目录中的项等等。本质上，当任何输入特征来自有限(或可数无限)集时，它都是离散类型。</p>
 <p>将离散类型(如单词)表示为密集向量是NLP中深度学习成功的核心。术语“representation learning”和“embedding”是指学习从一种离散类型到向量空间中的一点的映射。当离散类型为词时，密集向量表示称为词嵌入(word embedding)。我们在第2章中看到了基于计数的嵌入方法的例子，比如term - frequency-reverse-document-frequency (TF-IDF)。在本章中，我们主要研究基于学习或基于预测(Baroni et al.， 2014)的嵌入方法，即通过最大化特定学习任务的目标来学习表征;例如，根据上下文预测一个单词。基于学习的嵌入方法由于其广泛的适用性和性能而在法理上受到限制。事实上，单词嵌入在NLP任务中的普遍性为它们赢得了“NLP的Sriracha”的称号，因为您可以在任何NLP任务中使用单词嵌入，并期望任务的性能得到改进。但是我们认为这种绰号是误导的，因为与Sriracha不同，嵌入式(embeddings)通常不是作为事后添加到模型中的，而是模型本身的基本组成部分。</p>
 <p>在这一章中，我们讨论与嵌入词相关的向量表示:嵌入词的方法，优化嵌入词的方法，用于监督和非监督语言任务，可视化嵌入词的方法，以及组合嵌入词的句子和文件的方法。但是，您必须记住，我们在这里描述的方法适用于任何离散类型。</p>
 <h2 id="Why-Learn-Embeddings"><a href="#Why-Learn-Embeddings" class="headerlink" title="Why Learn Embeddings?"></a>Why Learn Embeddings?</h2><p>在前几章中，您看到了创建单词向量表示的传统方法。具体来说，您了解到可以使用onehot表示—与词汇表大小相同的长度的向量，除了单个位置以外，其他地方都是0，值为1表示特定的单词。此外，您还看到了计数表示——向量的长度与模型中唯一单词的数量相同，但是在向量中与句子中单词的频率相对应的位置上有计数。基于计数的表示也称为分布表示，因为它们的重要内容或意义是由向量中的多个维度表示的。分布表示具有悠久的历史(Firth, 1935)，可以很好地用于许多机器学习和神经网络模型。这些表示，不是从数据中学习的，而是启发式构建的。</p>
@@ -525,7 +526,7 @@
   <p><span>本文标题:</span><a href="/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/">Natural-Language-Processing-with-PyTorch（五）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年12月21日 - 12:12</p>
-  <p><span>最后更新:</span>2018年12月21日 - 15:12</p>
+  <p><span>最后更新:</span>2018年12月28日 - 11:12</p>
   <p><span>原始链接:</span><a href="/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/" title="Natural-Language-Processing-with-PyTorch（五）">http://yifdu.github.io/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/21/Natural-Language-Processing-with-PyTorch（五）/" aria-label="复制成功！"></i></span>
   </p>
@@ -581,6 +582,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/21/数字图像处理笔记（三）/" rel="prev" title="数字图像处理笔记（三）">
+                数字图像处理笔记（三） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -661,7 +666,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -672,7 +677,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -683,7 +688,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

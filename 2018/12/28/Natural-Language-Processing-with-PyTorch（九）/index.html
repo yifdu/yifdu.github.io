@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,Pytorch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 9. Classics, Frontiers, and Next Steps在本章中，我们将从整本书的角度回顾前面的章节，并了解本书中讨论的看似独立的主题是如何相互依赖的，以及研究人员如何将这些想法混合和匹配以解决手头的问题。我们还总结了自然语言处理（NLP）中的一些经典主题，我们无法在这些封面之间进行深入讨论。最后，我们指出了该领域的前沿，">
+<meta name="keywords" content="NLP,Pytorch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Natural-Language-Processing-with-PyTorch（九）">
+<meta property="og:url" content="http://yifdu.github.io/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 9. Classics, Frontiers, and Next Steps在本章中，我们将从整本书的角度回顾前面的章节，并了解本书中讨论的看似独立的主题是如何相互依赖的，以及研究人员如何将这些想法混合和匹配以解决手头的问题。我们还总结了自然语言处理（NLP）中的一些经典主题，我们无法在这些封面之间进行深入讨论。最后，我们指出了该领域的前沿，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
+<meta property="og:updated_time" content="2018-12-28T03:44:54.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Natural-Language-Processing-with-PyTorch（九）">
+<meta name="twitter:description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 9. Classics, Frontiers, and Next Steps在本章中，我们将从整本书的角度回顾前面的章节，并了解本书中讨论的看似独立的主题是如何相互依赖的，以及研究人员如何将这些想法混合和匹配以解决手头的问题。我们还总结了自然语言处理（NLP）中的一些经典主题，我们无法在这些封面之间进行深入讨论。最后，我们指出了该领域的前沿，">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/">
+
+
+
+
+
+  <title>Natural-Language-Processing-with-PyTorch（九） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Natural-Language-Processing-with-PyTorch（九）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-28T11:13:28+08:00">
+                2018-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Pytorch/" itemprop="url" rel="index">
+                    <span itemprop="name">Pytorch</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Pytorch/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" rel="gallery_cjq7hyqkd0044hgwaryanrl18" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <p><strong>由Yif翻译，仅供学习严禁任何商业用途</strong></p>
+<h1 id="Chapter-9-Classics-Frontiers-and-Next-Steps"><a href="#Chapter-9-Classics-Frontiers-and-Next-Steps" class="headerlink" title="Chapter 9. Classics, Frontiers, and Next Steps"></a>Chapter 9. Classics, Frontiers, and Next Steps</h1><p>在本章中，我们将从整本书的角度回顾前面的章节，并了解本书中讨论的看似独立的主题是如何相互依赖的，以及研究人员如何将这些想法混合和匹配以解决手头的问题。我们还总结了自然语言处理（NLP）中的一些经典主题，我们无法在这些封面之间进行深入讨论。最后，我们指出了该领域的前沿，截至2018年。在经验丰富的NLP和深度学习等快速发展的领域，我们必须学习新的想法并使自己保持最新状态。我们致力于学习如何在NLP中学习新主题。</p>
+<h2 id="What-Have-We-Learned-so-Far"><a href="#What-Have-We-Learned-so-Far" class="headerlink" title="What Have We Learned so Far?"></a>What Have We Learned so Far?</h2><p>我们从监督学习范式开始，以及我们如何使用计算图形抽象将复杂的想法编码为可以通过反向传播进行训练的模型。 PyTorch是我们选择的计算框架。编写NLP书籍存在风险，该书使用深度学习将文本输入视为要输入黑盒子的“数据”。在第2章中，我们介绍了NLP和语言学的一些基本概念，为本书的其余部分奠定了基础。激活函数，损失函数和基于梯度的监督学习优化以及“训练 - 评估循环”等基本概念在本章的其他章节中变得非常方便。我们研究了前馈网络的两个例子 - 多层感知器（MLP）和卷积网络。我们看到了L1，L2规范和丢包等正规化机制，使网络更加健壮。 MLP能够在其隐藏层中捕获类似ngram的关系，但是它们效率低下。另一方面，卷积网络使用称为“参数绑定”或“参数共享”的思想以计算有效的方式学习这个子结构。在第6章中，我们看到了循环网络如何能够捕获远程依赖性跨越时间也只有很少的参数。你可以说卷积网络正在跨越空间绑定参数，而循环网络正在跨时间绑定参数。我们看到了三种复发网络的变体，从Elman Recurrent Neural网络（RNN）和门控变体如长短期记忆（LSTM）和门控复发单位（GRU）开始。我们还了解了如何在预测或序列标记设置中使用循环网络，其中在输入的每个时间步骤预测输出。最后，我们介绍了一类称为编码器 - 解码器模型的模型，并研究了序列到序列模型作为解决条件生成问题（如机器翻译）的示例。我们在PyTorch中完成了许多这些主题的端到端示例。</p>
+<h2 id="Timeless-Topics-in-NLP"><a href="#Timeless-Topics-in-NLP" class="headerlink" title="Timeless Topics in NLP"></a>Timeless Topics in NLP</h2><p>NLP比单本书范围内的内容还多，本书也不例外。在第2章中，我们确定了NLP中的一些核心术语和任务。我们在其余章节中介绍了许多NLP任务，但是在这里我们简要提到一些我们无法部分或全部涵盖的重要主题，因为我们的范围仅限于初始说明书。</p>
+<h3 id="Dialogue-and-Interactive-Systems"><a href="#Dialogue-and-Interactive-Systems" class="headerlink" title="Dialogue and Interactive Systems"></a>Dialogue and Interactive Systems</h3><p>计算机和人类之间的无缝对话被认为是计算的圣杯，并激发了图灵测验和勒伯纳奖。自人工智能（人工智能）早期以来，NLP一直与对话系统相关联，并通过虚构系统在流行文化中普及，如星际迷航中的USS Enterprise上的主计算机和电影2001：A Space Odyssey中的HAL 9000。 1对话和更广泛的交互系统设计领域是一个肥沃的研究领域，亚马逊的Alexa，Apple的Siri和Google的助手等近期产品取得了成功。对话系统可以是开放域（问我什么）或封闭域（例如，航班预订，汽车导航）。该领域的一些重要研究课题包括我们如何对对话行为进行建模，对话背景（见图9-1）和对话状态？我们如何建立多模式对话系统（例如，语音和视觉或文本和视觉输入）？系统如何识别用户意图？我们如何为用户的偏好建模并生成针对用户量身定制的响应？如何回应更人性化的声音？例如，最近的生产对话系统已经开始将诸如“嗯”和“呃”之类的不流畅结合到响应中，以使系统看起来不那么机器人。</p>
+<p><img src="/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/pic1.png" alt="pic1" title="图9-1。实施对话系统（使用Apple的Siri）。注意对话系统如何维护上下文以回答后续问题;也就是说，它知道将“他们”映射到巴拉克奥巴马的女儿身上。"></p>
+<h3 id="Discourse"><a href="#Discourse" class="headerlink" title="Discourse"></a>Discourse</h3><p>话语涉及理解文本文档的部分整体性质。例如，话语解析的任务涉及理解两个句子在上下文中如何彼此相关。表9-1给出了Penn Discourse Treebank（PDTB）的一些例子来说明这项任务。</p>
+<p>Table 9-1. Examples from the CoNLL 2015 Shallow Discourse Processing task<br><img src="/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/pic2.png" alt="pic2"><br>理解话语还涉及解决其他问题，如回指解析和转喻检测。在Anaphora Resolution中，我们希望将代词的出现解析为它们所引用的实体。如图9-2所示，这可能成为一个复杂的问题。<br><img src="/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/pic3.png" alt="pic3" title="图9-2。回指解决方案的一些问题。在例子（a）中，“它”是指狗还是骨头？在示例（b）中，“它”既不是指它们也不是指它们。在实施例（c）和（d）中，“It”分别指玻璃和啤酒。了解啤酒更有可能起泡作用，对于解决此类指称（选择偏好）至关重要。"><br>对象可以是转喻，如下例所示：<br>“Beijing imposed trade tariffs in response to tariffs on Chinese goods.”</p>
+<p>北京在这里指的不是中国政府的所在地。有时，成功解决所指对象可能需要使用知识库。</p>
+<h3 id="Information-Extraction-and-Text-Mining"><a href="#Information-Extraction-and-Text-Mining" class="headerlink" title="Information Extraction and Text Mining"></a>Information Extraction and Text Mining</h3><p>该行业中遇到的常见问题类别之一涉及信息提取。我们如何从文本中提取实体（人名，产品名称等），事件和关系？我们如何将文本中的实体提及映射到知识库中的条目（又称实体发现，实体链接，插槽填充）？3我们如何首先构建和维护该知识库（知识库群体）？这些是在不同背景下的信息提取研究中经常回答的一些问题。</p>
+<h3 id="Document-Analysis-and-Retrieval"><a href="#Document-Analysis-and-Retrieval" class="headerlink" title="Document Analysis and Retrieval"></a>Document Analysis and Retrieval</h3><p>另一种常见的行业NLP问题包括理解大量文档。我们如何从文档中提取主题（主题建模）？我们如何更智能地索引和搜索文档？我们如何理解搜索查询（查询解析）？我们如何为大型集合生成摘要？</p>
+<p>NLP技术的范围和适用性很广，事实上，NLP技术可以应用于存在非结构化或半结构化数据的任何地方。作为一个例子，我们将您介绍给Dill等人。 （2007），他们应用自然语言解析技术来解释蛋白质折叠。</p>
+<h2 id="Frontiers-in-NLP"><a href="#Frontiers-in-NLP" class="headerlink" title="Frontiers in NLP"></a>Frontiers in NLP</h2><p>当该领域正在进行快速创新时，写一篇题为“NLP前沿”的部分似乎是一件愚蠢的事。但是，我们想让您一瞥2018年秋季的最新趋势：</p>
+<ol>
+<li>将经典NLP文献引入可微学习范式<br>NLP领域已有几十年的历史，尽管深度学习领域只有几年的历史。许多创新似乎都在研究新的深度学习（可微学习）范式下的传统方法和任务。阅读经典NLP论文（我们建议阅读它们！）时，一个很好的问题是作者试图学习什么？什么是输入/输出表示？我们如何通过前面章节中学到的技术简化这一过程？</li>
+<li>模型的组合性原则<br>在本书中，我们讨论了NLP,MLP，CNN，序列模型，序列到序列模型和基于注意力的模型的不同类型的深度学习架构。值得注意的是，尽管我们单独讨论了这些模型，但纯粹是出于教学原因。在文献中看到的一个趋势是组合不同的架构来完成工作。例如，您可以在单词的字符上编写卷积网络，然后在该表示上写入LSTM，并且通过MLP完成LSTM编码的最终分类。能够根据任务需求组合地组合不同的架构是使深度学习成功的最有力的想法之一。</li>
+<li>序列的卷积<br>我们在序列建模中看到的最近趋势是使用卷积运算完全模拟序列。作为完全卷积机器翻译模型的一个例子，参见Gehring等人。 （2018）。解码步骤使用去卷积操作。这是有利的，因为可以使用全卷积模型显着加速训练。</li>
+<li>Attention is all you need<br>最近的另一个趋势是用注意机制取代卷积（Vaswani等，2017）。使用注意机制，特别是称为自我关注和多头注意的变体，您基本上可以捕获通常使用RNN和CNN建模的远程依赖关系。</li>
+<li>Transfer learning<br>迁移学习是学习一项任务的表示和使用表示来改进另一项任务的学习的任务。在最近神经网络的复兴和NLP中的深度学习中，使用预训练的单词向量的转移学习技术已经变得无处不在。最近的工作（Radford等，2018; Peters等，2018）证明了语言建模任务的无监督表示如何有助于各种NLP任务，如问答，分类，句子相似性和自然 - 语言推断。</li>
+</ol>
+<p>此外，强化学习领域最近在对话相关任务方面取得了一些成功，而复杂的自然语言推理任务的记忆和知识基础的建模似乎引起了工业界和学术界的研究人员的高度关注。在下一节中，我们将从经典和前沿转向更直接的事物 - 开发一个系统思考设计生产NLP系统。</p>
+<h2 id="Design-Patterns-for-Production-NLP-Systems"><a href="#Design-Patterns-for-Production-NLP-Systems" class="headerlink" title="Design Patterns for Production NLP Systems"></a>Design Patterns for Production NLP Systems</h2><p>生产NLP系统可能很复杂。在构建NLP系统时，重要的是要记住，您正在构建的系统正在解决任务，并且只是实现这一目标的手段。在系统构建期间，工程师，研究人员，设计人员和产品经理可以做出多种选择。虽然我们的书主要关注技术或基础构建块，但将这些构建块放在一起以提出满足您需求的复杂结构将需要一些模式思考。模式思维和描述模式的语言是“在专业领域内描述良好设计实践或有用组织模式的方法。”这在许多学科（Alexander，1979）中很流行，包括软件工程。在本节中，我们将介绍生产NLP系统的一些常见设计和部署模式。这些是团队经常需要做出的选择或权衡，以使产品开发与技术，业务，战略和运营目标保持一致。我们在六个轴下检查这些设计选择：</p>
+<ol>
+<li>Online versus offline systems<br>在线系统是需要实时或接近实时地进行模型预测的系统。诸如打击垃圾邮件和内容审核等一些任务本质上需要在线系统。另一方面，离线系统不需要实时运行。我们可以将它们构建为在一批输入上有效运行，并且可以利用转换学习等方法。一些在线系统可以是被动的，甚至可以以在线方式进行学习（也称为在线学习），但是许多在线系统是通过定期离线模型构建来构建和部署的，该构建被推向生产。使用在线学习构建的系统应该对对抗性环境特别敏感。最近的一个例子是着名的Twitter聊天机器人Tay，它误入歧途并开始从在线巨魔学习。正如后见之明所预见的那样，Tay很快就开始回应令人反感的推文，其母公司微软不得不在推出后不到一天就关闭了这项服务。系统构建中的典型轨迹是首先构建一个离线系统，将其作为一个“在线”系统进行大量工程工作，然后通过添加反馈循环并可能改变学习方法使其成为“在线学习”系统。虽然这种路径在代码库中增加的复杂性方面是有机的，但它可能会引入诸如处理攻击者之类的盲点等等。图9-3显示了“Facebook免疫系统”作为检测垃圾邮件的在线系统的一个例子（警告：大约2012年。不是当前Facebook基础设施的反映）。请注意在线系统如何比类似的离线系统需要更多的工程设计。<br><img src="/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/pic4.png" alt="pic4" title="Facebook免疫系统：一个在线系统的例子，用于对抗垃圾邮件和滥用（Stein等，2012）。"></li>
+<li>Interactive versus non-interactive systems<br>大多数自然语言系统在预测仅来自模型的意义上是非交互式的。实际上，许多生产NLP模型深深嵌入到数据处理的提取，转换和加载（ETL）管道的转换步骤中。在某些情况下，人类参与预测循环可能会有所帮助。图9-4显示了Lilt Inc.的交互式机器翻译界面的一个例子，其中模型和人类共同参与所谓的“混合主动模型”（Green-Initiative Models）中的预测（Green 2014）。交互式系统难以设计，但通过将人类带入循环可以实现非常高的精度。</li>
+</ol>
+<p><img src="/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/pic5.png" alt="pic5"><br>图9-4。一种人-环机器翻译模型，允许人们修正或改写来自MT系统的建议，以产生非常高质量的翻译。 （图片由Lilt Inc.提供）</p>
+<ol>
+<li>Unimodal versus multimodal systems</li>
+</ol>
+<p>在许多情况下，在学习和预测过程中纳入多种模态可能会有所帮助。例如，新闻转录系统不仅使用音频流而且还使用视频帧作为输入是有帮助的。例如，Google最近的一项名为“Look to Listen”（Ephrat et al。，2018）的作品使用多模式输入来解决扬声器源分离的困难问题（又名鸡尾酒会问题）。多模式系统的构建和部署成本很高，但是对于困难的问题，组合来自多个模态的输入提供了单独使用任何单一模态无法实现的信号。我们也在NLP中看到了这个例子。例如，在多模态翻译中，我们可以通过在可用时合并来自多种源语言的输入来提高翻译质量。生成网页主题（主题建模）时，除了网页上的文本外，还可以合并从其中包含的图像中提取的特征，如图9-5所示。</p>
+<p><img src="/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/pic6.png" alt="pic6" title="图9-5。一种多模式系统，它共同利用音频和视频功能来解决像鸡尾酒会问题这样的难题。 （图片由Erphat等人提供，2018年）"></p>
+<ol>
+<li>End-to-end systems versus piecewise systems<br>自深度学习问世以来，研究人员和工程师可以选择的另一个选择点是构建一个复杂的NLP系统，既可以作为不同单元的管道，也可以作为单片端到端系统。端到端设计在机器翻译，摘要和语音识别等许多领域都具有吸引力，精心设计的端到端系统可以显着降低实施和部署的复杂性，并且肯定会减少代码行数。分段系统（图9-6）将复杂的NLP任务分解为子任务，每个子任务单独优化，独立于最终任务目标。分段系统中的子任务使其非常模块化，易于“修补”生产中的特定问题，但通常会带来一些技术债务。</li>
+</ol>
+<p><img src="/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/pic7.png" alt="pic7" title="图9-6。分段系统：训练一些传统机器翻译系统的管道，这些系统将MT的任务视为一系列子任务，每个子任务都有自己的模型。将其与“示例：神经机器翻译”中讨论的神经MT模型进行比较。 （图由Hoang等人提供，2009）"></p>
+<ol>
+<li>Closed-domain versus open-domain systems<br>封闭域系统明确地针对单一目的进行优化：在该域中表现良好。例如，机器翻译系统可以明确优化以与生物医学期刊一起使用 - 这不仅仅涉及生物医学平行语料库的培训。另一方面，开放域系统旨在用于通用目的（例如，Google Translate）。再举一个例子，考虑一个文件标签系统。如果系统只预测了许多预定义类中的一个（典型情况），则会产生一个封闭域系统。但是，如果系统被设计为在运行时发现新类，那么它就是一个开放域系统。在翻译和语音识别系统的背景下，封闭域系统也被称为“有限词汇”系统。</li>
+<li>Monolingual versus multilingual systems</li>
+</ol>
+<p>为单一语言工作而构建的NLP系统称为单语系统。很容易构建和优化单语系统。相比之下，多语言系统可以处理多种语言。在对不同语言的数据集进行培训时，预计它们可以开箱即用。虽然构建多语言系统很有吸引力，但专注于单语版本有其优点。研究人员和工程师可以利用该语言中广泛可用的资源和领域专业知识来生成高质量的系统，否则一般的多语言系统是不可能的。出于这个原因，我们经常发现许多多语言产品被实现为单独优化的单语系统的集合，其中语言识别组件将输入分派给它们。</p>
+<h2 id="Where-Next"><a href="#Where-Next" class="headerlink" title="Where Next?"></a>Where Next?</h2><p>使用像PyTorch这样的即将到来的框架和像深度学习这样快速变化的领域，感觉就像在移动地面上建造一座豪宅。在本节中，我们指出了一些与深度学习，PyTorch和NLP相关的资源，以帮助我们的读者继续加强我们在本书中构建的基础。</p>
+<p>我们没有涵盖PyTorch的每一个功能。我们建议您遵循优秀的PyTorch文档并参与PyTorch论坛以继续您的PyTorch实践：</p>
+<ul>
+<li><p>PyTorch Documentation: <a href="https://pytorch.org/docs" target="_blank" rel="noopener">https://pytorch.org/docs</a></p>
+</li>
+<li><p>PyTorch Forums: <a href="https://discuss.pytorch.org/" target="_blank" rel="noopener">https://discuss.pytorch.org/</a><br>深度学习领域本身就是来自工业界和学术界的大量活动。大多数深度学习作品出现在arXiv的不同类别下：</p>
+</li>
+<li><p>机器学习：https：//arxiv.org/list/cs.LG/recent</p>
+</li>
+<li><p>语言和计算：https：//arxiv.org/list/cs.CL/recent</p>
+</li>
+<li><p>人工智能：https：//arxiv.org/list/cs.AI/recent</p>
+</li>
+</ul>
+<p>了解NLP新作品的最佳方法是遵循以下学术会议：</p>
+<ul>
+<li><p>计算语言学协会（ACL）</p>
+</li>
+<li><p>自然语言处理中的经验方法（EMNLP）</p>
+</li>
+<li><p>北美计算语言学协会（NAACL）</p>
+</li>
+<li><p>ACL的欧洲章节（EACL）</p>
+</li>
+<li><p>计算自然语言学习会议（CoNLL）</p>
+</li>
+</ul>
+<p>我们建议aclweb.org跟踪这些会议和其他会议，研讨会和其他重要的NLP新闻的会议记录。</p>
+<p>当您准备超越基础时，您可能会发现自己必须阅读研究论文。阅读论文是一门获得的艺术。您可以在<a href="https://www.cs.jhu.edu/~jason/advice/how-to-read-a-paper.html找到一些有用的阅读NLP论文的提示。" target="_blank" rel="noopener">https://www.cs.jhu.edu/~jason/advice/how-to-read-a-paper.html找到一些有用的阅读NLP论文的提示。</a></p>
+<p>最后，我们将继续提供更多教育材料，以补充本书的内容，网址为<a href="https://nlproc.info/pytorch。" target="_blank" rel="noopener">https://nlproc.info/pytorch。</a></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><p>Christopher Alexander. The Timeless Way of Building. Oxford University Press, 1979.</p>
+</li>
+<li><p>Ken A. Dill, Adam Lucas, Julia Hockenmaier, Liang Huang, David Chiang, Aravind K. Joshi. “Computational linguistics: A new tool for exploring biopolymer structures and statistical mechanics.” In Polymer, 2007.</p>
+</li>
+<li><p>Hieu Hoang, Philipp Koehn, and Adam Lopez. “A Unified Framework for Phrase-Based, Hierarchical, and Syntax-Based Statistical Machine Translation.” In Proceedings of IWSLT, 2009.</p>
+</li>
+<li><p>Tao Stein, Erdong Chen, Karan Mangla. “Facebook Immune System.” SNS, 2011</p>
+</li>
+<li><p>Spence Green, “Mixed-Initiative Language Translation.” PhD Thesis, Stanford University, 2014.</p>
+</li>
+<li><p>Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin, “Attention Is All You Need.” on arXiv, 2017.</p>
+</li>
+<li><p>Ariel Ephrat, Inbar Mosseri, Oran Lang, Tali Dekel, Kevin Wilson, Avinatan Hassidim, William T. Freeman, Michael Rubinstein. “Looking to Listen: A Speaker-Independent Audio-Visual Model for Speech Separation.” SIGGRAPH, 2018.</p>
+</li>
+<li><p>Matthew E. Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, Luke Zettlemoyer. “Deep contextualized word representations.” ACL 2018.</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/">Natural-Language-Processing-with-PyTorch（九）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2018年12月28日 - 11:12</p>
+  <p><span>最后更新:</span>2018年12月28日 - 11:12</p>
+  <p><span>原始链接:</span><a href="/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/" title="Natural-Language-Processing-with-PyTorch（九）">http://yifdu.github.io/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/28/Natural-Language-Processing-with-PyTorch（九）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/Pytorch/" rel="tag"># Pytorch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/28/Natural-Language-Processing-with-PyTorch（八）/" rel="next" title="Natural-Language-Processing-with-PyTorch（八）">
+                <i class="fa fa-chevron-left"></i> Natural-Language-Processing-with-PyTorch（八）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chapter-9-Classics-Frontiers-and-Next-Steps"><span class="nav-number">1.</span> <span class="nav-text">Chapter 9. Classics, Frontiers, and Next Steps</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-Have-We-Learned-so-Far"><span class="nav-number">1.1.</span> <span class="nav-text">What Have We Learned so Far?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Timeless-Topics-in-NLP"><span class="nav-number">1.2.</span> <span class="nav-text">Timeless Topics in NLP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dialogue-and-Interactive-Systems"><span class="nav-number">1.2.1.</span> <span class="nav-text">Dialogue and Interactive Systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Discourse"><span class="nav-number">1.2.2.</span> <span class="nav-text">Discourse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Information-Extraction-and-Text-Mining"><span class="nav-number">1.2.3.</span> <span class="nav-text">Information Extraction and Text Mining</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Document-Analysis-and-Retrieval"><span class="nav-number">1.2.4.</span> <span class="nav-text">Document Analysis and Retrieval</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Frontiers-in-NLP"><span class="nav-number">1.3.</span> <span class="nav-text">Frontiers in NLP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-Patterns-for-Production-NLP-Systems"><span class="nav-number">1.4.</span> <span class="nav-text">Design Patterns for Production NLP Systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Where-Next"><span class="nav-number">1.5.</span> <span class="nav-text">Where Next?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">1.6.</span> <span class="nav-text">References</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

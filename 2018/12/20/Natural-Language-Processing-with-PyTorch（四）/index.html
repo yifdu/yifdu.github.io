@@ -90,19 +90,19 @@
 
 
 
-<meta name="description" content="Chapter 4. Feed-Forward Networks for Natural Language Processing在第3章中，我们通过观察感知器来介绍神经网络的基础，感知器是现存最简单的神经网络。感知器的一个历史性的缺点是它不能学习数据中存在的一些非常重要的模式。例如，查看图4-1中绘制的数据点。这相当于非此即彼(XOR)的情况，在这种情况下，决策边界不能是一条直线(也称为线性可分)">
+<meta name="description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 4. Feed-Forward Networks for Natural Language Processing在第3章中，我们通过观察感知器来介绍神经网络的基础，感知器是现存最简单的神经网络。感知器的一个历史性的缺点是它不能学习数据中存在的一些非常重要的模式。例如，查看图4-1中绘制的数据点。这相当于非此即彼(XOR)的情况，在这种情况下，">
 <meta name="keywords" content="NLP,Pytorch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Natural-Language-Processing-with-PyTorch（四）">
 <meta property="og:url" content="http://yifdu.github.io/2018/12/20/Natural-Language-Processing-with-PyTorch（四）/index.html">
 <meta property="og:site_name" content="深度智障">
-<meta property="og:description" content="Chapter 4. Feed-Forward Networks for Natural Language Processing在第3章中，我们通过观察感知器来介绍神经网络的基础，感知器是现存最简单的神经网络。感知器的一个历史性的缺点是它不能学习数据中存在的一些非常重要的模式。例如，查看图4-1中绘制的数据点。这相当于非此即彼(XOR)的情况，在这种情况下，决策边界不能是一条直线(也称为线性可分)">
+<meta property="og:description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 4. Feed-Forward Networks for Natural Language Processing在第3章中，我们通过观察感知器来介绍神经网络的基础，感知器是现存最简单的神经网络。感知器的一个历史性的缺点是它不能学习数据中存在的一些非常重要的模式。例如，查看图4-1中绘制的数据点。这相当于非此即彼(XOR)的情况，在这种情况下，">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
-<meta property="og:updated_time" content="2018-12-20T04:37:27.671Z">
+<meta property="og:updated_time" content="2018-12-28T03:44:54.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Natural-Language-Processing-with-PyTorch（四）">
-<meta name="twitter:description" content="Chapter 4. Feed-Forward Networks for Natural Language Processing在第3章中，我们通过观察感知器来介绍神经网络的基础，感知器是现存最简单的神经网络。感知器的一个历史性的缺点是它不能学习数据中存在的一些非常重要的模式。例如，查看图4-1中绘制的数据点。这相当于非此即彼(XOR)的情况，在这种情况下，决策边界不能是一条直线(也称为线性可分)">
+<meta name="twitter:description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 4. Feed-Forward Networks for Natural Language Processing在第3章中，我们通过观察感知器来介绍神经网络的基础，感知器是现存最简单的神经网络。感知器的一个历史性的缺点是它不能学习数据中存在的一些非常重要的模式。例如，查看图4-1中绘制的数据点。这相当于非此即彼(XOR)的情况，在这种情况下，">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
 
 
@@ -416,7 +416,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" rel="gallery_cjpxov2gg005l6owacuyniuap" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" rel="gallery_cjq7hyr78006jhgwar0y86ai0" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" itemprop="contentUrl">
               </a>
             
@@ -428,7 +428,8 @@
       
 
       
-        <h1 id="Chapter-4-Feed-Forward-Networks-for-Natural-Language-Processing"><a href="#Chapter-4-Feed-Forward-Networks-for-Natural-Language-Processing" class="headerlink" title="Chapter 4. Feed-Forward Networks for Natural Language Processing"></a>Chapter 4. Feed-Forward Networks for Natural Language Processing</h1><p>在第3章中，我们通过观察感知器来介绍神经网络的基础，感知器是现存最简单的神经网络。感知器的一个历史性的缺点是它不能学习数据中存在的一些非常重要的模式。例如，查看图4-1中绘制的数据点。这相当于非此即彼(XOR)的情况，在这种情况下，决策边界不能是一条直线(也称为线性可分)。在这个例子中，感知器失败了。<br><img src="/2018/12/20/Natural-Language-Processing-with-PyTorch（四）/classifier.png" alt="classifier" title="图4-1. XOR数据集中的两个类绘制为圆形和星形。请注意，没有任何一行可以分隔这两个类。"></p>
+        <p><strong>由Yif翻译，仅供学习严禁任何商业用途</strong></p>
+<h1 id="Chapter-4-Feed-Forward-Networks-for-Natural-Language-Processing"><a href="#Chapter-4-Feed-Forward-Networks-for-Natural-Language-Processing" class="headerlink" title="Chapter 4. Feed-Forward Networks for Natural Language Processing"></a>Chapter 4. Feed-Forward Networks for Natural Language Processing</h1><p>在第3章中，我们通过观察感知器来介绍神经网络的基础，感知器是现存最简单的神经网络。感知器的一个历史性的缺点是它不能学习数据中存在的一些非常重要的模式。例如，查看图4-1中绘制的数据点。这相当于非此即彼(XOR)的情况，在这种情况下，决策边界不能是一条直线(也称为线性可分)。在这个例子中，感知器失败了。<br><img src="/2018/12/20/Natural-Language-Processing-with-PyTorch（四）/classifier.png" alt="classifier" title="图4-1. XOR数据集中的两个类绘制为圆形和星形。请注意，没有任何一行可以分隔这两个类。"></p>
 <p>在这一章中，我们将探索传统上称为前馈网络的神经网络模型，以及两种前馈神经网络:多层感知器和卷积神经网络。多层感知器在结构上扩展了我们在第3章中研究的简单感知器，将多个感知器分组在一个单层，并将多个层叠加在一起。我们稍后将介绍多层感知器，并在“示例:带有多层感知器的姓氏分类”中展示它们在多层分类中的应用。</p>
 <p>本章研究的第二种前馈神经网络，卷积神经网络，在处理数字信号时深受窗口滤波器的启发。通过这种窗口特性，卷积神经网络能够在输入中学习局部化模式，这不仅使其成为计算机视觉的主轴，而且是检测单词和句子等序列数据中的子结构的理想候选。我们在“卷积神经网络”中概述了卷积神经网络，并在“示例:使用CNN对姓氏进行分类”中演示了它们的使用。</p>
 <p>在本章中，多层感知器和卷积神经网络被分组在一起，因为它们都是前馈神经网络，并且与另一类神经网络——递归神经网络(RNNs)形成对比，递归神经网络(RNNs)允许反馈(或循环)，这样每次计算都可以从之前的计算中获得信息。在第6章和第7章中，我们将介绍RNNs以及为什么允许网络结构中的循环是有益的。</p>
@@ -557,7 +558,7 @@
   <p><span>本文标题:</span><a href="/2018/12/20/Natural-Language-Processing-with-PyTorch（四）/">Natural-Language-Processing-with-PyTorch（四）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年12月20日 - 09:12</p>
-  <p><span>最后更新:</span>2018年12月20日 - 12:12</p>
+  <p><span>最后更新:</span>2018年12月28日 - 11:12</p>
   <p><span>原始链接:</span><a href="/2018/12/20/Natural-Language-Processing-with-PyTorch（四）/" title="Natural-Language-Processing-with-PyTorch（四）">http://yifdu.github.io/2018/12/20/Natural-Language-Processing-with-PyTorch（四）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/20/Natural-Language-Processing-with-PyTorch（四）/" aria-label="复制成功！"></i></span>
   </p>
@@ -697,7 +698,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -708,7 +709,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -719,7 +720,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

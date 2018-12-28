@@ -90,19 +90,19 @@
 
 
 
-<meta name="description" content="Chapter 3. Foundational Components of Neural Networks本章通过介绍构建神经网络的基本思想，如激活函数、损失函数、优化器和监督训练设置，为后面的章节奠定了基础。我们从感知器开始，这是一个将不同概念联系在一起的一个单元的神经网络。感知器本身是更复杂的神经网络的组成部分。这是一种贯穿全书的常见模式，我们讨论的每个架构或网络都可以单独使用，也可以在其他复">
+<meta name="description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 3. Foundational Components of Neural Networks本章通过介绍构建神经网络的基本思想，如激活函数、损失函数、优化器和监督训练设置，为后面的章节奠定了基础。我们从感知器开始，这是一个将不同概念联系在一起的一个单元的神经网络。感知器本身是更复杂的神经网络的组成部分。这是一种贯穿全书的常见模式，我们讨论的每个">
 <meta name="keywords" content="NLP,Pytorch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Natural-Language-Processing-with-PyTorch（三）">
 <meta property="og:url" content="http://yifdu.github.io/2018/12/19/Natural-Language-Processing-with-PyTorch（三）/index.html">
 <meta property="og:site_name" content="深度智障">
-<meta property="og:description" content="Chapter 3. Foundational Components of Neural Networks本章通过介绍构建神经网络的基本思想，如激活函数、损失函数、优化器和监督训练设置，为后面的章节奠定了基础。我们从感知器开始，这是一个将不同概念联系在一起的一个单元的神经网络。感知器本身是更复杂的神经网络的组成部分。这是一种贯穿全书的常见模式，我们讨论的每个架构或网络都可以单独使用，也可以在其他复">
+<meta property="og:description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 3. Foundational Components of Neural Networks本章通过介绍构建神经网络的基本思想，如激活函数、损失函数、优化器和监督训练设置，为后面的章节奠定了基础。我们从感知器开始，这是一个将不同概念联系在一起的一个单元的神经网络。感知器本身是更复杂的神经网络的组成部分。这是一种贯穿全书的常见模式，我们讨论的每个">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
-<meta property="og:updated_time" content="2018-12-20T04:43:17.340Z">
+<meta property="og:updated_time" content="2018-12-28T03:44:54.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Natural-Language-Processing-with-PyTorch（三）">
-<meta name="twitter:description" content="Chapter 3. Foundational Components of Neural Networks本章通过介绍构建神经网络的基本思想，如激活函数、损失函数、优化器和监督训练设置，为后面的章节奠定了基础。我们从感知器开始，这是一个将不同概念联系在一起的一个单元的神经网络。感知器本身是更复杂的神经网络的组成部分。这是一种贯穿全书的常见模式，我们讨论的每个架构或网络都可以单独使用，也可以在其他复">
+<meta name="twitter:description" content="由Yif翻译，仅供学习严禁任何商业用途 Chapter 3. Foundational Components of Neural Networks本章通过介绍构建神经网络的基本思想，如激活函数、损失函数、优化器和监督训练设置，为后面的章节奠定了基础。我们从感知器开始，这是一个将不同概念联系在一起的一个单元的神经网络。感知器本身是更复杂的神经网络的组成部分。这是一种贯穿全书的常见模式，我们讨论的每个">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg">
 
 
@@ -383,7 +383,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" rel="gallery_cjpxov2hr005q6owagyuu7gdf" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" rel="gallery_cjq7hyr7v006ohgwak9f2y68a" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545023935255&di=c2469985994fb00217b96200714f5f27&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20120504%2F2012050420332255.jpg" itemprop="contentUrl">
               </a>
             
@@ -395,7 +395,8 @@
       
 
       
-        <h1 id="Chapter-3-Foundational-Components-of-Neural-Networks"><a href="#Chapter-3-Foundational-Components-of-Neural-Networks" class="headerlink" title="Chapter 3. Foundational Components of Neural Networks"></a>Chapter 3. Foundational Components of Neural Networks</h1><p>本章通过介绍构建神经网络的基本思想，如激活函数、损失函数、优化器和监督训练设置，为后面的章节奠定了基础。我们从感知器开始，这是一个将不同概念联系在一起的一个单元的神经网络。感知器本身是更复杂的神经网络的组成部分。这是一种贯穿全书的常见模式，我们讨论的每个架构或网络都可以单独使用，也可以在其他复杂的网络中组合使用。当我们讨论计算图形和本书的其余部分时，这种组合性将变得清晰起来。</p>
+        <p><strong>由Yif翻译，仅供学习严禁任何商业用途</strong></p>
+<h1 id="Chapter-3-Foundational-Components-of-Neural-Networks"><a href="#Chapter-3-Foundational-Components-of-Neural-Networks" class="headerlink" title="Chapter 3. Foundational Components of Neural Networks"></a>Chapter 3. Foundational Components of Neural Networks</h1><p>本章通过介绍构建神经网络的基本思想，如激活函数、损失函数、优化器和监督训练设置，为后面的章节奠定了基础。我们从感知器开始，这是一个将不同概念联系在一起的一个单元的神经网络。感知器本身是更复杂的神经网络的组成部分。这是一种贯穿全书的常见模式，我们讨论的每个架构或网络都可以单独使用，也可以在其他复杂的网络中组合使用。当我们讨论计算图形和本书的其余部分时，这种组合性将变得清晰起来。</p>
 <h2 id="Perceptron-The-Simplest-Neural-Network"><a href="#Perceptron-The-Simplest-Neural-Network" class="headerlink" title="Perceptron: The Simplest Neural Network"></a>Perceptron: The Simplest Neural Network</h2><p>最简单的神经网络单元是感知器。感知器在历史上是非常松散地模仿生物神经元的。就像生物神经元一样，有输入和输出，“信号”从输入流向输出，如图3-1所示。<br><img src="/2018/12/19/Natural-Language-Processing-with-PyTorch（三）/neural.png" alt="neural" title="图3-1. 具有输入（x）和输出（y）的感知机的计算图。权值（w）和偏差（b）构成模型的参数。"><br>每个感知器单元有一个输入(x),一个输出(y),和三个“旋钮”（knobs）:一组权重(w),偏量(b),和一个激活函数(f)。权重和偏量都从数据学习,激活函数是精心挑选的取决于网络的网络设计师的直觉和目标输出。数学上，我们可以这样表示:</p>
 <script type="math/tex; mode=display">y=f(wx+b)</script><p>通常情况下感知器有不止一个输入。我们可以用向量表示这个一般情况;即，x和w是向量，w和x的乘积替换为点积:</p>
 <script type="math/tex; mode=display">y=f(\vec{w}^T\vec{x}+b)</script><p>激活函数，这里用f表示，通常是一个非线性函数。示例3-1展示了PyTorch中的感知器实现，它接受任意数量的输入、执行仿射转换、应用激活函数并生成单个输出。</p>
@@ -531,7 +532,7 @@
   <p><span>本文标题:</span><a href="/2018/12/19/Natural-Language-Processing-with-PyTorch（三）/">Natural-Language-Processing-with-PyTorch（三）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年12月19日 - 14:12</p>
-  <p><span>最后更新:</span>2018年12月20日 - 12:12</p>
+  <p><span>最后更新:</span>2018年12月28日 - 11:12</p>
   <p><span>原始链接:</span><a href="/2018/12/19/Natural-Language-Processing-with-PyTorch（三）/" title="Natural-Language-Processing-with-PyTorch（三）">http://yifdu.github.io/2018/12/19/Natural-Language-Processing-with-PyTorch（三）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/19/Natural-Language-Processing-with-PyTorch（三）/" aria-label="复制成功！"></i></span>
   </p>
@@ -671,7 +672,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -682,7 +683,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -693,7 +694,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
