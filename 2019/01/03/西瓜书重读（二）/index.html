@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning,评估标准,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="模型评估与选择基本概念 准确率=1-错误率 我们把学习器的实际预测输出与样本的真实输出之间的差异称为误差(error).  学习器在训练集上的误差称为”训练误差”或”经验误差”。 学习器在测试集上的误差称为”测试误差”。 学习器在新样本上的误差称为”泛化误差”。泛化误差≠测试误差 过拟合：学习能力过于强大 欠拟合：学习能力低下 模型选择：包括我们该选用哪一个学习算法，使用哪一种参数配置。理想的解决">
+<meta name="keywords" content="Machine Learning,评估标准">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西瓜书重读（二）">
+<meta property="og:url" content="http://yifdu.github.io/2019/01/03/西瓜书重读（二）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="模型评估与选择基本概念 准确率=1-错误率 我们把学习器的实际预测输出与样本的真实输出之间的差异称为误差(error).  学习器在训练集上的误差称为”训练误差”或”经验误差”。 学习器在测试集上的误差称为”测试误差”。 学习器在新样本上的误差称为”泛化误差”。泛化误差≠测试误差 过拟合：学习能力过于强大 欠拟合：学习能力低下 模型选择：包括我们该选用哪一个学习算法，使用哪一种参数配置。理想的解决">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546511463441&di=50957dcd3c98e99b6ab29b8556f1cfa7&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Farchive%2F35ae0afdcbd0878d63088ad8ba92efa72e69a581.jpg">
+<meta property="og:updated_time" content="2019-01-04T08:22:27.612Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="西瓜书重读（二）">
+<meta name="twitter:description" content="模型评估与选择基本概念 准确率=1-错误率 我们把学习器的实际预测输出与样本的真实输出之间的差异称为误差(error).  学习器在训练集上的误差称为”训练误差”或”经验误差”。 学习器在测试集上的误差称为”测试误差”。 学习器在新样本上的误差称为”泛化误差”。泛化误差≠测试误差 过拟合：学习能力过于强大 欠拟合：学习能力低下 模型选择：包括我们该选用哪一个学习算法，使用哪一种参数配置。理想的解决">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546511463441&di=50957dcd3c98e99b6ab29b8556f1cfa7&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Farchive%2F35ae0afdcbd0878d63088ad8ba92efa72e69a581.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/01/03/西瓜书重读（二）/">
+
+
+
+
+
+  <title>西瓜书重读（二） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/01/03/西瓜书重读（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">西瓜书重读（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T15:39:33+08:00">
+                2019-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546511463441&di=50957dcd3c98e99b6ab29b8556f1cfa7&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Farchive%2F35ae0afdcbd0878d63088ad8ba92efa72e69a581.jpg" rel="gallery_cjqj167nu004b2wwa1u3a2nc0" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546511463441&di=50957dcd3c98e99b6ab29b8556f1cfa7&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Farchive%2F35ae0afdcbd0878d63088ad8ba92efa72e69a581.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="模型评估与选择"><a href="#模型评估与选择" class="headerlink" title="模型评估与选择"></a>模型评估与选择</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li><script type="math/tex; mode=display">准确率=1-错误率</script></li>
+<li><p>我们把学习器的实际预测输出与样本的真实输出之间的差异称为误差(error).</p>
+</li>
+<li>学习器在训练集上的误差称为”训练误差”或”经验误差”。</li>
+<li>学习器在测试集上的误差称为”测试误差”。</li>
+<li>学习器在新样本上的误差称为”泛化误差”。<br><strong>泛化误差≠测试误差</strong></li>
+<li>过拟合：学习能力过于强大</li>
+<li>欠拟合：学习能力低下</li>
+<li>模型选择：包括我们该选用哪一个学习算法，使用哪一种参数配置。理想的解决方案是对候选模型的泛化误差进行评估，然后选择泛化误差最小的那个模型。</li>
+</ul>
+<h2 id="训练集-测试集划分方法"><a href="#训练集-测试集划分方法" class="headerlink" title="训练集/测试集划分方法"></a>训练集/测试集划分方法</h2><p>我们手中有一个包含m个样例的数据集$D={(x_1,y_1),(x_2,y_2),…,(x_m,y_m)}$,我们需要数据既要进行训练也要进行测试，我们需要做的是从中产生训练集S和测试集T。</p>
+<h3 id="留出法-hold-out"><a href="#留出法-hold-out" class="headerlink" title="留出法(hold out)"></a>留出法(hold out)</h3><p>直接将数据集D划分为两个互斥的集合，其中一个集合作为训练集S,另一个作为测试集T,即D=S∪T,S∩T=$\empty$,在S上训练出模型后，用T来评估其测试误差，作为对泛化误差的估计。<br><strong>注意：训练/测试集的划分要尽可能保持数据分布的一致性，避免因数据划分过程引入额外的偏差而对最终结果产生影响，如果从采样的角度来看待数据集的划分过程，则保留类别比例的采样方式通常称为”分层采样”</strong></p>
+<p>另外还需要注意只单次使用留出法得到的估计结果往往不够稳定可靠，在使用留出法时，一般要采用若干次随机划分、重复进行实验评估后取平均值作为留出法的评估结果。</p>
+<p>留出法划分数据会导致一个窘境：若令训练集S包含绝大多数样本，则训练出的模型可能更接近于用D训练出来的模型，但由于T比较小，评估结果可能不够稳定准确；若令测试集T多包含一些样本，则训练集S与D差别更大了，被评估的模型与用D训练出来的模型相比可能有较大差别，从而降低了评估结果的保真性。</p>
+<h3 id="交叉验证法-K-fold-cross-validation"><a href="#交叉验证法-K-fold-cross-validation" class="headerlink" title="交叉验证法(K-fold cross validation)"></a>交叉验证法(K-fold cross validation)</h3><p>先将数据集D划分为K个大小相似的互斥子集，即$D=D_1∪D_2∪…D_K,D_i∩D_j=\empty(i≠j)$.每个子集$D_i$都尽可能保持数据分布的一致性，即从D中通过分层采样得到。然后，每次用K-1个子集的并集作为训练集，余下的那个子集作为测试集；这样就可以获得K组训练/测试集，从而可以进行K次训练和测试，最终返回的是这K个测试结果的均值。<strong><em>显然交叉验证法评估结果的稳定性和保真性很大程度上取决于K的取值</em></strong>。<br>特殊的交叉验证是，假定数据集D中包含了m个样本，令k=m,得到的就是留一法(Leave-one-out).</p>
+<h3 id="自助法-bootstrapping"><a href="#自助法-bootstrapping" class="headerlink" title="自助法(bootstrapping)"></a>自助法(bootstrapping)</h3><p>留一法受训练样本规模变化的影响较小，但计算复杂度又太高了。有什么办法可以减少训练样本规模不同造成的影响，同时还能比较高效地进行实验估计呢？<br>自助法是一个比较好地解决方案，它直接以自助采样法(bootstrap sampling)为基础。给定包含m个样本地数据集D,我们对它进行采样产生数据集D’:每次随机从D中挑选一个样本，将其拷贝放入D’,然后再将该样本放回初始数据集D中，使得该样本在下次采样时仍有可能被采到;这个过程重复执行m次后，我们就得到了包含m个样本地数据集D’,这就是自助采样地结果。显然，D中有一部分样本会在D’中多次出现，而另一部分样本不出现，可以做一个简单的估计，样本在m次采样中始终不被采到的概率是$(1-\frac{1}{m})^m$,取极限得到</p>
+<script type="math/tex; mode=display">lim_{m->∞}(1-\frac{1}{m})^m≈\frac{1}{e}=0.368</script><hr>
+<p><strong>自助法在数据集较小、难以有效划分训练/测试集时很有用；此外，自助法*能从初始数据集中产生多个不同的训练集，这对集成学习等方法有很大的好处。然而自助法产生的数据集改变了初始数据集的分布，这会引入估计偏差。因此在数据量足够时，留出法和交叉验证法更常用一些。</strong></p>
+<hr>
+<h2 id="调参与最终模型"><a href="#调参与最终模型" class="headerlink" title="调参与最终模型"></a>调参与最终模型</h2><p>在不少应用任务中参数调得好不好对最终模型性能有关键性影响。</p>
+<p>给定包含m个样本得数据集D,在模型评估与选择过程中由于需要留出一部分数据进行评估测试，事实上我们只使用了一部分数据训练模型。因此，在模型选择完成后，学习算法和参数配置已选定，此时应该用数据集D重新训练模型，这个模型在训练过程中使用了所有m个样本，才是我们最终提交给用户得模型。</p>
+<p>另外，需注意的时，我们通常把学得模型在实际使用中遇到的数据称为测试数据，为了加以区分，模型评估与选择中用于评估测试的数据集常称为“验证集”</p>
+<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><ul>
+<li>均方误差</li>
+<li>错误率与准确率(accuracy)</li>
+<li>查准率(P)、查全率(R)与F1</li>
+</ul>
+<p><img src="/2019/01/03/西瓜书重读（二）/matrix.png" alt="matrix" title="混淆矩阵"><br>混淆矩阵就是一个容易让你混淆的矩阵。<br>如果是二分类的问题，就是上述的2×2的表格。如果是k分类的问题，则它是一个k×k的表格。<br>这里:<br>TP:True positive(正确判定为正例)<br>TN:True negative(正确判定为负例)<br>FP:False positive(错误判定为正例,实则为负例)<br>FN:False negative(错误判定为负例,实则为正例)</p>
+<script type="math/tex; mode=display">P=\frac{TP}{TP+FP}</script><p>  <strong>P是精确率(precision),表示被判定为正例的样本中的正确率。</strong></p>
+<script type="math/tex; mode=display">R=\frac{TP}{TP+FN}</script><p>  <strong>R是召回率(recall),表示所有正例，在判定中判定正确的概率。</strong></p>
+<p>  一般来说，查准率(P)高时，查全率(R)往往偏低；而查全率高时，查准率往往偏低.</p>
+<p>  可以绘制P-R曲线。如果一个学习器的P-R曲线被另一个学习器的曲线完全”包住”，则可断言后者的性能优于前者。</p>
+<p>  平衡点(BEP)是这样一个度量，它是查准率=查全率时的取值，并且能显而易见哪个学习器优于哪个。更常用的是F1度量。</p>
+<script type="math/tex; mode=display">F1=\frac{2×P×R}{P+R}=\frac{2×TP}{样例总数+TP-TN}</script><p>  F1的更一般的形式，</p>
+<script type="math/tex; mode=display">F_β=\frac{(1+β^2)×P×R}{(β^2×P)+R}</script><p>  很多时候我们有多个二分类混淆矩阵，例如进行多次训练/测试，每次得到一个混淆矩阵;或是在多个数据集上进行训练/测试，希望估计算法的”全局”性能;甚或是执行多分类任务，每两两类别的组合都对应一个混淆矩阵,…总之,我们希望在n个二分类混淆矩阵上综合考察查准率和查全率。</p>
+<p>  一种直接的做法是先在各混淆矩阵上分别计算出查准率和查全率，记为$(P_1,R_1),(P_2,R_2),…,(P_n,R_n)#，再计算平均值，这样就得到”宏查准率”(macro-P)、”宏查全率”(macro-R),以及相应的”宏F1”(macro-F1):</p>
+<script type="math/tex; mode=display">macro-P=\frac{1}{n}\sum_{i=1}^nP_i</script><script type="math/tex; mode=display">macro-R=\frac{1}{n}\sum_{i=1}^nR_i</script><script type="math/tex; mode=display">macro-F1=\frac{2×macro-P×macro-R}{macro-P+macro-R}</script><h3 id="ROC与AUC"><a href="#ROC与AUC" class="headerlink" title="ROC与AUC"></a>ROC与AUC</h3><p>很多学习器是为测试样本产生一个实值或概率预测，然后将这个预测值与一个分类阈值进行比较，若大于阈值则分为正类，否则为反类。例如，神经网络在一般情形下是对每个测试样本预测出一个[0.0,1.0]之间的实值，然后将这个值与0.5进行比较，大于0.5则判为正例，否则为反例。这个实值或概率预测结果的好坏直接决定了学习器的泛化能力。实际上，根据这个实值或概率预测结果，我们可以将测试样本进行排序，”最可能”是正例的排在最前面，”最不可能”是正例的排在最后面。这样，分类过程就相当于在这个排序中以某个”截断点”将样本分为两部分，前一部分判作正例，后一部分判作反例</p>
+<p>在不同的应用任务中，我们可以根据任务需求来采用不同的截断点，例如若我们更重视”查准率”，则可选择排序中靠前的位置进行截断;若更重视查全率则可选择靠后的位置进行截断。因此，排序本身的质量好坏，体现了综合考虑学习器在不同任务下的”期望泛化性能”的好坏，或者说，”一般情况下”泛化性能的好坏。ROC曲线则是从这个角度出发来研究学习器泛化性能的有力工具。</p>
+<p><strong>记住ROC曲线上的每一点对应于一个阈值</strong><br><img src="/2019/01/03/西瓜书重读（二）/ROC_2.png" alt="ROC_2"></p>
+<p>ROC曲线的纵轴是TPR(True positive rate),横轴是FPR(False positive rate)</p>
+<script type="math/tex; mode=display">TPR=\frac{TP}{TP+FN}</script><script type="math/tex; mode=display">FPR=\frac{FP}{TN+FP}</script><p>例如下面例子,阈值从A到B再到C,不断变小，相应的TPR逐渐变大，FPR也逐渐变大<br><img src="/2019/01/03/西瓜书重读（二）/ROC.png" alt="ROC"><br>在阈值分别取A、B、C时，坐标变化如下图<br><img src="/2019/01/03/西瓜书重读（二）/ROC_1.png" alt="ROC_1"><br>阈值的选取根据具体任务选择。对样本排序的质量体现了综合考虑学习器在不同任务下泛化能力的好坏。</p>
+<p>显然对角线对应于”随机猜测”模型</p>
+<p>进行学习器的比较时，与P-R图相似，若一个学习器的ROC曲线被另一个学习器的曲线完全”包住”,则可断言后者的性能优于前者；若两个学习器的ROC曲线发生交叉，则难以一般性地断言两者孰优孰劣。此时一定要进行比较，则较为合理的判据是比较ROC曲线下的面积，即AUC</p>
+<p>AUC的计算方法<br>AUC的定义是对ROC曲线下各部分的面积求和。设ROC曲线是由坐标${(x_1,y_1),(x_2,y_2),…,(x_m,y_m)}$的点连接而成。则AUC近似为</p>
+<script type="math/tex; mode=display">AUC=\frac{1}{2}\sum_{i=1}^{m-1}(x_{i+1}-x_i)* (y_i+y_{i+1})</script><h4 id="为什么要用ROC曲线和AUC"><a href="#为什么要用ROC曲线和AUC" class="headerlink" title="为什么要用ROC曲线和AUC"></a>为什么要用ROC曲线和AUC</h4><p>ROC曲线有个很好的特性：当测试集中的正负样本的分布变化的时候，ROC曲线能够保持不变。在实际的数据集中经常会出现类不平衡(class imbalance)现象,而且测试数据中的正负样本的分布也可能随着时间变化。<br>下图是ROC曲线和Precision-Recall曲线的对比<br><img src="/2019/01/03/西瓜书重读（二）/ROC_3.png" alt="ROC_3"><br>上图中，(a)和(c)为ROC曲线，(b)和(d)为Precision-Recall曲线。(a)和(b)展现的是在原始测试集(正负样本分布平衡)的结果;(c)和(d)是将测试集中负样例的数量增加到原来的10倍后，分类器的结果。可以明显看出，ROC基本保持原貌，而Precision-Recall曲线则变化较大。</p>
+<h3 id="代价敏感错误率与代价曲线"><a href="#代价敏感错误率与代价曲线" class="headerlink" title="代价敏感错误率与代价曲线"></a>代价敏感错误率与代价曲线</h3><p>在现实任务中常会遇到这样的情况:不同类型的错误所造成的后果不同；例如医疗诊断中，错误地把患者诊断为健康人与错误地把健康人诊断为患者，看起来都是犯了“一次错误”，但后者的影响是增加了进一步检查的麻烦，前者的后果却可能是丧失拯救生命的最佳时机；由此可知，为了权衡不同类型错误所造成的不同损失，可为错误赋予”非均等代价”。</p>
+<p>以二分类为例，我们可以根据任务的邻域知识设定一个”代价矩阵”。<br>并由此可以得到”代价敏感错误率”。<br>在非均等代价下，ROC曲线不能直接反映出学习器的期望总体代价，而“代价曲线”则可达到该目的。代价曲线图的横轴是取值为[0,1]的正例概率代价</p>
+<script type="math/tex; mode=display">P(+)cost=\frac{p×cost_{01}}{p×cost_{01}+(1-p)×cost_{10}}</script><p>其中p是样例为正例的概率；纵轴是取值为[0,1]的归一化代价</p>
+<script type="math/tex; mode=display">cost_{norm}=\frac{FNR×p×cost_{01}+FPR×(1-p)×cost_{10}}{p×cost_{01}+(1-p)×cost_{10}}</script>
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/评估标准/" rel="tag"># 评估标准</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/02/西瓜书重读（一）/" rel="next" title="西瓜书重读（一）">
+                <i class="fa fa-chevron-left"></i> 西瓜书重读（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/04/西瓜书重读（三）/" rel="prev" title="西瓜书重读（三）">
+                西瓜书重读（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模型评估与选择"><span class="nav-number">1.</span> <span class="nav-text">模型评估与选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练集-测试集划分方法"><span class="nav-number">1.2.</span> <span class="nav-text">训练集/测试集划分方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#留出法-hold-out"><span class="nav-number">1.2.1.</span> <span class="nav-text">留出法(hold out)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉验证法-K-fold-cross-validation"><span class="nav-number">1.2.2.</span> <span class="nav-text">交叉验证法(K-fold cross validation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自助法-bootstrapping"><span class="nav-number">1.2.3.</span> <span class="nav-text">自助法(bootstrapping)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调参与最终模型"><span class="nav-number">1.3.</span> <span class="nav-text">调参与最终模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能度量"><span class="nav-number">1.4.</span> <span class="nav-text">性能度量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ROC与AUC"><span class="nav-number">1.4.1.</span> <span class="nav-text">ROC与AUC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要用ROC曲线和AUC"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">为什么要用ROC曲线和AUC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代价敏感错误率与代价曲线"><span class="nav-number">1.4.2.</span> <span class="nav-text">代价敏感错误率与代价曲线</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

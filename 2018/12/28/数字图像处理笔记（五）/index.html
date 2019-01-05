@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="傅里叶变换,频域与空间域,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="傅里叶变换为什么要在频域上研究图像增强 可以利用频率成分和图像外表之间的对应关系。一些在空间域表述困难的增强任务，在频率域中变得非常普通 滤波在频率域更为直观，他可以解释空间域滤波的某些性质 可以在频率域指定滤波器，做反变换，然后在空间域使用结果滤波器作为空间域滤波器的指导 一旦通过频率域试验选择了空间滤波，通常实施都在空间域进行频域滤波与空间滤波的关系傅里叶变换可以将图像从空间域变换到频率域，而">
+<meta name="keywords" content="傅里叶变换,频域与空间域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字图像处理笔记（五）">
+<meta property="og:url" content="http://yifdu.github.io/2018/12/28/数字图像处理笔记（五）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="傅里叶变换为什么要在频域上研究图像增强 可以利用频率成分和图像外表之间的对应关系。一些在空间域表述困难的增强任务，在频率域中变得非常普通 滤波在频率域更为直观，他可以解释空间域滤波的某些性质 可以在频率域指定滤波器，做反变换，然后在空间域使用结果滤波器作为空间域滤波器的指导 一旦通过频率域试验选择了空间滤波，通常实施都在空间域进行频域滤波与空间滤波的关系傅里叶变换可以将图像从空间域变换到频率域，而">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg">
+<meta property="og:updated_time" content="2018-12-30T15:42:33.392Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数字图像处理笔记（五）">
+<meta name="twitter:description" content="傅里叶变换为什么要在频域上研究图像增强 可以利用频率成分和图像外表之间的对应关系。一些在空间域表述困难的增强任务，在频率域中变得非常普通 滤波在频率域更为直观，他可以解释空间域滤波的某些性质 可以在频率域指定滤波器，做反变换，然后在空间域使用结果滤波器作为空间域滤波器的指导 一旦通过频率域试验选择了空间滤波，通常实施都在空间域进行频域滤波与空间滤波的关系傅里叶变换可以将图像从空间域变换到频率域，而">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2018/12/28/数字图像处理笔记（五）/">
+
+
+
+
+
+  <title>数字图像处理笔记（五） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2018/12/28/数字图像处理笔记（五）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数字图像处理笔记（五）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-28T16:16:45+08:00">
+                2018-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer Vision</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg" rel="gallery_cjqj167be000h2wwagzkxtjvl" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h1><h2 id="为什么要在频域上研究图像增强"><a href="#为什么要在频域上研究图像增强" class="headerlink" title="为什么要在频域上研究图像增强"></a>为什么要在频域上研究图像增强</h2><ul>
+<li>可以利用频率成分和图像外表之间的对应关系。一些在空间域表述困难的增强任务，在频率域中变得非常普通</li>
+<li>滤波在频率域更为直观，他可以解释空间域滤波的某些性质</li>
+<li>可以在频率域指定滤波器，做反变换，然后在空间域使用结果滤波器作为空间域滤波器的指导</li>
+<li>一旦通过频率域试验选择了空间滤波，通常实施都在空间域进行<h2 id="频域滤波与空间滤波的关系"><a href="#频域滤波与空间滤波的关系" class="headerlink" title="频域滤波与空间滤波的关系"></a>频域滤波与空间滤波的关系</h2>傅里叶变换可以将图像从空间域变换到频率域，而傅里叶反变换则可以将图像的频谱逆变换维空域图像，即人可以直接识别的图像。这样一来，我们可以利用空域图像与频谱之间的对应关系，尝试将空间域滤波变为频域滤波，然后再将频域滤波处理后的图像反变换回空间域，从而达到图像增强的目的。这样做的一个最主要的吸引力在于频域滤波的直观性特点。<h2 id="傅里叶变换及其反变换"><a href="#傅里叶变换及其反变换" class="headerlink" title="傅里叶变换及其反变换"></a>傅里叶变换及其反变换</h2></li>
+</ul>
+<ol>
+<li>一维连续傅里叶变换及其反变换</li>
+</ol>
+<ul>
+<li>单变量连续函数f(x)的傅里叶变换$F(\mu)$定义为<script type="math/tex; mode=display">F(\mu)=\int_{-∞}^{∞}f(x)e^{-j2\pi\mu x}dx</script>其中，$j=\sqrt{-1}$</li>
+<li>给定$F(\mu)$,通过傅里叶反变换可以得到f(x)<script type="math/tex; mode=display">f(x)=\int_{-∞}^{∞}F(\mu)e^{j2\pi\mu x}d\mu</script></li>
+</ul>
+<ol>
+<li>二维连续傅里叶变换及其反变换</li>
+</ol>
+<ul>
+<li>二维连续函数f(x,y)的傅里叶变换$F(\mu,v)$定义为<script type="math/tex; mode=display">F(\mu,v)=\int_{-∞}^{∞}\int_{-∞}^{∞}f(x,y)e^{-j2\pi(\mu x+vy)}dxdy</script></li>
+<li>给定$F(\mu,v)$,通过傅里叶反变换可以得到f(x,y)<script type="math/tex; mode=display">f(x,y)=\int_{-∞}^{∞}\int_{-∞}^{∞}F(\mu,v)e^{j2\pi(\mu x+vy)}d\mu dv</script></li>
+</ul>
+<ol>
+<li>一维离散傅里叶变换(DFT)及反变换</li>
+</ol>
+<ul>
+<li>单变量离散函数f(x)(x=0,1,2,…,M-1)的傅里叶变换$F(\mu)$定义为<script type="math/tex; mode=display">F(\mu)=\frac{1}{M}\sum_{x=0}^{M-1}f(x)e^{-j2\pi\mu x/M}</script>$\mu=0,1,2,…,M-1$</li>
+<li>给定$F(\mu)$,通过傅里叶反变换可以得到f(x)<script type="math/tex; mode=display">f(x)=\sum_{\mu=0}^{M-1}F(\mu)e^{j2\pi\mu x/M}</script>x=0,1,2,…,M-1</li>
+</ul>
+<p>从欧拉公式$e^{j\theta}=cos\theta+jsin\theta$</p>
+<script type="math/tex; mode=display">F(\mu)=\frac{1}{M}\sum_{x=0}^{M-1}f(x)e^{j(-2\pi\mu x)/M}</script><p>傅里叶变换的极坐标表示：</p>
+<script type="math/tex; mode=display">F(\mu)=|F(\mu)|e^{-j\phi(\mu)}</script><ul>
+<li>幅度或频率谱为<script type="math/tex; mode=display">|F(\mu)|=[R(\mu)^2+I(\mu)^2]^{(\frac{1}{2})}</script>$R(\mu)和I(\mu)$分别是$F(\mu)$的实部和虚部</li>
+<li>相角或相位谱为<script type="math/tex; mode=display">\phi(\mu)=arctan[\frac{I(\mu)}{R(\mu)}]</script></li>
+</ul>
+<ol>
+<li>二维DFT的极坐标表示</li>
+</ol>
+<ul>
+<li>功率谱<script type="math/tex; mode=display">P(\mu,v)=|F(\mu,v)|^2=R(\mu,v)^2+I(\mu,v)^2</script></li>
+</ul>
+<p>F(\mu,v)的原点变换<br><img src="/2018/12/28/数字图像处理笔记（五）/FDT_1.png" alt="FDT_1"><br>用$(-1)^{x+y}乘以f(x,y),将F(\mu,v)原点变换到频率坐标下的(M/2,N/2),它是M×N区域的中心$<br>$\mu=0,1,2,…,M-1  $<br>$v=0,1,2,….,N-1$</p>
+<ul>
+<li>F(0,0)表示<script type="math/tex; mode=display">F(0,0)=\frac{1}{MN}\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y)</script>这说明：假设f(x,y)是一幅图像，在原点的傅里叶变换等价于图像的平均灰度级。</li>
+<li>如果f(x,y)是实函数，它的傅里叶变换是对称的，即<script type="math/tex; mode=display">F(\mu,v)=F(-\mu,-v)</script></li>
+<li>傅里叶变换的频率谱是对称的<script type="math/tex; mode=display">|F(\mu,v)|=|F(-\mu,-v)|</script><h2 id="傅里叶变换的性质"><a href="#傅里叶变换的性质" class="headerlink" title="傅里叶变换的性质"></a>傅里叶变换的性质</h2></li>
+</ul>
+<ol>
+<li>平移性质<script type="math/tex; mode=display">f(x,y)e^{j2\pi(\mu_0x/M+v_0y/N)}\Leftrightarrow F(\mu-\mu_0,v-v_0)</script><script type="math/tex; mode=display">f(x-x_0,y-y_0)\Leftrightarrow F(\mu,v)e^{-j2\pi(\mu x_0/M+vy_0/N)}</script>公式（1）表明将f(x,y)与一个指数项相乘就相当于把其变换后的频域中心移动到新的位置<br>公式(2)表明将$F(\mu,v)$与一个指数项相乘就相当于把其变换后的空域中心移动到新的位置<br>公式2表明f(x,y)的平移不影响其傅里叶变换的幅值</li>
+</ol>
+<p>当$\mu_0=M/2且v_0=N/2,$</p>
+<script type="math/tex; mode=display">e^{j2\pi(\mu_0x/M+v_0y/N)}=e^{j\pi(x+y)}=(-1)^{x+y}</script><p>带入(1)和(2),得到</p>
+<script type="math/tex; mode=display">f(x,y)(-1)^{x+y}\Leftrightarrow F(\mu-M/2,v-N/2)</script><script type="math/tex; mode=display">f(x-M/2,y-N/2)\Leftrightarrow F(\mu,v)(-1)^{\mu+v}</script><ol>
+<li>分配律<br>傅里叶变换只对加法满足分配律，但对乘法则不满足</li>
+<li>尺度变换(缩放)<br>给定2个标量a和b，可以证明对傅里叶变换下列2个公式成立<script type="math/tex; mode=display">af(x,y)\Leftrightarrow aF(\mu,v)</script><script type="math/tex; mode=display">f(ax,by)\Leftrightarrow \frac{F(\mu/a,v/b)}{|ab|}</script></li>
+<li><p>旋转性<br>引入极坐标$x=rcos\theta$,$y=rsin\theta$,$\mu=wcos\phi,v=wsin\phi$<br>将f(x,y)和$F(\mu,v)$转换为$f(r,\theta)$和$F(w,\phi)$.将其带入傅里叶变换得到<br>f(r,\theta+\theta_0)\Leftrightarrow F(w,\phi+\theta_0)<br>f(x,y)旋转角度$\theta_0$,F(\mu,v)也将转过相同的角度<br>$F(\mu,v)$旋转角度$\theta_0$,f(x,y)也将转过相同的角度</p>
+</li>
+<li><p>周期性和共轭对称性</p>
+<script type="math/tex; mode=display">F(\mu,v)=F(\mu+M,v)=F(\mu,v+N)=F(\mu+M,v+N)</script><script type="math/tex; mode=display">f(x,y)=f(x+M,y)=f(x,y+N)=f(x+M,y+N)</script><p>尽管$F(\mu,v)$对无穷多个$\mu$和v的值重复出现，但只需根据在任一个周期里的N个值就可以从$F(\mu,v)$得到f(x,y)</p>
+</li>
+</ol>
+<p>如果f(x,y)是实函数，则它的傅里叶变换具有共轭对称性</p>
+<script type="math/tex; mode=display">F(\mu,v)=F^{* }(-\mu,-v)</script><script type="math/tex; mode=display">|F(\mu,v)|=|F(-\mu,-v)|</script><p>其中$F^{<em> }(-\mu,-v)$为$F(\mu,v)$的复共轭。<br><em>*当两个复数实部相等，虚部互为相反数时，这两个复数叫做互为共轭复数</em></em><br>周期性和共轭对称性举例<br><img src="/2018/12/28/数字图像处理笔记（五）/FDT_2.png" alt="FDT_2"></p>
+<ol>
+<li>平均值<br>由二维傅里叶变换的定义<script type="math/tex; mode=display">F(\mu,v)=\frac{1}{MN}\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y)e^{-j2\pi(\mu x/M+vy/N)}</script>所以$F(0,0)=\frac{1}{MN}\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y)$</li>
+</ol>
+<p>而$\overline{f}(x,y)=\frac{1}{MN}\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y)$</p>
+<ol>
+<li>可分性<script type="math/tex; mode=display">F(\mu,v)=\frac{1}{M}\sum_{x=0}^{M-1}e^{-j2\pi\mu x/M}\frac{1}{N}\sum_{y=0}^{N-1}f(x,y)e^{-j2\pi vy/N}=\frac{1}{M}\sum_{x=0}^{M-1}e^{-j2\pi\mu x/M}F(x,v)</script></li>
+</ol>
+<p>F(x,v)是沿着f(x,y)的一行所进行的傅里叶变换。当x=0,1,…,M-1,沿着f(x,y)的所有行计算傅里叶变换</p>
+<p>分离性——二维傅里叶变换的全过程<br><img src="/2018/12/28/数字图像处理笔记（五）/Separte.png" alt="Separte"></p>
+<ol>
+<li>卷机性<br>大小为M×N的两个函数f(x,y)和h(x,y)的离散卷积<script type="math/tex; mode=display">f(x,y)* h(x,y)=\frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1}f(m,n)h(x-m,y-n)</script></li>
+</ol>
+<p>卷积定理</p>
+<script type="math/tex; mode=display">f(x,y)* h(x,y)\Leftrightarrow F(\mu,v)H(\mu,v)</script><script type="math/tex; mode=display">f(x,y)h(x,y)\Leftrightarrow F(\mu,v)* H(\mu,v)</script><ol>
+<li>相关性<br>大小为M×N的两个函数f(x,y)和h(x,y)的相关定义为<script type="math/tex; mode=display">f(x,y)。h(x,y)=\frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1}f^{* }(m,n)h(x+m,y+n)</script></li>
+</ol>
+<p>$f^<em> $表示f的复共轭。对于实函数，$f^{</em> }=f$<br>相关定理：<br><img src="/2018/12/28/数字图像处理笔记（五）/Fuli.png" alt="Fuli"></p>
+<ul>
+<li>卷积和相关性理论总结<br>卷积是空间域过滤和频率域过滤之间的纽带<br>相关的重要应用在于匹配:确定是否有感兴趣的物体区域</li>
+</ul>
+<ol>
+<li>f(x,y)是原始图像</li>
+<li>h(x,y)作为感兴趣的物体或区域(模板)</li>
+<li>如果匹配,两个函数的相关值会在h找到f中相应点的位置上达到最大</li>
+</ol>
+<h2 id="快速傅里叶变换"><a href="#快速傅里叶变换" class="headerlink" title="快速傅里叶变换"></a>快速傅里叶变换</h2><p>只考虑一维的情况，根据傅里叶变换的分离性可知，二维傅里叶变换可由连续2次一维傅里叶变换得到。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/28/数字图像处理笔记（五）/">数字图像处理笔记（五）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2018年12月28日 - 16:12</p>
+  <p><span>最后更新:</span>2018年12月30日 - 23:12</p>
+  <p><span>原始链接:</span><a href="/2018/12/28/数字图像处理笔记（五）/" title="数字图像处理笔记（五）">http://yifdu.github.io/2018/12/28/数字图像处理笔记（五）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/28/数字图像处理笔记（五）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/傅里叶变换/" rel="tag"># 傅里叶变换</a>
+          
+            <a href="/tags/频域与空间域/" rel="tag"># 频域与空间域</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/28/机器学习（五）——K-means/" rel="next" title="机器学习（五）——K-means">
+                <i class="fa fa-chevron-left"></i> 机器学习（五）——K-means
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/02/西瓜书重读（一）/" rel="prev" title="西瓜书重读（一）">
+                西瓜书重读（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#傅里叶变换"><span class="nav-number">1.</span> <span class="nav-text">傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要在频域上研究图像增强"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要在频域上研究图像增强</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#频域滤波与空间滤波的关系"><span class="nav-number">1.2.</span> <span class="nav-text">频域滤波与空间滤波的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#傅里叶变换及其反变换"><span class="nav-number">1.3.</span> <span class="nav-text">傅里叶变换及其反变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#傅里叶变换的性质"><span class="nav-number">1.4.</span> <span class="nav-text">傅里叶变换的性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速傅里叶变换"><span class="nav-number">1.5.</span> <span class="nav-text">快速傅里叶变换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
