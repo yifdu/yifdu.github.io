@@ -99,7 +99,7 @@
 <meta property="og:description" content="傅里叶变换为什么要在频域上研究图像增强 可以利用频率成分和图像外表之间的对应关系。一些在空间域表述困难的增强任务，在频率域中变得非常普通 滤波在频率域更为直观，他可以解释空间域滤波的某些性质 可以在频率域指定滤波器，做反变换，然后在空间域使用结果滤波器作为空间域滤波器的指导 一旦通过频率域试验选择了空间滤波，通常实施都在空间域进行频域滤波与空间滤波的关系傅里叶变换可以将图像从空间域变换到频率域，而">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg">
-<meta property="og:updated_time" content="2018-12-30T15:42:33.392Z">
+<meta property="og:updated_time" content="2019-01-05T06:29:06.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数字图像处理笔记（五）">
 <meta name="twitter:description" content="傅里叶变换为什么要在频域上研究图像增强 可以利用频率成分和图像外表之间的对应关系。一些在空间域表述困难的增强任务，在频率域中变得非常普通 滤波在频率域更为直观，他可以解释空间域滤波的某些性质 可以在频率域指定滤波器，做反变换，然后在空间域使用结果滤波器作为空间域滤波器的指导 一旦通过频率域试验选择了空间滤波，通常实施都在空间域进行频域滤波与空间滤波的关系傅里叶变换可以将图像从空间域变换到频率域，而">
@@ -366,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.9k 字
+                  2.5k 字
                 </span>
               
 
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8 分钟
+                  11 分钟
                 </span>
               
             </div>
@@ -405,7 +405,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg" rel="gallery_cjqj167be000h2wwagzkxtjvl" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg" rel="gallery_cjql0kvqb003gwowa3kkcarzh" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544727931767&di=da7ac37e2383a9f9edd723c02a66899b&imgtype=0&src=http%3A%2F%2Fimg3x0.ddimg.cn%2F44%2F24%2F1227765770-1_w_1.jpg" itemprop="contentUrl">
               </a>
             
@@ -504,7 +504,18 @@
 <li>如果匹配,两个函数的相关值会在h找到f中相应点的位置上达到最大</li>
 </ol>
 <h2 id="快速傅里叶变换"><a href="#快速傅里叶变换" class="headerlink" title="快速傅里叶变换"></a>快速傅里叶变换</h2><p>只考虑一维的情况，根据傅里叶变换的分离性可知，二维傅里叶变换可由连续2次一维傅里叶变换得到。</p>
-
+<h3 id="为什么需要快速傅里叶变换-FFT"><a href="#为什么需要快速傅里叶变换-FFT" class="headerlink" title="为什么需要快速傅里叶变换(FFT)"></a>为什么需要快速傅里叶变换(FFT)</h3><script type="math/tex; mode=display">F(\mu)=\frac{1}{M}\sum_{x=0}^{M-1}f(x)e^{-j2\pi\mu x/M} \ \ \ \ \ \mu=0,1,2,...,M-1</script><p>对$\mu$的M个值中的每一个都需进行M次复数乘法(将f(x)与$e^{-j2\pi\mu x/M}$相乘)和M-1次加法，即时间复杂度为$O(M^2)$.<br>而快速傅里叶变换FFT时间复杂度为$O(Mlog_2M)$</p>
+<h3 id="FFT算法基本思想"><a href="#FFT算法基本思想" class="headerlink" title="FFT算法基本思想"></a>FFT算法基本思想</h3><p>FFT算法基于一个叫做逐次加倍的方法。通过推导将原始傅里叶变换成两个递推公式</p>
+<script type="math/tex; mode=display">F(\mu)=\frac{1}{M}\sum_{x=0}^{M-1}f(x)e^{-j2\pi\mu x/M} \ \ \ \ \ \mu=0,1,2,...,M-1</script><script type="math/tex; mode=display">F(\mu)=\frac{1}{2}[F_{even}(\mu)+F_{odd}(\mu)W_{2k}^{\mu}]</script><script type="math/tex; mode=display">F(\mu+K)=\frac{1}{2}[F_{even}(\mu)-F_{odd}(\mu)W_{2k}^{\mu}]</script><p>其中M=2K<br>$F_{even}(\mu)、F_{odd}(\mu)$是K个点的傅里叶值</p>
+<p>假设M的形式是$M=2^n$<br>n为正整数。因此，M可以表示为M=2K<br>将M=2K带入上面式子有</p>
+<script type="math/tex; mode=display">F(\mu)=\frac{1}{2K}\sum_{x=0}^{2K-1}f(x)W_{2K}^{\mu x}=\frac{1}{2}[\frac{1}{K}\sum_{x=0}^{K-1}f(2x)W_{2K}^{\mu(2x)}+\frac{1}{K}\sum_{x=0}^{K-1}f(2x+1)W_{2K}^{\mu(2x+1)}]</script><p>推导：<br>因为 $W_M=e^{-j2\pi/M}$<br>所以</p>
+<script type="math/tex; mode=display">W_{2K}^{2\mu x}=e^{-j2\pi(2\mu x)/2K}=e^{-j2\pi(\mu x)/K}=W_{K}^{\mu x}</script><p>代入上式有</p>
+<script type="math/tex; mode=display">F(\mu)=\frac{1}{2}[\frac{1}{K}\sum_{x=0}^{K-1}f(2x)W_K^{\mu x}+\frac{1}{K}\sum_{x=0}^{K-1}f(2x+1)W_K^{\mu x}W_{2K}^{\mu}]</script><p>定义两个符号</p>
+<script type="math/tex; mode=display">F_{even}(\mu)=\frac{1}{K}\sum_{x=0}^{K-1}f(2x)W_K^{\mu x} \ \ \ \ \ \mu=0,1,2,...,K-1</script><script type="math/tex; mode=display">F_{odd}(\mu)=\frac{1}{K}\sum_{x=0}^{K-1}f(2x+1)W_K^{\mu x}</script><p>得到FFT的第一个公式</p>
+<script type="math/tex; mode=display">F(\mu)=\frac{1}{2}[F_{even}(\mu)+F_{odd}(\mu)W_{2K}^{\mu}]</script><p>推导:</p>
+<script type="math/tex; mode=display">W_K^{\mu+K}=e^{-j2\pi(\mu+K)/K=e^{-j2\pi\mu/K}e^{-j2\pi}}=W_K^{\mu}</script><script type="math/tex; mode=display">W_{2K}^{\mu+K}=e^{-j2\pi(\mu+K)/2K}=e^{-j2\pi\mu/2K}e^{-j\pi}=-W_{2K}^{\mu}</script><p>由此可得</p>
+<script type="math/tex; mode=display">F(\mu+K)=\frac{1}{2K}\sum_{x=0}^{2K-1}f(x)W_{2K}^{(\mu+K)x}=\frac{1}{2}[F_{even}(\mu)-F_{odd}(\mu)W_{2K}^{\mu}]</script><p>由此可以得到FFT的第二个公式</p>
+<script type="math/tex; mode=display">F(\mu+K)=\frac{1}{2}[F_{even}(\mu)-F_{odd}(\mu)W_{2K}^{\mu}]</script>
       
     </div>
     
@@ -528,7 +539,7 @@
   <p><span>本文标题:</span><a href="/2018/12/28/数字图像处理笔记（五）/">数字图像处理笔记（五）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年12月28日 - 16:12</p>
-  <p><span>最后更新:</span>2018年12月30日 - 23:12</p>
+  <p><span>最后更新:</span>2019年01月05日 - 14:01</p>
   <p><span>原始链接:</span><a href="/2018/12/28/数字图像处理笔记（五）/" title="数字图像处理笔记（五）">http://yifdu.github.io/2018/12/28/数字图像处理笔记（五）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/28/数字图像处理笔记（五）/" aria-label="复制成功！"></i></span>
   </p>
@@ -668,7 +679,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -690,7 +701,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -739,7 +750,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#傅里叶变换"><span class="nav-number">1.</span> <span class="nav-text">傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要在频域上研究图像增强"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要在频域上研究图像增强</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#频域滤波与空间滤波的关系"><span class="nav-number">1.2.</span> <span class="nav-text">频域滤波与空间滤波的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#傅里叶变换及其反变换"><span class="nav-number">1.3.</span> <span class="nav-text">傅里叶变换及其反变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#傅里叶变换的性质"><span class="nav-number">1.4.</span> <span class="nav-text">傅里叶变换的性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速傅里叶变换"><span class="nav-number">1.5.</span> <span class="nav-text">快速傅里叶变换</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#傅里叶变换"><span class="nav-number">1.</span> <span class="nav-text">傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要在频域上研究图像增强"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要在频域上研究图像增强</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#频域滤波与空间滤波的关系"><span class="nav-number">1.2.</span> <span class="nav-text">频域滤波与空间滤波的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#傅里叶变换及其反变换"><span class="nav-number">1.3.</span> <span class="nav-text">傅里叶变换及其反变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#傅里叶变换的性质"><span class="nav-number">1.4.</span> <span class="nav-text">傅里叶变换的性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速傅里叶变换"><span class="nav-number">1.5.</span> <span class="nav-text">快速傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要快速傅里叶变换-FFT"><span class="nav-number">1.5.1.</span> <span class="nav-text">为什么需要快速傅里叶变换(FFT)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FFT算法基本思想"><span class="nav-number">1.5.2.</span> <span class="nav-text">FFT算法基本思想</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
