@@ -99,7 +99,7 @@
 <meta property="og:description" content="前言这是机器学习的第一篇，之所以在研究深度学习的时候还选择学习机器学习，是因为8个字“不忘初心，方得始终”。尽管近几年机器学习已被深度学习的光环给笼罩，但我们还是要理智地思考，深度学习终究是数据驱动的，失去了数据，再精密的深度网络结构也是画饼充饥，无的放矢。在很多的实际问题中，我们很难得到海量且带有精确标注的数据，这时深度学习也就没有大显身手的余地，反而是许多传统方法可以灵活巧妙地处理。另外，在研">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg">
-<meta property="og:updated_time" content="2018-11-25T05:42:06.708Z">
+<meta property="og:updated_time" content="2019-01-08T05:04:35.881Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（一）——SVM">
 <meta name="twitter:description" content="前言这是机器学习的第一篇，之所以在研究深度学习的时候还选择学习机器学习，是因为8个字“不忘初心，方得始终”。尽管近几年机器学习已被深度学习的光环给笼罩，但我们还是要理智地思考，深度学习终究是数据驱动的，失去了数据，再精密的深度网络结构也是画饼充饥，无的放矢。在很多的实际问题中，我们很难得到海量且带有精确标注的数据，这时深度学习也就没有大显身手的余地，反而是许多传统方法可以灵活巧妙地处理。另外，在研">
@@ -366,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5.3k 字
+                  5.8k 字
                 </span>
               
 
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  22 分钟
+                  24 分钟
                 </span>
               
             </div>
@@ -405,7 +405,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" rel="gallery_cjql0kvwq0068wowajuldu62b" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" rel="gallery_cjqulhtzu0073agwa1g3dh9c6" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" itemprop="contentUrl">
               </a>
             
@@ -498,6 +498,16 @@ L_D=W(α) =\frac{1}{2}(\sum_{i=1}^Nα_iy_ix_i)^T(\sum_{j=1}^Nα_jy_jx_j)-\sum_{i
 <li>3.高斯核函数：$K(x,x_i)=exp(-\frac{||x-x_i||^2}{\sigma^2})$</li>
 <li>sigmoid核函数：$K(x,x_i)=tanh(\eta<x,x_i>+\theta)$</x,x_i></li>
 </ul>
+<p>核函数定理：令X为输入空间，K(·,·)是定义在X×X上得对称函数，则K是核函数当且仅当对于任意数据$D={x_1,x_2,…,x_m}$,核矩阵K总是半正定的</p>
+<script type="math/tex; mode=display">
+K=\begin{bmatrix}
+k(x_1,x_1)...k(x_1,x_j)...k(x_1,x_m)\\
+.......\\
+k(x_i,x_1)...k(x_i,x_j)...k(x_i,x_m)\\
+.......\\
+k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
+\end{bmatrix}</script><p>只要一个对称函数所对应的核函数半正定,它就能作为核函数使用.事实上,对于一个半正定核矩阵,总能找到一个与之对应的映射$\phi$。换言之，任何一个核函数都隐式地定义了一个称为”再生核希尔伯特空间”(RKHS)的特征空间。</p>
+<p>但我们并不知道什么样的核函数是合适的，而核函数也仅是隐式定义了这个特征空间。于是，”核函数选择”成为支持向量机的最大变数。</p>
 <h2 id="核函数的选取"><a href="#核函数的选取" class="headerlink" title="核函数的选取"></a>核函数的选取</h2><p>吴恩达的见解<br>1.如果Feature的数量很大，跟样本数量差不多，这时候选用LR或者Linear Kernel的SVM。(数据维度已经很高了则不需要上升到更高维度)<br>2.如果Feature的数量比较小，样本数量一般，不算大也不算小，选用SVM+Gaussian Kernel<br>3.如果Feature的数量比较小,而样本数量很多，需要手工添加一些feature变成第一种情况。(不太能理解)</p>
 <h2 id="核函数的本质"><a href="#核函数的本质" class="headerlink" title="核函数的本质"></a>核函数的本质</h2><script type="math/tex; mode=display">K(x,x_i)=\phi(x)·\phi(x_i)</script><p>这一步是我们用一个K函数替换数据映射到高维后的内积计算。直接设计K比设计$\phi$后得到K方便且计算量小。<br>而核函数的价值在于它是在低维上进行计算，而实质上的分类效果表现在高维上，避免了在高为空间中的复杂计算。</p>
 <h1 id="SVM实现多分类"><a href="#SVM实现多分类" class="headerlink" title="SVM实现多分类"></a>SVM实现多分类</h1><p>SVM最初是为二值分类设计的，当处理多类问题时需要构造合适的多类分类器。<br>有下述几种方法：</p>
@@ -518,6 +528,15 @@ L_D=W(α) =\frac{1}{2}(\sum_{i=1}^Nα_iy_ix_i)^T(\sum_{j=1}^Nα_jy_jx_j)-\sum_{i
 <li>SVM对大规模训练样本难以实施。</li>
 <li>解决多分类问题有点复杂</li>
 </ul>
+<h1 id="支持向量回归-SVR"><a href="#支持向量回归-SVR" class="headerlink" title="支持向量回归(SVR)"></a>支持向量回归(SVR)</h1><p>现在考虑回归问题.给定训练样本$D={(x_1,y_1),(x_2,y_2),….,(x_m,y_m)},y_i∈R$,希望学得一个回归模型，使得f(x)与y尽可能接近,w和b是待确定的模型参数。<br>假设我们能容忍f(x)与y之间最多有$\xi$的偏差，即当f(x)与y之间的差别绝对值大于$\xi$时才计算损失.<br>SVR的问题可形式化为</p>
+<script type="math/tex; mode=display">min_{w,b}\frac{1}{2}||w||^2+C\sum_{i=1}^ml_c(f(x_i)-y_i)</script><p>其中C是正则化常数,$l_c$是$\xi$不敏感损失函数</p>
+<script type="math/tex; mode=display">l_c(z)=
+\begin{cases}
+0,  \ \ \ \ \ \ \ \ \ \ \ \ \ if|z|≤\xi \\
+|z|-\xi, \ \ \ \ otherwise\\
+\end{cases}</script><p>引入松弛变量$\theta_i和\hat{\theta}_i$可以将目标函数写成</p>
+<script type="math/tex; mode=display">min_{w,b,\theta_i,\hat{\theta_i}}\frac{1}{2}||w||^2+C\sum_{i=1}^m(\theta_i+\hat{\theta}_i)</script><p>s.t  $f(x_i)-y_i≤\xi+\theta_i$<br>     $y_i-f(x_i)≤\xi+\hat{\theta}_i$<br>     $\theta_i≥0,\hat{\theta}_i≥0, i=1,2,…,m$</p>
+<p>  可以类似求SVM的方式通过拉格朗日乘子法求得</p>
 <h1 id="scikit-learn里的SVM"><a href="#scikit-learn里的SVM" class="headerlink" title="scikit-learn里的SVM"></a>scikit-learn里的SVM</h1><h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>SVC、NuSVC和LinearSVC能在数据集中实现多元分类。<br>SVC和NuSVC是相似的方法。LinearSVC是另一个实现线性和函数的支持向量分类，记住LinearSVC不接受关键词kernel，因为它被假设为线性的。它也缺少一些SVC和NuSVC的成员比如support_.</p>
 <p>SVC，NuSVC和LinearSVC将两个数组作为输入：[n_samples,n_featires]大小的数组X作为样本，[n_samples]大小的数组Y作为标签<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>X = [[<span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Y = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf = svm.SVC()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf.fit(X, Y)  </span><br><span class="line">SVC(C=<span class="number">1.0</span>, cache_size=<span class="number">200</span>, class_weight=<span class="keyword">None</span>, coef0=<span class="number">0.0</span>,</span><br><span class="line">    decision_function_shape=<span class="string">'ovr'</span>, degree=<span class="number">3</span>, gamma=<span class="string">'auto'</span>, kernel=<span class="string">'rbf'</span>,</span><br><span class="line">    max_iter=<span class="number">-1</span>, probability=<span class="keyword">False</span>, random_state=<span class="keyword">None</span>, shrinking=<span class="keyword">True</span>,</span><br><span class="line">    tol=<span class="number">0.001</span>, verbose=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure></p>
 <p>在拟合后，这个模型可以用来预测新值：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf.predict([[<span class="number">2.</span>, <span class="number">2.</span>]])</span><br><span class="line">array([<span class="number">1</span>])</span><br></pre></td></tr></table></figure></p>
@@ -561,7 +580,7 @@ L_D=W(α) =\frac{1}{2}(\sum_{i=1}^Nα_iy_ix_i)^T(\sum_{j=1}^Nα_jy_jx_j)-\sum_{i
   <p><span>本文标题:</span><a href="/2018/11/21/机器机器学习（一）——SVM/">机器学习（一）——SVM</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月21日 - 00:11</p>
-  <p><span>最后更新:</span>2018年11月25日 - 13:11</p>
+  <p><span>最后更新:</span>2019年01月08日 - 13:01</p>
   <p><span>原始链接:</span><a href="/2018/11/21/机器机器学习（一）——SVM/" title="机器学习（一）——SVM">http://yifdu.github.io/2018/11/21/机器机器学习（一）——SVM/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/21/机器机器学习（一）——SVM/" aria-label="复制成功！"></i></span>
   </p>
@@ -701,7 +720,7 @@ L_D=W(α) =\frac{1}{2}(\sum_{i=1}^Nα_iy_ix_i)^T(\sum_{j=1}^Nα_jy_jx_j)-\sum_{i
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -772,7 +791,7 @@ L_D=W(α) =\frac{1}{2}(\sum_{i=1}^Nα_iy_ix_i)^T(\sum_{j=1}^Nα_jy_jx_j)-\sum_{i
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识-SVM"><span class="nav-number">2.</span> <span class="nav-text">初识 SVM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动机"><span class="nav-number">3.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性SVM——SVM最初的模样。"><span class="nav-number">4.</span> <span class="nav-text">线性SVM——SVM最初的模样。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬间隔"><span class="nav-number">4.1.</span> <span class="nav-text">硬间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软间隔"><span class="nav-number">4.2.</span> <span class="nav-text">软间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求解最优化问题"><span class="nav-number">4.3.</span> <span class="nav-text">求解最优化问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日乘子法"><span class="nav-number">4.3.1.</span> <span class="nav-text">拉格朗日乘子法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KKT条件"><span class="nav-number">4.3.2.</span> <span class="nav-text">KKT条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日对偶性"><span class="nav-number">4.3.3.</span> <span class="nav-text">拉格朗日对偶性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求解SVM的最优化问题"><span class="nav-number">4.3.4.</span> <span class="nav-text">求解SVM的最优化问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬间隔-1"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">硬间隔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软间隔-1"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">软间隔</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非线性SVM与核函数"><span class="nav-number">5.</span> <span class="nav-text">非线性SVM与核函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数的选取"><span class="nav-number">5.1.</span> <span class="nav-text">核函数的选取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数的本质"><span class="nav-number">5.2.</span> <span class="nav-text">核函数的本质</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM实现多分类"><span class="nav-number">6.</span> <span class="nav-text">SVM实现多分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM优缺点"><span class="nav-number">7.</span> <span class="nav-text">SVM优缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scikit-learn里的SVM"><span class="nav-number">8.</span> <span class="nav-text">scikit-learn里的SVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分类"><span class="nav-number">8.1.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多分类"><span class="nav-number">8.1.1.</span> <span class="nav-text">多分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非均衡问题"><span class="nav-number">8.2.</span> <span class="nav-text">非均衡问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回归"><span class="nav-number">8.3.</span> <span class="nav-text">回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数"><span class="nav-number">8.4.</span> <span class="nav-text">核函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义核"><span class="nav-number">8.4.0.1.</span> <span class="nav-text">自定义核</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">9.</span> <span class="nav-text">参考文献</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识-SVM"><span class="nav-number">2.</span> <span class="nav-text">初识 SVM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动机"><span class="nav-number">3.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性SVM——SVM最初的模样。"><span class="nav-number">4.</span> <span class="nav-text">线性SVM——SVM最初的模样。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬间隔"><span class="nav-number">4.1.</span> <span class="nav-text">硬间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软间隔"><span class="nav-number">4.2.</span> <span class="nav-text">软间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求解最优化问题"><span class="nav-number">4.3.</span> <span class="nav-text">求解最优化问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日乘子法"><span class="nav-number">4.3.1.</span> <span class="nav-text">拉格朗日乘子法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KKT条件"><span class="nav-number">4.3.2.</span> <span class="nav-text">KKT条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日对偶性"><span class="nav-number">4.3.3.</span> <span class="nav-text">拉格朗日对偶性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求解SVM的最优化问题"><span class="nav-number">4.3.4.</span> <span class="nav-text">求解SVM的最优化问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬间隔-1"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">硬间隔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软间隔-1"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">软间隔</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非线性SVM与核函数"><span class="nav-number">5.</span> <span class="nav-text">非线性SVM与核函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数的选取"><span class="nav-number">5.1.</span> <span class="nav-text">核函数的选取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数的本质"><span class="nav-number">5.2.</span> <span class="nav-text">核函数的本质</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM实现多分类"><span class="nav-number">6.</span> <span class="nav-text">SVM实现多分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM优缺点"><span class="nav-number">7.</span> <span class="nav-text">SVM优缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#支持向量回归-SVR"><span class="nav-number">8.</span> <span class="nav-text">支持向量回归(SVR)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scikit-learn里的SVM"><span class="nav-number">9.</span> <span class="nav-text">scikit-learn里的SVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分类"><span class="nav-number">9.1.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多分类"><span class="nav-number">9.1.1.</span> <span class="nav-text">多分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非均衡问题"><span class="nav-number">9.2.</span> <span class="nav-text">非均衡问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回归"><span class="nav-number">9.3.</span> <span class="nav-text">回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数"><span class="nav-number">9.4.</span> <span class="nav-text">核函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义核"><span class="nav-number">9.4.0.1.</span> <span class="nav-text">自定义核</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">10.</span> <span class="nav-text">参考文献</span></a></li></div>
             
 
           </div>
