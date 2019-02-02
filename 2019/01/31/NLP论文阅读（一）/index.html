@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Paper,NLP,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="# Summary近几年,向量空间的词表示能提高NLP任务的性能.但是,对于大多数现有工作,单词都被视为独立实体,在被建模的形态相关的单词之间没有明确的关系.因此,导致罕见和复杂的单词通常估计不佳。本文通过提出一种新颖的模型来解决这个缺点,该模型能够构建来自其语素的形态复杂单词的表示.本文提出一种将递归神经网络(RNN)与神经语言模型(NLM)相结合,其中每个语素是一个基本单元,在学习形态学上的单">
+<meta name="keywords" content="Paper,NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NLP论文阅读（一）">
+<meta property="og:url" content="http://yifdu.github.io/2019/01/31/NLP论文阅读（一）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="# Summary近几年,向量空间的词表示能提高NLP任务的性能.但是,对于大多数现有工作,单词都被视为独立实体,在被建模的形态相关的单词之间没有明确的关系.因此,导致罕见和复杂的单词通常估计不佳。本文通过提出一种新颖的模型来解决这个缺点,该模型能够构建来自其语素的形态复杂单词的表示.本文提出一种将递归神经网络(RNN)与神经语言模型(NLM)相结合,其中每个语素是一个基本单元,在学习形态学上的单">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548951796207&di=1bac400fb72aa9ba9c1fd253bb43af69&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F22%2F20180422142737_GWujZ.jpeg">
+<meta property="og:updated_time" content="2019-02-01T15:41:19.215Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NLP论文阅读（一）">
+<meta name="twitter:description" content="# Summary近几年,向量空间的词表示能提高NLP任务的性能.但是,对于大多数现有工作,单词都被视为独立实体,在被建模的形态相关的单词之间没有明确的关系.因此,导致罕见和复杂的单词通常估计不佳。本文通过提出一种新颖的模型来解决这个缺点,该模型能够构建来自其语素的形态复杂单词的表示.本文提出一种将递归神经网络(RNN)与神经语言模型(NLM)相结合,其中每个语素是一个基本单元,在学习形态学上的单">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548951796207&di=1bac400fb72aa9ba9c1fd253bb43af69&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F22%2F20180422142737_GWujZ.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/01/31/NLP论文阅读（一）/">
+
+
+
+
+
+  <title>NLP论文阅读（一） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/01/31/NLP论文阅读（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NLP论文阅读（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-31T21:28:26+08:00">
+                2019-01-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548951796207&di=1bac400fb72aa9ba9c1fd253bb43af69&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F22%2F20180422142737_GWujZ.jpeg" rel="gallery_cjrndk8lq004u48waq9xat24u" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548951796207&di=1bac400fb72aa9ba9c1fd253bb43af69&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F22%2F20180422142737_GWujZ.jpeg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <p>#</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>近几年,向量空间的词表示能提高NLP任务的性能.但是,对于大多数现有工作,单词都被视为独立实体,在被建模的形态相关的单词之间没有明确的关系.因此,导致罕见和复杂的单词通常估计不佳。本文通过提出一种新颖的模型来解决这个缺点,该模型能够构建来自其语素的形态复杂单词的表示.本文提出一种将递归神经网络(RNN)与神经语言模型(NLM)相结合,其中每个语素是一个基本单元,在学习形态学上的单词表示时考虑了上下文信息.学到的模型在许多数据集上的单词相似性任务上的表现优于现有的单词表示.</p>
+<h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>使用无监督的方式预训练出单词的词表示已成为近几年许多NLP系统成功的关键秘籍。深度学习系统为每个单词提供分布式表示,即密集的低维实值向量或embedding.其主要优点在于能捕获向量中的语义和句法信息的各种维度,其中每个维度对应于单词的潜在特征.但是这些方法将完整形式的单词视为一个独立的实体,并且无法捕捉单词的形态变体之间的显式关系.形态复杂的词语加剧了这个问题,之前的方法很难对稀有词进行建模.</p>
+<p>本文用RNN以一种新颖的方式来建模形态学及其复合性.在本质上,把每个语素看作RNN的一个基本单元,并从它们的语素中动态地构造形态复杂单词的表示。通过训练一个神经语言模型(NLM)并整合复杂单元的RNN结构,利用上下文信息来学习语素的语义和它们的合成性质.这里的模型有能力对任何未见过的已知语素的单词建立表达.</p>
+<h2 id="相关介绍"><a href="#相关介绍" class="headerlink" title="相关介绍"></a>相关介绍</h2><p>处理未见过单词方面,最接近本项工作的是the factored NLMs和the compositional distributional semantic models（DSMs）.在之前的工作中,每个单词都被视为一个特征向量,如词干,形态标签和案例,其中使用单个嵌入矩阵来查找所有这些特征.本文的工作并不是简单地连接语素的向量,而是使用RNN来组合它们,这可以捕获形态学的组合性.</p>
+<p>后者的工作尝试了不同的组合DSM,最初设计用于学习短语的含义,以得出复杂词的表示,其中基本单元是与本文类似的词素.但,他们的模型只能将词干和词缀组合在一起,并且不支持递归语素合成.然而,有趣的本文基于神经表示与其DSM衍生表示进行比较,并在罕见的单词相似性数据集和它们最近的邻居数据集上交叉测试这些模型.</p>
+<p>本文的模型通过单词的形态结构同样能表示word embedding的规律.</p>
+<h2 id="Morphological-RNNs"><a href="#Morphological-RNNs" class="headerlink" title="Morphological RNNs"></a>Morphological RNNs</h2><p>这里的morphological RNN类似于(Parsing natural scenes and natural language with recursive neural networks)这是在语素层面上运作的而不是词层面上运作的.具体而言,语素(语言中的最小含义单元)被建模为参数的实值向量,并用于构建更复杂的单词.这里假设可以访问单词的语素分析词典,在第四节中.</p>
+<p>不同的语素由语素嵌入矩阵中的列向量来编码$W_e∈R^{d×|M|}$,其中d是向量维度,M是语言中所有语素的有序集合。</p>
+<p>如下图所示,形态上复杂词的向量从它们的语素表示中构建出来.在任何局部决策(虚线节点)处,一个新的父词向量(p)被构建通过结合一个词干向量($x_{stem}$)和一个词缀向量$x_{affix}$。<br><img src="/2019/01/31/NLP论文阅读（一）/pic1.png" alt="pic1"></p>
+<script type="math/tex; mode=display">p=f(W_m[x_{stem};x_{affix}]+b_m)</script><p>这里,$W_m∈R^{d×2d}$是一个语素参数的矩阵,而$b_m∈R^{d×1}$是一个截距向量.而这里f是元素激活函数,例如tanh.这构成了morphoRNN模型的基础,其中$\theta={W_e,W_m,b_m}$是学习到的参数</p>
+<h3 id="Context-insensitive-Morphological-RNN-上下文不敏感的Morphological-RNN"><a href="#Context-insensitive-Morphological-RNN-上下文不敏感的Morphological-RNN" class="headerlink" title="Context-insensitive Morphological RNN(上下文不敏感的Morphological RNN)"></a>Context-insensitive Morphological RNN(上下文不敏感的Morphological RNN)</h3><p>第一个模型检验了morphoRNN如何能够简单地从语素表示构造单词向量,而无需参考任何上下文信息.对模型的输入是参考嵌入矩阵,即由NLM训练的单词向量.通过假设这些参考向量是正确的,模型的目标是从他们的语素构造形态复杂单词的新表示,其与相应的参考单词紧密匹配.</p>
+<p>具体地,Context-intensitive morphoRNN(cimRNN)的结构与基本的morphoRNN相同。为了学习,要为每个单词$x_i$定义一个损失函数s就像新构建的表示$p_c(x_i)$与它的参考向量$p_r(x_i)$欧氏距离的平方：$s(x_i)=||p_c(x_i)-p_r(x_i)||_ 2^2$</p>
+<p>目标函数是最小化下列式子:</p>
+<script type="math/tex; mode=display">J(\theta)=\sum_{i=1}^Ns(x_i)+\frac{\lambda}{2}||\theta||_ 2^2</script><h3 id="Context-sensitive-Morphological-RNN-上下文敏感的Morphological-RNN"><a href="#Context-sensitive-Morphological-RNN-上下文敏感的Morphological-RNN" class="headerlink" title="Context-sensitive Morphological RNN(上下文敏感的Morphological RNN)"></a>Context-sensitive Morphological RNN(上下文敏感的Morphological RNN)</h3><p>cimRNN模型虽然简单,但有趣的是证明语素语义只能从嵌入中学习.它在几个方面受到限制.首先该模型没有机会改进可能估计不佳的罕见词的表示.例如,“distinctness”和”unconcerned”是非常罕见的,维基百科文档中仅发生141和350次,即使它们相应的词干”distinct”和”concern”是非常频繁的(分别为35323和26080次).试图精确构建那些估计不佳的单词向量可能会导致参数被推入错误方向的错误模型.</p>
+<p>第二,虽然从NLM学习到的word embedding一般能混合语义和句法的信息,但是它对显式地建模另一种句法信息(词结构)不一定有用的.受到这些因素的激励,这里提出了对上下文敏感的morphoRNN（csmRNN)它整合了RNN结构到NLM训练中,这允许上下文信息被考虑进学习语素的组合性里.特别地,这里采用的NLM训练方法来学习word embeddings,但对于复杂单词而言从语素中构建表示.在学习中,更新神经网络的上层将通过反向传播直到morphemic层.<br><img src="/2019/01/31/NLP论文阅读（一）/pic2.png" alt="pic2"></p>
+<p>在结构方面,将NLM堆叠在morphRNN之上,如上图.复杂的单词,如”unfortunately”和”closed”,是由它们的语素向量构建的,$un_{pre}+fortunate_{stm}+ly_{suf}和close_{stm}+d_{suf}$,而简单的单词,即词干和词缀可以从标准NLMs语素嵌入矩阵中查找。一旦所有复杂单词的向量被建立,NLM将为每个包含单词$x_1,…,x_n$的ngram  $n_i$分配一个分数,</p>
+<script type="math/tex; mode=display">s(n_i)=v^Tf(W[\hat{x}_1;...;\hat{x}_n]+b)</script><p>这里$\hat{x}_j$是单词$x_j$的向量表示.用简单带h维隐层的简单前馈网络.$W∈R^{h×nd},b∈R^{h×1}$,并且$v∈R^{h×1}$是NLM的参数,并且f是按元素的激活函数。这里采用排名类型的cost来定义目标函数，以最小化</p>
+<script type="math/tex; mode=display">J(\theta)=\sum_{i=1}^N max{0,1-s(n_i)+s(\overline{n}_i)}\ \ \ \ \ \ \ (3)</script><p>这里,N是训练语料库中所有可能ngram的数量,而$\overline{n}_i$是由$n_i$创建的”corrupted”ngram。模型的参数$\theta={W_e,W_m,b_m,W,b,v}$</p>
+<p>这种排序标准影响了为有效ngram分配比无效ngram更高分数的模型.</p>
+<h3 id="Learning"><a href="#Learning" class="headerlink" title="Learning"></a>Learning</h3><p>这里的模型在两个阶段之间交替:(1)前向传播-递归构造语素树(cimRNN,csmRNN)和语言模型结构(csmRNN)以导出训练样本的分数和(2)反向传播——计算相应模型参数的梯度</p>
+<p>对于后一种传播,计算目标梯度相当于估计每个单独cost$\frac{\partial s(x)}{\partial \theta}$,其中x要么是一个单词(cimRNN)或一个ngram(csmRNN).有cimRNN的目标梯度如下:</p>
+<script type="math/tex; mode=display">\frac{J(\theta)}{\theta}=\sum_{i=1}^N\frac{\partial s(x_i)}{\partial\theta}+\lambda \theta</script><p>在csmRNN的情况下,因为方程式3的目标函数是不可微分的.<br>这里使用subgradient方法来估计目标梯度:</p>
+<script type="math/tex; mode=display">\frac{\partial J(\theta)}{\partial \theta}=\sum_{i:1-s(n_i)+s(\overline(n)_ i>0)}-\frac{\partial s(n_i)}{\partial \theta}+\frac{\partial s(\overline{n}_i)}{\partial \theta}</script><h2 id="Unsupervised-Morphological-Structures"><a href="#Unsupervised-Morphological-Structures" class="headerlink" title="Unsupervised Morphological Structures"></a>Unsupervised Morphological Structures</h2><p>这里利用了一个无监督的morphological 分割tookit(Morfessor)来获得我们词汇表里词汇的分割.Morfessor分割单词有两个阶段：(a)递归地分割单词以最小化一个由最小化描述长度原则激励的目标(b)它用tag：pre(prefixes),stm(stems)和suf(suffixes)来用隐马尔可夫模型来标记词素。<br>Morfessor捕获了形式一般单词结构$(pre<em> stem suf</em>)^+$,这对于形态丰富的语言(如芬兰语或土耳其语)中的单词非常方便.然而,在这里模型中,这种一般形式目前是不必要的,因为morphoRNN假设输入形式pre<em> stm suf</em>以有效学习RNN结构:一个词总是与一个词缀组合以产生一个新的词干。因此，后处理如下:<br>(1)将分割限制为pre<em>stm{1,2} suf</em>形式:允许我们捕获合成<br>(2)将带连字符的单词A-B视为$A_{stm} B_{stm}$<br>(3)对于具有两个词干的分割,这里决定一个词是否可以作为主词干而另一个词可以作为词缀的功能。否则，将拒绝分词.<br>(4)为了提高精度,如果一次分割有一个词缀或是一个未知词干(不是词本身)可以拒绝分割,这里的未知词干是类型数低于预定义阈值的意思.</p>
+<p>最终产生的词缀列表在下表给出.虽然通常可靠，但是我们的最终分割确实包含错误,最明显的是非组合错误,例如$de_{pre} fault_{stm} ed_{suf}或re_{pre} turn_{stm} s_{suf}$.通过足够多的分割示例,这里希望该模型能够从数据中获取一般趋势,总的来说,在130K字的词汇中有大约22K复杂的单词.<br><img src="/2019/01/31/NLP论文阅读（一）/pic3.png" alt="pic3"></p>
+<p>下表给出了具有有趣词缀的单词的示例.除了传统词缀之外,诸如”0”或”mc”之类的非常规词语有助于将罕见或未知词语进一步分类维有意义的组,例如measurement words或names.<br><img src="/2019/01/31/NLP论文阅读（一）/pic4.png" alt="pic4"></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>本文以一种新颖的方式结合递归神经网络（RNN）和神经语言模型（NLM）来学习更好的单词表示。这些组件中的每一个都以独特的方式为学习的句法语义词向量做出贡献。 RNN明确地模拟单词的形态结构，即句法信息，以学习语素组成。这允许更好地估计稀有和复杂的单词以及处理未曾见过的单词的更原则的方式，其表示可以从已知语素的向量构造。</p>
+<p>另一方面，NLM利用周围的单词上下文来为学习的语素表示提供进一步的语义。因此，对于许多数据集，我们的上下文敏感的morphoRNN嵌入可以明显优于现有的嵌入在单词相似性任务上。文中的分析表明，该模型可以很好地融合聚类相关词语中的句法和语义信息。本文还提供了一个单词相似性数据集，专注于罕见的单词，以补充现有的，往往包括频繁的单词。</p>
+<p>最后，由于英语在形态方面仍然被认为是有限的，这里的模型在应用于其他形态复杂的语言（如芬兰语或土耳其语）时可能会产生更好的性能，将这些语言留给将来的工作。此外，即使在英语范围内，我们也希望我们的模型对其他领域具有价值，例如具有复杂但逻辑分类的bioNLP。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Paper/" rel="tag"># Paper</a>
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/30/推荐系统论文阅读（三）/" rel="next" title="推荐系统论文阅读（三）">
+                <i class="fa fa-chevron-left"></i> 推荐系统论文阅读（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本介绍"><span class="nav-number">2.</span> <span class="nav-text">基本介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关介绍"><span class="nav-number">3.</span> <span class="nav-text">相关介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Morphological-RNNs"><span class="nav-number">4.</span> <span class="nav-text">Morphological RNNs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Context-insensitive-Morphological-RNN-上下文不敏感的Morphological-RNN"><span class="nav-number">4.1.</span> <span class="nav-text">Context-insensitive Morphological RNN(上下文不敏感的Morphological RNN)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Context-sensitive-Morphological-RNN-上下文敏感的Morphological-RNN"><span class="nav-number">4.2.</span> <span class="nav-text">Context-sensitive Morphological RNN(上下文敏感的Morphological RNN)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Learning"><span class="nav-number">4.3.</span> <span class="nav-text">Learning</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unsupervised-Morphological-Structures"><span class="nav-number">5.</span> <span class="nav-text">Unsupervised Morphological Structures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">6.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

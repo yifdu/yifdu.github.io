@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Pytorch,Project,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="FCN 论文阅读Summary本文的重点在于构建”fully convolutional” network,该网络可以接收任意大小的输入并通过有效的推理和学习产生相应大小的输出.作者定义了一种新颖的架构,它将来自深层粗糙层的语义信息与来自浅层精细层的外观信息相结合,以生成准确而详细的部分。 从粗略推断到精细推断的下一步是对每个像素进行预测. 语义分割面临一个介于语义和位置的内在张力：当局部信息解决">
+<meta name="keywords" content="Pytorch,Project">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FCN project">
+<meta property="og:url" content="http://yifdu.github.io/2019/01/29/FCN_project/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="FCN 论文阅读Summary本文的重点在于构建”fully convolutional” network,该网络可以接收任意大小的输入并通过有效的推理和学习产生相应大小的输出.作者定义了一种新颖的架构,它将来自深层粗糙层的语义信息与来自浅层精细层的外观信息相结合,以生成准确而详细的部分。 从粗略推断到精细推断的下一步是对每个像素进行预测. 语义分割面临一个介于语义和位置的内在张力：当局部信息解决">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548743646793&di=b40db9ac19610ecdcb144b67774d7fd5&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F5f737ffe81d13e467fd909393edc45e74c3a6c0a17125-hy7CAb_fw658">
+<meta property="og:updated_time" content="2019-01-30T17:17:51.458Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FCN project">
+<meta name="twitter:description" content="FCN 论文阅读Summary本文的重点在于构建”fully convolutional” network,该网络可以接收任意大小的输入并通过有效的推理和学习产生相应大小的输出.作者定义了一种新颖的架构,它将来自深层粗糙层的语义信息与来自浅层精细层的外观信息相结合,以生成准确而详细的部分。 从粗略推断到精细推断的下一步是对每个像素进行预测. 语义分割面临一个介于语义和位置的内在张力：当局部信息解决">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548743646793&di=b40db9ac19610ecdcb144b67774d7fd5&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F5f737ffe81d13e467fd909393edc45e74c3a6c0a17125-hy7CAb_fw658">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/01/29/FCN_project/">
+
+
+
+
+
+  <title>FCN project | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/01/29/FCN_project/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">FCN project</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-29T11:39:30+08:00">
+                2019-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Project/" itemprop="url" rel="index">
+                    <span itemprop="name">Project</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  21 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548743646793&di=b40db9ac19610ecdcb144b67774d7fd5&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F5f737ffe81d13e467fd909393edc45e74c3a6c0a17125-hy7CAb_fw658" rel="gallery_cjrndk8vt008b48wa4q809809" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548743646793&di=b40db9ac19610ecdcb144b67774d7fd5&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F5f737ffe81d13e467fd909393edc45e74c3a6c0a17125-hy7CAb_fw658" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="FCN-论文阅读"><a href="#FCN-论文阅读" class="headerlink" title="FCN 论文阅读"></a>FCN 论文阅读</h1><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>本文的重点在于构建”fully convolutional” network,该网络可以接收任意大小的输入并通过有效的推理和学习产生相应大小的输出.作者定义了一种新颖的架构,它将来自深层粗糙层的语义信息与来自浅层精细层的外观信息相结合,以生成准确而详细的部分。</p>
+<p>从粗略推断到精细推断的下一步是对每个像素进行预测.</p>
+<p>语义分割面临一个介于语义和位置的内在张力：当局部信息解决where,全局信息解决what.深度特征层次结构将位置和语义一同编码在local-to-global pyramid.作者又定义了一个全新的”skip”结构来将deep,coarse的语义信息和shallow,fine的外观信息结合起来.</p>
+<h2 id="全卷积网络"><a href="#全卷积网络" class="headerlink" title="全卷积网络"></a>全卷积网络</h2><p><img src="/2019/01/29/FCN_project/pic1.png" alt="pic1"><br>FCN对图像进行像素级的分类,从而解决了语义级别的图像分割.与传统的CNN在卷积层之后使用全连接层得到固定长度的特征向量,进行分类不同.FCN可以接收任意尺寸的输入图像,采用反卷积层对最后一个卷积层的feature map进行上采样,使它恢复到输入图像相同尺寸,从而可以对每个像素都产生了一个预测,同时保留了原始输入图像中的空间信息,最后在上采样的特征图上进行逐像素分类.<br>最后逐个像素计算softmax分类的损失函数,相当于每个像素对应一个训练样本</p>
+<p>CNN强大之处在于它的多层结构能自动学习特征,并且可以学习到多个层次的特征:较浅的卷积层感知域较小,学习到一些局部区域的特征;较深的卷积层具有较大的感知域,能够学习到更加抽象的一些特征.</p>
+<p>抽象的特征对分类很有帮助,可以很好地欧安段一幅图像中包含什么而类别的物体,但是因为丢失了一些物体的细节,不能很好地给出物体的具体轮廓、指出每个像素具体属于哪个物体,因此做到精确分割就很有困难.</p>
+<p>把CNN改为FCN,输入一幅图像后直接在输出端得到dense prediction,也就是每个像素所属的class,从而得到一个end-to-end 的方法来实现image semantic segmentation。</p>
+<h3 id="传统的基于CNN的分割方法"><a href="#传统的基于CNN的分割方法" class="headerlink" title="传统的基于CNN的分割方法"></a>传统的基于CNN的分割方法</h3><p>为了对一个像素分类,使用该像素周围的一个图像块作为CNN的输入用于训练和预测.则会中方法有几个缺点:</p>
+<ol>
+<li>存储开销很大</li>
+<li>计算效率低下,相邻的像素快基本上都是重复的,针对每个像素块逐个计算卷积,这个计算也很大程度上存在重复</li>
+<li>像素块大小的限制了感知区域的大小:通常像素块的大小比整幅图像的大小小很多,只能提取一些局部的特征,从而导致分类的性能受到限制<h3 id="Dense-prediction"><a href="#Dense-prediction" class="headerlink" title="Dense prediction"></a>Dense prediction</h3><h4 id="全卷积FCN"><a href="#全卷积FCN" class="headerlink" title="全卷积FCN"></a>全卷积FCN</h4>全卷积FCN则是从抽象的特征中恢复出每个像素所属的类别,即从图像级别的分类进一步延伸到像素级别的分类</li>
+</ol>
+<p>全连接层——&gt;卷积层<br>经过多次卷积核Pooling之后,得到的图像越来越小,分辨率越来越低.FCN可以接收任意尺寸的输入图像,采用反卷积层对最后一个卷积层的特征图(feature map)进行上采样,使它恢复到输入图像相同的尺寸.</p>
+<p>这里通过upsampling 得到dense prediction,作者研究过3种方案:</p>
+<ol>
+<li>shift-and-stitch</li>
+<li>filter rarefraction</li>
+<li>deconvolutional</li>
+</ol>
+<h3 id="Upsampling-上采样"><a href="#Upsampling-上采样" class="headerlink" title="Upsampling 上采样"></a>Upsampling 上采样</h3><p>一般得CNN结构中均是使用池化层来缩小输出图片得size,某些卷积层也参与到缩小图片size的过程,要想使输出的结果大小与输入图片的大小一样,我们就需要进行上采样,在caffe中被称为反卷积(deconvolution),也可能叫做转置卷积(conv_transpose)更为恰当一点.</p>
+<p>反卷积的概念第一次出现在Zeiler在2010年发表的论文Devonvolutional networks中.</p>
+<p>一般的卷积操作可以看作是一种矩阵运算：<br>例如,输入的特征图是4×4的X,我们要用3×3的卷积核对其进行卷积操作,<br><img src="/2019/01/29/FCN_project/pic2.png" alt="pic2"><br>可以将卷积核写成上述形式,4×16的矩阵C,然后把输入特征展开为16×1的矩阵X,则可得到卷积操作后的输出为Y=CX.</p>
+<p>通过上述的分析,可以知道卷积层的前向操作,将大的feature map 映射到小的feature map 可以通过Y=CX得到. 而反向操作是从小的feature map映射到大的feature map,而反卷积则是$X’=C’^TY$.<br><strong>需要注意的是:这里的转置卷积矩阵的参数,不一定是从原始卷积矩阵中简单转置得到的,转置这个操作只是提供了转置卷积矩阵的形状而已.里面的参数仍是要由训练学习得到。</strong><br><img src="/2019/01/29/FCN_project/pic3.png" alt="pic3"></p>
+<p>转置卷积操作构建了和普通的卷积操作一样的连接关系，只不过这个是从反向方向开始连接的。我们可以用它进行上采样。另外，这个转置卷积矩阵的参数是可以学习的，因此我们不需要一些人为预先定义的方法。即使它被称为转置卷积，它并不是意味着我们将一些现存的卷积矩阵简单转置并且使用其转置后的值。</p>
+<p>上述提及的反卷积(转置卷积)的方法是一种upsampling 方法,还有一种方法是反池化(unpooling).<br>反池化就是池化的逆向过程,与池化一样不需要学习参数.<br><img src="/2019/01/29/FCN_project/pic4.png" alt="pic4"></p>
+<p>图（a）表示UnPooling的过程，特点是在Maxpooling的时候保留最大值的位置信息，之后在unPooling阶段使用该信息扩充Feature Map，除最大值位置以外，其余补0。与之相对的是图（b），两者的区别在于UnSampling阶段没有使用MaxPooling时的位置信息，而是直接将内容复制来扩充Feature Map。从图中即可看到两者结果的不同。图（c）为反卷积的过程，反卷积是卷积的逆过程，又称作转置卷积。最大的区别在于反卷积过程是有参数要进行学习的（类似卷积过程），理论是反卷积可以实现UnPooling和unSampling，只要卷积核的参数设置的合理。</p>
+<h3 id="Skip-Archietecture"><a href="#Skip-Archietecture" class="headerlink" title="Skip Archietecture"></a>Skip Archietecture</h3><p>直接使用卷积核反卷积两个结果狗就可以得到结果了,但是直接将全卷积后的结果上采样后得到的结果通常是很粗糙的.所以skip结构主要是用来优化最终结果的.思路就是将不同池化层的结果进行上采样,然后结合这些结果来优化输出。<br><img src="/2019/01/29/FCN_project/pic7.png" alt="pic7"><br>如上图所示，对原图像进行卷积conv1、pool1后原图像缩小为1/2；之后对图像进行第二次conv2、pool2后图像缩小为1/4；接着继续对图像进行第三次卷积操作conv3、pool3缩小为原图像的1/8，此时保留pool3的featureMap；接着继续对图像进行第四次卷积操作conv4、pool4，缩小为原图像的1/16，保留pool4的featureMap；最后对图像进行第五次卷积操作conv5、pool5，缩小为原图像的1/32，然后把原来CNN操作中的全连接变成卷积操作conv6、conv7，图像的featureMap数量改变但是图像大小依然为原图的1/32，此时图像不再叫featureMap而是叫heatMap。</p>
+<p>现在我们有1/32尺寸的heatMap，1/16尺寸的featureMap和1/8尺寸的featureMap，1/32尺寸的heatMap进行upsampling操作之后，因为这样的操作还原的图片仅仅是conv5中的卷积核中的特征，限于精度问题不能够很好地还原图像当中的特征，因此在这里向前迭代。把conv4中的卷积核对上一次upsampling之后的图进行反卷积补充细节（相当于一个插值过程），最后把conv3中的卷积核对刚才upsampling之后的图像进行再次反卷积补充细节，最后就完成了整个图像的还原。</p>
+<p>具体来说，就是将不同池化层的结果进行上采样，然后结合这些结果来优化输出，具体结构如下:<br><img src="/2019/01/29/FCN_project/pic6.png" alt="pic6"></p>
+<h3 id="Patchwise-training-is-loss-sampling"><a href="#Patchwise-training-is-loss-sampling" class="headerlink" title="Patchwise training is loss sampling"></a>Patchwise training is loss sampling</h3><hr>
+<p>术语“patchwise training”旨在避免完全图像训练的冗余。在语义分割中，假设你在对图像中的每个像素进行分类，通过使用整个图像，你在输入中添加了大量的冗余。在训练分割网络中避免这种情况的一种标准方法是从训练集而不是完整的图像中向网络提供批量的随机patches(围绕感兴趣的对象的小图像区域)。这种“patchwise抽样”确保输入具有足够的方差，并且是训练数据集的有效表示(小批处理应该与训练集具有相同的分布)。这种技术还有助于更快地收敛和平衡类。在这篇文章中，他们声称没有必要使用patcwise training，如果你想平衡类，你可以用权重或采样损失。从另一个角度来看，每个像素分割中完全图像训练的问题是输入图像具有很大的空间相关性。要修复这个问题，您可以从训练集中取样patches(Patchwise training)，也可以从整个图像中采样loss。这就是为什么这一子节被称为“Patchwise training is loss sampling”。因此，通过“将损失限制在其空间项的随机采样子集内，将patches排除在梯度计算之外”。他们尝试了这种“loss sampling”，随机忽略最后一层的细胞，这样损失就不会在整个图像中计算出来。</p>
+<hr>
+<p>在随机优化中,梯度计算是由训练分布支配的.patchwise训练和全卷积训练能被用来产生任意分布,尽管它们相对的计算效率依赖于重叠域和minibatch的大小.在每一个由所有的单元接收域组成的批次在图像的损失之下(或图像的集合),整张图像的全卷积训练等同于patchwise训练,当这种方式比patches的均匀取样更加高效的同时,它减少了可能的批次数量.然而在一张图片中随机选择patches,可能更容易被重新找到.限制基于它的空间位置随机取样子集产生的损失(或者可以说应用输入和输出之间的DropConnect mask)排除来自梯度计算的patches.</p>
+<p>如果保存下来的patches依然有重要的重叠，全卷积计算依然将加速训练。如果梯度在多重逆推法中被积累，batches能包含几张图的patches。patcheswise训练中的采样能纠正分类失调 [30,9,3] 和减轻密集空间相关性的影响[31,17]。在全卷积训练中，分类平衡也能通过给损失赋权重实现，对损失采样能被用来标识空间相关</p>
+<h2 id="分割结构"><a href="#分割结构" class="headerlink" title="分割结构"></a>分割结构</h2><p><img src="/2019/01/29/FCN_project/pic5.png" alt="pic5"><br>注：不是每个可能的patch被包含在这种方法中，因为最后一层单位的的接收域依赖一个固定的、步长大的网格。然而，对该图像进行向左或向下随机平移接近该步长个单位，从所有可能的patches 中随机选取或许可以修复这个问题。</p>
+<h2 id="FCN的缺点"><a href="#FCN的缺点" class="headerlink" title="FCN的缺点:"></a>FCN的缺点:</h2><ol>
+<li>得到的结果还是不够精细,进行8倍上采样虽然比32倍的效果好了很多,但是上采样的结果还是比较模糊核平滑,对图像中的细节不敏感</li>
+<li>对各个像素进行分类,没有充分考虑像素与像素之间的关系,忽略了在通常的基于像素分类的分割方法种使用的空间规整(spatial regularization)步骤,缺乏空间一致性.</li>
+</ol>
+<h1 id="FCN代码实现"><a href="#FCN代码实现" class="headerlink" title="FCN代码实现"></a>FCN代码实现</h1><p><strong>Onehot</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">onehot</span><span class="params">(data,n)</span>:</span></span><br><span class="line">    buf=np.zeros(data.shape+(n,))</span><br><span class="line">    nmsk=np.arange(data.size)*n+data.ravel()</span><br><span class="line">    buf.ravel()[nmsk<span class="number">-1</span>]=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> buf</span><br></pre></td></tr></table></figure></p>
+<p><strong>数据集准备</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader,Dataset,random_split</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">transform=transforms.Compose([</span><br><span class="line">    transforms.ToTensor(),</span><br><span class="line">    transforms.Normalize(mean=[<span class="number">0.485</span>,<span class="number">0.456</span>,<span class="number">0.406</span>],std=[<span class="number">0.229</span>,<span class="number">0.224</span>,<span class="number">0.225</span>])</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BagDataset</span><span class="params">(Dataset)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,transform=None)</span>:</span></span><br><span class="line">        self.transform=transfom</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(os.listdir(<span class="string">'bag_data'</span>))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self,idx)</span>:</span></span><br><span class="line">        img_name=os.listdir(<span class="string">'bag_data'</span>)[idx]</span><br><span class="line">        imA=cv2.imread(<span class="string">'bag_data/'</span>+img+name)</span><br><span class="line">        imA=cv2.resize(imA,(<span class="number">160</span>,<span class="number">160</span>))</span><br><span class="line">        imB=cv2.imread(<span class="string">'bag_data_msk/'</span>+img_name,<span class="number">0</span>)</span><br><span class="line">        imB=cv2.imread(imB,(<span class="number">160</span>,<span class="number">160</span>))</span><br><span class="line">        imB=imB/<span class="number">255</span></span><br><span class="line">        imB=imB.astype(<span class="string">'uint8'</span>)</span><br><span class="line">        imB=onehot(imgB,<span class="number">2</span>)</span><br><span class="line">        imB=imB.transpose(<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">        imB=torch.FloatTensor(imB)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.transform:</span><br><span class="line">            imA=self.transform(imA)</span><br><span class="line">        <span class="keyword">return</span> imA,imB</span><br><span class="line"></span><br><span class="line">bag=BagDataset(transform)</span><br><span class="line"></span><br><span class="line">train_size=int(<span class="number">0.9</span>*len(bag))</span><br><span class="line">test_size=len(bag)-train_size</span><br><span class="line">train_dataset,test_dataset=random_split(bag,[train_size,test_size])</span><br><span class="line"></span><br><span class="line">train_dataloader=DataLoader(train_dataset,batch_size=<span class="number">4</span>,shuffle=<span class="keyword">True</span>,num_workers=<span class="number">4</span>)</span><br><span class="line">test_dataloader=DataLoader(test_dataset,batch_size=<span class="number">4</span>,shuffle=<span class="keyword">True</span>,num_workers=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">for</span> train_batch <span class="keyword">in</span> train_dataloader:</span><br><span class="line">        print(train_batch)</span><br><span class="line">    <span class="keyword">for</span> test_batch <span class="keyword">in</span> test_dataloader:</span><br><span class="line">        print(test_batch)</span><br></pre></td></tr></table></figure></p>
+<p><strong>训练</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(epo_num=<span class="number">50</span>,show_vgg_params=False)</span>:</span></span><br><span class="line">    device=torch.device(<span class="string">"cuda"</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">'cpu'</span>)</span><br><span class="line"></span><br><span class="line">    vgg_model=VGGNet(requires_grad=<span class="keyword">True</span>,show_params=show_vgg_params)</span><br><span class="line">    fcn_model=FCNs(pretrained_net=vgg_model,n_class=<span class="number">2</span>)</span><br><span class="line">    fcn_model=fcn_model.to(device)</span><br><span class="line">    criterion=nn.BCELoss().to(device)</span><br><span class="line">    optimizer=optim.SGD(fcn_model.parameters(),lr=<span class="number">1e-2</span>,momentum=<span class="number">0.7</span>)</span><br><span class="line"></span><br><span class="line">    all_train_iter_loss=[]</span><br><span class="line">    all_test_iter_loss=[]</span><br><span class="line"></span><br><span class="line">    prev_time=datetime.now()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> epo <span class="keyword">in</span> range(epo_num):</span><br><span class="line">        train_loss=<span class="number">0</span></span><br><span class="line">        fcn_model.train()</span><br><span class="line">        <span class="keyword">for</span> index,(bag,bag_msk) <span class="keyword">in</span> enumerate(train_dataloader):</span><br><span class="line">            bag=bag.to(device)</span><br><span class="line">            bag_msk=bag_msk.to(device)</span><br><span class="line"></span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">            output=fcn_model(bag)</span><br><span class="line">            output=torch.sigmoid(output)</span><br><span class="line">            loss=criterion(output,bag_msk)</span><br><span class="line">            loss.backward()</span><br><span class="line">            iter_loss=loss.item()</span><br><span class="line">            all_train_iter_loss.append(iter_loss)</span><br><span class="line">            train_loss+=iter_loss</span><br><span class="line">            optimizer.step()</span><br><span class="line"></span><br><span class="line">            output_np=output.cpu().detach().numpy().copy()</span><br><span class="line">            output_np=np.argmin(output_np,axis=<span class="number">1</span>)</span><br><span class="line">            bag_msk_np=bag_msk.cpu().detach().numpy().copy()</span><br><span class="line">            bag_msk_np=np.argmin(bag_msk_np,axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> np.mod(index,<span class="number">15</span>)==<span class="number">0</span>:</span><br><span class="line">                print(<span class="string">'epoch &#123;&#125;,&#123;&#125;/&#123;&#125;,train loss is &#123;&#125;'</span>.format(epo,index,len(train_dataloader)))</span><br><span class="line"></span><br><span class="line">        test_loss=<span class="number">0</span></span><br><span class="line">        fcn_model.eval()</span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            <span class="keyword">for</span> index,(bag,bag_msk) <span class="keyword">in</span> enumerate(test_dataloader):</span><br><span class="line">                bag=bag.to(device)</span><br><span class="line">                bag_msk=bag_msk.to(device)</span><br><span class="line"></span><br><span class="line">                optimizer.zero_grad()</span><br><span class="line">                output=fcn_model(bag)</span><br><span class="line">                output=torch.sigmoid(output)</span><br><span class="line">                loss=criterion(output,bag_msk)</span><br><span class="line">                iter_loss=loss.item()</span><br><span class="line">                all_test_iter_loss.append(iter_loss)</span><br><span class="line">                test_loss+=iter_loss</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                output_np = output.cpu().detach().numpy().copy() <span class="comment"># output_np.shape = (4, 2, 160, 160)  </span></span><br><span class="line">                output_np = np.argmin(output_np, axis=<span class="number">1</span>)</span><br><span class="line">                bag_msk_np = bag_msk.cpu().detach().numpy().copy() <span class="comment"># bag_msk_np.shape = (4, 2, 160, 160)</span></span><br><span class="line">                bag_msk_np = np.argmin(bag_msk_np, axis=<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">if</span> np.mod(index, <span class="number">15</span>) == <span class="number">0</span>:</span><br><span class="line">                    print(<span class="string">r'Testing... Open http://localhost:8097/ to see test result.'</span>)</span><br><span class="line">        cur_time=datetime.now()</span><br><span class="line">        h,remainder=divmod((cur_time-prev_time).seconds,<span class="number">3600</span>)</span><br><span class="line">        m,s=divmod(remainder,<span class="number">60</span>)</span><br><span class="line">        time_str=<span class="string">"Time %02d:%02d:%02d"</span>%(h,m,s)</span><br><span class="line">        prev_time=cur_time</span><br><span class="line"></span><br><span class="line">        print(<span class="string">'epoch train loss = %f, epoch test loss = %f, %s'</span></span><br><span class="line">                %(train_loss/len(train_dataloader), test_loss/len(test_dataloader), time_str))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> np.mod(epo, <span class="number">5</span>) == <span class="number">0</span>:</span><br><span class="line">            torch.save(fcn_model, <span class="string">'checkpoints/fcn_model_&#123;&#125;.pt'</span>.format(epo))</span><br><span class="line">            print(<span class="string">'saveing checkpoints/fcn_model_&#123;&#125;.pt'</span>.format(epo))</span><br></pre></td></tr></table></figure></p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FCN32s</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,pretrained_net,n_class)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.n_class=n_class</span><br><span class="line">        self.pretrained_net=pretrained_net</span><br><span class="line">        self.relu=nn.ReLU(inplace=<span class="keyword">True</span>)</span><br><span class="line">        self.deconv1=nn.ConvTranspose2d(<span class="number">512</span>,<span class="number">512</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn1=nn.BatchNorm2d(<span class="number">512</span>)</span><br><span class="line">        self.deconv2=nn.ConvTranspose2d(<span class="number">512</span>,<span class="number">256</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn2=nn.BatchNorm2d(<span class="number">256</span>)</span><br><span class="line">        self.deconv3=nn.ConvTranspose2d(<span class="number">256</span>,<span class="number">128</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn3=nn.BatchNorm2d(<span class="number">128</span>)</span><br><span class="line">        self.deconv4=nn.ConvTranspose2d(<span class="number">128</span>,<span class="number">64</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn4=nn.BatchNorm2d(<span class="number">64</span>)</span><br><span class="line">        self.deconv5=nn.ConvTranspose2d(<span class="number">64</span>,<span class="number">32</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn5=nn.BatchNorm2d(<span class="number">32</span>)</span><br><span class="line">        self.classifier=nn.Conv2d(<span class="number">32</span>,n_class,kernel_size=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x)</span>:</span></span><br><span class="line">            output=self.pretrained_net(x)</span><br><span class="line">            x5=output[<span class="string">'x5'</span>]</span><br><span class="line">            score=self.bn1(self.relu(self.deconv1(x5)))</span><br><span class="line">            score=self.bn2(self.relu(self.deconv2(score)))</span><br><span class="line">            score=self.bn3(self.relu(self.deconv3(score)))</span><br><span class="line">            score=self.bn4(self.relu(self.deconv4(score)))</span><br><span class="line">            score=self.bn5(self.relu(self.deconv5(score)))</span><br><span class="line"></span><br><span class="line">            score=self.classifier(score)</span><br><span class="line">            <span class="keyword">return</span> score</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FCN16s</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,pretrained_net,n_class)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.n_class=n_class</span><br><span class="line">        self.pretrained_net=pretrained_net</span><br><span class="line">        self.relu=nn.ReLU(inplace=<span class="keyword">True</span>)</span><br><span class="line">        self.deconv1=nn.ConvTranspose2d(<span class="number">512</span>,<span class="number">512</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn1=nn.BatchNorm2d(<span class="number">512</span>)</span><br><span class="line">        self.deconv2=nn.ConvTranspose2d(<span class="number">512</span>,<span class="number">256</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn2=nn.BatchNorm2d(<span class="number">256</span>)</span><br><span class="line">        self.deconv3=nn.ConvTranspose2d(<span class="number">256</span>,<span class="number">128</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn3=nn.BatchNorm2d(<span class="number">128</span>)</span><br><span class="line">        self.deconv4=nn.ConvTranspose2d(<span class="number">128</span>,<span class="number">64</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn4=nn.BatchNorm2d(<span class="number">64</span>)</span><br><span class="line">        self.deconv5=nn.ConvTranspose2d(<span class="number">64</span>,<span class="number">32</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn5=nn.BatchNorm2d(<span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">        self.classifier=nn.Conv2d(<span class="number">32</span>,n_class,kernel_size=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        output=self.pretrained_net(x)</span><br><span class="line">        x5=output[<span class="string">'x5'</span>]</span><br><span class="line">        x4=output[<span class="string">'x4'</span>]</span><br><span class="line"></span><br><span class="line">        score=self.relu(self.deconv1(x5))</span><br><span class="line">        score=self.bn1(score+x4)</span><br><span class="line">        score=self.bn2(self.relu(self.deconv2(score)))</span><br><span class="line">        score=self.bn3(self.relu(self.deconv3(score)))</span><br><span class="line">        score=self.bn4(self.relu(self.deconv4(score)))</span><br><span class="line">        score=self.bn5(self.relu(self.deconv5(score)))</span><br><span class="line">        score=self.classifier(score)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> score</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FCN8s</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,pretrained_net,n_class)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.n_class=n_class</span><br><span class="line">        self.pretrained_net=pretrained_net</span><br><span class="line">        self.relu=nn.ReLU(inplace=<span class="keyword">True</span>)</span><br><span class="line">        self.deconv1=nn.ConvTranspose2d(<span class="number">512</span>,<span class="number">512</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn1=nn.BatchNorm2d(<span class="number">512</span>)</span><br><span class="line">        self.deconv2=nn.ConvTranspose2d(<span class="number">512</span>,<span class="number">256</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn2=nn.BatchNorm2d(<span class="number">256</span>)</span><br><span class="line">        self.deconv3=nn.ConvTranspose2d(<span class="number">256</span>,<span class="number">128</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn3=nn.BatchNorm2d(<span class="number">128</span>)</span><br><span class="line">        self.deconv4=nn.ConvTranspose2d(<span class="number">128</span>,<span class="number">64</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn4=nn.BatchNorm2d(<span class="number">64</span>)</span><br><span class="line">        self.deconv5=nn.ConvTranspose2d(<span class="number">64</span>,<span class="number">32</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">2</span>,padding=<span class="number">1</span>,dilation=<span class="number">1</span>,output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn5=nn.BatchNorm2d(<span class="number">32</span>)</span><br><span class="line">        self.classifier=nn.Conv2d(<span class="number">32</span>,n_class,kernel_size=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        output=self.pretrained_net(x)</span><br><span class="line">        x5=output[<span class="string">'x5'</span>]</span><br><span class="line">        x4=output[<span class="string">'x4'</span>]</span><br><span class="line">        x3=output[<span class="string">'x3'</span>]</span><br><span class="line"></span><br><span class="line">        score=self.relu(self.deconv1(x5))</span><br><span class="line">        score=self.bn1(score+x4)</span><br><span class="line">        score=self.relu(self.deconv2(score))</span><br><span class="line">        score=self.bn2(score+x3)</span><br><span class="line">        score=self.bn3(self.relu(self.deconv3(score)))</span><br><span class="line">        score=self.bn4(self.relu(self.deconv4(score)))</span><br><span class="line">        score=self.bn5(self.relu(self.deconv5(score)))</span><br><span class="line">        score=self.classifier(score)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> score</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FCNs</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, pretrained_net, n_class)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.n_class = n_class</span><br><span class="line">        self.pretrained_net = pretrained_net</span><br><span class="line">        self.relu    = nn.ReLU(inplace=<span class="keyword">True</span>)</span><br><span class="line">        self.deconv1 = nn.ConvTranspose2d(<span class="number">512</span>, <span class="number">512</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>, dilation=<span class="number">1</span>, output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn1     = nn.BatchNorm2d(<span class="number">512</span>)</span><br><span class="line">        self.deconv2 = nn.ConvTranspose2d(<span class="number">512</span>, <span class="number">256</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>, dilation=<span class="number">1</span>, output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn2     = nn.BatchNorm2d(<span class="number">256</span>)</span><br><span class="line">        self.deconv3 = nn.ConvTranspose2d(<span class="number">256</span>, <span class="number">128</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>, dilation=<span class="number">1</span>, output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn3     = nn.BatchNorm2d(<span class="number">128</span>)</span><br><span class="line">        self.deconv4 = nn.ConvTranspose2d(<span class="number">128</span>, <span class="number">64</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>, dilation=<span class="number">1</span>, output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn4     = nn.BatchNorm2d(<span class="number">64</span>)</span><br><span class="line">        self.deconv5 = nn.ConvTranspose2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>, dilation=<span class="number">1</span>, output_padding=<span class="number">1</span>)</span><br><span class="line">        self.bn5     = nn.BatchNorm2d(<span class="number">32</span>)</span><br><span class="line">        self.classifier = nn.Conv2d(<span class="number">32</span>, n_class, kernel_size=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        output = self.pretrained_net(x)</span><br><span class="line">        x5 = output[<span class="string">'x5'</span>]  <span class="comment"># size=(N, 512, x.H/32, x.W/32)</span></span><br><span class="line">        x4 = output[<span class="string">'x4'</span>]  <span class="comment"># size=(N, 512, x.H/16, x.W/16)</span></span><br><span class="line">        x3 = output[<span class="string">'x3'</span>]  <span class="comment"># size=(N, 256, x.H/8,  x.W/8)</span></span><br><span class="line">        x2 = output[<span class="string">'x2'</span>]  <span class="comment"># size=(N, 128, x.H/4,  x.W/4)</span></span><br><span class="line">        x1 = output[<span class="string">'x1'</span>]  <span class="comment"># size=(N, 64, x.H/2,  x.W/2)</span></span><br><span class="line"></span><br><span class="line">        score = self.bn1(self.relu(self.deconv1(x5)))     <span class="comment"># size=(N, 512, x.H/16, x.W/16)</span></span><br><span class="line">        score = score + x4                                <span class="comment"># element-wise add, size=(N, 512, x.H/16, x.W/16)</span></span><br><span class="line">        score = self.bn2(self.relu(self.deconv2(score)))  <span class="comment"># size=(N, 256, x.H/8, x.W/8)</span></span><br><span class="line">        score = score + x3                                <span class="comment"># element-wise add, size=(N, 256, x.H/8, x.W/8)</span></span><br><span class="line">        score = self.bn3(self.relu(self.deconv3(score)))  <span class="comment"># size=(N, 128, x.H/4, x.W/4)</span></span><br><span class="line">        score = score + x2                                <span class="comment"># element-wise add, size=(N, 128, x.H/4, x.W/4)</span></span><br><span class="line">        score = self.bn4(self.relu(self.deconv4(score)))  <span class="comment"># size=(N, 64, x.H/2, x.W/2)</span></span><br><span class="line">        score = score + x1                                <span class="comment"># element-wise add, size=(N, 64, x.H/2, x.W/2)</span></span><br><span class="line">        score = self.bn5(self.relu(self.deconv5(score)))  <span class="comment"># size=(N, 32, x.H, x.W)</span></span><br><span class="line">        score = self.classifier(score)                    <span class="comment"># size=(N, n_class, x.H/1, x.W/1)</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> score  <span class="comment"># size=(N, n_class, x.H/1, x.W/1)</span></span><br></pre></td></tr></table></figure>
+<p>这里FCN32s是最原始的FCN的结构,没有运用skip结构。<br>然而FCN32s得到的结果比较粗糙,为此引入了skip结构,也就是形成了FCN16s的结构.<br><img src="/2019/01/29/FCN_project/pic6.png" alt="pic6"><br>从上面图可以看出来,FCN16s只用了一个skip结构,FCN8s用了2个skip结构,而在FCNs里对每个上采样后的特征图用了skip结构,将这些上采样后的特征图与之前的卷积后的特征图融合(采用的是加法操作).</p>
+<p>在FCN的基础上，UCLA DeepLab的Liang-Chieh Chen[2][2]等在得到像素分类结果后使用了全连接的条件随机场（fully connected conditional random fields），考虑图像中的空间信息，得到更加精细并且具有空间一致性的结果</p>
+<p><strong>条件随机场(CRF)是我们常会在以深度学习为框架的图像语义分割系统中看到,这项技术常作为输出结果的优化后处理手段.并且类似类似的技术很多,比如还有马尔可夫随机场(MRF)和高斯条件随机场(G-CRF),但原理都较为类似.FCN是像素到像素的映射,所以最终输出图片上的每一个像素都是标注了分类的,将这些分类简单地看成是不同的变量,每个像素都和其他像素之间建立一种连接,连接也就是相互间的关系</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Pytorch/" rel="tag"># Pytorch</a>
+          
+            <a href="/tags/Project/" rel="tag"># Project</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/27/剑指offer（二）/" rel="next" title="剑指offer（二）">
+                <i class="fa fa-chevron-left"></i> 剑指offer（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/29/花书重读（二）/" rel="prev" title="花书重读（二）">
+                花书重读（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FCN-论文阅读"><span class="nav-number">1.</span> <span class="nav-text">FCN 论文阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.1.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全卷积网络"><span class="nav-number">1.2.</span> <span class="nav-text">全卷积网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统的基于CNN的分割方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">传统的基于CNN的分割方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dense-prediction"><span class="nav-number">1.2.2.</span> <span class="nav-text">Dense prediction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全卷积FCN"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">全卷积FCN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Upsampling-上采样"><span class="nav-number">1.2.3.</span> <span class="nav-text">Upsampling 上采样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-Archietecture"><span class="nav-number">1.2.4.</span> <span class="nav-text">Skip Archietecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Patchwise-training-is-loss-sampling"><span class="nav-number">1.2.5.</span> <span class="nav-text">Patchwise training is loss sampling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分割结构"><span class="nav-number">1.3.</span> <span class="nav-text">分割结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FCN的缺点"><span class="nav-number">1.4.</span> <span class="nav-text">FCN的缺点:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FCN代码实现"><span class="nav-number">2.</span> <span class="nav-text">FCN代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络结构"><span class="nav-number">2.1.</span> <span class="nav-text">网络结构</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

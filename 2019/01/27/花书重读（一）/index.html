@@ -99,7 +99,7 @@
 <meta property="og:description" content="引言层次化概念能让计算机构建较简单的概念来学习复杂概念.如果绘制出表示这些如何建立在彼此之上的图.我们将得到一张”深”(层次很多)的图。基于这个原因,我们称这种方法为AI深度学习. 一些人工智能项目力求将关于世界的知识用形式化的语言进行硬编码.计算机可以使用逻辑推理规则来自动地理解这些形式化语言的声明.这就是众所周知的人工智能的知识库方法. 依靠硬编码的知识体系面临困难的表明,AI系统需要具备自己">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i2.hdslb.com/bfs/archive/015c829b4df4892168ca32f4e4f4e263699eca57.jpg">
-<meta property="og:updated_time" content="2019-01-27T14:09:24.779Z">
+<meta property="og:updated_time" content="2019-01-28T17:37:51.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="花书重读（一）">
 <meta name="twitter:description" content="引言层次化概念能让计算机构建较简单的概念来学习复杂概念.如果绘制出表示这些如何建立在彼此之上的图.我们将得到一张”深”(层次很多)的图。基于这个原因,我们称这种方法为AI深度学习. 一些人工智能项目力求将关于世界的知识用形式化的语言进行硬编码.计算机可以使用逻辑推理规则来自动地理解这些形式化语言的声明.这就是众所周知的人工智能的知识库方法. 依靠硬编码的知识体系面临困难的表明,AI系统需要具备自己">
@@ -366,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.9k 字
+                  3k 字
                 </span>
               
 
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  10 分钟
                 </span>
               
             </div>
@@ -405,7 +405,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="http://i2.hdslb.com/bfs/archive/015c829b4df4892168ca32f4e4f4e263699eca57.jpg" rel="gallery_cjrf1jl8u002vecwahphxrpxh" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="http://i2.hdslb.com/bfs/archive/015c829b4df4892168ca32f4e4f4e263699eca57.jpg" rel="gallery_cjrndk8p1006348watbbdb54x" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://i2.hdslb.com/bfs/archive/015c829b4df4892168ca32f4e4f4e263699eca57.jpg" itemprop="contentUrl">
               </a>
             
@@ -465,6 +465,26 @@
 <li>$Tr(A)=Tr(A^T)$</li>
 <li>Tr(ABC)=Tr(CAB)=Tr(BCA)<br>即使循环置换后矩阵乘积得到的矩阵形状变了,迹运算的结果依然不变</li>
 </ul>
+<h1 id="概率与信息论"><a href="#概率与信息论" class="headerlink" title="概率与信息论"></a>概率与信息论</h1><p>概率论是用于表示不确定性声明的数学框架.它不仅提供了量化不确定性的方法,也提供了用于导出新的不确定性声明.在人工智能领域,概率论主要有两种用途：首先,概率法则告诉我们AI系统如何推理,据此我们设计一些算法来计算或者估算由概率论导出的表达式;其次,可以用概率和统计从理论上分析我们提出的AI系统的行为.</p>
+<p>概率论能使我们能够提出不确定的声明以及在不确定性存在的情况下进行推理,而信息论使我们能够量化概率分布中的不确定性总量.</p>
+<p>几乎所有活动都需要一些在不确定性存在的情况下进行推理的能力.事实上,除了哪些被定义为真的数学声明,我们很难认定某个命题是千真万确的或者确保某件事一定会发生.<br>不确定性有3种可能的来源：<br>(1)被建模系统内在的随机性<br>(2)不完全观测<br>(3)不完全建模。当我们使用一些必须舍弃某些观测信息的模型时,舍弃的信息会导致模型的预测出现不确定性.</p>
+<p>概率可以被看作用于处理不确定性的逻辑扩展.逻辑提供了一套形式化的规则,可以在给定某些命题是真或假的假设下,判断另外一些命题是真的还是假的.</p>
+<p>协方差<br>Cov(f(x),g(x))=E[(f(x)-E[f(x)])(g(y)-E[g(y)])]<br>协方差在某种意义上给出了两个变量线性相关性的强度以及这些变量的尺度，协方差的绝对值如果很大,则意味着变量值变化很大，并且它们同时距离各自的均值很远。</p>
+<h2 id="混合分布"><a href="#混合分布" class="headerlink" title="混合分布"></a>混合分布</h2><p>通过组合一些简单的概率分布来定义新的概率分布。</p>
+<script type="math/tex; mode=display">P(x)=\sum_iP(c=i)P(x|c=i)</script><p>这里的P(c)是对各组件的一个Multinoulli分布<br>混合模型是我们能够一瞥以后会用到的一个非常重要的概念——潜变量.潜变量是我们不能直接观测到的随机变量。<br>一个非常强大且常见的混合模型是高斯混合模型,它的组建p(x|c=i)是高斯分布</p>
+<h2 id="信息论"><a href="#信息论" class="headerlink" title="信息论"></a>信息论</h2><p>信息论的基本想法是一个不太可能的事件居然发生了,要比一个非常可能的事件发生能提供更多的信息.<br>想通过这种基本想法来量化信息：</p>
+<ul>
+<li>非常可能发生的事件信息量要比较少,并且极端情况下,确保能够发生的事件应该没有信息量</li>
+<li>较不可能发生的事件具有更高的信息量</li>
+<li>独立事件应具有增量的信息</li>
+</ul>
+<p>为了满足上述3个性质，我们定义一个事件X=x的自信息为</p>
+<script type="math/tex; mode=display">I(x)=-logP(x)</script><p>自信息只处理单个的输出.我们可以用香农熵来对整个概率分布中的不确定性总量进行量化：</p>
+<script type="math/tex; mode=display">H(x)=E_{x～P}[logP(x)]</script><p>在离散型变量的情况下,<strong>KL散度</strong> 衡量的是当我们使用一种被设计成能够使得概率分布Q产生的信息的长度最小的编码,发送包含由概率分布P产生的符号的信息时,所需的额外信息量.</p>
+<script type="math/tex; mode=display">D(p||q)=\sum_xp(x)log\frac{p(x)}{q(x)}</script><p>一个和KL散度密切联系的量是交叉熵,即H(P,Q)=H(P)+D(P||Q)</p>
+<script type="math/tex; mode=display">H(P,Q)=-E_{x～P}logQ(x)</script><p>针对Q最小化交叉熵等价于最小化KL散度,因为Q并不参与被省略的那一项.</p>
+<h2 id="结构化概率模型"><a href="#结构化概率模型" class="headerlink" title="结构化概率模型"></a>结构化概率模型</h2><p>主要讲的是概率图模型的内容<br>多种变量之间的关系可以用图来表示,有两种主要的图模型：有向的和无向的.</p>
+<p>有向模型使用带有向边的图,他们使用条件概率分布。<br>无向模型使用带有无向边的图,它们将分解表示成一组函数：不像有向模型那样,这些函数通常不是任何类型的概率分布.</p>
 
       
     </div>
@@ -514,6 +534,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/27/剑指offer（二）/" rel="prev" title="剑指offer（二）">
+                剑指offer（二） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -594,7 +618,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -605,7 +629,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -616,7 +640,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -665,7 +689,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性代数"><span class="nav-number">2.</span> <span class="nav-text">线性代数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵和向量相乘"><span class="nav-number">2.1.</span> <span class="nav-text">矩阵和向量相乘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性相关和生成子空间"><span class="nav-number">2.2.</span> <span class="nav-text">线性相关和生成子空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#范数"><span class="nav-number">2.3.</span> <span class="nav-text">范数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征分解"><span class="nav-number">2.4.</span> <span class="nav-text">特征分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#奇异值分解"><span class="nav-number">2.5.</span> <span class="nav-text">奇异值分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Moore-Penrose-伪逆"><span class="nav-number">2.6.</span> <span class="nav-text">Moore-Penrose 伪逆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迹运算"><span class="nav-number">2.7.</span> <span class="nav-text">迹运算</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性代数"><span class="nav-number">2.</span> <span class="nav-text">线性代数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵和向量相乘"><span class="nav-number">2.1.</span> <span class="nav-text">矩阵和向量相乘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性相关和生成子空间"><span class="nav-number">2.2.</span> <span class="nav-text">线性相关和生成子空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#范数"><span class="nav-number">2.3.</span> <span class="nav-text">范数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征分解"><span class="nav-number">2.4.</span> <span class="nav-text">特征分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#奇异值分解"><span class="nav-number">2.5.</span> <span class="nav-text">奇异值分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Moore-Penrose-伪逆"><span class="nav-number">2.6.</span> <span class="nav-text">Moore-Penrose 伪逆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迹运算"><span class="nav-number">2.7.</span> <span class="nav-text">迹运算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概率与信息论"><span class="nav-number">3.</span> <span class="nav-text">概率与信息论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#混合分布"><span class="nav-number">3.1.</span> <span class="nav-text">混合分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息论"><span class="nav-number">3.2.</span> <span class="nav-text">信息论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构化概率模型"><span class="nav-number">3.3.</span> <span class="nav-text">结构化概率模型</span></a></li></ol></li></ol></div>
             
 
           </div>
