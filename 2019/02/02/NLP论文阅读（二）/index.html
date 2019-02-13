@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,paper,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Word2Vecf——Dependency-Based Word Embeddings and Lexical SubstituteSummary如文章题目所述,这是一种基于依赖关系的词嵌入。它是一种更广义的用negative sampling的skip-gram模型,并且能处理任意上下文,而且其生成的嵌入不像原始的skip-gram那样具有较少的局部性和功能相似性.虽然”A Simple Wor">
+<meta name="keywords" content="NLP,paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NLP论文阅读（二）">
+<meta property="og:url" content="http://yifdu.github.io/2019/02/02/NLP论文阅读（二）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="Word2Vecf——Dependency-Based Word Embeddings and Lexical SubstituteSummary如文章题目所述,这是一种基于依赖关系的词嵌入。它是一种更广义的用negative sampling的skip-gram模型,并且能处理任意上下文,而且其生成的嵌入不像原始的skip-gram那样具有较少的局部性和功能相似性.虽然”A Simple Wor">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549192195948&di=a83c37f59dbc8068fbca91481d501aeb&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F12%2F20180612134047_jcuzy.jpg">
+<meta property="og:updated_time" content="2019-02-13T15:12:57.551Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NLP论文阅读（二）">
+<meta name="twitter:description" content="Word2Vecf——Dependency-Based Word Embeddings and Lexical SubstituteSummary如文章题目所述,这是一种基于依赖关系的词嵌入。它是一种更广义的用negative sampling的skip-gram模型,并且能处理任意上下文,而且其生成的嵌入不像原始的skip-gram那样具有较少的局部性和功能相似性.虽然”A Simple Wor">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549192195948&di=a83c37f59dbc8068fbca91481d501aeb&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F12%2F20180612134047_jcuzy.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/02/02/NLP论文阅读（二）/">
+
+
+
+
+
+  <title>NLP论文阅读（二） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/02/02/NLP论文阅读（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NLP论文阅读（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-02T23:18:32+08:00">
+                2019-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549192195948&di=a83c37f59dbc8068fbca91481d501aeb&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F12%2F20180612134047_jcuzy.jpg" rel="gallery_cjs3c56wm000118waficspshd" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549192195948&di=a83c37f59dbc8068fbca91481d501aeb&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F12%2F20180612134047_jcuzy.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="Word2Vecf——Dependency-Based-Word-Embeddings-and-Lexical-Substitute"><a href="#Word2Vecf——Dependency-Based-Word-Embeddings-and-Lexical-Substitute" class="headerlink" title="Word2Vecf——Dependency-Based Word Embeddings and Lexical Substitute"></a>Word2Vecf——Dependency-Based Word Embeddings and Lexical Substitute</h1><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>如文章题目所述,这是一种基于依赖关系的词嵌入。它是一种更广义的用negative sampling的skip-gram模型,并且能处理任意上下文,而且其生成的嵌入不像原始的skip-gram那样具有较少的局部性和功能相似性.虽然”A Simple Word Embedding Model for Lexical Substitution”中介绍的方法正在使用广义skip-gram模型生成的结果来处理词汇替换任务.这里的方法新颖之处在于明确地利用了在skip-gram模型中生成的上下文嵌入,这些嵌入目前为止仅被视为学习过程的内部组件。</p>
+<p>本文的目的是寻求一种能够捕获单词之间的语义和句法相似性的表示。原始的Skip-gram模型中的上下文的词袋性质产生了广泛的主题相似性，而基于依赖性的上下文产生了更多功能相似性的协同性质。</p>
+<h2 id="Dependency-based-Word-Embeddings"><a href="#Dependency-based-Word-Embeddings" class="headerlink" title="Dependency-based Word Embeddings"></a>Dependency-based Word Embeddings</h2><p>本文提出了一种用negative sampling 的改进的skip-gram模型，能处理任意上下文.</p>
+<h3 id="Skip-gram-MODEL"><a href="#Skip-gram-MODEL" class="headerlink" title="Skip-gram MODEL"></a>Skip-gram MODEL</h3><p>符号统一如下:<br>$W$表示单词词汇表,$C$表示上下文词汇表,d表示向量维度,w表示词汇表中的一个单词w,c表示上下文词汇表中的一个上下文，$v_w$和$v_c$分别表示单词词向量和上下文向量,D表示单词w和单词c的组成的(w,c)的数据集,它们大量的出现在文本中(换句话说,词汇表中D中的单词w只有一个上下文c,因此它可看成unigram)</p>
+<p>在skip-gram模型中,每个单词w∈W,并关联于一个向量$v_w∈R^d$并且类似的每个上下文c∈C也被表示为一个向量$v_c∈R^d$.向量表示的实体是潜在的,并且被视为一组能被学习的参数,作者目标是寻找单词和上下文的向量表示,使得点乘$v_w·v_c$最大化来得到好的”word-context”对.</p>
+<p>举个栗子:考虑一个单词-上下文对(w,c),来自数据集中的(w,c)可以用P(1|w,c)来表示概率，然而如果(w,c)不再给定的数据集中则用P(0|w,c)=1-P(1|w,c)来表示概率,这是negative sampling的观点,这也是一个二值分类问题.注意$P(1|w,c)=\frac{1}{1+exp(-v_w^T·v_c)}$并且$v_w,v_c$是学习到的模型参数.因此,目标是最大化观察到的词对属于数据集的log概率,得到如下目标函数</p>
+<script type="math/tex; mode=display">argmax_{v_w,v_c}\sum_{(w,c)∈D}log\frac{1}{1+e^{-v_w^T·v_c}}</script><p>扩展目标变为:</p>
+<script type="math/tex; mode=display">argmax_{v_w,v_c}(\sum_{(w,c)∈D}logP(1|w,c)+\sum_{(w,c)∈D'}logP(0|w,c))</script><p>D’是负样本能通过多种方式得到.一般采用以下方法,对于每个(w,c)∈D,构建n个采样：$(w,c_1),..,(w,c_n)$其中n是超参数,并且每个$c_j$被构造来源于unigram分布的$(\frac{3}{4}次方)$</p>
+<p>该目标函数被训练通过SGD算法在语料库D∪D’上更新.优化该目标函数使得观察到的word-context对有相似的embeddings,然而未观察到的对是分散的.直觉上,出现在类似上下文中的单词应该有类似的嵌入.</p>
+<h3 id="Dependency-based-Context"><a href="#Dependency-based-Context" class="headerlink" title="Dependency-based Context"></a>Dependency-based Context</h3><p>在原始的skip-gram模型中,单词w的上下文是在文本中出现在单词周围的.因此上下文词汇表C是等价于单词词汇表W.然而,上下文需要对应于单词并且上下文类型的数目是比单词类型数目大很多的,所以作者一般化了skip-gram通过用任意上下文(arbitrary context)来代替词袋上下文(bag-of-words contexts),即基于依赖性句法的上下,他与词袋上下文相比能捕获不同信息.如下例:</p>
+<script type="math/tex; mode=display">Australian scientist discovers star with telescope.</script><p>对于词袋上下文，例如通过将窗口设置为等于2,”discovers”的上下文是”Australian”,”scientist”,”star”和”with”.以2为窗口大小将会丢失一些重要的上下文,像”telescope”,并且会包含一些意外的上下文,像”Australian”.此外,上下文没有标记,导致”discovers”成为”stars”和”scientist”的上下文,这样会造成”stars”和”scientists”最终在嵌入空间中作为邻居.通过将窗口设置为等于5,他能够捕获广泛的主题内容,但可能削弱关于目标词的所关注信息的重要性.</p>
+<p>对于基于上下文依赖的上下文,词袋方法的替代方法是基于词参与的句法关系来派生上下文.这种类型的上下文可以通过一些parsing技术来导出.在parsing sentence之后，导出单词上下文是:对于一个具有修饰符$m_1,…,m_k和头部h$的目标单词w,考虑上下文$(m_1,lbl_1),…,(m_k,lbl_k),(h,lbl_h^{-1})$其中lbl是头部和修饰符之间的依赖关系的类型(例如,nsubj,dobj,amod等等)和$lbl^{-1}$被用于标记逆关系.<br><img src="/2019/02/02/NLP论文阅读（二）/pic1.png" alt="pic1"></p>
+<p>在上下文提取之前,包含介词的关系被”折叠”,通过直接连接介词的头部和宾语,并将介词本身包含在依赖性标签中.基于依赖性上下文,能捕获与其相聚很远的单词之间的关系,因此可以通过小窗口词袋(如discovers和telescope)来out-of-reach并且滤掉窗口内的意外上下文(与目标词没有直接关系。因此,这种句法上下文可以产生更集中的嵌入(embedding)并捕获更多功能和更少的主题相似性.</p>
+<p>因此,这是基于依赖性的词嵌入的一般思想,为了构建这种改进的skip-gram模型,作者将初始参数设置保留在原始的skip-gram模型中,并且在使用语料库训练词向量之前,预处理是需要的,也就是说基于依赖性的上下文提取,并且预处理也构建了word和context的词汇表.</p>
+<p>注意，句法依赖性比词袋更具包容性和更集中。它们捕捉到相距很远的词语的关系，因此用小窗口的词袋“无法触及”（例如discover的仪器是telescope/prep_with），并且还过滤掉窗口内的“偶然”上下文但与目标词没有直接关系（例如，Australian不被用作discover的上下文）。此外，上下文被分类，表明，例如，stars是discovery的宾语，scientists是主语。因此，我们期望语法上下文产生更集中的嵌入，捕获更多功能和更少的主题相似性。</p>
+<h2 id="Lexical-Substitute"><a href="#Lexical-Substitute" class="headerlink" title="Lexical Substitute"></a>Lexical Substitute</h2><p>词汇替换任务被用于评估上下文敏感的词汇推理模型。在这些任务中,系统需要预测目标单词实例的替代,其保留了其在给定句子上下文中的含义.为了应对这一挑战,近年来提出了几种模型,如基于稀疏语法的向量模型,概率图模型,LDA主题模型,这些模型通常生成一个单词实例表示,偏向其给定的上下文,然后确定替代基于它们与这种有偏见的表示的相似性的单词.</p>
+<p>(In this paper, the author directly utilize the skip-gram model with dependency-based context for the context-sensitive lexical substitution by make use of the learned context embeddings in conjunction with the target word embeddings to model target word instances, instead of discarding them. The suitable substitute is identified via its combined similarity to the embeddings of both the target and its given context. The model supposes that a good lexical substitute for a target word instance under a given context needs to be both semantically similar to the target word and compatible with the given context.)<br>在本文中,作者通过利用学习的上下文嵌入与目标词嵌入来模拟目标词实例,而不是放弃它们.直接利用具有基于依赖性的上下文的skip-gram模型进行上下文敏感的词汇替换.通过其与目标及其给定上下文的嵌入的组合相似性来识别合适的替代物.该模型假设在给定上下文下对目标实例的良好词汇替代需要在语义上与目标词相似并且与给定上下文兼容.</p>
+<p><img src="/2019/02/02/NLP论文阅读（二）/pic2.png" alt="pic2"><br>以上是一个例子,等价替换在句法上下文dobj_company下目标单词acquire,可视化在二维嵌入空间中.即使learn是最接近acquire的单词,单词buy是非常接近acquire和上下文dobj_company并且被认为是更好的替代品.</p>
+<p>为了满足假设,模型使用二阶目标到目标(a second-order target-to-target)相似性度量来估计替代词和目标词之间的语义相似性,并使用一阶来估计替代词与给定上下文的兼容性目标到上下文的相似性度量.在数学上,该模型包含四种方法,它们被定义为:</p>
+<script type="math/tex; mode=display">Add=\frac{cos(s,t)+\sum_{c∈C}cos(s,c)}{|C|+1}</script><script type="math/tex; mode=display">BalAdd=\frac{|C|·cos(s,t)+\sum_{c∈C}cos(s,c)}{2·|C|}</script><script type="math/tex; mode=display">Mult=(pcos(s,t)·\prod_{c∈C}pcos(s,c))^{\frac{1}{|C|+1}}</script><script type="math/tex; mode=display">BalMult=(pcos(s,t)^{|C|}·\prod_{c∈C}pcos(s,c))^{\frac{1}{2·|C|}}</script><p>其中C是上下文句子中的目标单词的上下文元素的集合并且|C|表示上下文元素的数量,c表示单个上下文元素,pcos(v,v’)=$\frac{cos(v,v’)+1}{2}$被用于避免负值,s时词汇替代,t是目标词。实际上,我们可以从公式推导出目标到目标和目标到上下文的相似性都是通过向量余弦距离来估算.</p>
+<p>这四种方法是上下文敏感的可替代性度量，用于估计在给定的句子上下文中词汇替代词对目标词的适合性。此外，Add和BalAdd称为算术平均值Mult和BalMult称为几何平均值.</p>
+<h2 id="Model-Introspection"><a href="#Model-Introspection" class="headerlink" title="Model Introspection"></a>Model Introspection</h2><p>神经词嵌入通常被认为是不透明且不可解释的，不同于稀疏向量空间表示，其中每个维度对应于特定的已知上下文，或者LDA模型，其中维度对应于潜在主题。虽然这在很大程度上是正确的，但我们观察到Skip-gram确实允许进行非常少量的内省。虽然我们不能为任何特定维度赋予意义，但我们确实可以通过检查哪些上下文被目标词“激活”来瞥见模型捕获的信息类型。</p>
+<p>回想一下，学习过程试图对好的词对(w,c)的点乘积$v_c·v_w$最大化，并对那些不好的词对(w,c)进行最小化。如果我们保留上下文嵌入，我们可以在模型中查询最常被（具有最高点积）给定目标词激活的上下文。通过这样做，我们可以看到模型学到的东西是这个词的良好判别上下文。</p>
+<p>为了演示，我们在表2中列出了嵌入DEPS的示例单词的5个最活跃的上下文。有趣的是，在这些情况下，最具辨别力的句法语境与动词的主语或宾语(或其反义词)无关，而是与连词、同位语、名词和形容词修饰语有关。此外，折叠的介词关系是非常有用的(例如，用于捕捉school aspect of hogwarts)。许多连接上下文的出现，如superman/conj对于batman，和singing/conj对于dancing，可以解释功能相似性;自然语言中的连词倾向于使它们的连词具有相同的语义类型和词形变化。</p>
+<p><img src="/2019/02/02/NLP论文阅读（二）/pic3.png" alt="pic3"></p>
+<h2 id="Conclusions"><a href="#Conclusions" class="headerlink" title="Conclusions"></a>Conclusions</h2><p>我们提出了Skip-gram嵌入模型的推广，其中线性bagofwords上下文被任意替换，并且基于依赖性的上下文进行了实验，表明它们产生了明显不同的相似性。这些结果是预期的，并遵循分布语义学文献中的类似发现。我们还演示了如何针对给定单词的判别上下文查询得到的嵌入模型，并观察到学习过程似乎偏向于相对局部的句法上下文，以及介词的连词和宾语。我们希望这些见解将有助于进一步研究改进的上下文建模，可能是特定于任务的嵌入式表示。文中的软件，允许在任意上下文中进行实验，以及本文中描述的嵌入，可以在作者的网站上下载。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/02/02/NLP论文阅读（二）/">NLP论文阅读（二）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2019年02月02日 - 23:02</p>
+  <p><span>最后更新:</span>2019年02月13日 - 23:02</p>
+  <p><span>原始链接:</span><a href="/2019/02/02/NLP论文阅读（二）/" title="NLP论文阅读（二）">http://yifdu.github.io/2019/02/02/NLP论文阅读（二）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/02/02/NLP论文阅读（二）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/paper/" rel="tag"># paper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/31/NLP论文阅读（一）/" rel="next" title="NLP论文阅读（一）">
+                <i class="fa fa-chevron-left"></i> NLP论文阅读（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/03/推荐系统论文阅读（四）/" rel="prev" title="推荐系统论文阅读（四）">
+                推荐系统论文阅读（四） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Word2Vecf——Dependency-Based-Word-Embeddings-and-Lexical-Substitute"><span class="nav-number">1.</span> <span class="nav-text">Word2Vecf——Dependency-Based Word Embeddings and Lexical Substitute</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.1.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dependency-based-Word-Embeddings"><span class="nav-number">1.2.</span> <span class="nav-text">Dependency-based Word Embeddings</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram-MODEL"><span class="nav-number">1.2.1.</span> <span class="nav-text">Skip-gram MODEL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dependency-based-Context"><span class="nav-number">1.2.2.</span> <span class="nav-text">Dependency-based Context</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lexical-Substitute"><span class="nav-number">1.3.</span> <span class="nav-text">Lexical Substitute</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-Introspection"><span class="nav-number">1.4.</span> <span class="nav-text">Model Introspection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusions"><span class="nav-number">1.5.</span> <span class="nav-text">Conclusions</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

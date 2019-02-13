@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,paper,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Compositional Morphology forWord Representations and Language Modelling本文提出了一种可扩展的方法，用于将组合形态表示集成到基于矢量的概率语言模型中。 这里的方法在对数双线性语言模型的上下文中进行评估，通过对词汇表进行因子分析，适当地有效地在机器翻译解码器内实现。 文章进行内在和外在评估，展示一系列语言的结果，这些语言证明模型学">
+<meta name="keywords" content="NLP,paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NLP论文阅读（四）">
+<meta property="og:url" content="http://yifdu.github.io/2019/02/10/NLP论文阅读（四）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="Compositional Morphology forWord Representations and Language Modelling本文提出了一种可扩展的方法，用于将组合形态表示集成到基于矢量的概率语言模型中。 这里的方法在对数双线性语言模型的上下文中进行评估，通过对词汇表进行因子分析，适当地有效地在机器翻译解码器内实现。 文章进行内在和外在评估，展示一系列语言的结果，这些语言证明模型学">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549786634634&di=6f4ecc2d641eaf768288018f14a27782&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F23%2F20180623103841_lqbfi.jpg">
+<meta property="og:updated_time" content="2019-02-13T15:12:50.292Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NLP论文阅读（四）">
+<meta name="twitter:description" content="Compositional Morphology forWord Representations and Language Modelling本文提出了一种可扩展的方法，用于将组合形态表示集成到基于矢量的概率语言模型中。 这里的方法在对数双线性语言模型的上下文中进行评估，通过对词汇表进行因子分析，适当地有效地在机器翻译解码器内实现。 文章进行内在和外在评估，展示一系列语言的结果，这些语言证明模型学">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549786634634&di=6f4ecc2d641eaf768288018f14a27782&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F23%2F20180623103841_lqbfi.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/02/10/NLP论文阅读（四）/">
+
+
+
+
+
+  <title>NLP论文阅读（四） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/02/10/NLP论文阅读（四）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NLP论文阅读（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-10T13:23:10+08:00">
+                2019-02-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549786634634&di=6f4ecc2d641eaf768288018f14a27782&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F23%2F20180623103841_lqbfi.jpg" rel="gallery_cjs3c576c000818wa4hcddql6" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549786634634&di=6f4ecc2d641eaf768288018f14a27782&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F23%2F20180623103841_lqbfi.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="Compositional-Morphology-forWord-Representations-and-Language-Modelling"><a href="#Compositional-Morphology-forWord-Representations-and-Language-Modelling" class="headerlink" title="Compositional Morphology forWord Representations and Language Modelling"></a>Compositional Morphology forWord Representations and Language Modelling</h1><p>本文提出了一种可扩展的方法，用于将组合形态表示集成到基于矢量的概率语言模型中。 这里的方法在对数双线性语言模型的上下文中进行评估，通过对词汇表进行因子分析，适当地有效地在机器翻译解码器内实现。 文章进行内在和外在评估，展示一系列语言的结果，这些语言证明模型学习形态表征，这些形态表示在单词相似性任务上表现良好，并导致困惑的显着减少。 当用于翻译成具有大词汇量的形态丰富的语言时，相对于使用back-off n-gram模型的基线系统，这里的模型获得了高达1.2 BLEU点的改进。</p>
+<p>形态丰富的语言中单词形式的激增给统计语言模型（LM）带来了挑战，统计语言模型在机器翻译和语音识别中起着关键作用。 传统的back off n-gram LMs（Chen＆Goodman，1998）和越来越流行的基于矢量的LMs（Bengio等，2003; Schwenk等，2006; Mikolov等，2010）使用了不具有的参数化 明确地编码相关形式之间的形态规律，如abstract，abstraction和abstracted。 这些模型遭受由形态学过程引起的数据稀疏性，并且缺乏将概率或表示分配给看不见的单词形式的连贯方法。</p>
+<p>这项工作侧重于连续空间语言模型（continuous space language models,CSLM），这是一个用于表示具有实值向量的单词的LM的总称。 已经发现这样的单词表示可以捕捉一些形态规律性（Linguistic Regularities<br>in Continuous Space Word Representations），但我们认为有一种情况可以将先验形态意识建立在语言模型的归纳偏差中。 相反，最近已将组合矢量空间建模应用于形态学以获得良好效果，但缺乏与机器翻译解码器一起使用所必需的概率基础。</p>
+<p>本文提出的方法在概率语言建模和基于形态学的表示学习之间取得平衡。 词向量被组合成为单词的任意子元素的线性函数，例如， 表面形式，词干，词缀或其他潜在信息。 其结果是将形态相关词的表示联系在一起，直接对抗数据稀疏性。 这是在log-bilinear（LBL）LM（《Three New Graphical Models for Statistical<br>Language Modelling》）的背景下执行的，通过使用单词分类充分加速，这样就可以将模型集成到开源机器翻译解码器并进行评估它对翻译成6种语言的影响，包括形态复杂的捷克语，德语和俄语。</p>
+<p>在单词相似度评定任务中，这里的语素向量有助于提高多种语言中人类评级的相关性。 细粒度分析用于确定文中的困惑减少的起源，而缩放实验证明了使用100m +tokens的900k类型的词汇表的易处理性。</p>
+<h2 id="Additive-Word-Representations"><a href="#Additive-Word-Representations" class="headerlink" title="Additive Word Representations"></a>Additive Word Representations</h2><p>通用CSLM与词汇表V中每个单词类型v相关联,一个d维特征向量$r_v∈R^d$。 通过这些特征值和一组变换权重的相互作用，以不透明的方式捕获单词之间的规则性。 这只是以非常基本的方式利用语言直觉，与针对特定现象的针对性的语言特征形成鲜明对比，这在监督学习环境中经常使用。</p>
+<p>这里寻求一种保留CSLM特征向量的无监督特性的折衷方案，但也以灵活有效的方式结合了先验语言知识。 特别是，尽管表面形式不同，形态相关的词应该具有统计学上的强度。</p>
+<p>为了实现这一点,文中定义了一个映射$\mu$:V——&gt;$F^+$,将一个表面单词(surface word)转换到变长序列因子,即$\mu(v)=(f_1,….,f_K)$,其中v∈V并且$f_i∈F$.每个因子f有一个相关因子特征向量$r_v∈R^d$.我们因此因子化一个单词为它的标面词素(surface morphemes),虽然这种方法也能包含其他信息例如词元,词性.</p>
+<p>一个单词v的向量表示成$\overline{r}_v$被计算通过它的因子向量的一个函数$w_{\mu}(v)$.这里使用求和：$\overline{r}_v=w_{\mu}(v)=\sum_{f∈\mu(v)}r_f$.相关词的词素向量被链接通过共享因子向量(标记:$\vec{word},\vec{factor}$)</p>
+<script type="math/tex; mode=display">\vec{imperfection}=\vec{im}+\vec{perfect}+\vec{ion}</script><script type="math/tex; mode=display">\vec{perfectly}=\vec{perfect}+\vec{ly}</script><p>此外，可以使用其可用的语素向量来构造词汇表外（out-of-vocabulary,OOV）词的表示。</p>
+<p>将一个单词的表面形式(surface form)表示成因子形式. 这解释了非复合结构($\vec{greenhouse}=\vec{greenhouse}+\vec{green}+\vec{house}$),并且使该方法对有噪声的词素部分更鲁棒.该策略也克服了求和组合的顺序不变.<br>($\vec{hangover}≠\vec{overhang}$).</p>
+<p>每个单词的因子数量可以随词汇量的变化而变化，这使得该方法适用于更融合的语言(如捷克语、俄语)和更粘着的语言(如土耳其语)。这与因子语言模型(factored language models)(《Factored Neural Language<br>Models.》)形成对比，后者假设每个单词有固定数量的因子。他们将因子向量串联起来以获得单个单词的表示向量的方法可以看作是在特征空间上强制划分.本文方法的加法避免了这样的划分，更好地反映了对于什么是合适的划分缺乏强烈的直觉。与他们的方法相比，这里的方法的一个限制是确定性映射目前强制每个单词类型进行单个因子分解，这牺牲了从上下文消除歧义的形态学分析中获得的信息。</p>
+<p> 与Luong等人的递归神经网络方法不同，本文方法不会在一个单词上强加一个单独的树结构，这会忽略像un[[lock] able] vs. [un[lock]]able这样的单词所固有的模糊性。 与这两种先前的形态学建模方法相反，本文的加法表示可以容易地在适用于解码器的概率语言模型中实现。</p>
+<h2 id="Log-Bilinear-Language-Models"><a href="#Log-Bilinear-Language-Models" class="headerlink" title="Log-Bilinear Language Models"></a>Log-Bilinear Language Models</h2><p> Log-bilinear(LBL) models是CSLMs的一个实例.句子w的概率根据它的单词分解,P(w)≈$\prod_iP(w_i|w_{i-n+1}^{i-1})$.该分布被建模通过一个在单词的向量表示上的平滑打分函数v(·).相反,离散的n-gram模型通过平滑和back-off经验分布来估计.</p>
+<p> LBL根据前面单词的上下文向量$q_j∈R^d$预测下一个单词的向量p，</p>
+<script type="math/tex; mode=display">p=\sum_{j=1}^{n-1}q_jC_j</script><p>其中$C_j∈R^{d×d}$是特定位置的转换。<br>v(w)表达所观察的单词w是多么拟合预测的并且被定义为$v(w)=p·r_w+b_w$,其中$b_w$是偏置项编码单词类型的先验概率.Softmax产生单词概率:</p>
+<script type="math/tex; mode=display">P(w_i|w_{i-n+1}^{i-1})=\frac{exp(v(w_i))}{\sum_{d∈V}exp(v(d))}</script><p>该模型随后被标记为LBL,参数$\theta_{LBL}=(C_j,Q,R,b)$其中Q,R∈$R^{|V|×d}$包含了单词表示向量以行的形式,并且b∈$R^{|V|}$.Q和R表示单独的表示被用于条件化和输出.</p>
+<h3 id="Additive-Log-Bilinear-Model"><a href="#Additive-Log-Bilinear-Model" class="headerlink" title="Additive Log-Bilinear Model"></a>Additive Log-Bilinear Model</h3><p>本文引入了LBL的变体,利用求和表达通过将组合词向量$\overline{r},\overline{q}_j$分别和目标和上下文单词关联起来.表达矩阵$Q^{(f)},R^{(f)}∈R^{|F|×d}$包含每个因子类型的一个向量.该模型被指定为LBL++并且有参数$\theta_{LBL++}=(C_j,Q^{(f)},R^{(f)},b)$.单词共享因子被联系在一起,这被期望在稀有单词形式上改进表现.</p>
+<p>用稀疏转换矩阵M∈Z_+^{V×|F|}来表达映射$\mu$,其中一个行向量$m_v$有一些非零元素来选择因子向量,建立单词和因子表示矩阵之间的关系$R=MR^{(f)}$并且$Q=MQ^{(f)}$.实际上,作者利用这个来测试时间效率——词向量被线下编译以至于因此LBL++概率查找的计算成本与LBL相同。</p>
+<p>我们考虑LBL++的两个明显变化来评估上下文和目标因素之间的相互作用对模型的影响程度：LBL+o仅对输出词进行分解并保留上下文的简单词向量（即$Q=Q^{(f)}$），而LBL+c执行相反的操作，仅进行因式分解上下文单词。当设置$\mu$为标识函数时,例如V=F，两者都减少到LBL.<br><img src="/2019/02/10/NLP论文阅读（四）/pic1.png" alt="pic1"></p>
+<p>因子分解允许接近未知的上下文单词，其比用全局未知符号替换它们的标准方法更不苛刻——相反，可以从单词的已知因子构建向量（例如，未观察到的变形形式的观察到的词干）。 类似的方案可用于对未知目标词进行评分，但需要改变概率模型的事件空间。 作者在单词相似性实验中使用这种词汇表扩展功能，但将测试时语言模型预测的扩展留作未来的工作。</p>
+<h3 id="Class-based-Model-Decomposition"><a href="#Class-based-Model-Decomposition" class="headerlink" title="Class-based Model Decomposition"></a>Class-based Model Decomposition</h3><p>在解码器中使用CSLM的主要障碍是对词汇表进行昂贵的规范化。 我们降低规范化计算成本的方法是使用概率模型的基于类的分解（《Classes for Fast Maximum Entropy Training》; 《Extensions of Recurrent Neural Network Language<br>Model》）。 使用Brownclustering(《Class-Based n-gram Models of Natural Language.》),这里将词汇表划分为|C|类，将$C_c$表示为c类中的词汇项集合，使得$V=C_1∪…∪C_{|C|}$。</p>
+<p>在该模型中,单词基于n-1个先前单词的历史的条件概率被分解为:</p>
+<script type="math/tex; mode=display">P(w|h)=P(c|h)P(w|h,c) \ \ \ \ (3)</script><p>该基于类的模型,CLBL,对LBL进行了扩展通过将一个表达向量$s_c$和偏置参数$t_c$与类别c关联起来,则有$\theta_{CLBL}=(C_j,Q,R,S,b,t)$.<br>相同的预测向量p被用于计算类分数$r(c)=p·s_c+t_c$和单词分数v(w),这分别被标准化为:</p>
+<script type="math/tex; mode=display">P(c|h)=\frac{exp(r(c))}{\sum_{c'=1}^{|C|}exp(r(c'))}</script><script type="math/tex; mode=display">P(w|h,c)=\frac{exp(v(w))}{\sum_{d'∈C_c}exp(v(d'))}</script><h3 id="Training-amp-Initialisation"><a href="#Training-amp-Initialisation" class="headerlink" title="Training &amp; Initialisation"></a>Training &amp; Initialisation</h3><p>通过优化L2正则化对数似然目标来估计模型参数$\theta$。 直接针对此目标训练CLBL及其求和变体是快速的，因为计算梯度所需的模型分数的标准化是在少数事件上进行的。</p>
+<p>对于无类别的LBL，我们使用噪声对比估计（NCE）（《Noise-Contrastive Estimation of Unnormalized Statistical Models , with Applications to Natural Image Statistics》）来避免训练期间的标准化。 这使得LBL的昂贵的测试时间标准化保持不变，从而排除了它们在解码期间的使用。</p>
+<p>偏置项b（resp.t）被初始化为训练语料库中单词（resp. classes）的log unigram概率，具有拉普拉斯平滑，而所有其他参数根据sharp的零均值高斯随机初始化。 因此，表示从头开始学习，而不是基于公开可用的嵌入，这意味着这里的方法可以很容易地应用于多种语言。</p>
+<p>在每个小批次的L训练样本之后，通过随机梯度下降和更新来执行优化。 我们应用AdaGrad并调整开发数据的步骤.一旦开发数据的困惑开始增加，我们就停止训练。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/02/10/NLP论文阅读（四）/">NLP论文阅读（四）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2019年02月10日 - 13:02</p>
+  <p><span>最后更新:</span>2019年02月13日 - 23:02</p>
+  <p><span>原始链接:</span><a href="/2019/02/10/NLP论文阅读（四）/" title="NLP论文阅读（四）">http://yifdu.github.io/2019/02/10/NLP论文阅读（四）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/02/10/NLP论文阅读（四）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/paper/" rel="tag"># paper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/09/Object-Detection/" rel="next" title="Object_Detection(一)">
+                <i class="fa fa-chevron-left"></i> Object_Detection(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/10/推荐系统论文阅读（六）/" rel="prev" title="推荐系统论文阅读（六）">
+                推荐系统论文阅读（六） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Compositional-Morphology-forWord-Representations-and-Language-Modelling"><span class="nav-number">1.</span> <span class="nav-text">Compositional Morphology forWord Representations and Language Modelling</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Additive-Word-Representations"><span class="nav-number">1.1.</span> <span class="nav-text">Additive Word Representations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Log-Bilinear-Language-Models"><span class="nav-number">1.2.</span> <span class="nav-text">Log-Bilinear Language Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Additive-Log-Bilinear-Model"><span class="nav-number">1.2.1.</span> <span class="nav-text">Additive Log-Bilinear Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-based-Model-Decomposition"><span class="nav-number">1.2.2.</span> <span class="nav-text">Class-based Model Decomposition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-amp-Initialisation"><span class="nav-number">1.2.3.</span> <span class="nav-text">Training &amp; Initialisation</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

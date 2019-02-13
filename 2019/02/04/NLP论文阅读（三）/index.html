@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,paper,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="GloVe: Global Vectors for Word Representation本文结合了两个主要模型族的优点:全局矩阵分解和局部上下文窗口方法.本文的模型通过仅训练word-word共现矩阵种的非零元素,而不是整个稀疏矩阵或大型语料库种的各个上下文窗口来有效地利用统计信息.该模型产生一个具有有意义子结构地向量空间,其在最近一个单词类比任务上地性能为75%。他在相似性任务和命名实体识别方">
+<meta name="keywords" content="NLP,paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NLP论文阅读（三）">
+<meta property="og:url" content="http://yifdu.github.io/2019/02/04/NLP论文阅读（三）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="GloVe: Global Vectors for Word Representation本文结合了两个主要模型族的优点:全局矩阵分解和局部上下文窗口方法.本文的模型通过仅训练word-word共现矩阵种的非零元素,而不是整个稀疏矩阵或大型语料库种的各个上下文窗口来有效地利用统计信息.该模型产生一个具有有意义子结构地向量空间,其在最近一个单词类比任务上地性能为75%。他在相似性任务和命名实体识别方">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549888393&di=313e0d4181e04f9550c373eb9b255ae6&imgtype=jpg&er=1&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fd3a4f0ceeceeb2d72e5d63b9efee272c0ceee3923041a-WYdVVA_fw658">
+<meta property="og:updated_time" content="2019-02-13T15:12:53.880Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NLP论文阅读（三）">
+<meta name="twitter:description" content="GloVe: Global Vectors for Word Representation本文结合了两个主要模型族的优点:全局矩阵分解和局部上下文窗口方法.本文的模型通过仅训练word-word共现矩阵种的非零元素,而不是整个稀疏矩阵或大型语料库种的各个上下文窗口来有效地利用统计信息.该模型产生一个具有有意义子结构地向量空间,其在最近一个单词类比任务上地性能为75%。他在相似性任务和命名实体识别方">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549888393&di=313e0d4181e04f9550c373eb9b255ae6&imgtype=jpg&er=1&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fd3a4f0ceeceeb2d72e5d63b9efee272c0ceee3923041a-WYdVVA_fw658">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/02/04/NLP论文阅读（三）/">
+
+
+
+
+
+  <title>NLP论文阅读（三） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/02/04/NLP论文阅读（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NLP论文阅读（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-04T20:31:34+08:00">
+                2019-02-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549888393&di=313e0d4181e04f9550c373eb9b255ae6&imgtype=jpg&er=1&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fd3a4f0ceeceeb2d72e5d63b9efee272c0ceee3923041a-WYdVVA_fw658" rel="gallery_cjs3c56dp000018wa2v4vcikk" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549888393&di=313e0d4181e04f9550c373eb9b255ae6&imgtype=jpg&er=1&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fd3a4f0ceeceeb2d72e5d63b9efee272c0ceee3923041a-WYdVVA_fw658" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="GloVe-Global-Vectors-for-Word-Representation"><a href="#GloVe-Global-Vectors-for-Word-Representation" class="headerlink" title="GloVe: Global Vectors for Word Representation"></a>GloVe: Global Vectors for Word Representation</h1><p>本文结合了两个主要模型族的优点:全局矩阵分解和局部上下文窗口方法.本文的模型通过仅训练word-word共现矩阵种的非零元素,而不是整个稀疏矩阵或大型语料库种的各个上下文窗口来有效地利用统计信息.该模型产生一个具有有意义子结构地向量空间,其在最近一个单词类比任务上地性能为75%。他在相似性任务和命名实体识别方面也优于相关模型.</p>
+<p>学习词向量地两个主要模型族是：1）全局矩阵分解方法,如潜在语义分析(LSA).2)局部上下文窗口方法,如skip-gram模型.目前,两个族都有明显的缺点.虽然像LSA这样的方法有效地利用了统计信息,但它们对类比任务这个词的表现相对较差,表明了次优的向量空间结构.像skip-gram这样的方法在类比任务上可能做得更好,但是它们很难利用语料库的统计数据,因为它们在单独的局部上下文窗口上训练而不是全局共现计数上.</p>
+<p>本文提出了一种特定的加权最小二乘模型,该模型训练全局word-word共现计数,从而有效地利用统计数据.该模型产生一个具有有意义子结构的词向量空间.<br>模型的源代码以及训练过的单词向量在: <a href="http://nlp.stanford.edu/projects/glove/" target="_blank" rel="noopener">http://nlp.stanford.edu/projects/glove/</a>.</p>
+<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><p>Matrix Factorization Methods:该方法利用低秩近似来分解捕获关于语料库的统计信息的大矩阵.由这些矩阵捕获的特定类型的信息因应用而异.在LSA中,矩阵是”term-document”类型,即,行对应于单词或术语(term),并且列对应于语料库中的不同文档.相反,例如the Hyperspace Analogue to Language(HAL)利用”term-term”类型的矩阵,即行和列对应于单词,而条目(entries)对应于给定单词出现在另一个给定单词上下文的次数.</p>
+<p>HAL和相关方法的一个主要问题是最频繁的单词对相似性度量的贡献不成正比:例如the or and的两个单词的共现次数将对它们的相似性产生巨大的影响然尽管传输相对少的语义相关性.存在许多解决HAL的这种缺点的技术,例如COALS方法,其中共现矩阵首先通过基于熵或相关的归一化来变换.这种类型的变换优点在于,对于合理大小的语料库可能跨越8或9个数量级的原始共现计数被压缩,以便在更小的间隔中更均匀地分布.各种新模型也采用这种方法。</p>
+<p>Shallow Window-Based Methods：另一种方法是学习有助于在局部上下文窗口中进行预测地单词表示.</p>
+<p>最近，用于学习有用的单词表示的完整神经网络结构的重要性已经受到质疑。 Mikolov等人的skip-gram和连续词袋（CBOW）模型提出了一种基于两个词向量之间的内积的简单单层架构。 Mnih和Kavukcuoglu也提出了密切相关的向量对数-双线性模型，vLBL和ivLBL，以及Levy等人 （2014）提出了基于PPMI度量的显式词嵌入。</p>
+<p>在skip-gram和ivLBL模型中，目标是在给定单词本身的情况下预测单词的上下文，而CBOW和vLBL模型中的目标是在给定其上下文的情况下预测单词。通过对单词类比任务的评估，这些模型展示了将语言模式学习为单词向量之间的线性关系的能力。<br>与matrix factorization方法不同，基于shallow window的方法的缺点在于它们不直接对语料库的共现统计进行操作。相反，这些模型扫描整个语料库中的上下文窗口，这无法利用数据中的大量重复。</p>
+<h2 id="The-GloVe-Model"><a href="#The-GloVe-Model" class="headerlink" title="The GloVe Model"></a>The GloVe Model</h2><p>语料库中单词出现的统计数据是所有无监督学习单词表示方法的主要信息来源，虽然现在存在许多这样的方法，但问题仍然是如何从这些统计数据中产生意义，以及结果如何产生单词向量可能代表该含义。在本节中，我们对这个问题有所了解。我们使用我们的见解构建一个新的单词表示模型，我们称之为GloVe，用于全局向量，因为全局语料库统计数据是由模型直接捕获的。</p>
+<p>首先建立一些概念.令word-word共现数目的矩阵表示为X,其中的元素$X_{ij}$表示单词j出现在单词i上下文的次数.令$X_i=\sum_kX_{ik}$是任何单词出现在单词i的上下文的次数.最后令$P_{ij}=P(j|i)=\frac{X_{ij}}{X_i}$是单词j出现在单词i上下文的概率.</p>
+<p>我们从一个简单例子开始,展示了如何直接从共现概率中提取意义的某些方面.考虑两个展现感兴趣的特定方面的词i和j;具体而言,假设我们对热力学阶段的概念感兴趣.我们可以采用i=ice和j=steam.可以通过研究它们的共现概率与各种探测词k的比率来检验这些词的关系.对于与ice而不是steam相关的单词k,比如说k=solid,我们预计比率$\frac{P_{ik}}{P_{jk}}$会很大.类似地,对于与steam而非ice相关的单词k,比如k=gas,该比率应该很小.对于像water或fashion这样的单词k,无论时ice与gas,两者都不相关,这个比例应该接近1.下表显式了这些概率其与大型语料库的比率,数字证实了这些期望.与原始概率相比,该比率能够更好地区分相关词(solid和gas)与不相关词(water和fashion),并且还能够更好地区分两个相关词.<br><img src="/2019/02/04/NLP论文阅读（三）/pic1.png" alt="pic1"></p>
+<p>上述论点表明,词向量学习的适当起点应该是共现概率的比率而不是概率本身.注意到比率$\frac{P_{ik}}{P_{jk}}$取决于单词i,j和k,最通用的模型采用的形式,</p>
+<script type="math/tex; mode=display">F(w_i,w_j,\overline w_k)=\frac{P_{ik}}{P_{jk}}</script><p>其中w∈$R^d$是词向量并且$\overline w∈R^d$<br>是不同的上下文词向量.在该等式中,等式右边的从语料库中提取出来并且F可能依赖于一些未指定的参数.F有很多可能性,但通过强制执行一些需求,我们可以选择一个独特的选择.首先,我们希望F对词向量空间中呈现比率$P_{ik}/P_{jk}$的信息进行编码.由于向量空间本质上是线性结构,因此最自然的方法是使用向量差异.有了这个目标,我们可以根据我们的考虑限制依赖于两个目标词的差异的函数F,修改了上面的函数</p>
+<script type="math/tex; mode=display">F(w_i-w_j,\overline w_k)=\frac{P_{ik}}{P_{jk}}\ \ \ \ \ \ (2)</script><p>接下来,我们注意到F在等式2中的参数是向量而右边项是标量.虽然F可以被认为是由例如神经网络参数化的复杂函数,但是这样做会混淆我们试图捕获的线性结构。为了避免这个问题,我们可以先拿参数的点积：</p>
+<script type="math/tex; mode=display">F((w_i-w_j)^T\overline w_k)=\frac{P_{ik}}{P_{jk}} \ \ \ \ \ (3)</script><p>这可以防止F以不希望的方式混合向量维度.接下来,请注意,对于word-word共现矩阵,单词和上下文单词之间的区别是任意的.我们可以自由地交换这两个的角色.要做到这一点,我们不仅要交换w&lt;-&gt;$\overline w$还要交换X&lt;-&gt;X^T.我们的最终模型在这种重新标记下应该是不变的，但等式(3)不是.然而,对成型可以分两步恢复,首先我们要求F在组(R,+)和(R_{&gt;0},×)中是异质同形的</p>
+<script type="math/tex; mode=display">F((w_i-w_j)^T \overline w_k)=\frac{F(w_i^T\overline w_k)}{F(w_j^T\overline w_k)}  \ \ \ \ \ (4)</script><script type="math/tex; mode=display">F(w_i^T\overline w_k)=P_{ik}=\frac{X_{ik}}{X_i} \ \ \ \ \ (5)</script><p>等式4的解决方案是F=exp,</p>
+<script type="math/tex; mode=display">w_i^T\overline w_k=log(P_{ik})=log(X_{ik})-log(X_i) \ \ \ \ \ \ (6)</script><p>接下来,我们注意到如果右边项不是$log(X_i)$等式(6)将表示出交换对称性.然而,该项与k无关,因此它可以被吸收到$w_i$的偏置$b_i$中.最后,为$\overline w_k$添加额外的偏差$\overline b_k$可以恢复对称.</p>
+<script type="math/tex; mode=display">w_i^T\overline w_k+b_i+\overline b_k=log(X_{ik}) \ \ \ \ \ \ (7)</script><p>等式(7)是对等式(1)的极大简化,但它实际上是不明确的,因为只要参数为零,对数就会发散.该问题的一个解决方案是在对数中包括加法移位$log(X_{ik})-&gt;log(1+X_{ik})$,其保持X的稀疏性同时避免分歧.将共现矩阵的对数分解的想法与LSA密切相关,我们将使用得到的模型作为我们实验中的基线.这种模式的一个主要缺点是,它可以平等地权衡所有共现,甚至是哪些很少或从未发现的共现.这种罕见的共现是嘈杂的,并且信息比较频繁的信息少,但零项目占X中数据的75%-95%,这取决于词汇量和语料库.</p>
+<p>作者提出一种新的加权最小二乘回归模型来解决这些问题.将等式(7)作为最小二乘问题并将加权函数$f(X_{ij})$引入cost函数,给出下述模型:</p>
+<script type="math/tex; mode=display">J=\sum_{i.j=1}^Vf(X_{ij})(w_i^T\overline w_j+b_i+\overline b_j-logX_{ij})^2 \ \ \ \ \ (8)</script><p>这里V是词汇量.权值函数应该遵守下述性质：<br>(1) f(0)=0.如果f被视为连续函数,x-&gt;0时应该消失得足够快以至于$lim_{x-&gt;0}f(x)log^2 x$是有限得.<br>(2) f(x)应该是非递减的,以至于少量的共现不会overweighted.<br>(3) f(x)对于x值很大时应该是相对小,以至于频繁的共现不会overweighted.<br>当然，有大量函数满足这些属性，但我们发现可以很好地工作的一类函数可以参数化为，</p>
+<script type="math/tex; mode=display">
+f(x)=
+\begin{cases}
+(x/x_{max})^α \ \ \ \ \  if\ \ x＜x_{max}\\
+1 \ \ \ \ \ \ \ \ otherwise\\
+\end{cases}</script><p><img src="/2019/02/04/NLP论文阅读（三）/pic2.png" alt="pic2"><br>模型的性能依赖于cutoff,我们所有的实验都固定$x_{max}=100$.我们发现α=3/4比α=1的线性版本有适度的改进.尽管我们仅提供3/4值得经验动机,但有趣的是,发现类似得分数指数缩放可以提供最佳性能.</p>
+<h3 id="Relationship-to-Other-Models"><a href="#Relationship-to-Other-Models" class="headerlink" title="Relationship to Other Models"></a>Relationship to Other Models</h3><p>因为用于学习词向量的所有无监督方法最终都基于语料库的出现统计，所以模型之间应该存在共性。尽管如此，某些模型在这方面仍然有些不透明，特别是最近基于窗口的方法，如skip-gram和ivLBL。因此，在本小节中，我们将展示这些模型如何与我们提出的模型相关，如公式(8)所定义。<br>skip-gram或ivLBL方法的开始点是单词j出现在单词i的上下文中的概率的模型$Q_{ij}$.具体,让我们假设$Q_{ij}$是softmax：</p>
+<script type="math/tex; mode=display">Q_{ij}=\frac{exp(w_i^T\overline w_j)}{\sum_{k=1}^V exp(w_i^T\overline w_k)}</script><p>这些模型的大多数细节与我们的目的无关,除了它们试图在上下文窗口扫描语料库时最大化对数概率的事实.训练以在线,随机的方式进行,但隐含的全局目标函数可以写成,</p>
+<script type="math/tex; mode=display">J=-\sum_{i∈corpus,j∈context(i)} logQ_{ij} \ \ \ \ \ (11)</script><p>在求和中评估每个项的softmax的归一化因子是costly的.为了进行有效的训练,skip-gram和ivLBL莫i选哪个引入了$Q_{ij}$的近似值/但是,如果我们首先将那些对i和j具有相同值的项组合在一起,等式11中的求和能被评估为更有效.</p>
+<script type="math/tex; mode=display">J=-\sum_{i=1}^V\sum_{j=1}^VX_{ij}logQ_{ij} \ \ \ \ (12)</script><p>其中我们用共现矩阵X给出相似项数的事实.<br>回忆:$X_i=\sum_kX_{ik}和P_{ij}=X_{ij}/X_i$,可以重写J为</p>
+<script type="math/tex; mode=display">J=-\sum_{i=1}^VX_i\sum_{j=1}^VP_{ij}logQ_{ij}=\sum_{i=1}^VX_iH(P_i,Q_i) \ \ \ (13)</script><p>其中$H(P_i,Q_i)$是分布$P_i$和$Q_i$的交叉熵.对交叉熵损失加权求和,该目标与方程(8)的加权最小二乘目标有形式上的相似性。实际上,可以优化等式(13)直接与skip-gram和ivLBL模型中的在线训练方法相反。人们可以将这个目标解释为全局skip-gram模型,进一步调查可能会很有趣.另一方面,等式(13)在将其作为学习词向量的模型之前,表现出许多不应该被解决的出乎意料的特性.</p>
+<p>首先，交叉熵误差只是概率分布之间的许多可能的距离测量中的一个，并且它具有令人遗憾的特性，即具有长尾的分布通常被建模得很差，并且对于不太可能的事件给予过多的权重。此外，对于要限制的度量，需要对模型分布Q进行适当的归一化。由于等式(10)中整个词汇的求和,这显示出了一种计算瓶颈,并且希望考虑不需要Q的这种性质的不同距离度量.自然选择将是最小二乘目标,其中Q和P中的归一化因子被丢弃:</p>
+<script type="math/tex; mode=display">\hat{J}=\sum_{i,j}X_i(\hat{P}_{ij}-\hat{Q}_{ij})^2 \ \ \ \ (14)</script><p>其中$\hat{P}_{ij}=X_{ij}$和$\hat{Q}_{ij}=exp(w_i^T\overline w_j)$是未归一化的分布.在这个阶段出现了另一个问题,即$X_{ij}$经常采用非常大的值,这可能使优化复杂.一种有效的补救措施是最小化P和Q的对数的平方误差.</p>
+<script type="math/tex; mode=display">\hat{J}=\sum_{i,j}X_i(log\hat{P}_{ij}-log\hat{Q}_{ij})^2=\sum_{i,j}X_i(w_i^T\overline w_j-logX_ij)^2</script><p>最后,观察到虽然加权因子由skip-gram和ivLBL模型固有的在线训练方法预先确定,但它绝不是最佳的保证.实际上，Mikolov等人观察到通过过滤数据可以增加性能,从而降低频繁词的加权因子的有效值.考虑到这一点,我们引入了一个更通用的加权函数,我们可以自由地依赖于上下文单词.结果是,</p>
+<script type="math/tex; mode=display">\hat{J}=\sum_{i,j}f(X_{ij})(w_i^T\overline w_j-logX_{ij})^2 \ \ \ \ (16)</script><p>这是等价于等式(8)的cost函数.</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/02/04/NLP论文阅读（三）/">NLP论文阅读（三）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2019年02月04日 - 20:02</p>
+  <p><span>最后更新:</span>2019年02月13日 - 23:02</p>
+  <p><span>原始链接:</span><a href="/2019/02/04/NLP论文阅读（三）/" title="NLP论文阅读（三）">http://yifdu.github.io/2019/02/04/NLP论文阅读（三）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/02/04/NLP论文阅读（三）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/paper/" rel="tag"># paper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/03/推荐系统论文阅读（四）/" rel="next" title="推荐系统论文阅读（四）">
+                <i class="fa fa-chevron-left"></i> 推荐系统论文阅读（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/07/推荐系统论文阅读（五）/" rel="prev" title="推荐系统论文阅读（五）">
+                推荐系统论文阅读（五） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GloVe-Global-Vectors-for-Word-Representation"><span class="nav-number">1.</span> <span class="nav-text">GloVe: Global Vectors for Word Representation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Work"><span class="nav-number">1.1.</span> <span class="nav-text">Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-GloVe-Model"><span class="nav-number">1.2.</span> <span class="nav-text">The GloVe Model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Relationship-to-Other-Models"><span class="nav-number">1.2.1.</span> <span class="nav-text">Relationship to Other Models</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
