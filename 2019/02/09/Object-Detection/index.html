@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Paper,Object Detection,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Deep Neural Networks for Object Detection简介在本文中,作者利用DNNS的强大功能来解决目标检测问题,不仅对对物体进行分类还试图精确定位物体.本文提出了一个简单而强大的object detection公式通过用回归问题处理覆盖对象的包围框。并且文中定义了一个多尺度推理过程,它能够以较低的成本由少数网络应用产生高分辨率的目标检测(object detectio">
+<meta name="keywords" content="Paper,Object Detection">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Object_Detection(一)">
+<meta property="og:url" content="http://yifdu.github.io/2019/02/09/Object-Detection/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="Deep Neural Networks for Object Detection简介在本文中,作者利用DNNS的强大功能来解决目标检测问题,不仅对对物体进行分类还试图精确定位物体.本文提出了一个简单而强大的object detection公式通过用回归问题处理覆盖对象的包围框。并且文中定义了一个多尺度推理过程,它能够以较低的成本由少数网络应用产生高分辨率的目标检测(object detectio">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/09/Object-Detection/pic1.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/09/Object-Detection/pic2.png">
+<meta property="og:updated_time" content="2019-02-11T08:02:44.852Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Object_Detection(一)">
+<meta name="twitter:description" content="Deep Neural Networks for Object Detection简介在本文中,作者利用DNNS的强大功能来解决目标检测问题,不仅对对物体进行分类还试图精确定位物体.本文提出了一个简单而强大的object detection公式通过用回归问题处理覆盖对象的包围框。并且文中定义了一个多尺度推理过程,它能够以较低的成本由少数网络应用产生高分辨率的目标检测(object detectio">
+<meta name="twitter:image" content="http://yifdu.github.io/2019/02/09/Object-Detection/pic1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/02/09/Object-Detection/">
+
+
+
+
+
+  <title>Object_Detection(一) | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/02/09/Object-Detection/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Object_Detection(一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-09T10:44:33+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/CV/" itemprop="url" rel="index">
+                    <span itemprop="name">CV</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Deep-Neural-Networks-for-Object-Detection"><a href="#Deep-Neural-Networks-for-Object-Detection" class="headerlink" title="Deep Neural Networks for Object Detection"></a>Deep Neural Networks for Object Detection</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在本文中,作者利用DNNS的强大功能来解决目标检测问题,不仅对对物体进行分类还试图精确定位物体.<br>本文提出了一个简单而强大的object detection公式通过用回归问题处理覆盖对象的包围框。并且文中定义了一个多尺度推理过程,它能够以较低的成本由少数网络应用产生高分辨率的目标检测(object detection).该方法在Pascal VOC上展示了最先进的性能.</p>
+<p>在这篇文章中，作者证明了基于DNN的回归能够学习特征，这不仅有利于分类，而且能够捕捉到较强的几何信息。我们使用AlexNet引入的分类通用架构，并用回归层替换最后一层。有点令人惊讶但却很有说服力的见解,网络在某种程度上编码了translation invariance，也可以捕获对象的位置。</p>
+<p>其次，作者介绍了一个多尺度框(box)推理，然后是一个细化步骤，以产生精确的检测。通过这种方式，我们能够应用DNN来预测低分辨率的mask，受输出层大小的限制，以低成本获得像素级的精度——网络对每个输入图像只应用几十次.</p>
+<p>此外，提出的方法非常简单。没有必要手工设计一个模型来明确地捕捉部件及其关系。这种简单性的优点是易于应用于广泛的类，而且在更广泛的对象(刚性对象和可变形对象)中显示出更好的检测性能。</p>
+<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><p>物体检测研究最广泛的范例之一是基于可变形部件的模型，其中DPM(Discriminatively Trained Partbased Models)是最突出的例子。这种方法将一组经过鉴别训练的部件组合在一个称为图形结构的星形模型中。它可以被认为是一个两层模型-parts是第一层，star model是第二层。与DNNs(其层是通用的)相反,DPM的工作利用了领域知识——部件基于人工设计的梯度直方图(HOG)描述符,部件(parts)的结构是由运动学驱动的。</p>
+<p>用于物体检测和解析的深度架构是由基于部分的模型驱动的，传统上称为复合模型，其中物体被表示为图像原语的分层组合。一个值得注意的例子是And/Or图，其中一个物体由树建模，其中And节点表示不同部分，Or节点表示同一部分的不同模式。与DNNs类似，And/Or图由多个层组成，其中低层表示小的通用图像原语，而高层表示物体部分。这种合成模型比神经网络更容易解释。另一方面，它们需要推理，而本文所考虑的DNN模型是纯前馈的，没有潜在变量需要推理。</p>
+<p>用于检测的复合模型的进一步示例是基于基本(primitives)的片段、关注形状[13]、使用Gabor过滤器[10]或更大的HOG过滤器[19]。这些方法传统上受到训练困难和使用专门设计的学习程序的挑战。此外，在推理时，它们结合了自底向上和自顶向下的过程。</p>
+<p>神经网络(NNs)可以被认为是一种比上述模型更具有通用性和可解释性的组合模型。神经网络在视觉问题上的应用已有几十年的历史，卷积神经网络是最突出的例子。直到最近，这些模型才以DNNs的形式在大规模图像分类任务中取得了巨大的成功。然而，它们在检测方面的应用是有限的。场景解析作为一种更为详细的检测形式，已经尝试使用多层卷积神经网络进行检测。医学图像的分割已经解决了通过使用DNNs。然而，这两种方法都使用神经网络作为超像素或每个像素位置上的局部或半局部分类器。然而，作者的方法使用完整的图像作为输入，并通过回归进行定位。因此，它是神经网络更有效的应用。</p>
+<p>也许最接近我们的方法是《Object-class segmentation using deep convolutional neural networks》，它具有类似的高级目标，但使用的网络要小得多，具有不同的特性、loss函数，并且没有机制来区分同一类的多个实例。</p>
+<h2 id="DNN-based-Detection"><a href="#DNN-based-Detection" class="headerlink" title="DNN-based Detection"></a>DNN-based Detection</h2><p><img src="/2019/02/09/Object-Detection/pic1.png" alt="pic1"><br>我们的方法的核心是基于DNN的对象掩码(mask)回归，如图1所示。基于这个回归模型，我们可以为整个对象以及部分对象生成掩码。单次DNN回归可以得到图像中多个对象的掩码。为了进一步提高定位的精度，我们将DNN定位器应用于一组较小的大型子窗口上。整个流程如图2所示，如上图所示。</p>
+<h2 id="Detection-as-DNN-Regression"><a href="#Detection-as-DNN-Regression" class="headerlink" title="Detection as DNN Regression"></a>Detection as DNN Regression</h2><p>这里的网络是基于AlexNet定义的卷积DNN。它总共由7层组成，前5层是卷积的，后2层是完全连接的。每一层使用一个修正的线性单元(ReLU)作为非线性变换。其中三个卷积层还有最大池。有关更多细节，请参阅[14]。</p>
+<p>我们将上述通用体系结构用于局部化。我们不再使用softmax分类器作为最后一层，而是使用回归层来生成目标二进制掩码DNN$(x;\theta)∈R^n$，其中$\theta$为网络参数，N为像素总数。因为网络的输出一个固定的维度,我们预测一个固定大小的mask: N=d×d。调整后的图像大小,由此产生的二进制mask代表一个或多个对象:如果这个像素位于给定类的对象的边界框内它应该为特定的像素值1，其他为0。</p>
+<p>该网络通过最小化用于预测表示图像x的ground truth mask $m∈[0,1]^N$的L2误差:</p>
+<script type="math/tex; mode=display">min_{\theta}\sum_{(x,m)∈D}||(Diag(m)+\lambda I)^{\frac{1}{2}}(DNN(x;\theta)-m)||_ 2^2</script><p>其中求和范围是整个图像训练集D包括物体的边界框</p>
+<p>由于基网络是高度非凸的，且不能保证最优性，因此有时需要根据ground truth mask对每个输出使用不同的权值来正则化损失函数。直观的感觉是，相对于图像大小，大多数对象都很小，而且网络很容易陷入为每个输出分配零值的简单解决方案。为了避免这种不受欢迎的行为，通过一个参数$\lambda∈R^+$，将ground truth mask中对应于非零值的输出的权值增加这是有帮助的。如果$\lambda$选择的值较小，那么ground truth值为0的输出上的错误受到的惩罚要明显小于值为1的输出上的错误，因此即使信号较弱，也鼓励网络预测非零值。</p>
+<p>在我们的实现中，我们使用接受域为225×225的网络，并输出一个大小为d×d的掩码(mask)，使d=24</p>
+<h2 id="Precise-Object-Localization-via-DNN-generated-Masks"><a href="#Precise-Object-Localization-via-DNN-generated-Masks" class="headerlink" title="Precise Object Localization via DNN-generated Masks"></a>Precise Object Localization via DNN-generated Masks</h2><p>尽管所提出的方法能够生成高质量的掩码(mask)，但是还存在一些额外的挑战。首先，单个对象掩码(mask)可能不足以消除相邻对象之间的歧义。其次，由于输出大小的限制，我们生成的掩码比原始图像的大小小得多。例如，对于大小为400×400且d=24的图像，每个输出将对应于大小为16×16的单元格，这将不足以精确定位对象，尤其是在对象很小的情况下。最后，由于我们使用完整的图像作为输入，小的物体会影响很少的输入神经元，因此很难识别。下面，我们将解释如何处理这些问题。</p>
+<h3 id="Multiple-Masks-for-Robust-Localization"><a href="#Multiple-Masks-for-Robust-Localization" class="headerlink" title="Multiple Masks for Robust Localization"></a>Multiple Masks for Robust Localization</h3><p>为了处理多个触摸对象，我们生成的不是一个而是多个掩码，每个掩码表示整个对象或其中的一部分。由于我们的最终目标是生成一个边界框，所以我们使用一个网络来预测对象框掩码，并使用四个额外的网络来预测该框的四个部分:底部、顶部、左侧和右侧的一半，都定义为$m^h、h∈{full,bottom,top,left}。这五个预测过于完整，但有助于减少不确定性，并在某些mask下处理错误。此外，如果将相同类型的两个对象相邻放置，那么在生成的五个掩码中，至少有两个掩码不会合并对象，从而消除它们的歧义。这将允许检测多个对象。</p>
+<p>在训练时,我们需要将对象框转变为5个mask.因为这些mask是比原图更小,所以为我们需要缩小ground truth mask的尺寸到network输出的大小.图像中出现表示对象的长方形用T(i,j)表示,可以用网络的输出(i,j)来预测.该长方形的左上角在$(\frac{d_1}{d}(i-1),\frac{d_2}{d}(j-1))$并且大小变为$\frac{d_1}{d}×\frac{d_1}{d}$,其中d是输出mask的大小,并且$d_1,d_2$是图像的高和宽.在训练期间,我们设值m(i,j)被预测作为T(i,j)的部分被box bb(h)覆盖:</p>
+<script type="math/tex; mode=display">m^h(i,j;bb)=\frac{area(bb(h)∩T(i,j))}{area(T(i,j))} \ \ \ \ \ \ \ \ (1)</script><p>其中bb(full)对应于ground truth object box。对于h的剩余值,bb(h)对应原来box的4个半(four halves)</p>
+<p>注意，我们使用完整的对象框以及框的顶部、底部、左侧和右侧的halves来定义总共五种不同的覆盖类型。groundtruth box bb的$m^h(bb)$结果用于h型网络的训练时。</p>
+<p>此时，应该注意的是，可以为所有掩码训练一个网络，其中输出层将生成所有五个掩码。这将支持可伸缩性。通过这种方式，5个局部化器将共享大多数层，从而共享特性，这看起来很自然，因为它们处理的是相同的对象。一种更激进的方法——对许多不同的类使用相同的局部化器——似乎也可行。</p>
+<h3 id="Object-Localization-from-DNN-Output"><a href="#Object-Localization-from-DNN-Output" class="headerlink" title="Object Localization from DNN Output"></a>Object Localization from DNN Output</h3><p>为了完成检测过程，我们需要估计每个图像的一组边界框。尽管输出分辨率小于输入图像，但我们将二进制掩码重新缩放为输入图像的分辨率。目标是估计边界框bb = (i,j,k,l)由它们的左上角(i,j)和右下角(k,l)在输出掩码坐标中。</p>
+<p>为了做到这一点，我们使用分数S表示每个带mask的边界框bb的一致，并推断出得分最高的框。一个自然的约定是测量mask所覆盖的边框部分:</p>
+<script type="math/tex; mode=display">S(bb,m)=\frac{1}{area(bb)}\sum_{(i,j)}m(i,j)area(bb∩T(i,j))\ \ \ \ \ \ \ \ (2)</script><p>其中求和所有网络的输出下标(i,j)并且m=DNN(x)为网络的输出.如果我们扩展上上述分数在5个mask类，最终的分数可以读为:</p>
+<script type="math/tex; mode=display">S(bb)=\sum_{halves}(S(bb(h),m^h)-S(bb(\overline{h}),m^h)) \ \ \ \ \ \ \ (2)</script><p>其中halves={full,bottom,top,left,left}下标整个box和它的四个halves.对于h表示halves的一个,$\overline{h}$表示h的相对的half,例如一个top mask应该很好的被一个top mask覆盖,而跟bottom mask没有一点接触.对于h=full,我们指定$\overline{h}$为bb周围的一个长方向区域，它的分数会被惩罚如果full mask 拓展出了bb.在上述求和里,box的分数将会很大如果5个mask都是一致的。</p>
+<p>我们使用等式(3)的分数来穷尽搜索所有可能的边界框的集合.我们考虑平均图像维数等于[0.1,0.2,…,0.9]和10个由对象框的k-means估计的不同的纵横比的边界框。在图像中我们划过上述90个boxes使用5像素的stride。注意,等式(3)的分数能被有效地计算通过使用4步操作,在图像的mask被计算以后.运算的精确数是5(2×#pixels+20×#boxes).其中第一项计算了mask计算的复杂度，而第二项解释了box分数的计算.</p>
+<p>为了生成最终的检测集，我们执行两种类型的过滤。第一种是保持等式2定义的强分值框，例如大于0.5。我们通过在感兴趣的类上训练AlexNet的DNN分类器对它们进行进一步的修剪，并保留正分类的关于到当前检测器的类。最后，我们采用了《Object detection with discriminatively trained part-based models》中的非最大抑制。</p>
+<h3 id="Multi-scale-Refinement-of-DNN-Localizer"><a href="#Multi-scale-Refinement-of-DNN-Localizer" class="headerlink" title="Multi-scale Refinement of DNN Localizer"></a>Multi-scale Refinement of DNN Localizer</h3><p>解决网络输出分辨率不够的问题有两种方法:(i)在几个尺度和几个大的子窗口上应用DNN定位器;(二)利用DNN定位器对top推断的边界框进行检测细化(见图2)。</p>
+<p>使用不同尺度的大窗口，我们生成几个mask，并将它们合并成高分辨率的mask，每个mask对应一个尺度。合适的尺度的范围取决于图像的分辨率和定位器的接受域(感受野)的大小——我们想要的图像由网络输出操作在更高的分辨率,同时我们希望每个对象属于至少一个窗口,这些窗口的数量很小。</p>
+<p>为了实现上述目标，我们使用了三种尺度:全图和另外两种尺度，即给定尺度下窗口的大小是上一尺度下窗口大小的一半。我们在每个尺度上用窗口覆盖图像，使这些窗口有一个小的重叠——它们的面积的20%。这些窗口的数量相对较小，可以覆盖图像的多个尺度。最重要的是，最小尺度的窗口允许更高分辨率的局部化。</p>
+<p>在推理时，我们将DNN应用于所有窗口。请注意，它与滑动窗口方法有很大的不同，因为我们需要对每个图像计算少量窗口，通常少于40个。在每个尺度上生成的对象mask通过最大操作进行合并。这给我们提供了图像大小的三个mask，每个mask“看着”不同大小的物体。对于每个比例，我们应用5.2节中的边界框推断来得到一组检测结果。在我们的实现中，我们使用每个尺度的前5个检测结果，总共15个检测结果。</p>
+<p>为了进一步改进定位，我们经历了DNN回归的第二个阶段，称为细化。DNN定位器应用在初始检测阶段定义的窗口上——15个边界框中的每一个都被放大1.2倍并应用到网络上。高分辨率定位器(localizer)的应用大大提高了检测的精度。<br><img src="/2019/02/09/Object-Detection/pic2.png" alt="pic2"></p>
+<h2 id="DNN-Training"><a href="#DNN-Training" class="headerlink" title="DNN Training"></a>DNN Training</h2><p>我们的网络的一个引人注目的特点是它的简单性:分类器被简单的mask生成层代替，没有任何平滑的先验或卷积结构。然而，它需要使用大量的训练数据进行训练:几乎每个位置都需要出现不同大小的对象。</p>
+<p>为了训练mask生成器，我们从每张图像中生成数千个样本，分为60%的阴性样本和40%的阳性样本。如果一个样本不相交于任何感兴趣的对象的边界框，则认为它是负的。正样本是那些覆盖部分对象边界框至少80%区域的样本。对作物进行采样，使其宽度均匀分布在规定的最小尺度与整幅图像的宽度之间。</p>
+<p>我们使用类似的准备步骤来训练用于最终修剪检测的分类器。同样，我们从每张图像中抽取数千个样本:60%的阴性样本和40%的阳性样本。负样本的边框与任何ground truth对象框有小于0.2 Jaccard-similarity .正样本必须至少有0.6相似的对象边界框并且标签上使用最相似的对象边界框的所指向的类。添加额外的负类作为正则化器并提高过滤器的质量。在这两种情况下，每个类的样本总数都选择为1000万。</p>
+<p>由于定位的训练比分类更难，所以从具有高质量的低级过滤器的模型的权重开始是很重要的。为了实现这一点，我们首先训练网络进行分类，并重用除了分类器之外的所有层的权重进行定位。对于定位，我们对整个网络进行了微调，包括卷积层。</p>
+<p>利用ADAGRAD对网络进行随机梯度训练，自动估计各层的学习率。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Paper/" rel="tag"># Paper</a>
+          
+            <a href="/tags/Object-Detection/" rel="tag"># Object Detection</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/07/YOLO（二）/" rel="next" title="YOLO（二）">
+                <i class="fa fa-chevron-left"></i> YOLO（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/10/推荐系统论文阅读（六）/" rel="prev" title="推荐系统论文阅读（六）">
+                推荐系统论文阅读（六） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Neural-Networks-for-Object-Detection"><span class="nav-number">1.</span> <span class="nav-text">Deep Neural Networks for Object Detection</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Work"><span class="nav-number">1.2.</span> <span class="nav-text">Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNN-based-Detection"><span class="nav-number">1.3.</span> <span class="nav-text">DNN-based Detection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Detection-as-DNN-Regression"><span class="nav-number">1.4.</span> <span class="nav-text">Detection as DNN Regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Precise-Object-Localization-via-DNN-generated-Masks"><span class="nav-number">1.5.</span> <span class="nav-text">Precise Object Localization via DNN-generated Masks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiple-Masks-for-Robust-Localization"><span class="nav-number">1.5.1.</span> <span class="nav-text">Multiple Masks for Robust Localization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-Localization-from-DNN-Output"><span class="nav-number">1.5.2.</span> <span class="nav-text">Object Localization from DNN Output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-scale-Refinement-of-DNN-Localizer"><span class="nav-number">1.5.3.</span> <span class="nav-text">Multi-scale Refinement of DNN Localizer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNN-Training"><span class="nav-number">1.6.</span> <span class="nav-text">DNN Training</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

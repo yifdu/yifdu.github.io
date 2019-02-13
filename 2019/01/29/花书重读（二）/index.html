@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="深度智障">
 <meta property="og:description" content="数值计算上溢和下溢当接近0的数被四舍五入为0时发生下溢.当大量级的数被近似为∞或-∞时发生上溢. 对上溢和下溢进行数值稳定的一个例子是softmax函数. Softmax(x)_ i=\frac{exp(x_i)}{\sum_{j=1}^nexp(x_j)}考虑一下当所有$x_i$都等于某个常数c时会发生什么.从理论上,我们发现所有的输出应该都是$\frac{1}{n}$.从数值计算上来说,当c很">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-31T07:02:31.098Z">
+<meta property="og:updated_time" content="2019-02-02T14:20:19.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="花书重读（二）">
 <meta name="twitter:description" content="数值计算上溢和下溢当接近0的数被四舍五入为0时发生下溢.当大量级的数被近似为∞或-∞时发生上溢. 对上溢和下溢进行数值稳定的一个例子是softmax函数. Softmax(x)_ i=\frac{exp(x_i)}{\sum_{j=1}^nexp(x_j)}考虑一下当所有$x_i$都等于某个常数c时会发生什么.从理论上,我们发现所有的输出应该都是$\frac{1}{n}$.从数值计算上来说,当c很">
@@ -364,7 +364,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.9k 字
+                  6.2k 字
                 </span>
               
 
@@ -380,7 +380,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  13 分钟
+                  22 分钟
                 </span>
               
             </div>
@@ -458,6 +458,32 @@
 <h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><p>我们建立一组学习算法的偏好来达到这个要求.当这些偏好和我们希望算法解决的学习问题相吻合时,性能会更好.例如,可以加入权重衰减来修改线性回归的训练标准.更一般地,正则化一个学习函数$f(x;\theta)$的模型,我们可以给代价函数添加被称为正则化项的惩罚.</p>
 <p>正则化是指修改学习算法,使其降低泛化误差而非训练误差.</p>
 <h2 id="超参数和验证集"><a href="#超参数和验证集" class="headerlink" title="超参数和验证集"></a>超参数和验证集</h2><p>大多数机器学习算法都有超参数,可以设置来控制算法行为.超参数不是通过学习算法本身学习出来的.我们需要一个训练算法观测不到的验证集样本.测试样本不能以任何形式参与到模型的选择中,包括设定超参数.基于这个原因,测试集中的样本不能用于验证集.因此,我们总是从训练数据中构建验证集.特别地,我们将训练数据分成两个不相交的子集.其中一个用于学习参数。另一个作为验证集,用于估计训练中或训练后的泛化误差,更新超参数.用于学习参数的数据子集通常仍被称为训练集,尽管这会和整个训练过程用到的更大的数据集相混。用于挑选超参数的数据子集被称为验证集.通常，80%训练数据用于训练,20%用于验证.</p>
+<h2 id="估计、偏差和方差"><a href="#估计、偏差和方差" class="headerlink" title="估计、偏差和方差"></a>估计、偏差和方差</h2><p>统计领域为我们提供了很多工具来实现机器学习目标，不仅可以解决训练集上的任务,还可以泛化.基本的概念,例如参数估计、偏差和方差,对于正式地刻画泛化、欠拟合和过拟合都非常有帮助.</p>
+<h3 id="点估计"><a href="#点估计" class="headerlink" title="点估计"></a>点估计</h3><p>点估计试图为一些感兴趣的量提供单个”最优”预测.一般地,感兴趣的量可以是单个参数,或是某些参数模型中的一个向量参数.为了区分参数估计和真实值,习惯将参数$\theta$的点估计表示为$\hat{\theta}$</p>
+<p>令$\{x^{(1)},….,x^{(m)}\}$是m个独立同分布(i.i.d.)的数据点.点估计或统计量是这些数据的任意函数:</p>
+<script type="math/tex; mode=display">\hat{\theta}=g(x^{(1)},...,x^{(m)})</script><p>这个定义不要求g返回一个接近真实$\theta$的值,或者g的值域恰好是$\theta$的允许取值范围.点估计的定义非常宽泛,给了估计量的设计者极大的灵活性.虽然几乎所有的函数都可以称为估计量,但是一个良好的估计量的输出会接近生成训练数据的真实参数$\theta$</p>
+<p>采取频率派在统计上的观点,假设真实参数$\theta$是固定但未知的,而点估计$\hat{\theta}$是数据的函数.由于数据是随机过程采样出来的,数据的任何函数都是随机地,因此$\hat{\theta}$是一个随机变量</p>
+<p>点估计也可以是指输入和目标变量之间关系的估计,我们将这种类型的点估计称为函数估计。函数估计就是从输入向量x预测变量y。假设有一个函数f(x)表示y和x之间的近似关系。例如,可能假设$y=f(x)+\epsilon$,其中$\epsilon$是y中未能从x预测的一部分.在函数估计中,感兴趣的是用模型估计去近似f,或者估计$\hat{f}$.函数估计和估计参数$\theta$是一样的,函数估计$\hat{f}$是函数空间中的一个点估计.</p>
+<h3 id="偏差"><a href="#偏差" class="headerlink" title="偏差"></a>偏差</h3><p>估计的偏差被定义为</p>
+<script type="math/tex; mode=display">bias(\hat{\theta}_m)=E(\hat{\theta}_m)-\theta</script><p>其中期望作用在所有数据(看作随机变量采样的到的)上,$\theta$是用于定义数据生成分布的$\theta$的真实值.如果$bias(\theta_m)=0$那么估计量$\hat{\theta}_m$被称为是无偏的,这意味着$E(\hat{\theta}_m)=\theta$.如果$lim_{m—&gt;∞}bias(\hat{\theta}_m)=0$,那么估计量$\hat{\theta}_m$被称为渐进无偏,这意味着$lim_{m-&gt;∞}E(\hat{\theta}_m)=\theta$</p>
+<h3 id="方差和标准差"><a href="#方差和标准差" class="headerlink" title="方差和标准差"></a>方差和标准差</h3><p>有时会考虑估计量的另一个性质是它作为数据样本的函数,期望的变化程度是多少.之前提到可以计算估计量的期望来决定它的偏差,也可以计算它的方差.估计量的方差就是一个方差:</p>
+<script type="math/tex; mode=display">Var(\hat{\theta})</script><p>其中随机变量是训练集.另外,方差的平方根被称为标准差，记作$SE(\hat{\theta})$</p>
+<p>估计量的方差或标准差告诉我们,当独立地从潜在的数据生成过程中重采样数据集时,如何期望估计的变化.正如我们希望估计的偏差小,我们也希望其方差较小.</p>
+<p>均值的标准差被记作</p>
+<script type="math/tex; mode=display">SE(\hat{\mu}_m)=\sqrt{Var[\frac{1}{m}\sum_{i=1}^m x^{(i)}]}=\frac{\sigma}{\sqrt{m}}</script><h3 id="权衡偏差和方差以最小化均方误差"><a href="#权衡偏差和方差以最小化均方误差" class="headerlink" title="权衡偏差和方差以最小化均方误差"></a>权衡偏差和方差以最小化均方误差</h3><p>偏差和方差度量着估计量的两个不同误差来源.偏差度量着偏离真是函数或参数的误差期望,而方差度量着数据上任意特定采样可能导致的估计期望的偏差</p>
+<script type="math/tex; mode=display">MSE=E[(\hat{\theta}_m-\theta)^2]=Bias(\hat{\theta}_m)^2+Var(\hat{\theta})</script><p>要注意偏差和方差的关系与机器学习容量、欠拟合和过拟合的概念紧密相连.(记住那个U形图)</p>
+<h2 id="最大似然估计"><a href="#最大似然估计" class="headerlink" title="最大似然估计"></a>最大似然估计</h2><p>我们希望有些准则可以让我们从不同模型中得到特定函数作为好的估计,而不是猜测某些函数可能是好的估计,然后分析其偏差和方差。最常用的准则是最大似然估计.<br>令$p_{model}(x;\theta)$是一族由$\theta$确定在相同空间上的概率分布.换言之,$p_{model}(x;\theta)$将任意输入x映射到实数来估计真实概率$p_{data}(x)$<br>对$\theta$的最大似然估计被定义为:</p>
+<script type="math/tex; mode=display">\theta_{ML}=argmax_{\theta}p_{model}(X;\theta)=argmax_{\theta}\prod_{i=1}^mp_{model}(x^{(i)};\theta)</script><p>多个概率的乘积会因很多原因不便于计算，常常会对其进行log处理</p>
+<p>一种解释最大似然估计的观点是将它看作最小化训练集上的经验分布$\hat{p}_{data}$和模型分布之间的差异,两者之间的差异程度可以通过KL散度度量。KL散度被定义为:</p>
+<script type="math/tex; mode=display">D_{KL}(\hat{p}_{data}||p_{model})=E_{x～\hat{p}_{data}}[log\hat{p}_{data}(x)-logp_{model}(x)]</script><p>左边一项仅涉及数据生成过程,和模型无关.这意味着当训练模型最小化KL散度时,我们只需要最小化</p>
+<script type="math/tex; mode=display">-E_{x～\hat{p}_{data}}[logp_{model}(x)]</script><p>显然这和最大似然的式子相同.<br>最小化KL散度其实就是在最小化分布之间的交叉熵.</p>
+<p>最大似然的性质：<br>在合适的条件下,最大似然估计具有一致性,意味着训练样本数目趋向于无穷大时,参数的最大似然估计会收敛到参数的真实值.<br>那么什么是合适的条件?<br>(1)真实分布$p_{model}$必须在模型族$p_{model}(·;\theta)$中.否则,没有估计可以还原$p_{data}$.<br>(2)真实分布$p_{data}$必须刚好对应一个$\theta$值.否则,最大似然估计恢复出真实分布$p_{data}$后,也不能决定数据生成过程使用那个$\theta$</p>
+<h2 id="贝叶斯统计"><a href="#贝叶斯统计" class="headerlink" title="贝叶斯统计"></a>贝叶斯统计</h2><p>之前讨论的都是频率派估计方法和基于估计单一值$\theta$的方法,然后基于该估计作所有的预测.下面要讲的是贝叶斯统计,即在做预测时会考虑所有可能的$\theta$.<br>贝叶斯统计的视角完全不同.贝叶斯统计用概率反映知识状态的确定性程序.数据集能够被直接观测到,因此不是随机的.另一方面,真实参数$\theta$是未知或不确定的,因此可以表示成随机变量.</p>
+<p>在观测到数据前,将$\theta$的已知知识表示成先验概率分布,$p(\theta)$(有时称为先验).一般而言,机器学习实践者会选择一个相当宽泛的先验分布(高熵的),以反映在观测到任何数据前参数$\theta$的高度不确定性.<br>现在假设我们有一组数据样本${x^{(1)},…,x^{(m)}}$,通过贝叶斯规则结合数据似然$p(x^{(1)},…,x^{(m)}|\theta)$和先验,可以恢复数据对我们关于$\theta$信念的影响</p>
+<script type="math/tex; mode=display">p(\theta|x^{(1)},....,x^{(m)})=\frac{p(x^{(1)},...,x^{(m)}|\theta)p(\theta)}{p(x^{(1)},...,x^{(m)})}</script><p>在贝叶斯估计常用的情景下,先验开始是相对均匀的分布或高熵的高斯分布，观测数据通常会使后验的熵降下来,并集中在参数的几个可能性很高的值.</p>
+<p>相对于最大似然估计,贝叶斯估计有两个重要区别:(1)不像最大似然方法预测时使用$\theta$的点估计,贝叶斯方法使用$\theta$的全分布。(2)贝叶斯估计中的先验能够影响概率质量密度朝参数空间中偏好先验的区域偏移.对贝叶斯方法的批判认为,先验是认为主观判断影响预测的来源.</p>
+<h3 id="最大后验-MAP-估计"><a href="#最大后验-MAP-估计" class="headerlink" title="最大后验(MAP)估计"></a>最大后验(MAP)估计</h3><p>原则上,我们应该使用参数$\theta$的完整贝叶斯后验分布进行预测,但单点估计常常也是需要的.希望使用点估计的一个常见原因是,对于大多数有意义的模型而言,大多数涉及贝叶斯后验的计算是非常棘手的,点估计提供了一个可行的近似解.仍然可以先验影响点估计的选择来利用贝叶斯方法的优点,而不是简单地回到最大似然估计。一种能够做到这一点的合理方式是选择最大后验点估计.</p>
+<p>正如全贝叶斯推断,MAP贝叶斯推断的优势是能够利用来自先验的信息.这些信息无法从训练数据中获得。该附加信息有助于减少最大后验点估计的方差(相当于ML估计)。然而,这个优点的代价是增加了偏差。<br>许多正规化估计方法，例如权重衰减正则化的最大似然学习,可以被解释为贝叶斯推断的MAP近似.并非所有正则化惩罚都对应着MAP贝叶斯推断.</p>
 
       
     </div>
@@ -591,7 +617,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -602,7 +628,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -613,7 +639,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -662,7 +688,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数值计算"><span class="nav-number">1.</span> <span class="nav-text">数值计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#上溢和下溢"><span class="nav-number">1.1.</span> <span class="nav-text">上溢和下溢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#病态条件"><span class="nav-number">1.2.</span> <span class="nav-text">病态条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约束优化"><span class="nav-number">1.3.</span> <span class="nav-text">约束优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习基础"><span class="nav-number">2.</span> <span class="nav-text">机器学习基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习算法"><span class="nav-number">2.1.</span> <span class="nav-text">学习算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务T"><span class="nav-number">2.1.1.</span> <span class="nav-text">任务T</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能度量P"><span class="nav-number">2.1.2.</span> <span class="nav-text">性能度量P</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#经验E"><span class="nav-number">2.1.3.</span> <span class="nav-text">经验E</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容量、过拟合和欠拟合"><span class="nav-number">2.2.</span> <span class="nav-text">容量、过拟合和欠拟合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化"><span class="nav-number">2.2.1.</span> <span class="nav-text">正则化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超参数和验证集"><span class="nav-number">2.3.</span> <span class="nav-text">超参数和验证集</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数值计算"><span class="nav-number">1.</span> <span class="nav-text">数值计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#上溢和下溢"><span class="nav-number">1.1.</span> <span class="nav-text">上溢和下溢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#病态条件"><span class="nav-number">1.2.</span> <span class="nav-text">病态条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#约束优化"><span class="nav-number">1.3.</span> <span class="nav-text">约束优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习基础"><span class="nav-number">2.</span> <span class="nav-text">机器学习基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习算法"><span class="nav-number">2.1.</span> <span class="nav-text">学习算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务T"><span class="nav-number">2.1.1.</span> <span class="nav-text">任务T</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能度量P"><span class="nav-number">2.1.2.</span> <span class="nav-text">性能度量P</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#经验E"><span class="nav-number">2.1.3.</span> <span class="nav-text">经验E</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容量、过拟合和欠拟合"><span class="nav-number">2.2.</span> <span class="nav-text">容量、过拟合和欠拟合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化"><span class="nav-number">2.2.1.</span> <span class="nav-text">正则化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超参数和验证集"><span class="nav-number">2.3.</span> <span class="nav-text">超参数和验证集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#估计、偏差和方差"><span class="nav-number">2.4.</span> <span class="nav-text">估计、偏差和方差</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#点估计"><span class="nav-number">2.4.1.</span> <span class="nav-text">点估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#偏差"><span class="nav-number">2.4.2.</span> <span class="nav-text">偏差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方差和标准差"><span class="nav-number">2.4.3.</span> <span class="nav-text">方差和标准差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权衡偏差和方差以最小化均方误差"><span class="nav-number">2.4.4.</span> <span class="nav-text">权衡偏差和方差以最小化均方误差</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大似然估计"><span class="nav-number">2.5.</span> <span class="nav-text">最大似然估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贝叶斯统计"><span class="nav-number">2.6.</span> <span class="nav-text">贝叶斯统计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最大后验-MAP-估计"><span class="nav-number">2.6.1.</span> <span class="nav-text">最大后验(MAP)估计</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="paper,recommendations systems,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="BPR: Bayesian Personalized Ranking from Implicit Feedback项目推荐是预测对一组项目（例如，网站，电影，产品）的个性化排名的任务。在本文中，我们使用隐式反馈（例如点击次数，购买次数）调查最常见的情况。从矩阵分解（MF）或自适应k近邻（kNN）等隐式反馈中有很多项目推荐方法。尽管这些方法是针对个性化排名的项目预测任务而设计的，但它们都没有直接针对">
+<meta name="keywords" content="paper,recommendations systems">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统论文阅读（七）">
+<meta property="og:url" content="http://yifdu.github.io/2019/02/11/推荐系统论文阅读（七）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="BPR: Bayesian Personalized Ranking from Implicit Feedback项目推荐是预测对一组项目（例如，网站，电影，产品）的个性化排名的任务。在本文中，我们使用隐式反馈（例如点击次数，购买次数）调查最常见的情况。从矩阵分解（MF）或自适应k近邻（kNN）等隐式反馈中有很多项目推荐方法。尽管这些方法是针对个性化排名的项目预测任务而设计的，但它们都没有直接针对">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://b-ssl.duitang.com/uploads/item/201704/28/20170428132245_YcFkL.thumb.700_0.jpeg">
+<meta property="og:updated_time" content="2019-02-12T04:07:05.630Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="推荐系统论文阅读（七）">
+<meta name="twitter:description" content="BPR: Bayesian Personalized Ranking from Implicit Feedback项目推荐是预测对一组项目（例如，网站，电影，产品）的个性化排名的任务。在本文中，我们使用隐式反馈（例如点击次数，购买次数）调查最常见的情况。从矩阵分解（MF）或自适应k近邻（kNN）等隐式反馈中有很多项目推荐方法。尽管这些方法是针对个性化排名的项目预测任务而设计的，但它们都没有直接针对">
+<meta name="twitter:image" content="https://b-ssl.duitang.com/uploads/item/201704/28/20170428132245_YcFkL.thumb.700_0.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/02/11/推荐系统论文阅读（七）/">
+
+
+
+
+
+  <title>推荐系统论文阅读（七） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/02/11/推荐系统论文阅读（七）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">推荐系统论文阅读（七）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-11T16:10:45+08:00">
+                2019-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://b-ssl.duitang.com/uploads/item/201704/28/20170428132245_YcFkL.thumb.700_0.jpeg" rel="gallery_cjs3bfmzf008uccwa22p5zi4w" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://b-ssl.duitang.com/uploads/item/201704/28/20170428132245_YcFkL.thumb.700_0.jpeg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="BPR-Bayesian-Personalized-Ranking-from-Implicit-Feedback"><a href="#BPR-Bayesian-Personalized-Ranking-from-Implicit-Feedback" class="headerlink" title="BPR: Bayesian Personalized Ranking from Implicit Feedback"></a>BPR: Bayesian Personalized Ranking from Implicit Feedback</h1><p>项目推荐是预测对一组项目（例如，网站，电影，产品）的个性化排名的任务。在本文中，我们使用隐式反馈（例如点击次数，购买次数）调查最常见的情况。从矩阵分解（MF）或自适应k近邻（kNN）等隐式反馈中有很多项目推荐方法。尽管这些方法是针对个性化排名的项目预测任务而设计的，但它们都没有直接针对排名进行优化。在本文中，我们提出了一个通用的优化标准BPR-Opt，用于个性化排序，这是从问题的贝叶斯分析得出的最大后验估计。 我们还提供了一种通用学习算法，用于优化与BPR-Opt相关的模型。学习方法基于随机梯度下降和自举采样。我们展示了如何将我们的方法应用于两个最先进的推荐模型：矩阵分解和自适应kNN。我们的实验表明，对于个性化排名的任务，我们的优化方法优于MF和kNN的标准学习技术。结果显示了为正确标准优化模型的重要性。</p>
+<p>推荐内容是许多信息系统中的一项重要任务。例如，像亚马逊这样的在线购物网站为每个客户提供用户可能感兴趣的产品的个性化推荐。其他示例是像YouTube这样向客户推荐电影的视频门户。个性化对于可以增加销售或观看的内容提供商以及更容易找到有趣内容的客户都具有吸引力。在本文中，我们关注项目推荐。项目建议的任务是为一组项目创建用户特定的排名。用户关于项目的偏好是从用户过去与系统的交互中学习的——例如，他的购买历史，观看历史等</p>
+<p>推荐系统是一个活跃的研究课题。最近的工作是在用户提供明确反馈的情况下，例如在评级方面。然而，在实际情况中，大多数反馈并不是明确的，而是隐含的。隐式反馈会自动跟踪，例如监控点击次数，查看次数，购买次数等。因此，收集起来要容易得多，因为用户无需明确表达自己的品味。事实上，几乎所有信息系统都已提供隐式反馈——例如， Web服务器记录日志文件中的任何页面访问。</p>
+<p>在本文中，我们提出了一种学习个性化排名模型的通用方法。这项工作的贡献是：</p>
+<ol>
+<li>我们提出了从最大后验估计器导出的通用优化准则BPR-Opt，以获得最佳个性化排名。我们展示了BPR-Opt与ROC曲线下面积最大化的类比。</li>
+<li>为了最大化BPR-Opt，我们提出了基于随机梯度下降和训练三元组的自举(bootstrap)采样的通用学习算法LearnBPR。我们证明我们的算法优于标准梯度下降技术，以优化关于BPR-OPT</li>
+<li>我们将展示如何将LearnBPR应用于两个最先进的推荐模型类。</li>
+<li>我们的实验经验表明，对于个性化排名的任务，使用BPR学习模型优于其他学习方法。<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2>最受欢迎的推荐系统模型是k近邻（kNN）协同过滤[2]。传统上，kNN的相似性矩阵通过启发式计算——例如,Pearson相关性——但在最近的工作[8]中，相似性矩阵被视为模型参数，并且专门针对该任务进行了学习。最近，矩阵分解（MF）在推荐系统中变得非常流行，用于隐式和显式反馈。在早期工作[13]中，已经提出奇异值分解（SVD）来学习特征矩阵。通过SVD学习的MF模型显示出非常容易过度。因此提出了正则化学习方法。对于项目预测Hu等人[5]和Pan等人[10]提出了一个带有case weights的正则化最小二乘优化(WR-MF)。case weights可用于减少负例的影响。 Hofmann [4]提出了项目推荐的概率潜在语义模型.Schmidt-Thieme [14]将问题转化为多类问题，并用一组二进制分类器解决它。即使上面讨论的关于项目预测的所有工作都是在个性化排名数据集上进行评估，但这些方法都没有直接优化其模型参数以进行排名。相反，他们优化以预测用户是否选择了某个项目。在我们的工作中，我们推导出基于项目对（即两个项目的用户特定顺序）的个性化排名的优化标准。我们将展示如何针对该标准优化诸如MF或自适应kNN的最先进模型，以提供比通常学习方法更好的排名质量。详细讨论了我们的方法与Hu等人[5]的WRMF方法之间的关系和Pan等人 [10]以及最大边际矩阵分解[15]可以在第5节中找到。在4.1.1节中，我们还将讨论我们的优化准则与AUC优化的关系，如[3]中所述。</li>
+</ol>
+<p>在本文中，我们专注于模型参数的学习。将学习方法扩展到在线学习场景——例如添加了一个新用户，他的历史记录从0增加到1,2 ,….反馈事件——已经针对相关的评级预测任务研究了MF [11]。相同的折叠策略可用于BPR。</p>
+<p>还有关于学习与非协同过滤模型排名的相关工作。一个方向是模拟排列的分布[7,6]。 Burges等人[1]优化神经网络模型，使用梯度下降进行排名。所有这些方法只学习一个排名——即它们是非个性化的。与此相反，我们的模型是学习个性化排名的协同过滤模型，即每个用户一个单独的排名。在我们的评估中，我们凭经验证明，在典型的推荐设置中，我们的个性化BPR模型甚至优于非个性化排名的理论上限。</p>
+<h2 id="Personalized-Ranking"><a href="#Personalized-Ranking" class="headerlink" title="Personalized Ranking"></a>Personalized Ranking</h2><p>个性化排名的任务是向用户提供排序的项目列表。这也称为项目推荐。一个例子是想要推荐用户可能想要购买的个性化排序项目列表的在线商店。在本文中，我们研究了必须从用户的隐式行为（例如，过去的购买）推断出排名的场景。对隐式反馈系统感兴趣的是只有正面观察可用。未观察到的用户-项目对——例如，用户尚未购买物品——是真实负面反馈的混合物（用户对购买物品不感兴趣）和缺失值（用户可能希望将来购买物品）。</p>
+<h3 id="Formalization"><a href="#Formalization" class="headerlink" title="Formalization"></a>Formalization</h3><p>设U是所有用户的集合，I是所有项目的集合。在我们的场景隐式反馈$S\subset U×I$可以使用（见图1的左侧）。这种反馈的示例是在线商店中的购买，视频门户中的视图或网站上的点击。推荐系统的任务现在是为用户提供个性化的所有项目的总排名$&gt;_ u\subset I^2$中的，其中$&gt;_ u$必须满足总顺序的属性：</p>
+<script type="math/tex; mode=display">任意i,j∈I:i≠j \rightarrow i ＞_ u j ∪ j＞_ u i \ \ \ \ (totality)</script><script type="math/tex; mode=display">任意i,j∈I:i＞_ u j ∩ j＞_ u i \rightarrow i=j \ \ \ \ (antisymmetry)</script><script type="math/tex; mode=display">任意i,j,k∈I:i＞_ u j∩j＞_ u k\rightarrow i＞_ u k \ \ \ \ \ (transitivity)</script><p>为了方便,我们也定义:</p>
+<script type="math/tex; mode=display">I_u^+ :={i∈I:(u,i)∈S}</script><script type="math/tex; mode=display">U_i^+ :={u∈U:(u,i)∈S}</script><h3 id="Analysis-of-the-problem-setting"><a href="#Analysis-of-the-problem-setting" class="headerlink" title="Analysis of the problem setting"></a>Analysis of the problem setting</h3><p>正如我们之前所指出的，在隐式反馈系统中，只观察到正类。其余数据是实际负值和缺失值的混合。应对缺失值问题的最常见方法是忽略所有这些问题，但是典型的机器学习模型无法学习任何东西，因为它们无法再区分这两个级别。</p>
+<p>项目推荐系统的通常方法是预测个性化的分数$\hat{x}_{ui}$项反映了用户对项目的偏好。然后根据得分对项目进行排序。项目推荐系统的机器学习方法[5,10]通常通过一对(u,i) ∈S为正类标签，(U×I)\\s为负类标签的所有其他组合(见图1)。这意味着对模型进行了优化，以预测S中元素的值为1，其余元素为0。该方法存在的问题是，在训练过程中，将模型未来((U×I)\\S)中所有应该排序的元素作为负反馈呈现给学习算法。这意味着一个具有足够表达能力的模型(它不能准确地拟合训练数据)根本不能排名，因为它只能预测0s。这种机器学习方法之所以能够预测排名，唯一的原因是为了防止重复，比如正规化。<br><img src="/2019/02/11/推荐系统论文阅读（七）/pic1.png" alt="pic1"><br>我们使用不同的方法，使用项目对作为训练数据，并优化正确排名项目对而不是评分单项，因为这更好地代表问题，而不仅仅用负面替换缺失值。从S中我们尝试重建$&gt;_ u$的每个用户部分。如果用户已经查看了项目i——即(u,i)∈S——那么我们假设用户更喜欢这个项目而不是所有其他未观察到的项目。例如在图2中，用户$u_1$已查看项目$i_2$但未查看项目$i_1$，因此我们假设此用户优先于项目$i_2$而不是$i_1$:$i_2&gt;_ u i_1$。对于已经被用户看到的项目，我们无法推断任何偏好。对于用户尚未看到的两个项目（例如，用户u1的项目$i_1和i_4$）也是如此。为了形式化，我们创建了训练数据$D_S：U×I×I$通过：</p>
+<script type="math/tex; mode=display">D_S:={(u,i,j)|i∈I_u^+∩ j∈I\\ I_u^+}</script><p>$(u,i,j)∈D_S$的语义是假设用户u更喜欢i而不是j.由于$&gt;_ u$是反对称的,负案例被认为是隐含的.<br><img src="/2019/02/11/推荐系统论文阅读（七）/pic2.png" alt="pic2"><br>我们的方法有两个优点:</p>
+<ol>
+<li>我们的训练数据包括正负对和缺失值。两个未观察到的项目之间缺少的值正是将来必须进行排序的项目对。这意味着从两两的角度来看，训练数据$D_S$和测试数据是不相交的。</li>
+<li>针对排名的实际目标创建训练数据，即，将$&gt;_ u$的观察子集$D_S$用作训练数据。<h2 id="Bayesian-Personalized-Ranking-BPR"><a href="#Bayesian-Personalized-Ranking-BPR" class="headerlink" title="Bayesian Personalized Ranking(BPR)"></a>Bayesian Personalized Ranking(BPR)</h2></li>
+</ol>
+<p>在本节中，我们推导出一种用于解决个性化排名任务的通用方法。它由个性化排名的一般优化标准BPR-Opt组成，它将通过使用$p(i&gt;_ u j|\theta)$的似然函数的贝叶斯分析和模型参数先验概率$p(\theta)$。我们显示了排名统计AUC（ROC曲线下面积）的类比。对于关于BPR-Opt的学习模型，我们提出算法LearnBPR。最后，我们展示了BPROpt和LearnBPR如何应用于两种状态的推荐算法，矩阵分解和自适应kNN。通过BPR优化，这些模型能够比通常的训练方法产生更好的排名。</p>
+<h3 id="BPR-Optimization-Criterion"><a href="#BPR-Optimization-Criterion" class="headerlink" title="BPR Optimization Criterion"></a>BPR Optimization Criterion</h3><p>发现所有项目i∈I正确个性化排名的贝叶斯公式是最大化下述后验概率其中$\theta$表示任意模型类的参数向量(例如,矩阵分解)</p>
+<script type="math/tex; mode=display">p(\theta|>_ u)正比于p(>_ u|\theta)p(\theta)</script><p>其中,$＞_ u$是用户u所需的但潜在的偏好结构.假定所有用户彼此独立行动.我们还假设特定用户的每对项目(i,j)的排序与每个其他对的排序无关.因此,上述用户特定的似然函数$p(&gt;_ u|\theta)$可以首先被重写为单个密度的乘积,并且第二个被组合用于所有用户u∈U</p>
+<script type="math/tex; mode=display">\prod_{u∈U}p(>_ u|\theta)=\prod_{(u,i,j)∈U×I×I}p(i>_ u j|\theta)^{\delta ((u,i,j)∈D_S)} ·(1-p(i >_ u j|\theta))^{\delta((u,j,i)\notin D_S)}</script><p>其中$\delta$是指示函数</p>
+<script type="math/tex; mode=display">\delta(b):=
+\begin{cases}
+1 \ \ \ \ \ if b is true,
+0 \ \ \ \ \ else
+\end{cases}</script><script type="math/tex; mode=display">\prod_{u∈U}p(>_ u|\theta)=\prod_{(u,i,j)∈D_S}p(i >_ u j|\theta)</script><p>到目前为止，通常无法保证获得个性化的总顺序。为了确定这一点，需要充分考虑已经提到的声音特性（总体性，反对称性和传递性）。为此，我们将用户真正更喜欢项目i而不是项目j的个体概率定义为：</p>
+<script type="math/tex; mode=display">p(i>_ u j|\theta):=\sigma(\hat{x}_{uij}(\theta))</script><p>其中$\sigma$是逻辑sigmoid：</p>
+<script type="math/tex; mode=display">\sigma(x):=\frac{1}{1+e^{-x}}</script><p>这里$\hat{x}_{uij}$是模型参数向量$\theta$的一个任意实值函数,他能捕获用户u,项目i和项目j的特定关系.换句话说，我们的通用框架将建模u,i和j之间的关系的任务委托给基础模型类,如矩阵分解或自适应KNN,它负责估计$\hat{x}_{uij}$.因此，对个性化的总顺序$&gt;_ u$进行统计建模是可行的。为了方便起见,在接下来我们将跳过来自$\hat{x}_{uij}$的参数$\theta$。</p>
+<p>到目前为止，我们只讨论了似然函数。 为了完成个性化排序任务的贝叶斯建模方法，我们引入了一般的先验密度$p(\theta)$，它是具有零均值和方差-协方差矩阵的正态分布$\sum_{\theta}$。</p>
+<script type="math/tex; mode=display">p(\theta)~N(0,\sum_{\theta})</script><p>在下面，为了减少我们设置的未知超参数的数量$\sum_{\theta}= \lambda_{\theta} I$。现在我们可以制定最大后验估计来推导出我们用于个性化排名BPR-Opt的通用优化标准。</p>
+<script type="math/tex; mode=display">BPR-OPT=ln p(\theta|>_ u)=\sum_{(u,i,j)∈D_S}ln\sigma(\hat{x}_{uij})+lnp(\theta)= \sum_{(u,i,j)∈D_S}ln\sigma(\hat{x}_{uij})-\lambda_{\theta}||\theta||^2</script><p>其中$\lambda_{\theta}$是模型特定正则化参数</p>
+<p>Analogies to AUC optimization</p>
+<p>通过贝叶斯个性化排序(BPR)方案的建立，可以很容易地理解BPR与AUC的相似之处。每个用户的AUC通常定义为:</p>
+<script type="math/tex; mode=display">AUC(u):=\frac{1}{|I_u^+||I\\I_u^+|}\sum_{i∈I_u^+}\sum_{j∈|I\\I_u^+|}\delta(\hat{x}_{uij}>0)</script><p>因此平均AUC是:</p>
+<script type="math/tex; mode=display">AUC:=\frac{1}{|U|}\sum_{u∈U}AUC(u)</script><p>使用我们的$D_S$表示法，可以写成：</p>
+<script type="math/tex; mode=display">AUC(u)=\sum_{(u,i,j)∈D_S}z_u\delta(\hat{x}_{uij}>0) \ \ \ \ (1)</script><p>其中$z_u$是标准化常数:</p>
+<script type="math/tex; mode=display">z_u=\frac{1}{|U| |I_u^+| |I\\I_u^+|}</script><p>等式（1）和BPR-Opt之间的类比是显而易见的。除了归一化常数$z_u$之外，它们仅在损失函数中有所不同。 AUC使用与Heaviside函数相同的非差异损失$\delta(x&gt; 0)$：</p>
+<script type="math/tex; mode=display">
+\delta(x>0)=H(x):=
+\begin{cases}
+1, \ \ \ \ x>0 \\
+0, \ \ \ \ else \\
+\end{cases}</script><p>相反，我们使用差异损失$ln\sigma（x）$。通常的做法是在优化AUC时替换不可分离的Heaviside函数[3]。替换的选择通常是启发式和类似形状的函数$\sigma$使用（参见图3）。在本文中，我们得出了由MLE推动的选择替换$ln\sigma(x)$。</p>
+<h2 id="BPR-Learning-Algorithm"><a href="#BPR-Learning-Algorithm" class="headerlink" title="BPR Learning Algorithm"></a>BPR Learning Algorithm</h2><p>在上一节中，我们推导出了个性化排名的优化标准。由于标准是可靠的，基于梯度下降的算法是最大化的明显选择。但正如我们将要看到的，标准梯度下降不是我们问题的正确选择。为了解决这个问题，我们提出了LearnBPR，一种基于训练三元组的自举采样的随机梯度下降算法（见图4）。</p>
+<p>首先，关于模型参数的BPR-Opt梯度是：<br>\frac{\partial BPR-OPT}{\partial \theta}=\sum_{(u,i,j)∈D_S}\frac{\partial}{\partial\theta}ln\sigma(\hat{x}_{uij})-\lambda_{\theta}\frac{\partial}{\partial\theta}||\theta||^2</p>
+<p><img src="/2019/02/11/推荐系统论文阅读（七）/pic4.png" alt="pic4"></p>
+<p>梯度下降的两种最常见的算法是完全或随机梯度下降。在第一种情况下，在每个步骤中，计算所有训练数据的完整梯度，然后用学习率α更新模型参数：</p>
+<script type="math/tex; mode=display">\theta<——\theta-α\frac{\partial BPR-OPT}{\partial \theta}</script><p>一般来说，这种方法会导致“正确”方向下降，但收敛速度很慢。由于我们在$D_S$中有O（|S||I|）训练三元组，因此在每个更新步骤中计算完整梯度是不可行的。此外，为了优化具有全梯度下降的BPR-Opt，训练对中的偏斜也导致收敛性差。想象常为正值的项目i.然后我们在损失中有许多$\hat{x}_{uij}$形式的术语，因为对于许多用户来说，项目i与所有负面项目j（主导类）进行比较。因此，取决于i的模型参数的梯度将在很大程度上支配梯度。这意味着必须选择非常小的学习率。其次，随着梯度的不同，正则化很困难。</p>
+<p>另一种流行的方法是随机梯度下降。在这种情况下，对于每个三元组$(u,i,j)∈D_S$，执行更新。</p>
+<script type="math/tex; mode=display">\theta<——\theta+α(\frac{e^{-\hat{x}_{uij}}}{1+e^{-\hat{x}_{uij}}}·\frac{\partial}{\partial \theta}\hat{x}_{uij}+\lambda_{\theta}\theta)</script><p>一般来说，这对于我们的偏差问题是一种很好的方法，但是遍历训练对的顺序至关重要。遍历数据项或用户方式的典型方法将导致收敛性差，因为在相同的用户-项目对上有如此多的连续更新——即对于一个用户-项目对(u,i)有很多j与(u,i,j)∈D_S。</p>
+<p>为了解决这个问题，我们建议使用随机梯度下降算法来选择随机(均匀分布)的三元组。使用这种方法，在连续更新步骤中选择相同用户项组合的机会很小。我们建议使用带有替换的引导抽样方法，因为可以在任何步骤执行停止。在我们的例子中，放弃全循环的概念尤其有用，因为示例的数量非常大，而且对于收敛来说，全循环的一小部分通常是有意义的。在我们的评估中，我们根据观察到的正反馈的数量线性地选择单个步骤的数量。</p>
+<h3 id="Learning-models-with-BPR"><a href="#Learning-models-with-BPR" class="headerlink" title="Learning models with BPR"></a>Learning models with BPR</h3><p>在下文中，我们描述了两个最先进的项目推荐模型类，以及我们如何使用我们提出的BPR方法来学习它们。我们选择了两种不同的矩阵分解模型[5,12]和学习k-最近邻[8]。这两个类都试图模拟用户对项目的隐藏首选项。他们的预测是每个用户 - 项目对（u,l）的实数$\hat{x}_{ul}$。</p>
+<p>因为在我们的优化中我们有三元组（u, i, j）∈D_S，我们首先分解估计器$\hat{x}_{uij}$并将其定义为：</p>
+<script type="math/tex; mode=display">\hat{x}_{uij}:=\hat{x}_{ui}-\hat{x}_{uj}</script><p>现在我们可以应用任何预测$\hat{x}_{ul}$的标准协同过滤模型。</p>
+<p>值得注意的是，即使我们使用与其他工作相同的模型，我们也会根据其他标准对其进行优化。这将导致更好的排名，因为我们的标准对于排名任务是最佳的。我们的标准不能尽力回归一个单个预测器$\hat{x}_{ul}$到一个单值上而替代的是分类两个预测的差值$\hat{x}_{ui}-\hat{x}_{uj}$</p>
+<h4 id="Matrix-Factorization"><a href="#Matrix-Factorization" class="headerlink" title="Matrix Factorization"></a>Matrix Factorization</h4><p>预测$\hat{x}_{ui}$的问题能被视为估计矩阵X:U×I的任务.采用矩阵分解的方法,目标矩阵X被估计通过两个低秩矩阵W:|U|×k和H:|I|×k的矩阵相乘.</p>
+<script type="math/tex; mode=display">\hat{X}:=WH^t</script><p>其中k是估计的维度/秩。W中每个行$w_u$能被视为特征向量用于描述用户u,同样H的每个行$h_i$描述一个项目i.因此预测公式能被写为：</p>
+<script type="math/tex; mode=display">\hat{x}_{ui}=<w_u,h_i>=\sum_{f=1}^k w_{uf}·h_{if}</script><p>除了点积&lt;·,·&gt;之外，一般来说任何核都可以像[11]一样使用.矩阵分解的模型参数是$\theta$=(W,H)。模型参数也可以被视为潜在变量，模拟用户的非观察品味和项目的未观察属性。</p>
+<p>通常，通过奇异值分解（SVD）实现关于最小二乘的$\hat{X}$到X的最佳近似。对于机器学习任务，已知已经提出了SVD过拟合以及因此许多其他矩阵因子分解方法，包括正则化最小二乘优化，非负分解(non-negative factorization)，最大余量因子分解(maximum margin factorization)等。</p>
+<p>对于排序任务，即估计用户是否偏好一个项目而不是另一个项目，更好的方法是针对BPR-Opt标准进行优化。这可以通过使用我们提出的算法LearnBPR来实现。如前所述，使用LearnBPR进行优化时，只有$\hat{x}_{uij}$的梯度与每个模型参数$\theta$相关必须知道。对于矩阵分解模型，派生物是：</p>
+<script type="math/tex; mode=display">
+\frac{\partial}{\partial \theta} \hat{x}_{uij}=
+\begin{cases}
+(h_{if}-h_{jf}) \ \ \ \ if \ \ \theta=w_{uf}\\
+w_{uf} \ \ \ \ \ if \ \ \theta=h_{if}\\
+-w_{uf} \ \ \ \ \ if \ \ \theta=h_{jf}\\
+0 \ \ \ \ else\\
+\end{cases}</script><p>此外，我们使用三个正则化常数:一个是用户特征W的$\lambda_W$;项目特征H有两个正则化常数$\lambda_{H+}$和$\lambda_{H-}$,前者被用于$h_{if}$的正更新,后者被用于$h_{if}$的负更新.</p>
+<h4 id="Adaptive-k-Nearest-Neighbor"><a href="#Adaptive-k-Nearest-Neighbor" class="headerlink" title="Adaptive k-Nearest-Neighbor"></a>Adaptive k-Nearest-Neighbor</h4><p>最近邻方法在协同过滤中非常流行。它们依赖于项目（基于项目）或用户（基于用户）之间的相似性度量。在下文中，我们描述了基于项目的方法，因为它们通常提供更好的结果，但基于用户的方法类似地工作。该想法是对用户u和项目i的预测取决于i与用户过去看到的所有其他项目的相似性（即$I_u^+$。通常只有$I_u^+$的k个最相似的项被认为是——k最近邻居。如果仔细选择项目之间的相似性，也可以比较$I_u^+$中的所有项目。对于项目预测，基于项目的k-最近邻居的模型是：</p>
+<script type="math/tex; mode=display">\hat{x}_{ui}=\sum_{l∈I_u^+∩l≠i}c_{il}</script><p>其中C：I×I是一个对称项目相关/项目相似的矩阵.因此KNN的模型参数是$\theta=C$<br>选择C的常用方法是应用启发式相似性度量，例如，余弦矢量相似度：</p>
+<script type="math/tex; mode=display">c_{i,j}^{cosine}:=\frac{|U_i^+∩U_j^+|}{\sqrt{|U_i^+|·|U_j^+|}}</script><p>更好的策略是通过学习它来使相似性度量C适应问题。这可以通过直接使用C作为模型参数来完成，或者如果项目的数量太大，可以用H：I×k来学习C的因子分解$HH^t$。在下面和我们的评估中，我们使用第一种直接学习C的方法而不分解它。</p>
+<p>为了再次优化排名的kNN模型，我们应用BPR优化标准并使用LearnBPR算法。为了应用该算法，$\hat{x}_{uij}$相对于模型参数C的梯度为：</p>
+<script type="math/tex; mode=display">\frac{\partial}{\partial\theta}\hat{x}_{uij}=
+\begin{cases}
++1 \ \ \ if \theta∈{c_{il},c_{li}}∩l∈I_u^+∩l≠i\\
+-1 \ \ \  if \theta∈{c_{jl},c_{lj}}∩l∈I_u^+∩l≠j\\
+0 \ \ \ else\\
+\end{cases}</script><p>我们有两个正则化常数,$\lambda_+$用来更新$c_{il}$而$\lambda_-$用来更新$c_{jl}$</p>
+<h2 id="Relations-to-other-methods"><a href="#Relations-to-other-methods" class="headerlink" title="Relations to other methods"></a>Relations to other methods</h2><p>我们讨论了我们提出的排序方法与两个其他项目预测模型之间的关系。</p>
+<h3 id="Weighted-Regularized-MatrixFactorization-WR-MF"><a href="#Weighted-Regularized-MatrixFactorization-WR-MF" class="headerlink" title="Weighted Regularized MatrixFactorization (WR-MF)"></a>Weighted Regularized MatrixFactorization (WR-MF)</h3><p>Pan等人[10]和Hu等人[5]都提出了一种基于隐式反馈的项目预测的矩阵分解方法。因此模型类与我们在4.3.1节中描述的相同，即$\hat{X}:= WH^t$其中矩阵W：|U|×k和H：|U|×ķ。优化标准和学习方法基本上与我们的方法不同。他们的方法是适应SVD，是最小化平方损失。它们的扩展是正则化，以防止误差函数中的过拟合和权重增加正反馈的影响。总的来说，他们的优化标准是：</p>
+<script type="math/tex; mode=display">\sum_{u∈U}\sum_{i∈I}c_{ui}(<w_u,h_i>-1)^2+\lambda||W||_ f^2+\lambda||H||_ f^2</script><p>其中$c_{ui}$不是模型参数而是apriori对于元组(u,i)给定的权重。Hu等人有额外的数据来估计$c_{ui}$的正反馈，并且他们设定$c_{ui}$= 1。Pan等人建议将$c_{ui}$= 1设置为正反馈，并为其余选择选择较低的常数。</p>
+<p>首先，很明显，这种优化是在实例级别（一个项目）而不是对级别(pair level)（两个项目）作为BPR。除此之外，它们的优化是已知的最小二乘法，其对应于正态分布随机变量的MLE。然而，项目预测的任务实际上不是回归（定量），而是分类（定性），因此逻辑优化更合适。</p>
+<p>WR-MF的一个优点是它可以在$O(iter(|S|k^2+k^3(|I|+|U|))$中学习，只要$c_{ui}$对于非正对(non-positive pairs)是恒定的。我们的评估表明，LearnBPR通常在m·|S|的子样本单步更新之后收敛,即使有多于三倍学习。</p>
+<h3 id="Maximum-Margin-Matrix-Factorization-MMMF"><a href="#Maximum-Margin-Matrix-Factorization-MMMF" class="headerlink" title="Maximum Margin Matrix Factorization (MMMF)"></a>Maximum Margin Matrix Factorization (MMMF)</h3><p>Weimer et al.[15]使用最大边缘矩阵分解方法(MMMF)进行顺序排序。它们的MMMF是为在评级方面有明确反馈的场景设计的。尽管排名MMMF不是用于隐式反馈的数据集,可以把它应用在我们的场景中通过给所有non-observed项目“评级”0和观察到的1(见图1)。经过修改,优化准则是最小化很类似于BPR应用矩阵分解:</p>
+<script type="math/tex; mode=display">\sum_{(u,i,j)∈D_s}max(0,1-<w_u,h_i-h_j>)+\lambda_w||W||_ f^2+\lambda_h||H||_ f^2</script><p>一个不同之处在于误差函数不同——我们的hinge损失是平滑的并且由MLE驱动。此外，我们的BPR-Opt标准是通用的，可以应用于多个模型，而他们的方法适用于MF。</p>
+<p>除此之外，他们的MMMF学习方法也来自我们的通用方法LearnBPR。他们的学习方法被设计用于稀疏显式数据，即他们假设存在许多缺失值，因此他们假设具有比隐式设置少得多的对(pair)。但是当他们的学习方法应用于隐式反馈数据集时，必须如上所述地对数据进行密度化，并且训练对$D_S$的数量在O(|S||I|）中。我们的方法LearnBPR可以通过从$D_S$的bootstrapping来处理这种情况（参见第4.2节）。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/paper/" rel="tag"># paper</a>
+          
+            <a href="/tags/recommendations-systems/" rel="tag"># recommendations systems</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/11/Object-Detection（二）/" rel="next" title="Object_Detection（二）">
+                <i class="fa fa-chevron-left"></i> Object_Detection（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/12/剑指offer（三）/" rel="prev" title="剑指offer（三）">
+                剑指offer（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BPR-Bayesian-Personalized-Ranking-from-Implicit-Feedback"><span class="nav-number">1.</span> <span class="nav-text">BPR: Bayesian Personalized Ranking from Implicit Feedback</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Work"><span class="nav-number">1.1.</span> <span class="nav-text">Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Personalized-Ranking"><span class="nav-number">1.2.</span> <span class="nav-text">Personalized Ranking</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Formalization"><span class="nav-number">1.2.1.</span> <span class="nav-text">Formalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Analysis-of-the-problem-setting"><span class="nav-number">1.2.2.</span> <span class="nav-text">Analysis of the problem setting</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bayesian-Personalized-Ranking-BPR"><span class="nav-number">1.3.</span> <span class="nav-text">Bayesian Personalized Ranking(BPR)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BPR-Optimization-Criterion"><span class="nav-number">1.3.1.</span> <span class="nav-text">BPR Optimization Criterion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BPR-Learning-Algorithm"><span class="nav-number">1.4.</span> <span class="nav-text">BPR Learning Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Learning-models-with-BPR"><span class="nav-number">1.4.1.</span> <span class="nav-text">Learning models with BPR</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Matrix-Factorization"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">Matrix Factorization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Adaptive-k-Nearest-Neighbor"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">Adaptive k-Nearest-Neighbor</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Relations-to-other-methods"><span class="nav-number">1.5.</span> <span class="nav-text">Relations to other methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Weighted-Regularized-MatrixFactorization-WR-MF"><span class="nav-number">1.5.1.</span> <span class="nav-text">Weighted Regularized MatrixFactorization (WR-MF)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maximum-Margin-Matrix-Factorization-MMMF"><span class="nav-number">1.5.2.</span> <span class="nav-text">Maximum Margin Matrix Factorization (MMMF)</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

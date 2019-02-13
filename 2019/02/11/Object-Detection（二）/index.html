@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Paper,Object Detection,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列将分类和定位分开处理了。 Rich feature hierarchiesfor accurate object detection and semantic segmentation在规范的PASCAL VOC数据集上测量的物体检测性能在过">
+<meta name="keywords" content="Paper,Object Detection">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Object_Detection（二）">
+<meta property="og:url" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列将分类和定位分开处理了。 Rich feature hierarchiesfor accurate object detection and semantic segmentation在规范的PASCAL VOC数据集上测量的物体检测性能在过">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic1.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic2.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic3.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic4.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic7.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic5.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic6.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic8.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic9.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic10.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic11.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic12.png">
+<meta property="og:updated_time" content="2019-02-13T14:52:08.031Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Object_Detection（二）">
+<meta name="twitter:description" content="注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列将分类和定位分开处理了。 Rich feature hierarchiesfor accurate object detection and semantic segmentation在规范的PASCAL VOC数据集上测量的物体检测性能在过">
+<meta name="twitter:image" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/pic1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/02/11/Object-Detection（二）/">
+
+
+
+
+
+  <title>Object_Detection（二） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/02/11/Object-Detection（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Object_Detection（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-11T09:48:57+08:00">
+                2019-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/CV/" itemprop="url" rel="index">
+                    <span itemprop="name">CV</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  29 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列将分类和定位分开处理了。</strong></p>
+<h1 id="Rich-feature-hierarchies"><a href="#Rich-feature-hierarchies" class="headerlink" title="Rich feature hierarchies"></a>Rich feature hierarchies</h1><p>for accurate object detection and semantic segmentation<br>在规范的PASCAL VOC数据集上测量的物体检测性能在过去几年中已经趋于稳定。表现最佳的方法是复杂的集合系统，通常将多个低级图像特征与高级上下文相结合。在本文中，我们提出了一种简单且可扩展的检测算法，相对于之前对VOC 2012的最佳结果，平均精度（mAP）提高了30％以上 - 实现了53.3％的mAP。我们的方法结合了两个关键的见解：（1）可以将高容量卷积神经网络（CNN）应用于自下而上的区域提议(region proposals)，以便定位和分割对象;（2）当标记的训练数据稀缺时，监督预训练对于辅助任务，然后进行特定于域的微调，可以显着提高性能。由于我们将区域提议(region proposals)与CNN结合起来，我们将方法称为R-CNN：具有CNN功能的区域。我们还将R-CNN与最近提出的基于类似CNN架构的滑动窗口检测器OverFeat进行了比较。我们发现R-CNN在200级ILSVRC2013检测数据集上大大优于OverFeat。完整系统的源代码可从<a href="http://www.cs.berkeley.edu/~rbg/rcnn获得。" target="_blank" rel="noopener">http://www.cs.berkeley.edu/~rbg/rcnn获得。</a></p>
+<p>特征重要。各种视觉识别任务的最近十年进展基于SIFT [29]和HOG [7]的使用。但是，如果我们看一下规范视觉识别任务，PASCAL VOC物体检测[15]的表现，人们普遍认为2010-2012年进展缓慢，通过建立集合系统和采用成功方法的微小变体获得了小幅收益。</p>
+<p>SIFT和HOG是块层面的方向直方图，我们可以大致将其与V1中的复杂细胞联系起来，V1是灵长类视觉通路中的第一个皮层区域。但是我们也知道识别在下游的几个阶段会发生，这意味着对于计算特征可能存在分层的、多阶段的过程，而这些过程对于视觉识别的信息更为丰富。<br><img src="/2019/02/11/Object-Detection（二）/pic1.png" alt="pic1"></p>
+<p>Fukushima的“neocognitron”[19]，一种用于模式识别的生物学启发的分层和移位不变模型，是这种过程的早期尝试。<br>然而，neocognitron缺乏监督训练算法。以Rumelhart等人为基础。 [33]，LeCun等。 [26]表明，通过反向传播的随机梯度下降对于训练卷积神经网络（CNN）是有效的，CNN是一类扩展新神经元的模型。</p>
+<p>CNN在20世纪90年代被大量使用（例如，[27]），但随着支持向量机的兴起，它们已经过时了。2012年，Krizhevsky等人。 [25]通过在ImageNet大规模视觉识别挑战赛（ILSVRC）上显示更高的图像分类准确度，重新燃起了对CNN的兴趣[9,10]。他们的成功来自于在120万张标记图像上训练大型CNN，以及LeCun CNN上的一些修正（例如，max(x,0)纠正非线性和“dropout”正则化）。</p>
+<p>在2012年ILSVRC研讨会上，ImageNet结果的重要性被热烈讨论。中心问题可以提炼为:ImageNet上的CNN分类结果在多大程度上推广到了PASCAL VOC挑战上的对象检测结果?</p>
+<p>我们通过架接图像分类和对象检测之间的差距来回答这个问题。本文首次表明，与基于简单HOG类功能的系统相比，CNN可以在PASCAL VOC上实现更高的物体检测性能。为了实现这一结果，我们专注于两个问题：使用深层网络定位对象，并仅使用少量带注释的检测数据来训练高容量模型。</p>
+<p>与图像分类不同，检测需要在图像内定位（可能很多）对象。一种方法将定位框架化为回归问题。但是，Szegedy等人的工作。 [38]，与我们自己同时发现，这种策略在实践中可能表现不佳（他们报告VOC 2007的mAP为30.5％，而我们的方法实现的58.5％）。另一种方法是构建一个滑动窗口探测器。 CNN已经以这种方式使用了至少二十年，通常是在受约束的物体类别上，例如脸[32,40]和行人[35]。为了保持高空间分辨率，这些CNN通常仅具有两个卷积和池化层。我们还考虑采用滑动窗口方法。然而，在我们的网络中具有五个卷积层的单位在输入图像中具有非常大的感受域（195×195像素）和步幅（32×32像素），这使得在滑动窗口范例内的精确定位成为可能。开放的技术挑战。<br>相反，我们通过在“使用区域识别”范例[21]内操作来解决CNN定位问题，该范例已成功用于对象检测[39]和语义分割[5]。在测试时，我们的方法为输入图像生成大约2000个与类别无关的区域提议，使用CNN从每个提议(proposal)中提取固定长度的特征向量，然后使用类别特定的线性SVM对每个区域进行分类。我们使用简单的技术（仿射图像变形）来计算来自每个区域提议的固定大小的CNN输入，而不管区域的形状如何。图1概述了我们的方法，并重点介绍了我们的一些结果。由于我们的系统将区域提议与CNN结合起来，我们称之为R-CNN方法：具有CNN特征的区域。</p>
+<p>在本文的更新版本中，我们通过在200个类ILSVRC2013检测数据集上运行R-CNN，提供了R-CNN与最近提出的OverFeat [34]检测系统比较。 OverFeat使用滑动窗口CNN进行检测，到目前为止，它是ILSVRC2013检测中性能最佳的方法。我们证明R-CNN明显优于OverFeat，mAP为31.4％ versus 24.3％。</p>
+<p>检测面临的第二个挑战是标记数据稀缺，目前可用的数量不足以培训大型CNN。该问题的传统解决方案是使用无监督的预训练，然后进行有监督的微调（例如，[35]）。本文的第二个主要贡献是显示对大型辅助数据集（ILSVRC）进行有监督的预训练，然后对小数据集（PASCAL）进行区域特异性微调，这是在数据很稀缺时学习高容量CNN的有效范例。。在我们的实验中，用于检测的微调将mAP性能提高了8个百分点。经过微调后，我们的系统在VOC 2010上实现了54％的mAP，而高度调整的基于HOG的可变形零件模型（DPM）则达到了33％[17,20]。我们还将读者指向Donahue等人的同期作品。 [12]，他们表明Krizhevsky的CNN可以作为黑盒特征提取器使用（没有微调），在几个识别任务上产生出色的表现，包括场景分类，细粒度子分类和域适应。</p>
+<p>我们的系统也很有效率。唯一的类特定计算是相当小的矩阵向量乘积和贪婪的非最大抑制。这种计算属性来自于所有类别共享的特征，并且比先前使用的区域特征还低两个数量级（参见[39]）。</p>
+<p>了解我们的方法的失效模式对于改进它也是至关重要的，因此我们报告了Hoiem等人的检测分析工具的结果。 [23]。作为此分析的直接结果，我们证明了一种简单的边界框回归方法可以显着减少错误定位，这是主要的错误模式。</p>
+<p>在开发技术细节之前，我们注意到由于R-CNN在区域上运行，因此将其扩展到语义部分的任务是很自然的。通过微小的修改，我们还在PASCAL VOC分割任务中获得了有竞争力的结果，VOC 2011测试集的平均分割准确度为47.9％。</p>
+<h2 id="Object-detection-with-R-CNN"><a href="#Object-detection-with-R-CNN" class="headerlink" title="Object detection with R-CNN"></a>Object detection with R-CNN</h2><p>我们的物体检测系统由三个模块组成。第一个生成与类别无关的区域提议(region proposals)。这些提议(proposals)定义了我们的探测器可用的候选检测集。第二个模块是一个大型卷积神经网络，它从每个区域(region)中提取固定长度的特征向量。第三个模块是一组特定于类的线性SVM。在本节中，我们将介绍每个模块的设计决策，描述其测试时间使用情况，详细说明其参数的学习方式，并在PASCAL VOC 2010-12和ILSVRC2013上显示检测结果。</p>
+<h3 id="Module-Design"><a href="#Module-Design" class="headerlink" title="Module Design"></a>Module Design</h3><p><strong>Region proposals:</strong><br>最近的各种论文提供了用于生成与类别无关的区域提议的方法。例子包括：对象性[1]，选择性搜索[39]，类别无关的对象提议[14]，约束参数最小割（constrained parametric min-cuts,CPMC）[5]，多尺度组合分组[3]和Cires¸an等人[6]，通过将CNN应用于规则间隔的方形作物来检测有丝分裂细胞，这是区域提案的特例。虽然R-CNN与特定区域提议方法无关，但我们使用 <em>选择性搜索</em> 来实现与先前检测工作的受控比较（例如，[39,41]）。</p>
+<p><strong>Feature extraction:</strong><br>我们使用Krizhevsky等人描述的CNN的Caffe [24]实现从每个区域提议中提取4096维特征向量[25]。通过向前传播已经减去均值的227×227 RGB图像通过五个卷积层和两个完全连接的层来计算特征。我们向读者推荐[24,25]了解更多网络架构细节。</p>
+<p>为了计算区域提议的特征，我们必须首先将该区域中的图像数据转换为与CNN兼容的形式（其架构需要输入固定的227×227像素大小）。在我们任意形状区域的许多可能变换中，我们选择最简单的。无论候选区域的大小或宽高比如何，我们都会将其周围的紧密边界框中的所有像素扭曲到所需的大小。在变形之前，我们扩展紧密的边界框，以便在扭曲后的尺寸上，在原始框周围有正好p像素的扭曲图像上下文（我们使用p=16）。图2显示了扭曲的训练区域的随机抽样。扭曲的替代方案在附录A中讨论。<br><img src="/2019/02/11/Object-Detection（二）/pic2.png" alt="pic2"></p>
+<h3 id="Test-time-detection"><a href="#Test-time-detection" class="headerlink" title="Test-time detection"></a>Test-time detection</h3><p>在测试时，我们对测试图像进​​行选择性搜索以提取大约2000个区域提议（我们在所有实验中使用选择性搜索的“快速模式”）。我们对每个提议进行扭曲并向前传播它以通过CNN来计算特征。然后，对于每个类，我们使用针对该类训练的SVM对每个提取的特征向量进行评分。给定图像中的所有得分区域，我们应用贪婪的非最大抑制（对于每个类别独立），如果它具有交叉 -过度（IoU）重叠并且具有大于学习阈值的更高得分选择区域，则拒绝该区域。</p>
+<ul>
+<li>运行时分析：两个属性使检测有效。首先，所有类别共享所有CNN参数。其次，与其他常见方法（例如具有视觉字包编码的空间金字塔）相比，由CNN计算的特征向量是低维的。例如，UVA检测系统[39]中使用的特征比我们的大两个数量级（360k vs. 4k维）。</li>
+</ul>
+<p>这种共享的结果是计算区域提议和特征（在GPU上为13s/图像或在CPU上为53s /图像）所花费的时间在所有类上摊销。唯一的类特定计算是特征与SVM权重和非最大抑制之间的点积。在实践中，图像的所有点积都被分批到单个矩阵-矩阵乘积中。特征矩阵通常为2000×4096，SVM权重矩阵为4096×N，其中N是类的数量。</p>
+<p>该分析表明，R-CNN可以扩展到数千个对象类，而无需采用近似技术，例如散列(hashing)。即使有100k类，在现代多核CPU上产生的矩阵乘法只需10秒。这种效率不仅仅是使用区域提议和共享特征的结果。由于其高维特征，UVA系统将慢两个数量级，而仅需要134GB内存来存储100k线性预测器，而我们的低维特征仅需1.5GB。</p>
+<p>将R-CNN与Dean等人最近的工作进行对比也很有意思。使用DPM和散列进行可扩展检测[8]。他们报告说，当引入10k干扰分类时，每张图像的运行时间为5分钟，VOC 2007的mAP约为16％。通过我们的方法，10k探测器可以在CPU上运行大约一分钟，因为没有近似值，mAP将保持在59％（第3.2节）。</p>
+<h3 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h3><p><strong>Supervised pre-training：</strong><br>我们仅使用图像级(image-level)注释在大型辅助数据集（ILSVRC2012分类）上对CNN进行有区别的预训练（边界框标签不可用于此数据）。使用开源Caffe CNN库进行预训练[24]。简而言之，我们的CNN几乎与Krizhevsky等人的表现相符。 [25]，在ILSVRC2012分类验证集上获得高出2.2个百分点的前1个错误率。这种差异是由于训练过程的简化。<br><strong>Domain-specific fine-tuning：</strong><br>为了使我们的CNN适应新任务（检测）和新域（扭曲的提议窗口(warped proposal window)），我们仅使用扭曲区域提议继续CNN参数的随机梯度下降（SGD）训练。除了用随机初始化的（N+1）路分类层替换CNN的ImageNetspecific 1000路分类层（其中N是对象类的数量，加上背景为1），CNN架构保持不变。对于VOC，N =20，对于ILSVRC2013，N=200.我们将所有区域提案都用≥0.5 IoU与ground truth框重叠，作为该框的类的正面，其余为负面。我们以0.001的学习率（初始预训练率的1/10）启动SGD，这允许微调进行而不会破坏初始化。在每次SGD迭代中，我们统一采样32个正窗口（在所有类别上）和96个背景窗口，构建一个128的小批量。我们将采样偏向正窗口，因为它们与背景相比非常罕见。</p>
+<p><strong>Object category classifiers:</strong><br>考虑训练二元分类器来检测汽车。很明显，紧紧包围汽车的图像区域应该是一个正例。同样，很明显，与汽车无关的背景区域应该是一个反面的例子。不太清楚的是如何标记与汽车部分重叠的区域。我们使用IoU重叠阈值解决此问题，低于该阈值将区域定义为负数。通过在验证集上的网格搜索{0,0.1,..,0.5}选择重叠阈值0.3。我们发现仔细选择此阈值非常重要。将其设置为0.5，如[39]中所示，将mAP降低了5个点。同样，将其设置为0会使mAP降低4个点。正例被简单地定义为每个类的ground-truth边界框。</p>
+<p>一旦提取了特征并应用了训练标签，我们就会优化每个类的一个线性SVM。由于训练数据太大而无法记忆，我们采用标准的硬负挖掘方法[17,37]。硬负采矿快速收敛，并且在实践中，mAP仅在一次通过所有图像后停止增加。</p>
+<p>在附录B中，我们讨论了为什么在微调与SVM训练中对正面和负面示例的定义不同。我们还讨论了训练检测SVM所涉及的权衡，而不是简单地使用来自微调CNN的最终softmax层的输出。</p>
+<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><h3 id="A-Object-proposal-transformations"><a href="#A-Object-proposal-transformations" class="headerlink" title="A.Object proposal transformations"></a>A.Object proposal transformations</h3><p>在这项工作中使用的卷积神经网络需要固定大小的输入227×227像素。对于检测，我们认为对象提议是任意图像矩形。我们评估了两种将对象提议转换为有效CNN输入的方法。</p>
+<p>第一个方法(“带有上下文的最紧密的正方形”)将每个对象提议封装在最紧密的正方形中，然后将该正方形中包含的图像缩放(各向同性地)到CNN输入大小。图7列(B)显示了这个转换。此方法的变体(“没有上下文的最紧密方形”)排除了围绕原始对象提议的图像内容。图7列(C)显示了这个转换。第二种方法(“扭曲”)各向异性地将每个对象提案缩放到CNN输入大小。图7列(D)显示了warp转换。<br><img src="/2019/02/11/Object-Detection（二）/pic3.png" alt="pic3"></p>
+<p>对于每个转换，我们还考虑在原始对象提议周围包含其他图像上下文。上下文填充量（p）被定义为变换的输入坐标系中原始对象提议周围的边界大小。图7显示了每个示例的顶行中的p = 0像素，并且底行中的p = 16像素。在所有方法中，如果源矩形超出图像，则将缺失的数据替换为图像均值（然后在将图像输入CNN之前将其减去）。一组试验表明，使用上下文填充（p = 16像素）的变形优于备选方案（3-5 mAP点）。显然，更多的替代方案是可能的，包括使用复制而不是平均填充。对这些替代方案的彻底评估留作未来的工作。</p>
+<h3 id="B-Positive-vs-negative-examples-and-softmax"><a href="#B-Positive-vs-negative-examples-and-softmax" class="headerlink" title="B. Positive vs. negative examples and softmax"></a>B. Positive vs. negative examples and softmax</h3><p>两种设计选择值得进一步讨论。第一个是：为什么正面和负面的例子被定义为微调CNN而不是训练对象检测SVM？为了简要回顾这些定义，对于微调，我们将每个对象提议映射到具有最大IoU重叠（如果有的话）的ground truth，并且如果IoU至少为0.5，则将其标记为匹配的地面实例类的正数。所有其他提议都标有“背景”（即所有类别的反面例子）。相比之下，对于训练SVM，我们仅将ground-truth框作为其各自类别的正面示例，并且标签提议与IoU重叠小于0.3，该类的所有实例都为该类的负数。落入灰色区域的建议（超过0.3 IoU重叠，但不是ground truth）将被忽略。</p>
+<p>从历史上看，我们已经达到了这些定义，因为我们首先通过对ImageNet预训练的CNN计算的特征训练SVM，因此在那个时间点不需要进行微调。在该设置中，我们发现我们用于训练SVM的特定标签定义在我们评估的选项集中是最佳的（其中包括我们现在用于微调的设置）。当我们开始使用微调时，我们最初使用与我们用于SVM训练相同的正面和负面示例定义。然而，我们发现结果比使用我们目前的正面和负面定义所获得的结果要糟糕得多。</p>
+<p>我们的假设是，如何定义正面和负面的差异并不是根本重要的，而是由于微调数据有限这一事实。我们当前的方案引入了许多“抖动”的例子（这些提议在0.5和1之间重叠，但不是ground truth），它将正例的数量扩大了大约30倍。我们猜想在微调整个网络时需要这个大集合以避免过度拟合。但是，我们还注意到使用这些抖动的示例可能不是最理想的，因为网络没有针对精确定位进行微调。</p>
+<p>这导致了第二个问题：为什么在微调之后训练SVM？简单地应用微调网络的最后一层（一种21路softmax回归分类器）作为对象检测器将更加清晰。我们尝试了这一点，发现VOC 2007的性能从mAP的54.2％下降到50.9％。这种性能下降可能源于几个因素的组合，包括微调中使用的正例的定义不强调精确定位，而softmax分类器是在随机抽样的负例上训练而不是在使用的“硬阴性”子集上用于SVM训练。</p>
+<p>该结果表明，在微调之后，无需训练SVM就可以获得接近相同的性能水平。我们推测，通过一些额外的调整来微调剩余的性能差距可能会被关闭。如果这是真的，这将简化并加速R-CNN训练而不会损失检测性能。</p>
+<h3 id="C-Bounding-box-regression"><a href="#C-Bounding-box-regression" class="headerlink" title="C. Bounding-box regression"></a>C. Bounding-box regression</h3><p>我们使用简单的边界框回归阶段来提高定位性能。在使用特定于类的检测SVM对每个选择性搜索提议进行评分后，我们使用特定于类的边界框回归器来预测用于检测的新边界框。这在思想上与可变形零件模型中使用的边界框回归类似[17]。两种方法之间的主要区别在于，这里我们从CNN计算的特征回归，而不是从推断的DPM零件位置计算的几何特征回归。</p>
+<p>我们的训练算法的输入是一组N个训练对$\{(P^i,G^i)\}_{i = 1,..,N}$，其中$P^i=(P^i_x,P^i_y,P^i_w,P^i_h)$指定中心的像素坐标提议$P^i$的边界框以及$P^i$的宽度和高度（以像素为单位）。<br>因此，除非需要，否则我们删除上标i。<br>每个ground truth边界框G以相同的方式指定：$G =（G_x,G_y,G_w,G_h）$。我们的目标是学习将拟议的方框P映射到ground-truth框G的转换。</p>
+<p>我们根据四个函数$d_x(P),d_y(P),d_w(P)和d_h(P)$来对变换进行参数化。前两个指定P的边界框中心的尺度不变的平移，而后两个指定P的边界框的宽度和高度的对数空间平移。在学习这些函数之后，我们可以通过应用变换将输入提议P变换为预测的ground truth框$\hat{G}$.</p>
+<script type="math/tex; mode=display">\hat{G}_x=P_wd_x(P)+P_x \ \ \ \ \ (1)</script><script type="math/tex; mode=display">\hat{G}_y=P_hd_y(P)+P_y \ \ \ \ \ (2)</script><script type="math/tex; mode=display">\hat{G}_w=P_wexp(d_w(P)) \ \ \ \ \ (3)</script><script type="math/tex; mode=display">\hat{G}_h=P_wexp(d_h(P)) \ \ \ \ \ (4)</script><p>每个函数$d_<em>(P)$（其中</em>是x; y; h; w之一）被建模为提议P的$pool_5$特征的线性函数，用$\phi_5(P)$表示。(隐含地假设了$\phi_5(P)对图像数据的依赖性.)因此我们得到$d_<em>(P)= w_</em>^T\phi_5(P)$，其中$w_<em>$是可学习模型参数的向量。我们学习$w_</em>$通过优化正则化最小二乘目标（岭回归）</p>
+<script type="math/tex; mode=display">w_*=argmin_{\hat{w}_*}\sum_i^N(t_*^i-\hat{w}_*^T\phi_5(P^i))^2+\lambda ||\hat{w}_*||^2 \ \ \ \ \ (5)</script><p>训练对(P,G)的回归目标$t_*$被定义为:</p>
+<script type="math/tex; mode=display">t_x=(G_x-P_x)/P_w \ \ \ \ \ (6)</script><script type="math/tex; mode=display">t_y=(G_y-P_y)/P_h \ \ \ \ \ (7)</script><script type="math/tex; mode=display">t_w=log(G_w/P_w) \ \ \ \ \ \ (8)</script><script type="math/tex; mode=display">t_h=log(G_h/P_h) \ \ \ \ \ \ (9)</script><p>作为标准正则化最小二乘问题，这可以以封闭形式有效地解决。</p>
+<p>我们在实现边界框回归时发现了两个微妙的问题。第一，正则化很重要：我们设定$\lambda$= 1000基于验证集。第二个问题是在选择使用哪些训练对(P,G)时必须小心。直觉上，如果P远离所有ground truth框，则将P转换为ground truth框G的任务没有意义。使用像P这样的例子会导致无望的学习问题。因此，我们只从提案P中学习它是否在至少一个ground-truth框附近。当且仅当重叠大于阈值（在我们使用验证集时设置为0.6）时，我们通过将P分配给具有最大IoU重叠的ground-truth框G（如果它重叠多于一个）来实现“接近度”。所有未分配的提议都将被丢弃。我们为每个对象类执行一次，以便学习一组特定于类的边界框回归量。</p>
+<p>在测试时，我们对每个提议进行评分并仅预测其新的检测窗口一次。原则上，我们可以迭代这个过程（即，重新评分新预测的边界框，然后从中预测新的边界框，依此类推）。但是，我们发现迭代不会改善结果。</p>
+<h3 id="D-Additional-feature-visualizations"><a href="#D-Additional-feature-visualizations" class="headerlink" title="D. Additional feature visualizations"></a>D. Additional feature visualizations</h3><p>图12显示了20个$pool_5$单元的其他可视化。对于每个单元，我们在所有VOC 2007测试中显示了24个区域建议，这些建议最大限度地激活了整个大约1000万个区域中的单元。</p>
+<p>在6×6×256维度$pool_5$特征图里,我们标记每个单元根据它的(y,x,channel)位置.在每个通道内，CNN计算与输入区域完全相同的功能，（y，x）位置仅改变感受野。</p>
+<h1 id="解读"><a href="#解读" class="headerlink" title="解读"></a>解读</h1><p>R-CNN系统分为3个阶段,反应到架构上由3个模块完成.</p>
+<ol>
+<li>生成类别独立的候选区域,这些候选区域其中包含了RCNN最终定位的结果.</li>
+<li>神经网络去针对每个候选区域提取固定长度的特征向量</li>
+<li>一系列的SVM分类器<br><img src="/2019/02/11/Object-Detection（二）/pic4.png" alt="pic4"></li>
+<li>region proposals：通过selective search 从原始图片提取2000个左右区域候选框</li>
+<li>区域归一化:把所有候选框缩放成固定大小(227×227) Wrap</li>
+<li>通过CNN网络提取特征(在特征层的基础上添加两个全连接层)</li>
+<li>使用SVM结合NMS(非极大值抑制)获得区域边框(BBox),最后用DPM中类似的线性回归方法精修(Refine)边框位置.</li>
+</ol>
+<p><img src="/2019/02/11/Object-Detection（二）/pic7.png" alt="pic7"></p>
+<h2 id="候选区域-region-proposals"><a href="#候选区域-region-proposals" class="headerlink" title="候选区域(region proposals)"></a>候选区域(region proposals)</h2><p>生成候选区域的方法:</p>
+<ul>
+<li>objectness</li>
+<li>selective search</li>
+<li>category-independen object proposals</li>
+<li>constrained parametric min-cuts(CPMC)</li>
+<li>multi-scale combinatorial grouping</li>
+<li>Ciresan等人的方法</li>
+</ul>
+<p>Region Proposal(候选区域),就是预先找出图中目标可能出现的位置,通过利用图像中的纹理、边缘、颜色等信息,保证在选取较少窗口(几千个甚至几百个)的情况下保持较高的召回率(IOU)</p>
+<p>IOU是一种精度评价公式，表示两个bounding box,A和B的重叠度</p>
+<script type="math/tex; mode=display">IOU=(A∩B)/(A∪B)</script><p>基于Region Proposal目标检测算法的步骤如下：</p>
+<ol>
+<li>提取Region Proposal</li>
+<li>对候选区域分类：(1)特征提取(2)分类(CNN方法分类)——&gt;边框回归</li>
+</ol>
+<h2 id="Warp"><a href="#Warp" class="headerlink" title="Warp"></a>Warp</h2><p><img src="/2019/02/11/Object-Detection（二）/pic5.png" alt="pic5"></p>
+<h2 id="特征抽取"><a href="#特征抽取" class="headerlink" title="特征抽取"></a>特征抽取</h2><p>RCNN抽取了一个4096维的特征向量,采用的是AlexNet,基于Caffe进行代码开发.<br>需要注意的是AlexNet的输入图像大小是227×227<br>而通过Selective Search 产生的候选区域大小不一,为了与AlexNet兼容,RCNN采用了非常暴力的手段,那就是无视候选区域的大小和形状,统一变换到227×227的尺寸.<br>一个细节:在对Region进行变换时,首先对这些区域进行膨胀处理,在其box周围附加p个元素,也就是人为添加了边框,这里p=16</p>
+<h2 id="CNN训练"><a href="#CNN训练" class="headerlink" title="CNN训练"></a>CNN训练</h2><ol>
+<li>预训练:<br>训练集：ILSVRC 2012;输出:1000维类别标号;学习率：0.01<br>提取的特征为4096维,送入一个4096——&gt;1000的全连接(fc)层进行分类</li>
+<li>调优训练<br>训练集:PASCAL VOC2007;学习率:0.001<br>输入:227×227的正负样本(正:32,负:96;包括所有类别)<br>输出:21维(20类+背景)<br>同样使用上述网络,最后一层换成4096——&gt;21的全连接网络.<br>正负样本的选取:IOU&gt;0.5,标记为positive,否则标记为negative</li>
+</ol>
+<p>这里利用了迁移学习的方法,先预训练,然后固定部分参数,进行微调</p>
+<h2 id="训练SVM分类器"><a href="#训练SVM分类器" class="headerlink" title="训练SVM分类器"></a>训练SVM分类器</h2><ul>
+<li>训练特定类别的SVM分类器</li>
+<li>训练SVM的正负样本:作者同样是使用IOU阈值的方法,计算每一个region proposal与标准框的IOU,这次的阈值为0.3,大于这个阈值的作为正样本,否则为负样本.</li>
+<li>Hard negative mining<br>一般来说训练一个SVM分类器,需要正负两个样本,训练集图片中作为正样本很少,但是随机产生用于训练的负样本可能远远大于正样本,这样训练出来的SVM效果并不好,所以利用Hard negative mining方法,从负样本中选取出一些有代表性的负样本,使得分类器的训练结果更好.<br>正:标注样本+IOU&gt;0.5<br>负:不包含正样本区域</li>
+<li>输入:CNN提取的区域特征</li>
+<li>输出:每个候选区域特征的概率输出</li>
+</ul>
+<h2 id="获取每个类别的Bounding-box-BBox"><a href="#获取每个类别的Bounding-box-BBox" class="headerlink" title="获取每个类别的Bounding box(BBox)"></a>获取每个类别的Bounding box(BBox)</h2><p>针对各个类别(N)：</p>
+<ul>
+<li>CNN生成每个Region Proposal固定长度的特征向量</li>
+<li>SVMs分类器计算每个Region特征向量的Score</li>
+<li>每个Region(区域)的Score排序</li>
+<li>NMS:选取概率最大的区域,计算与其他区域的IOU;如果IOU大于给定阈值(经验值0.3)丢弃该区域;同样的过程依次遍历所有剩余的region.</li>
+<li>用各个类指定的回归模型来细化框的位置</li>
+</ul>
+<h3 id="NMS-非极大值抑制"><a href="#NMS-非极大值抑制" class="headerlink" title="NMS:非极大值抑制"></a>NMS:非极大值抑制</h3><ul>
+<li>非极大值抑制:先假设6个矩形框,根据分类器分类概率做排序,从小到大分别属于车辆的概率分别为A、B、C、D、E、F.</li>
+<li>(1)从最大概率矩形框F开始,分别判断A~E与F的重叠度IOU是否大于某个设定的阈值</li>
+<li>(2)假设B、D与F的重叠度超过阈值,那么就扔掉B、D;并标记第一个矩形框F,是我们保留下来的</li>
+<li>(3)从剩下的矩形框A、C、E中,选择概率最大的E,然后判断E与A、C的重叠度,重叠度大于一定的阈值,那么就扔掉;并标记E是我们保留下来的第二个矩形框.</li>
+<li>就这样一直重复,找到所有被保留下来的矩形框<br><img src="/2019/02/11/Object-Detection（二）/pic6.png" alt="pic6"><h2 id="位置精修"><a href="#位置精修" class="headerlink" title="位置精修"></a>位置精修</h2></li>
+<li>根据最后输出的feature进一步做了regression,采用的是之前在DPM检测中的用的Linear regression model</li>
+</ul>
+<p>例如:下图自行车的前轮,如果我们只用rootfilter检测出来的区域,即红色区域,那么前轮会被切掉一部分,但是如果能总和partfilter检测出来的bounding box就能得到更加精确的bounding box.<br>使用最小二乘法线性回归模型.</p>
+<script type="math/tex; mode=display">w_*=argmin_{\hat{w}_*}\sum_i^N(t_*^i-\hat{w}_*^T\phi_5(P^i))^2+\lambda ||\hat{w}_*||^2</script><p>对每一类目标,使用一个线性回归器进行精修.<br>正则项:$\lambda$=10000<br>输入:CNN网络$pool_5$层的4096维特征<br>输出:xy方向的缩放和平移W=[x,y,w,h]</p>
+<p>训练样本:<br>判定为本类的候选框中,和真值重叠面积大于0.6的候选框.</p>
+<script type="math/tex; mode=display">w_*=argmin_{\hat{w}_*}\sum_i^N(t_*^i-\hat{w}_*^T\phi_5(P^i))^2+\lambda ||\hat{w}_*||^2</script><p>其中*可以是:x,y,w,h,(x,y)是目标中心相对位置,w,h是变换后的宽度和高度缩放比例的对数值.</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>训练(或下载)一个分类模型(比如AlexNet)<br><img src="/2019/02/11/Object-Detection（二）/pic8.png" alt="pic8"></li>
+<li>对该模型做fine-tuning,将分类数从1000改为20,去掉最后一个全连接层<br><img src="/2019/02/11/Object-Detection（二）/pic9.png" alt="pic9"></li>
+<li>特征提取:提取图像的所有候选框(选择性搜索),对于每一个区域:求证区域大小以适合CNN的输入,做一次前向运算,将第5个池化层的输出(就是对候选框提取到的特征)存到硬盘<br><img src="/2019/02/11/Object-Detection（二）/pic10.png" alt="pic10"></li>
+<li>训练一个SVM分类器(二分类)来判断这个候选框里物体的类别每个类别对应一个SVM,判断是不是属于这个类别,是就是positive,反之negative.<br><img src="/2019/02/11/Object-Detection（二）/pic11.png" alt="pic11"></li>
+<li>使用回归其精修修正候选框位置:对于每一个类,训练一个线性回归模型去判定这个框是否框得完美<br><img src="/2019/02/11/Object-Detection（二）/pic12.png" alt="pic12"></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Paper/" rel="tag"># Paper</a>
+          
+            <a href="/tags/Object-Detection/" rel="tag"># Object Detection</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/10/推荐系统论文阅读（六）/" rel="next" title="推荐系统论文阅读（六）">
+                <i class="fa fa-chevron-left"></i> 推荐系统论文阅读（六）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/11/推荐系统论文阅读（七）/" rel="prev" title="推荐系统论文阅读（七）">
+                推荐系统论文阅读（七） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Rich-feature-hierarchies"><span class="nav-number">1.</span> <span class="nav-text">Rich feature hierarchies</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-detection-with-R-CNN"><span class="nav-number">1.1.</span> <span class="nav-text">Object detection with R-CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Module-Design"><span class="nav-number">1.1.1.</span> <span class="nav-text">Module Design</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Test-time-detection"><span class="nav-number">1.1.2.</span> <span class="nav-text">Test-time detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training"><span class="nav-number">1.1.3.</span> <span class="nav-text">Training</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix"><span class="nav-number">1.2.</span> <span class="nav-text">Appendix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Object-proposal-transformations"><span class="nav-number">1.2.1.</span> <span class="nav-text">A.Object proposal transformations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Positive-vs-negative-examples-and-softmax"><span class="nav-number">1.2.2.</span> <span class="nav-text">B. Positive vs. negative examples and softmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-Bounding-box-regression"><span class="nav-number">1.2.3.</span> <span class="nav-text">C. Bounding-box regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D-Additional-feature-visualizations"><span class="nav-number">1.2.4.</span> <span class="nav-text">D. Additional feature visualizations</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解读"><span class="nav-number">2.</span> <span class="nav-text">解读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#候选区域-region-proposals"><span class="nav-number">2.1.</span> <span class="nav-text">候选区域(region proposals)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Warp"><span class="nav-number">2.2.</span> <span class="nav-text">Warp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征抽取"><span class="nav-number">2.3.</span> <span class="nav-text">特征抽取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN训练"><span class="nav-number">2.4.</span> <span class="nav-text">CNN训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练SVM分类器"><span class="nav-number">2.5.</span> <span class="nav-text">训练SVM分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取每个类别的Bounding-box-BBox"><span class="nav-number">2.6.</span> <span class="nav-text">获取每个类别的Bounding box(BBox)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NMS-非极大值抑制"><span class="nav-number">2.6.1.</span> <span class="nav-text">NMS:非极大值抑制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位置精修"><span class="nav-number">2.7.</span> <span class="nav-text">位置精修</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

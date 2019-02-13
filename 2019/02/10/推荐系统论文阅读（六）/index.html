@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="paper,recommendations systems,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Wide &amp;amp; Deep Learning for Recommender Systems具有非线性特征变换的广义线性模型广泛用于具有稀疏输入的大规模回归和分类问题。通过一系列跨产品特征转换来记忆特征交互是有效且可解释的，而泛化则需要更多的特征工程设计。通过较少的特征工程，深度神经网络可以通过针对稀疏特征学习的低维密集嵌入更好地概括到看不见的特征组合。然而，当用户项目交互稀疏且高级别时，具有">
+<meta name="keywords" content="paper,recommendations systems">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统论文阅读（六）">
+<meta property="og:url" content="http://yifdu.github.io/2019/02/10/推荐系统论文阅读（六）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="Wide &amp;amp; Deep Learning for Recommender Systems具有非线性特征变换的广义线性模型广泛用于具有稀疏输入的大规模回归和分类问题。通过一系列跨产品特征转换来记忆特征交互是有效且可解释的，而泛化则需要更多的特征工程设计。通过较少的特征工程，深度神经网络可以通过针对稀疏特征学习的低维密集嵌入更好地概括到看不见的特征组合。然而，当用户项目交互稀疏且高级别时，具有">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549802580109&di=03f5959347ee913b0775cf93a4a90256&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F28%2F20180628192744_xsoyt.jpg">
+<meta property="og:updated_time" content="2019-02-10T12:43:03.898Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="推荐系统论文阅读（六）">
+<meta name="twitter:description" content="Wide &amp;amp; Deep Learning for Recommender Systems具有非线性特征变换的广义线性模型广泛用于具有稀疏输入的大规模回归和分类问题。通过一系列跨产品特征转换来记忆特征交互是有效且可解释的，而泛化则需要更多的特征工程设计。通过较少的特征工程，深度神经网络可以通过针对稀疏特征学习的低维密集嵌入更好地概括到看不见的特征组合。然而，当用户项目交互稀疏且高级别时，具有">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549802580109&di=03f5959347ee913b0775cf93a4a90256&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F28%2F20180628192744_xsoyt.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/02/10/推荐系统论文阅读（六）/">
+
+
+
+
+
+  <title>推荐系统论文阅读（六） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/02/10/推荐系统论文阅读（六）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">推荐系统论文阅读（六）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-10T17:53:05+08:00">
+                2019-02-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549802580109&di=03f5959347ee913b0775cf93a4a90256&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F28%2F20180628192744_xsoyt.jpg" rel="gallery_cjs3bfmg80055ccwauc5yt1uy" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1549802580109&di=03f5959347ee913b0775cf93a4a90256&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201806%2F28%2F20180628192744_xsoyt.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="Wide-amp-Deep-Learning-for-Recommender-Systems"><a href="#Wide-amp-Deep-Learning-for-Recommender-Systems" class="headerlink" title="Wide &amp; Deep Learning for Recommender Systems"></a>Wide &amp; Deep Learning for Recommender Systems</h1><p>具有非线性特征变换的广义线性模型广泛用于具有稀疏输入的大规模回归和分类问题。通过一系列跨产品特征转换来记忆特征交互是有效且可解释的，而泛化则需要更多的特征工程设计。通过较少的特征工程，深度神经网络可以通过针对稀疏特征学习的低维密集嵌入更好地概括到看不见的特征组合。然而，当用户项目交互稀疏且高级别时，具有嵌入的深度神经网络可能过度概括并推荐不太相关的项目。在本文中，我们提出Wide&amp;Deeplearning——联合训练的宽线性模型(wide linear models)和深度神经网络——结合推荐系统的记忆和概括的好处。我们在Google Play上制作并评估了该系统，Google Play是一个商业移动应用商店，拥有超过10亿活跃用户和超过100万个应用。在线实验结果表明，与仅限Wide和仅限Deep的模型相比，Wide＆Deep显着增加了应用获取。我们还在TensorFlow中开源了我们的实现。</p>
+<p>推荐系统可以被视为搜索排名系统，其中输入查询是一组用户(user)和上下文(context)信息，并且输出是项目(item)的排序列表。 给定查询，推荐任务是找出数据库中的相关项目，然后基于某些目标（例如点击或购买）对项目进行排名。</p>
+<p>与一般搜索排名问题类似，推荐系统中的一个挑战是实现记忆和概括。 记忆可以宽松地定义为学习项目或特征的频繁共现并利用历史数据中可用的相关性。 另一方面，泛化是基于相关的传递性，并探索过去从未或很少发生的新特征组合。 基于记忆的建议通常更加热门，并且与用户已经执行操作的项目直接相关。 与记忆相比，泛化倾向于改善推荐项目的多样性。 在本文中，我们关注Google Play商店的应用推荐问题，但该方法应适用于通用推荐系统。</p>
+<p>对于工业环境中的大规模在线推荐和排名系统，诸如逻辑回归的广义线性模型被广泛使用，因为它们简单，可扩展且可解释。模型通常使用one-hot编码训练二值化稀疏特征。例如,二值特征”user_installed_app=netflix”有值为1如果用户安装了Netflix.记忆能被有效实现通过使用在稀疏特征上的跨产品的转换(cross-product transformation),例如AND(user_installed_app=netflix,impression_app=pandora),它的值为1如果用户安装了Netflix并且然后展示了Pandora.这解释了一个特征对的共现关联了目标标签.泛化能被添加通过使用更少颗粒的特征,例如AND(user_installed_category=video,impression_category=music),但是手动特征工程往往是被需要的.跨产品转换(cross-product transformation)的一个限制是它们并不能泛化到训练集中没有出现的query-item的特征对.</p>
+<p>基于嵌入的模型，例如因子分解机器(《Factorization machines with libFM》)或深度神经网络，可以通过为每个查询和项目特征学习低维密集嵌入向量来概括到先前未见过的查询项目特征对，同时减少特征工程的负担。 然而，当基础查询项目矩阵稀疏且高级别时，例如具有特定偏好的用户或具有狭窄吸引力的小众项目，难以学习查询和项目的有效低维表示。 在这种情况下，大多数查询项对之间不应该存在交互(interaction)，但是密集嵌入将导致对所有查询项对的非零预测，因此可能过度概括并且使得不太相关的推荐。 另一方面，具有跨产品特征转换的线性模型可以使用更少的参数来记忆这些”例外规则”。</p>
+<p><img src="/2019/02/10/推荐系统论文阅读（六）/pic1.png" alt="pic1"></p>
+<p>在本文中，我们通过联合训练线性模型组件和神经网络组件，提出了在一个模型中实现记忆和泛化的宽和深学习框架，如图1所示。本文的主要贡献包括：</p>
+<ul>
+<li>Wide&amp;DeepLearning框架，用于联合训练具有嵌入的前馈神经网络和具有特征变换的线性模型，用于具有稀疏输入的通用推荐系统。</li>
+<li>在Google Play上实施的Wide＆Deep推荐系统的实施和评估，Google Play是一个拥有超过10亿活跃用户和超过100万个应用的移动应用商店。</li>
+<li>我们在TensorFlow中开源了我们的实现以及高级API</li>
+</ul>
+<p>虽然这个想法很简单，但我们表明，Wide＆Deep框架显着提高了移动应用程序商店的应用程序获取率，同时满足了训练和服务速度要求。</p>
+<h2 id="RECOMMENDER-SYSTEM-OVERVIEW"><a href="#RECOMMENDER-SYSTEM-OVERVIEW" class="headerlink" title="RECOMMENDER SYSTEM OVERVIEW"></a>RECOMMENDER SYSTEM OVERVIEW</h2><p>应用程序推荐系统的概述如图2所示。当用户访问应用商店时，会生成一个查询，其中包括各种用户和上下文功能。 推荐系统返回用户可以执行某些操作（例如点击或购买）的应用列表（也称为impression）。 这些用户操作以及查询和impression记录在日志中，作为学习器的训练数据。<br><img src="/2019/02/10/推荐系统论文阅读（六）/pic2.png" alt="pic2"><br>由于数据库中有超过一百万个应用程序，因此在服务延迟要求（通常为O（10）毫秒）内为每个查询详尽地评分每个应用程序是难以处理的。 因此，接收查询的第一步是检索(retrieval)。 检索系统使用各种信号返回与查询最匹配的项目的简短列表，通常是机器学习模型和人类定义规则的组合。 在减少候选池之后，排名系统按照他们的分数对所有项目进行排名。 分数通常为P（y|x），给定特征x的用户动作标签y的概率，包括用户特征（例如，国家，语言，人口统计），上下文特征（例如，设备，一天中的小时，一周中的天）和印象功能（例如，应用年龄，应用的历史统计数据）。 在本文中，我们将重点放在使用Wide＆Deep学习框架的排名模型上。</p>
+<h2 id="WIDE-amp-DEEP-LEARNING"><a href="#WIDE-amp-DEEP-LEARNING" class="headerlink" title="WIDE &amp; DEEP LEARNING"></a>WIDE &amp; DEEP LEARNING</h2><h3 id="The-Wide-Component"><a href="#The-Wide-Component" class="headerlink" title="The Wide Component"></a>The Wide Component</h3><p>宽组件(The wide component)是形式为y = wT x + b的广义线性模型，如图1（左）所示。 y是预测，$x=[x_1,x_2,….,x_d]$是d个特征的向量，$w=[w_1,w_2,…,w_d]$是模型参数，b是偏差。 特征集包括原始输入特征和转换特征。 最重要的转换之一是跨产品转换(cross-product transformation)，其定义如下：</p>
+<script type="math/tex; mode=display">\phi_k(x)=\prod_{i=1}^dx_i^{c_{ki}} c_{ki}∈{0,1} \ \ \ (1)</script><p>其中$c_{ki}$是布尔变量，如果第i个特征是第k个变换$\phi_k$的一部分，则该值为1，否则为0。 对于二进制特征，当且仅当组合特征AND(“gender = female”,”language=en”）都是1时，跨产品转换为1,否则为0.这样就捕获了二元特征之间的相互作用，并为广义线性模型增加了非线性。</p>
+<h3 id="The-Deep-Component"><a href="#The-Deep-Component" class="headerlink" title="The Deep Component"></a>The Deep Component</h3><p>深度组件(The Deep Component)是前馈神经网络，如图1（右）所示。 对于分类特征，原始输入是特征字符串（例如，”language = en”）。这些稀疏的高维分类特征中的每一个首先被转换为低维和密集的实值向量，通常被称为”嵌入向量”。嵌入的维数通常在O（10）到O（100）的数量级上。嵌入向量随机初始化，然后训练值以最小化模型训练期间的最终损失函数。 然后，在前向传递中将低维密集嵌入向量馈送到神经网络的隐藏层中。具体地，每个隐藏层计算：</p>
+<script type="math/tex; mode=display">a^{(l+1)}=f(W^{(l)}a^{(l)}+b^{(l)})  \ \ \ \ (2)</script><p>其中l是层数,f是激活函数常用ReLU.$a^{(l)},b^{(l)}和W^{(l)}$是激活,bias和模型第l层的权重.</p>
+<h3 id="Joint-Training-of-Wide-amp-Deep-Model"><a href="#Joint-Training-of-Wide-amp-Deep-Model" class="headerlink" title="Joint Training of Wide&amp;Deep Model"></a>Joint Training of Wide&amp;Deep Model</h3><p>The Wide component and deep component 被结合使用其输出对数几率的加权和作为预测，然后将其馈送到用于联合训练的一个共同逻辑损失函数。请注意，联合训练和ensemble之间存在区别。在ensemble中，单独的模型是在不知道彼此的情况下单独训练的，并且它们的预测仅在推理时而不是在训练时组合。相比之下，联合训练通过在训练时考虑其宽和深部分以及它们的总和的权重来同时优化所有参数。对模型大小也有影响：对于整体而言，由于训练是不相交的，因此每个单独的模型大小通常需要更大（例如，具有更多特征和变换）以实现ensemble的合理准确性。相比之下，对于联合训练而言，宽部分(Wide part)只需要通过少量的跨产品特征变换来补充深部(Deep part)的弱点，而不是全尺寸的宽模型。</p>
+<p>通过使用小批量随机优化同时反向传播从输出到模型的宽和深部分的梯度来完成宽和深模型的联合训练。 在实验中，我们使用了Follow-the-regularized-leader（FTRL）算法，其中L1正则化作为模型的宽部分(Wide part)的优化器，而AdaGrad用于深部(deep part)。</p>
+<p>组合模型如图1（中）所示。 对于逻辑回归问题，模型的预测是：</p>
+<script type="math/tex; mode=display">P(Y=1|x)=\sigma(w_{wide}^T[x,\phi (x)]+w_{deep}^Ta^{(l_f)}+b) \ \ \ \ (3)</script><p>其中Y是二值类标签,$\sigma(·)$是sigmoid函数,$\phi(x)$是原始特征x的跨产品转换，并且b是偏置项.$w_{wide}$是所有宽模型权重,并且$w_{deep}$是应用到最终激活$a^{(l_f)}$的权重.</p>
+<h2 id="SYSTEM-IMPLEMENTATION"><a href="#SYSTEM-IMPLEMENTATION" class="headerlink" title="SYSTEM IMPLEMENTATION"></a>SYSTEM IMPLEMENTATION</h2><p>应用程序推荐管道的实现包括三个阶段：数据生成，模型训练和模型服务，如图3所示。<br><img src="/2019/02/10/推荐系统论文阅读（六）/pic3.png" alt="pic3"></p>
+<h3 id="Data-Generation"><a href="#Data-Generation" class="headerlink" title="Data Generation"></a>Data Generation</h3><p>在此阶段，一段时间内的用户和应用程序impression数据用于生成训练数据。每个示例对应一次impression。标签是应用程序获取：如果安装了impressed的应用程序，则为1，否则为0。</p>
+<p>词汇表，即将分类特征字符串映射到整数ID的表，也在此阶段生成。系统会计算发生超过最少次数的所有字符串特征的ID空间。 连续实值特征归一化为[0,1]通过将特征值x映射到其累积分布函数P(X≤x)，将其划分为$n_q$分位数。对于第i个分位数中的值，归一化值为$\frac{i-1}{n_q-1}$。在数据生成期间计算分位数边界。</p>
+<h3 id="Model-Training"><a href="#Model-Training" class="headerlink" title="Model Training"></a>Model Training</h3><p>我们在实验中使用的模型结构如图4所示。在训练期间，我们的输入层接收训练数据和词汇，并生成稀疏和密集的特征以及标签。宽组件(Wide component)包括用户安装的应用和impression应用的跨产品转换。 对于模型的深度部分，为每个分类特征学习32维嵌入向量。 我们将所有嵌入与密集特征连接在一起，从而产生大约1200维的密集向量。 然后将连接的向量馈入3个ReLU层，并且最后输入逻辑输出单元。</p>
+<p>Wide＆Deep模型接受了超过5000亿个示例的训练。 每当一组新的训练数据到达时，该模型需要重新训练。 然而，每次从头开始重新训练都是计算上昂贵的，并且延迟了从数据到达到服务更新模型的时间。 为了应对这一挑战，我们实施了一个热启动系统，该系统使用先前模型中的嵌入和线性模型权重初始化新模型。</p>
+<p>在将模型加载到模型服务器之前，完成模型的dry run以确保它不会导致服务实时交通中的问题。 我们根据先前的模型验证模型质量作为健全性检查。</p>
+<h3 id="Model-Serving"><a href="#Model-Serving" class="headerlink" title="Model Serving"></a>Model Serving</h3><p>模型经过训练和验证后，我们将其加载到模型服务器中。 对于每个请求，服务器从应用程序检索系统接收一组应用程序候选者和用户特征以对每个应用程序进行评分。 然后，应用程序从最高分数到最低分数排名，我们按此顺序向用户显示应用程序。 通过在Wide＆Deep模型上运行前向推理传递来计算得分。</p>
+<p>为了按10毫秒的顺序提供每个请求，我们通过并行运行较小批量使用多线程并行性来优化性能，而不是在单个批量推理步骤中对所有候选应用程序进行评分。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/paper/" rel="tag"># paper</a>
+          
+            <a href="/tags/recommendations-systems/" rel="tag"># recommendations systems</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/09/Object-Detection/" rel="next" title="Object_Detection(一)">
+                <i class="fa fa-chevron-left"></i> Object_Detection(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/11/Object-Detection（二）/" rel="prev" title="Object_Detection（二）">
+                Object_Detection（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Wide-amp-Deep-Learning-for-Recommender-Systems"><span class="nav-number">1.</span> <span class="nav-text">Wide &amp; Deep Learning for Recommender Systems</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RECOMMENDER-SYSTEM-OVERVIEW"><span class="nav-number">1.1.</span> <span class="nav-text">RECOMMENDER SYSTEM OVERVIEW</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WIDE-amp-DEEP-LEARNING"><span class="nav-number">1.2.</span> <span class="nav-text">WIDE &amp; DEEP LEARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Wide-Component"><span class="nav-number">1.2.1.</span> <span class="nav-text">The Wide Component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Deep-Component"><span class="nav-number">1.2.2.</span> <span class="nav-text">The Deep Component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Joint-Training-of-Wide-amp-Deep-Model"><span class="nav-number">1.2.3.</span> <span class="nav-text">Joint Training of Wide&amp;Deep Model</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SYSTEM-IMPLEMENTATION"><span class="nav-number">1.3.</span> <span class="nav-text">SYSTEM IMPLEMENTATION</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Generation"><span class="nav-number">1.3.1.</span> <span class="nav-text">Data Generation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Training"><span class="nav-number">1.3.2.</span> <span class="nav-text">Model Training</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Serving"><span class="nav-number">1.3.3.</span> <span class="nav-text">Model Serving</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
