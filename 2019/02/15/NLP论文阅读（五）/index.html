@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,paper,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="On the Properties of Neural Machine Translation: Encoder–Decoder Approaches神经机器翻译是一种相对较新的纯粹基于神经网络的统计机器翻译方法。神经机器翻译模型通常由编码器和解码器组成。编码器从可变长度输入句子中提取固定长度表示，并且解码器从该表示生成正确的翻译。在本文中，我们专注于使用两个模型分析神经机器翻译的属性; RNN编">
+<meta name="keywords" content="NLP,paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NLP论文阅读（五）">
+<meta property="og:url" content="http://yifdu.github.io/2019/02/15/NLP论文阅读（五）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="On the Properties of Neural Machine Translation: Encoder–Decoder Approaches神经机器翻译是一种相对较新的纯粹基于神经网络的统计机器翻译方法。神经机器翻译模型通常由编码器和解码器组成。编码器从可变长度输入句子中提取固定长度表示，并且解码器从该表示生成正确的翻译。在本文中，我们专注于使用两个模型分析神经机器翻译的属性; RNN编">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img3.doubanio.com/view/group_topic/l/public/p146000693.jpg">
+<meta property="og:updated_time" content="2019-02-15T10:09:57.322Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NLP论文阅读（五）">
+<meta name="twitter:description" content="On the Properties of Neural Machine Translation: Encoder–Decoder Approaches神经机器翻译是一种相对较新的纯粹基于神经网络的统计机器翻译方法。神经机器翻译模型通常由编码器和解码器组成。编码器从可变长度输入句子中提取固定长度表示，并且解码器从该表示生成正确的翻译。在本文中，我们专注于使用两个模型分析神经机器翻译的属性; RNN编">
+<meta name="twitter:image" content="http://img3.doubanio.com/view/group_topic/l/public/p146000693.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/02/15/NLP论文阅读（五）/">
+
+
+
+
+
+  <title>NLP论文阅读（五） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/02/15/NLP论文阅读（五）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NLP论文阅读（五）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-15T14:25:58+08:00">
+                2019-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://img3.doubanio.com/view/group_topic/l/public/p146000693.jpg" rel="gallery_cjs8ylq98004su4wabswhdyd8" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://img3.doubanio.com/view/group_topic/l/public/p146000693.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="On-the-Properties-of-Neural-Machine-Translation-Encoder–Decoder-Approaches"><a href="#On-the-Properties-of-Neural-Machine-Translation-Encoder–Decoder-Approaches" class="headerlink" title="On the Properties of Neural Machine Translation: Encoder–Decoder Approaches"></a>On the Properties of Neural Machine Translation: Encoder–Decoder Approaches</h1><p>神经机器翻译是一种相对较新的纯粹基于神经网络的统计机器翻译方法。神经机器翻译模型通常由编码器和解码器组成。编码器从可变长度输入句子中提取固定长度表示，并且解码器从该表示生成正确的翻译。在本文中，我们专注于使用两个模型分析神经机器翻译的属性; RNN编码器-解码器和新提出的门控递归卷积神经网络。作者证明神经机器翻译在没有未知单词的短句子上表现相对较好，但随着句子长度和未知单词数量的增加，其性能迅速下降。此外，我们发现所提出的门控递归卷积网络自动学习句子的语法结构。</p>
+<p>最近提出了一种纯粹基于神经网络的统计机器翻译新方法(Kalchbrenner and Blunsom, 2013;Sutskever et al.， 2014)。这种新的方法，我们称之为神经机器翻译，是受到最近深度表征学习趋势的启发。(Kalchbrenner and Blunsom, 2013;Sutskever et al。,2014;Cho等，2014)由编码器和解码器组成。编码器从变长输入语句中提取定长向量表示，解码器从该表示中生成正确的变长目标翻译。</p>
+<p>从实际和理论上讲，神经机器翻译的出现具有重要意义。神经机器翻译模型仅需要传统统计机器翻译（SMT）模型所需的一小部分内存。我们为本文训练的模型总共只需要500MB的内存。这与现有的SMT系统形成鲜明对比，后者通常需要数十亿字节的内存。这使得神经机器翻译在实践中具有吸引力。此外，与传统的翻译系统不同，神经翻译模型的每个组件都被联合训练以最大化翻译性能。</p>
+<p>由于这种方法相对较新，因此在分析这些模型的属性和行为方面没有太多工作。例如：这种方法表现更好的句子有哪些属性？源/目标词汇的选择如何影响性能？在哪些情况下神经机器翻译失败？</p>
+<p>了解这种新神经机器翻译方法的特性和行为以确定未来的研究方向至关重要。此外，了解神经机器翻译的弱点和优势可能会导致更好的方法集成SMT和神经机器翻译系统。</p>
+<p>在本文中，我们分析了两个神经机器翻译模型。其中之一是最近提出的RNN编码器-解码器（Cho等人，2014）。另一个模型用RNN编码器-解码器模型中的编码器替换了一个新的神经网络，我们称之为门控递归卷积神经网络（grConv）。我们对从法语到英语的翻译任务评估这两个模型。</p>
+<p>我们的分析表明，随着源句长度的增加，神经机器翻译模型的性能会迅速下降。此外，我们发现词汇量大小对翻译性能有很大影响。尽管如此，从质量上我们发现这两种模型大多数时间都能够生成正确的翻译。此外，新提出的grConv模型能够在没有监督的情况下学习一种源语言的句法结构。</p>
+<h2 id="Neural-Network-for-Variable-length-Sequences"><a href="#Neural-Network-for-Variable-length-Sequences" class="headerlink" title="Neural Network for Variable-length Sequences"></a>Neural Network for Variable-length Sequences</h2><p>在本节中，我们描述了两种能够处理可变长度序列的神经网络。这些是递归神经网络和提出的门控递归卷积神经网络。</p>
+<h3 id="Recurrent-Neural-Network-with-Gated-Hidden-Neurons"><a href="#Recurrent-Neural-Network-with-Gated-Hidden-Neurons" class="headerlink" title="Recurrent Neural Network with Gated Hidden Neurons"></a>Recurrent Neural Network with Gated Hidden Neurons</h3><p><img src="/2019/02/15/NLP论文阅读（五）/pic1.png" alt="pic1"><br>递归神经网络（RNN，图1（a））通过随时间保持隐藏状态h而对可变长度序列$x=(x_1，x_2，…，x_T)起作用。在每个时间步t，隐藏状态h(t)被更新</p>
+<script type="math/tex; mode=display">h^{(t)}=f(h^{(t-1)},x_t)</script><p>其中f是激活函数。通常f就像对输入向量执行线性变换，对它们求和以及应用逐元素逻辑sigmoid函数一样简单。</p>
+<p>通过学习下一个输入$p(x_{t+1}|x_t,···,x_1)$的分布，RNN可以有效地用于学习可变长度序列的分布。例如，在1-K矢量序列的情况下，可以通过作为输出的RNN来学习分布。</p>
+<script type="math/tex; mode=display">p(x_{t,j}=1|x_{t-1},...,x_1)=\frac{exp(w_jh_{<t>})}{\sum_{j'=1}^Kexp(w_{j'}h_{<t>})}</script><p>对于所有可能的符号j=1,…,K，其中$w_j$是权重矩阵W的行。这导致联合分布</p>
+<script type="math/tex; mode=display">p(x)=\prod_{t=1}^Tp(x_t|x_{t-1},...,x_1)</script><p>最近，在（Cho等人，2014）中提出了一种新的RNN激活函数。新的激活函数增加了通常的逻辑sigmoid激活函数，其中两个门控单元称为reset, r和update, z，门控。每个门取决于先前的隐藏状态$h^(t-1)$，并且当前输入$x_t$控制信息流。这让人联想到长期短期记忆（LSTM）单位（Hochreiter和Schmidhuber，1997）。有关该单元的详细信息，请参阅（Cho等，2014）和图1（b）。对于本文的其余部分，我们总是使用这个新的激活函数。</p>
+<h3 id="Gated-Recursive-Convolutional-Neural-Network"><a href="#Gated-Recursive-Convolutional-Neural-Network" class="headerlink" title="Gated Recursive Convolutional Neural Network"></a>Gated Recursive Convolutional Neural Network</h3><p>除了RNN之外，处理可变长度序列的另一种自然方法是使用递归卷积神经网络，其中每个级别的参数通过整个网络共享（参见图2（a））。在本节中，我们介绍了一个二进制卷积神经网络，其权重递归地应用于输入序列，直到它输出一个固定长度的向量。除了通常的卷积架构之外，我们还建议使用前面提到的门控机制，它允许递归网络动态学习源句子的结构。</p>
+<p>令x =$(x_1,x_2,…,x_T)为输入序列，其中x_t∈R^d。所提出的门控递归卷积神经网络（grConv）由四个权重矩阵$W^1，W^r，G^1和G^r$组成。在每个递归级别t∈[1,T-1]，第j个隐藏单元h_j^{(t)}的激活由下式计算</p>
+<script type="math/tex; mode=display">h_j^{(t)}=W_c\overline{h}_j^{(t)}+W_ch_{j-1}^{(t-1)}+W_rh_j^{(t-1)}</script><p>其中$W_c,W_l和W_r$是一个门的值,它们总和加起来为1.隐藏单元被初始化为</p>
+<script type="math/tex; mode=display">h_j^{(0)}=Ux_j</script><p>其中U是将input投影到一个隐空间中去<br><img src="/2019/02/15/NLP论文阅读（五）/pic2.png" alt="pic2"><br>新的激活$\overline{h}_j^{(t)}$如往常一样被计算:</p>
+<script type="math/tex; mode=display">\overline{h}_j^{(t)}=\phi(W^lh_{j-1}^{(t)}+W^rh_j^{(t)})</script><p>其中$\phi$是一个逐元素的非线性.</p>
+<p>门的系数w被计算通过</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+w_c\\
+w_l\\
+w_r\\
+\end{bmatrix}
+=\frac{1}{Z}exp(G^lh_{j-1}^{(t)}+G^rh_j^{(t)})</script><p>其中$G^l,G^r∈R^{3×d}$并且</p>
+<script type="math/tex; mode=display">Z=\sum_{k=1}^3[exp(G^lh_{j-1}^{(t)}+G^rh_j^{(t)})]_ k</script><p>根据这种激活，人们可以将递归级别t的单个节点的激活视为从左右子节点计算的新激活，来自左子节点的激活或来自右子节点的激活之间的选择。该选择允许递归卷积的整体结构相对于输入样本自适应地改变。参见图2（b）的说明。</p>
+<p>在这方面，我们甚至可以将提议的grConv视为进行一种无监督的解析。如果我们考虑选通单元作出硬判决的情况，即ω遵循1-of-K编码，则很容易看出网络适应输入并形成树状结构（见图2）。但是，我们将进一步研究该模型所学的结构，以便进一步研究。</p>
+<h2 id="Purely-Neural-Machine-Translation"><a href="#Purely-Neural-Machine-Translation" class="headerlink" title="Purely Neural Machine Translation"></a>Purely Neural Machine Translation</h2><h3 id="Encoder–Decoder-Approach"><a href="#Encoder–Decoder-Approach" class="headerlink" title="Encoder–Decoder Approach"></a>Encoder–Decoder Approach</h3><p>翻译的任务可以从机器学习的角度理解学习的条件分布p(f|e)目标句子(翻译)f给定源句子e。一旦条件分布模型是后天习得的,可以直接使用模型样本目标句子判一个源,通过实际采样或使用(近似)搜索算法寻找最大的分布。</p>
+<p>最近的一些论文提出使用神经网络直接从双语平行语料库中学习条件分布（Kalchbrenner和Blunsom，2013; Cho等，2014; Sutskever等，2014）。例如，（Kalchbrenner和Blunsom，2013）的作者提出了一种涉及卷积n-gram模型的方法，以提取源句的固定长度矢量，该矢量用RNN增强的逆卷积n-gram模型解码。在（Sutskever等人，2014）中，使用具有LSTM单元的RNN来编码源句子并从最后隐藏状态开始，以解码目标句子。同样，（Cho et al。，2014）的作者提出使用RNN编码和解码一对源和目标短语</p>
+<p>所有这些最近的工作的核心是编码器-解码器架构（见图3）。编码器处理可变长度输入（源句子）并构建固定长度矢量表示（在图3中表示为z）。在编码表示上进行条件化，解码器生成可变长度序列（目标句子）。<br><img src="/2019/02/15/NLP论文阅读（五）/pic3.png" alt="pic3"><br>之前（Sutskever等，2014），这种编码器 - 解码器方法主要用作现有统计机器翻译（SMT）系统的一部分。这种方法用于重新排列SMT系统生成的n-最佳列表（Kalchbrenner和Blunsom，2013），（Cho等人，2014）的作者使用这种方法为现有存在的短语表提供额外的分数。<br>在本文中，我们专注于分析直接翻译性能，如（Sutskever等，2014），具有两种模型配置。在这两个模型中，我们使用带有门控隐藏单元的RNN（Cho等人，2014），因为这是唯一不需要非平凡的方法来确定目标长度的选项之一。第一个模型将使用与门控隐藏单元相同的RNN作为编码器，如（Cho等人，2014），第二个模型将使用所提出的门控递归卷积神经网络（grConv）。我们的目标是了解编码器 - 解码器方法对BLEU测量的平移性能的归纳偏差。</p>
+<h2 id="Experiment-Settings"><a href="#Experiment-Settings" class="headerlink" title="Experiment Settings"></a>Experiment Settings</h2><h3 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h3><p>我们训练两种模型：RNN编码器 - 解码器（RNNenc）（Cho等人，2014）和新提出的门控递归卷积神经网络（grConv）。请注意，两种模型都使用带有门控隐藏单元的RNN作为解码器（参见第2.1节）</p>
+<p>我们使用带有AdaDelta（Zeiler，2012）的minibatch随机梯度下降来训练我们的两个模型。我们将平方权重矩阵（转移矩阵）初始化为正交矩阵，其中在RNNenc的情况下其谱半径设置为1，在grConv的情况下设置为0.4。 tanh和rectifier（max（0，x））分别用作RNNenc和grConv的元素非线性函数。</p>
+<p>grConv有2000个隐藏的神经元，而RNNenc有1000个隐藏的神经元。在两种情况下，嵌入字都是620维.2两种模型都训练了大约110小时，相当于grConv和RNNenc的296,144次更新和846,322次更新。</p>
+<p>Translation using Beam-Search<br>我们使用基本形式的波素搜索(beam-search)来找到最大化特定模型（在这种情况下，RNNenc或grConv）给出的条件概率的翻译。在解码器的每个时间步骤，我们保持具有最高对数概率的s个翻译候选者，其中s = 10是波束宽度。在波束搜索期间，我们排除包含未知单词的任何假设。对于在最高得分候选者中选择的每个序列结束符号，波束宽度减1，直到波束(beam)宽度达到零。</p>
+<p>波束搜索（近似）找到RNN下的最大对数概率序列，并在（Graves，2012）和（Boulanger-Lewandowski等，2013）中成功使用。最近，（Sutskever等，2014）的作者发现这种方法在基于LSTM单元的纯神经机器翻译中是有效的。</p>
+<p>当我们使用波束搜索来找到k个最佳平移时，我们不使用通常的对数概率，而是使用相对于翻译长度进行归一化的概率。这防止了RNN解码器偏向较早的翻译行为，例如，（Graves，2013）。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/paper/" rel="tag"># paper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/Object-Detection（三）/" rel="next" title="Object-Detection（三）">
+                <i class="fa fa-chevron-left"></i> Object-Detection（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/15/剑指offer（六）/" rel="prev" title="剑指offer（六）">
+                剑指offer（六） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#On-the-Properties-of-Neural-Machine-Translation-Encoder–Decoder-Approaches"><span class="nav-number">1.</span> <span class="nav-text">On the Properties of Neural Machine Translation: Encoder–Decoder Approaches</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Neural-Network-for-Variable-length-Sequences"><span class="nav-number">1.1.</span> <span class="nav-text">Neural Network for Variable-length Sequences</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Recurrent-Neural-Network-with-Gated-Hidden-Neurons"><span class="nav-number">1.1.1.</span> <span class="nav-text">Recurrent Neural Network with Gated Hidden Neurons</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gated-Recursive-Convolutional-Neural-Network"><span class="nav-number">1.1.2.</span> <span class="nav-text">Gated Recursive Convolutional Neural Network</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Purely-Neural-Machine-Translation"><span class="nav-number">1.2.</span> <span class="nav-text">Purely Neural Machine Translation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Encoder–Decoder-Approach"><span class="nav-number">1.2.1.</span> <span class="nav-text">Encoder–Decoder Approach</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Experiment-Settings"><span class="nav-number">1.3.</span> <span class="nav-text">Experiment Settings</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Models"><span class="nav-number">1.3.1.</span> <span class="nav-text">Models</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
