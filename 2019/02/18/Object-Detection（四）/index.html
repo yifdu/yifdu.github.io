@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Paper,Object Detection,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Fast RCNN的问题Fast RCNN存在的问题:存在瓶颈:由于选择性搜索,找出所有的候选框,这个非常耗时,能否找出一个更加高效的方法来求出这些候选框? 解决:加入一个提取边缘的神经网络,也就说找到候选框的工作也交给神经网络来做了.做这样的任务的神经网络叫做Region Proposal Network(RPN). 具体做法:  将RPN放在最后一个卷积层之后 RPN直接训练得到候选区域  R">
+<meta name="keywords" content="Paper,Object Detection">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Object-Detection（四）">
+<meta property="og:url" content="http://yifdu.github.io/2019/02/18/Object-Detection（四）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="Fast RCNN的问题Fast RCNN存在的问题:存在瓶颈:由于选择性搜索,找出所有的候选框,这个非常耗时,能否找出一个更加高效的方法来求出这些候选框? 解决:加入一个提取边缘的神经网络,也就说找到候选框的工作也交给神经网络来做了.做这样的任务的神经网络叫做Region Proposal Network(RPN). 具体做法:  将RPN放在最后一个卷积层之后 RPN直接训练得到候选区域  R">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i0.hdslb.com/bfs/archive/923785b53ebfc5634bcd695302525654cefeda96.jpg">
+<meta property="og:updated_time" content="2019-02-21T06:11:42.746Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Object-Detection（四）">
+<meta name="twitter:description" content="Fast RCNN的问题Fast RCNN存在的问题:存在瓶颈:由于选择性搜索,找出所有的候选框,这个非常耗时,能否找出一个更加高效的方法来求出这些候选框? 解决:加入一个提取边缘的神经网络,也就说找到候选框的工作也交给神经网络来做了.做这样的任务的神经网络叫做Region Proposal Network(RPN). 具体做法:  将RPN放在最后一个卷积层之后 RPN直接训练得到候选区域  R">
+<meta name="twitter:image" content="http://i0.hdslb.com/bfs/archive/923785b53ebfc5634bcd695302525654cefeda96.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/02/18/Object-Detection（四）/">
+
+
+
+
+
+  <title>Object-Detection（四） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/02/18/Object-Detection（四）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Object-Detection（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T10:09:10+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/CV/" itemprop="url" rel="index">
+                    <span itemprop="name">CV</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  30 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://i0.hdslb.com/bfs/archive/923785b53ebfc5634bcd695302525654cefeda96.jpg" rel="gallery_cjse8ihp500c1rswa1yn4qkkg" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://i0.hdslb.com/bfs/archive/923785b53ebfc5634bcd695302525654cefeda96.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="Fast-RCNN的问题"><a href="#Fast-RCNN的问题" class="headerlink" title="Fast RCNN的问题"></a>Fast RCNN的问题</h1><p>Fast RCNN存在的问题:<br>存在瓶颈:由于选择性搜索,找出所有的候选框,这个非常耗时,能否找出一个更加高效的方法来求出这些候选框?</p>
+<p>解决:加入一个提取边缘的神经网络,也就说找到候选框的工作也交给神经网络来做了.做这样的任务的神经网络叫做Region Proposal Network(RPN).</p>
+<p>具体做法:</p>
+<ul>
+<li>将RPN放在最后一个卷积层之后</li>
+<li>RPN直接训练得到候选区域</li>
+</ul>
+<p><img src="/2019/02/18/Object-Detection（四）/pic1.png" alt="pic1"><br>RPN简介:</p>
+<ul>
+<li>在feature map上滑动窗口</li>
+<li>建一个神经网络用于物体分类+框位置的回归</li>
+<li>滑动窗口的位置提供了物体的大体位置信息</li>
+<li>框的回归提供了框更精确的位置<br><img src="/2019/02/18/Object-Detection（四）/pic2.png" alt="pic2"></li>
+</ul>
+<p>一种网络,四个损失函数:</p>
+<ul>
+<li>RPN classification(anchor   good vs bad)</li>
+<li>RPN regresssion(anchor -&gt; Proposal)</li>
+<li>Fast RCNN classification</li>
+<li>Fast RCNN regression(proposal -&gt;box)<br>速度对比:<br><img src="/2019/02/18/Object-Detection（四）/pic3.png" alt="pic3"></li>
+</ul>
+<p>Faster RCNN的主要贡献就是设计了提取候选区域的网络RPN,代替了费时的选择性搜索,使得检测速度大幅提高.</p>
+<h1 id="Faster-RCNN"><a href="#Faster-RCNN" class="headerlink" title="Faster RCNN"></a>Faster RCNN</h1><h2 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h2><p><img src="/2019/02/18/Object-Detection（四）/pic1.png" alt="pic1"><br>我们先整体介绍上图各层的主要功能:</p>
+<ol>
+<li>Conv layers:用于提取特征图,Faster RCNN使用一组基础的conv+relu+pooling 层提取input image的feature maps,该feature会用于后续的RPN层和全连接层.(特征提取网络)</li>
+<li>RPN:主要用于生成region proposals,首先生成一堆Anchor box,对其进行裁剪过滤后通过softmax 判断anchor属于前景或者后景,即是物体or不是物体,所以这是一个二分类;同时,另一个分支bounding box regression修正anchor box,形成较精确的proposal(注:这里的较精确是相对于后面全连接层的再一次box regression而言)(生成ROI)</li>
+<li>ROI POOLing:该层利用RPN生成的proposal 和VGG16最后一层得到的feature map,得到固定大小的proposal feature map,进入到后面可利用全连接操作来进行目标识别和定位</li>
+<li>classifier:<br>会将ROI Pooling层形成固定大小的feature map进行全连接操作,利用softmax进行具体类别的分类,同时,利用L1 Loss 完成bounding box regression回归操作获得物体的精确位置</li>
+</ol>
+<p>其总体流程如下所示:</p>
+<ul>
+<li>首先对输入图片进行裁剪操作,并将裁剪后的图片送入预训练好的分类网络中获取图像对应的特征图</li>
+<li>首先在特征图上的每一个点上取9个候选的ROI,并根据相应的比例将其映射到原始图像中(因为特征提取网络一般有conv和pool组成,但是只有pool会改变特征图的大小,因此最终的特征图大小和pool的个数相关)</li>
+<li>接着讲这些候选的ROI输入到RPN网络中,RPN网络对这些ROI进行分类(即确定这些ROI是前景还是背景)同时对其进行初步回归(即计算这些前景ROI与真实目标之间的Boundingbox的偏差,包括$\Delta x,\Delta y,\Delta w,\Delta h$),然后做NMS</li>
+<li>接着对这些不同大小的ROI进行ROI Pooling(即映射为特定大小的feature map,文中是7×7),输出固定大小的feature map</li>
+<li>最后将其输入简单的检测网络中,然后利用1×1的卷积进行分类(区分不同的类别,N+1类,多余的一类是背景,用于删除不准确的ROI),同时进行Bounding Box回归(精确的调整预测的ROI和ground truth的ROI之间的偏差值),从而输出一个Bounding box集合</li>
+</ul>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p><img src="/2019/02/18/Object-Detection（四）/pic4.png" alt="pic4"></p>
+<ol>
+<li><strong>图像预处理</strong><br><img src="/2019/02/18/Object-Detection（四）/preprocess.png" alt="preprocess"></li>
+<li><strong>Conv layers</strong><br>Faster RCNN首先是支持输入任意大小的图片的,比如上图中输入的P*Q,进入网络之前对图片进行了规整化尺度的设定,如可设定图像短边不超过600,图像长边不超过1000,我们可以假定M×N=1000×600(如果图片少于该尺寸可以边缘补0,即图像会有黑色边缘)</li>
+</ol>
+<ul>
+<li>13个conv层:kernel_size=3,pad=1,stride=1;conv层不改变图片大小</li>
+<li>13个relu:激活函数不改变图片大小</li>
+<li>4个pooling层:kernel_size=2,stride=2;pooling层会让输出图片是输入图片的1/2<br>经过上面的几层后,图片大小变成了(M/16)×(N/16);即60×40；feature map是60×40×512</li>
+</ul>
+<ol>
+<li><strong>RPN(Region Proposal Networks)</strong>:<br>Feature map进入RPN后,先经过一次3×3的卷积,同样,特征图大小是60×40×512,这样的目的是为了进一步集中特征信息,接着两个全卷积:kernel_size=1×1,padding=0,stride=1;<br><img src="/2019/02/18/Object-Detection（四）/pic5.png" alt="pic5"><br>如上图中标识:</li>
+</ol>
+<ul>
+<li>rpn_cls:60×40×512 —-&gt; 60×40×9×2:逐像素对9个Anchor box进行分类</li>
+<li>rpn_bbox:60×40×512—-&gt;60×40×9×4逐像素得到其9个Anchor box 四个坐标信息(其实是偏移量)</li>
+</ul>
+<p>在一些blog里会出现锚点这个概念,大致的意思是:原图经过Conv layers以后宽高都缩小为原图的1/16倍,这里特征图里的每一个点就表示原图上16×16的区域里的汇总,卷积层讲重要的信息一般存在channel里.换句话说,特征图里的每一个点表示原图的一个区域.</p>
+<p>如下图<br><img src="/2019/02/18/Object-Detection（四）/pic6.png" alt="pic6"><br>解释一下上面这张图的数字:</p>
+<ul>
+<li>经过conv_layer后生成的是512张特征图</li>
+<li>假设feature map中每个点上都有k个anchor(默认k=9),而每个anchor要分foreground和background,所以每个点由512feature 转化为cls=2k scores；而每个anchor 都有[x,y,w,h]对应4个偏移量,所以reg=4k coordinates</li>
+<li>全部anchor拿去训练太多了,训练程序会选取256个合适的anchor进行训练</li>
+</ul>
+<p>仍有一些问题:</p>
+<ol>
+<li>RPN的input 特征图指的是哪个特征图?</li>
+<li>为什么用sliding window？文中不是说用CNN么</li>
+<li>256维特征向量如何获得</li>
+</ol>
+<p>回答第1个问题:RPN的输入特征图就是Faster RCNN的Feature Map,也称共享feature map,主要用以RPN和Rol Pooling共享<br>回答第2个问题:我们可以把3×3的sliding window看作是对特征图做了一次3×3的卷积操作,zuihou得到了一个channle数目是256的特征图,尺寸和公共特征图相同,我们假设是256×(H×W)<br>回答第3个问题:我们可以近似的把这个特征图看作是H×W个向量,每个向量256维,那么图中的256维指的就是其中一个向量,然后我们要对每个特征向量做两次全连接操作,一个得到2个分数,一个得到4个坐标，由于我们要对每个向量做同样的全连接操作,等同于对整个特征图做两次1×1的卷积,得到一个2×H×W和一个4×H×W大小的特征图，换句话说,有H×W个结果,每个结果包含2个分数和4个坐标.<br><img src="/2019/02/18/Object-Detection（四）/pic12.png" alt="pic12"></p>
+<p>这里2个分数分别是前景(物体)的分数和背景的分数.4个坐标指针对原图坐标的偏移,首先一定要记住是原图.<br>其次我们知道,特征图有H×W个结果,我们随机取一点,他跟原图啃地瓜是有个一一映射关系的,由于原图和特征图大小不同,所以特征图上的一个点对应原图肯定是一个框,然而这个框很小,比如说8×8,这里8是指原图和特征图的比例,所以这个并不是我们想要的框,那我们不妨把框的左上角或者框的中心作为锚点,然后想象出一堆框,具体多少,聪明的读者肯定已经猜到,K个,这也就是图中所说的K anchor boxes(由锚点产生的K个框);换句话说,H×W个点,每个点对应原图有K个框,那么就有H×W×K个框默默的在原图上,那RPN的结果其实就是判断这些框是不是物体以及他们的偏倚;那么K个框到底有多大,长宽比是多少？这里是预先设定好的,共有9种组合,所以K等于9,最后我们的结果是针对这9种组合的,所以有H×W×9个结果,也就是18个分数和36个坐标.</p>
+<hr>
+<p>Anchors的生成规则:<br>前面提到经过Conv layers后,图片大小变为原来的1/16.令feat_stride=16,在生成anchor时,我们先定义一个base_anchor,大小为16×16的box(因为特征图(60×40)上的一个点,可以对应到原图1000×600上16×16的区域),源码中转换为[0,0,15,15]的数组,参数 ratio=[0.5,1,2] scale=[8,16,32]<br>先看[0,0,15,15],面积保持不变,长、宽比分别为[0.5,1,2]是产生的Anchors box<br><img src="/2019/02/18/Object-Detection（四）/pic7.png" alt="pic7"><br>如果经过scale 变化,即长宽分别为：(16×8=128)、(16×16=256)、(16×32=512)，对应anchor box如图所示<br><img src="/2019/02/18/Object-Detection（四）/pic8.png" alt="pic8"><br>综上两种变换,最后生成9个Anchor box<br><img src="/2019/02/18/Object-Detection（四）/pic9.png" alt="pic9"></p>
+<p>特征图大小：60×40,所以会生成60×40×9=21600个Anchor box</p>
+<hr>
+<p><img src="/2019/02/18/Object-Detection（四）/pic11.png" alt="pic11"></p>
+<p>RPN-data:<br>这一层主要是为特征图60×40上的每个像素生成9个Anchor box,并且对生成的Anchor box进行过滤和标记,参照源码,过滤和标记规则如下:</p>
+<ol>
+<li>去除掉超过1000×600这原图的边界的anchor box</li>
+<li>如果anchor box 与ground truth 的IOU值最大,标记为正样例,label=1</li>
+<li>如果anchor box 与ground truth的IOU＞0.7,标记为正样本,label=1</li>
+<li>如果anchor box与ground truth的IOU＜0.3,标记为负样本,label=0</li>
+</ol>
+<p>剩下的既不是正样本也不是负样本,不用于最终训练,label=-1</p>
+<p>除了对anchor box进行标记外,另一件事情就是计算anchor box与ground truth之间的偏移量<br>令:ground truth:标定的框也对应一个中心点位置坐标$x^<em> ,y^</em> 和宽高w^<em> ,h^</em> $<br>anchor box：中心点位置坐标$x_a,y_a和宽高w_a,h_a$<br>所以偏移量:</p>
+<script type="math/tex; mode=display">\Delta x=(x^* -x_a)/w_a</script><script type="math/tex; mode=display">\Delta y=(y^* -y_a)/h_a</script><script type="math/tex; mode=display">\Delta w=log(w^* /w_a)</script><script type="math/tex; mode=display">\Delta h=log(h^* /h_a)</script><p>通过ground truth box与anchor box之间的差异来进行学习,从而是RPN网络中的权重能够学习到预测box的能力</p>
+<p>RPN_loss,RPN_cls,RPN_bbox,RPN_cls_prob：其中RPN_loss_cls,RPN_loss_bbox分别是softmax,smooth L1计算损失函数,RPN_cls_prob计算概率值(可用于下一层的非最大值抑制操作)<br>RPN训练设置:在训练RPN时,一个Mini-batch是由一幅图像中任意选取的256个proposal组成的,其中正负样本的比例为1:1。如果正样本不足128,则多用一些负样本以满足有256个proposal可以用于训练,反之亦然</p>
+<h3 id="RPN训练"><a href="#RPN训练" class="headerlink" title="RPN训练"></a>RPN训练</h3><script type="math/tex; mode=display">L({p_i},{t_i})=\frac{1}{N_{cls}}\sum_iL_{cls}(p_i,p_i^* )+\lambda \frac{1}{N_{reg}}\sum_ip_i^* L_{reg}(t_i,t_i^* )</script><p>RPN网络训练,那么就涉及ground truth和loss function的问题.对于左支路,ground truth为anchor是否为目标,用0/1表示.那么怎么判定一个anchor内是否有目标呢?论文中采用了这样的规则:1)假如某anchor与任一目标区域的IOU最大,则该anchor判定为有目标;2)加入某anchor与任一目标区域的IOU＞0.7,则判定为有目标;3)假如某anchor与任一目标区域的IOU＜0.3,则判定为背景.所谓IOU,就是预测box和真实box的覆盖率,其值等于两个box的交集除以两个box的并集.其他的anchor不参与训练.于是有了上面的代价函数.<br>上面的$p_i$为anchor预测为目标的概率,$p_i^<em> $是ground truth标签.$t_i=\{t_x,t_y,t_w,t_h\}$是一个向量,表示预测的bounding box包围盒的4个参数化坐标;<br>$t_i^</em> $是与positive anchor对应的ground truth包围盒的坐标向量;<br>$L_{cls}(p_i,p_i^* )$是两个类别(目标 vs 非目标)的对数损失:</p>
+<script type="math/tex; mode=display">L_{cls}(p_i,p_i^* )=-log[p_i^* p_i+(1-p_i^* )(1-p_i)]</script><p>$L_{reg}(t_i,t_i^<em> )$是回归损失,用$L_{reg}(t_i,t_i^</em> )=R(t_i-t_i^<em> )$来计算,R是smooth L1函数<br>$p_i^</em> L_{reg}$这一项意味着只有前景$anchor(p_i^<em> =1)$才有回归损失,其他情况没有(p_i^</em> =0).cls层盒reg层的输出分别由${p_i}$和$u_i$组成,这两项分别由$N_{cls}$和$N_{reg}$以及一个平衡权重$\lambda$归一化(早期实现及公开的代码中,$\lambda$=10,cls项的归一化值为mini-batch的大小,即$N_{cls}=256$,reg项的归一化值为anchor位置的数量,即$N_{reg}~2400$(40×60)，这样的cls和reg差不多是等权重的)</p>
+<h3 id="RPN之后"><a href="#RPN之后" class="headerlink" title="RPN之后"></a>RPN之后</h3><p>全连接层:<br>经过ROI Pooling层之后,proposal feature map的大小是7×7×512,对特征图进行全连接,参照下图,最后同样利用Softmax Loss和L1 Loss完成分类和定位<br><img src="/2019/02/18/Object-Detection（四）/pic10.png" alt="pic10"><br>通过full connect层与softmax计算每个region proposal 具体属于哪个类别(如人,马,车等),输出cls_prob概率向量;同时再次利用bounding box regression获得每个region proposal的位置偏移量bbox_pred,用于回归获得更加精确的目标检测框,即从ROI Pooling获取到7×7大小的proposal feature maps后,通过全连接主要做了:<br>1)通过全连接和softmax对region proposals进行具体类别的分类<br>2)再次对region proposals进行bounding box regression,获取更高精度的rectangle box</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从Faster RCNN与Fast RCNN的比较可以看出,作者提出了RPN网络来代替原来的selective search,而这个RPN有单独的loss,用于粗略的训练,用于获得Region Proposal.然后再投入另一个网络中(这就类似于Fast RCNN)，这部分算是精细的训练.所以说Faster RCNN是有两次训练,一次是粗训练,一次是精训练.</p>
+<p>RPN的形式很简单:一个3×3的卷积层,然后分成两个分支分别是两个1×1的卷积;</p>
+<hr>
+<p>总体框架：<br><img src="/2019/02/18/Object-Detection（四）/model.png" alt="model"></p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>Faster RCNN的网络和前面几个版本的网络一样,网络结构并没有什么复杂的,重点是数据的处理方面</p>
+<p>先放上网络的代码</p>
+<h2 id="网络结构-1"><a href="#网络结构-1" class="headerlink" title="网络结构"></a>网络结构</h2><p>如论文中所述,先要将图片送入一个特征提取网络,一般是已经预训练过了<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CNN</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(CNN,self).__init__()</span><br><span class="line">        vggnet=models.vgg16(pretrained=<span class="keyword">True</span>)</span><br><span class="line">        modules=list(vggnet.children())[:<span class="number">-1</span>] <span class="comment">##去除fc layer</span></span><br><span class="line">        modules=list(modules[<span class="number">0</span>])[:<span class="number">-1</span>]<span class="comment">##去除 最后一个pooling layer</span></span><br><span class="line"></span><br><span class="line">        self.vggnet=nn.Sequential(*modules)</span><br><span class="line">        <span class="keyword">for</span> module <span class="keyword">in</span> list(self.vggnet.children())[:<span class="number">10</span>]:</span><br><span class="line">            <span class="keyword">for</span> param <span class="keyword">in</span> module.parameters():</span><br><span class="line">                param.requires_grad=<span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,images)</span>:</span></span><br><span class="line">        features=self.vggnet(images)</span><br><span class="line">        <span class="keyword">return</span> features</span><br></pre></td></tr></table></figure></p>
+<p>然后是将上述得到的特征，送入RPN网络<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RPN</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(RPN,self).__init__()</span><br><span class="line">        <span class="comment">##先经过一个3×3的卷积,且不变特征图的大小</span></span><br><span class="line">        self.conv==nn.Sequential(nn.Conv2d(<span class="number">512</span>,<span class="number">512</span>,kernel_size=<span class="number">3</span>,stride=<span class="number">1</span>,padding=(<span class="number">1</span>,<span class="number">1</span>)),nn.ReLU())</span><br><span class="line">        <span class="comment">#再通过两个分支分别都是1×1的卷积</span></span><br><span class="line">        self.conv1=nn.Conv2d(<span class="number">512</span>,<span class="number">2</span>*<span class="number">9</span>,kernel_size=<span class="number">1</span>,stride=<span class="number">1</span>)</span><br><span class="line">        self.conv2=nn.Conv2d(<span class="number">512</span>,<span class="number">4</span>*<span class="number">9</span>,kernel_size=<span class="number">1</span>,stride=<span class="number">1</span>)</span><br><span class="line">        self.softmax=nn.Softmax()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,features)</span>:</span></span><br><span class="line">        features=self.conv(features)</span><br><span class="line">        logits,rpn_bbox_pred=self.conv1(features),self.conv2(features)<span class="comment">##logits是分类，rpn_bbox_pred是预测</span></span><br><span class="line"></span><br><span class="line">        height,width=features.size()[<span class="number">-2</span>:]</span><br><span class="line"></span><br><span class="line">        logits=logits.squeeze(<span class="number">0</span>).permute(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>).contiguous() <span class="comment">#（1，18，H/16，W/16)=&gt;(H/16,W/16,18)</span></span><br><span class="line">        logits=logits.view(<span class="number">-1</span>,<span class="number">2</span>)<span class="comment">#(H/16,W/16,18)=&gt;(H/16*W/16*9,2)</span></span><br><span class="line">        <span class="comment">###上述变化是为了好使用softmax</span></span><br><span class="line">        rpn_cls_prob=self.softmax(logits)</span><br><span class="line">        rpn_cls_prob=rpn_cls_prob.view(height,width,<span class="number">18</span>)<span class="comment">#(H/16,W/16,18)</span></span><br><span class="line">        rpn_cls_prob=rpn_cls_prob.permute(<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>).continguous().unsqueeze(<span class="number">0</span>)<span class="comment">#(H/16,W/16,18)=&gt;(1,18,H/16,W/16)</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> rpn_bbox_pred,rpn_cls_prob,logits</span><br></pre></td></tr></table></figure></p>
+<p>上面要进行第一次训练,训练得到的box才是我们需要的proposals,然后再将proposals送入后续网络</p>
+<p>之后就是一些Fast RCNN里的网络,先通过ROI Pooling layer,<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ROIpooling</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,size=<span class="params">(<span class="number">7</span>,<span class="number">7</span>)</span>,spatial_scale=<span class="number">1.0</span>/<span class="number">16.0</span>)</span>:</span></span><br><span class="line">        super(ROIpooling,self).__init__()</span><br><span class="line">        self.adapmax2d=nn.AdaptiveMaxPool2d(size)<span class="comment">##一个自适应pooling</span></span><br><span class="line">        self.spatial_scale=spatial_scale</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,features,rois_boxes)</span>:</span><span class="comment">##这里feature应该来自于第一个特征提取网络的输出</span></span><br><span class="line">    <span class="comment">#rois_boxes : [x, y, x`, y`]</span></span><br><span class="line">        <span class="keyword">if</span> type(rois_boxes)==np.ndarray:<span class="comment">##因为在经过RPN之后还要选取一下proposals(nms),所以输入的可能是ndarray</span></span><br><span class="line">            rois_boxes=to_var(torch.from_numpy(rois_boxes))</span><br><span class="line">        rois_boxes=rois_boxes.data.float().clone()</span><br><span class="line">        rois_boxes.mul_(self.spatial_scale)</span><br><span class="line">        rois_boxes=rois_boxes.long()</span><br><span class="line"></span><br><span class="line">        output=[]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(rois_boxes.size(<span class="number">0</span>)):</span><br><span class="line">            roi=rois_boxes[i]</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line">                roi_feature=features[:,:,roi[<span class="number">1</span>]:(roi[<span class="number">3</span>]+<span class="number">1</span>),roi[<span class="number">0</span>]:(roi[<span class="number">2</span>]+<span class="number">1</span>)]</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                print(e,roi)</span><br><span class="line"></span><br><span class="line">            pool_feature=self.adapmax2d(roi_feature)<span class="comment">###对那么些proposal 框内的特征做 adapmaxpool</span></span><br><span class="line">            output.append(pool_feature)</span><br><span class="line">        <span class="keyword">return</span> torch.cat(output,<span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>如果说RPN是粗调的话,下面这步就是精调:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FasterRcnn</span><span class="params">(nn.Module)</span>:</span><span class="comment">###本质上就是一些全连接层</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(FasterRcnn,self).__init__()</span><br><span class="line">        self.fc1=nn.Sequential(nn.Linear(<span class="number">512</span>*<span class="number">7</span>*<span class="number">7</span>,<span class="number">4096</span>),nn.ReLU(),nn.Dropout())</span><br><span class="line"></span><br><span class="line">        self.fc2=nn.Sequential(nn.Linear(<span class="number">4096</span>,<span class="number">4096</span>),nn.ReLU(),nn.Dropout())</span><br><span class="line"></span><br><span class="line">        self.classifier=nn.Linear(<span class="number">4096</span>,<span class="number">21</span>)</span><br><span class="line">        self.softmax=nn.Softmax()</span><br><span class="line"></span><br><span class="line">        self.regressor=nn.Linear(<span class="number">4096</span>,<span class="number">21</span>*<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,features)</span>:</span><span class="comment">##这里的features是经过ROI pooling 的feature</span></span><br><span class="line">        features=features.view(<span class="number">-1</span>,<span class="number">512</span>*<span class="number">7</span>*<span class="number">7</span>)</span><br><span class="line">        <span class="comment">##两个分支</span></span><br><span class="line">        features=self.fc1(features)</span><br><span class="line">        features=self.fc2(features)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            logits=self.classifier(features)</span><br><span class="line">            scores=self.softmax(logits)</span><br><span class="line">            bbox_delta=self.regressor(features)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            print(e,logits)</span><br><span class="line">        <span class="keyword">return</span> bbox_delta,scores,logits</span><br></pre></td></tr></table></figure></p>
+<h2 id="loss"><a href="#loss" class="headerlink" title="loss"></a>loss</h2><p>上面说过,整个faster RCNN有两次训练.一次是为了学习得到proposals 和前景还是背景的分类,一次是为了得到目标bbox和21个类的分类.</p>
+<p>先讲RPN的loss<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rpn_loss</span><span class="params">(rpn_cls_prob,rpn_logits,rpn_bbox_pred,rpn_labels,rpn_bbox_targets,rpn_bbox_inside_weights)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">        rpn_cls_prob(Tensor):(1,2*9,H/16,W/16)</span></span><br><span class="line"><span class="string">        rpn_logits(Tensor):(H/16*W/16,2) object or non-object rpn_logits</span></span><br><span class="line"><span class="string">        rpn_bbox_pred(Tensor):(1,4*9,H/16,W/16) predicted boxes</span></span><br><span class="line"><span class="string">        rpn_labels(Ndarray):(H/16*W/16*9,)</span></span><br><span class="line"><span class="string">        rpn_bbox_targets(Ndarray):(H/16*W/16*9,4)</span></span><br><span class="line"><span class="string">        rpn_bbox_inside_weights(Ndarray):(H/16*W/16*9,4) masking for only positve box loss</span></span><br><span class="line"><span class="string">    Return:</span></span><br><span class="line"><span class="string">        cls_loss(scalar):classfication loss</span></span><br><span class="line"><span class="string">        reg_loss*10(scalar):regression loss</span></span><br><span class="line"><span class="string">        log(tuple): for logging</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">     '''</span></span><br><span class="line"></span><br><span class="line">    height,width=rpn_cls_prob.size()[<span class="number">-2</span>:]<span class="comment">#(H/16,W/16)</span></span><br><span class="line"></span><br><span class="line">    rpn_cls_prob=rpn_cls_prob.squeeze(<span class="number">0</span>).permute(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>).continguous()<span class="comment">#(1,18,H/16,W/16)=&gt;(H/16,W/16,18)</span></span><br><span class="line">    rpn_cls_prob=rpn_cls_prob.view(<span class="number">-1</span>,<span class="number">2</span>)<span class="comment">##(H/16,W/16,18)=&gt;(H/16*W/16*9,2)</span></span><br><span class="line"></span><br><span class="line">    rpn_labels=to_tensor(rpn_labels).long()</span><br><span class="line"></span><br><span class="line">    <span class="comment">##index where not -1  下面这一步应该是为了剔出负数得下标,这里得ge(0)是可以选取大于等于0得元素</span></span><br><span class="line">    idx=rpn_labels.ge(<span class="number">0</span>).nonzero()[:,<span class="number">0</span>] <span class="comment">##torch.ge(0) 将各个元素与0比较,.nonzero()返回的是非零值得坐标[:,0]表示非零值得行号</span></span><br><span class="line">    rpn_cls_prob=rpn_cls_prob.index_select(<span class="number">0</span>,to_var(idx)) <span class="comment">##0代表维度0，即行，idx是所要筛选的索引序号</span></span><br><span class="line">    rpn_labels=rpn_labels.index_select(<span class="number">0</span>,idx)</span><br><span class="line">    rpn_logits=rpn_logits.squeeze().index_select(<span class="number">0</span>,to_var(idx))</span><br><span class="line"></span><br><span class="line">    po_cnt=torch.sum(rpn_labels.eq(<span class="number">1</span>))<span class="comment">##RPN_label为1的求和， target_label中正例个数</span></span><br><span class="line">    ne_cnt=torch.sum(rpn_labels.eq(<span class="number">0</span>))<span class="comment">##RPN_label为0的求和， target_label中负例个数</span></span><br><span class="line"></span><br><span class="line">    maxv,predict=rpn_cls_prob.data.max(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    po_idx=predict.eq(<span class="number">1</span>).nonzero()</span><br><span class="line">    ne_idx=predict.eq(<span class="number">0</span>).nonzero()</span><br><span class="line"></span><br><span class="line">    po_idx=po_idx.view(<span class="number">-1</span>) <span class="keyword">if</span> po_idx.dim()&gt;<span class="number">0</span> <span class="keyword">else</span> <span class="keyword">None</span></span><br><span class="line">    ne_idx=ne_idx.view(<span class="number">-1</span>) <span class="keyword">if</span> ne_idx.dim()&gt;<span class="number">0</span> <span class="keyword">else</span> <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">##正例分对的数目tp,负例分对的数目tn</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        tp=torch.sum(predict.index_select(<span class="number">0</span>,po_idx).eq(rpn_labels.index_select(<span class="number">0</span>,po_idx))) <span class="keyword">if</span> po_cnt&gt;<span class="number">0</span> <span class="keyword">and</span> po_idx <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        tn=torch.sum(predict.index_select(<span class="number">0</span>,ne_idx).eq(rpn_labels.index_select(<span class="number">0</span>,ne_idx))) <span class="keyword">if</span> ne_cnt&gt;<span class="number">0</span> <span class="keyword">and</span> ne_idx <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(e)</span><br><span class="line">        tp=<span class="number">0</span></span><br><span class="line">        tn=<span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    rpn_labels=to_var(rpn_labels)</span><br><span class="line"></span><br><span class="line">    cls_crit=nn.CrossEntropyLoss()</span><br><span class="line">    cls_loss=cls_crit(rpn_logits,rpn_labels)<span class="comment">###对预测的标签和目标标签做交叉熵</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">##rpn_bbox_targets与rpn_bbox_inside_weights的形式要相同因为要按位×</span></span><br><span class="line">    rpn_bbox_targets=torch.from_numpy(rpn_bbox_targets)</span><br><span class="line">    rpn_bbox_targets=rpn_bbox_targets.view(height,width,<span class="number">36</span>)<span class="comment">##(H/16,W/16,36)</span></span><br><span class="line">    rpn_bbox_targets=rpn_bbox_targets.permute(<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>).contiguous().unsqueeze(<span class="number">0</span>)</span><br><span class="line">    rpn_bbox_targets=to_var(rpn_bbox_targets)</span><br><span class="line"></span><br><span class="line">    rpn_bbox_inside_weights=torch.from_numpy(rpn_bbox_inside_weights)</span><br><span class="line">    rpn_bbox_inside_weights=rpn_bbox_inside_weights.view(height,width,<span class="number">36</span>)</span><br><span class="line">    rpn_bbox_inside_weight=rpn_bbox_inside_weights.permute(<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>).contiguous().unsqueeze(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    rpn_bbox_inside_weights=rpn_bbox_inside_weights.cuda() <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> rpn_bbox_inside_weights</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    rpn_bbox_pred=to_var(torch.mul(rpn_bbox_pred.data,rpn_bbox_inside_weights))</span><br><span class="line">    rpn_bbox_targets=to_var(torch.mul(rpn_bbox_targets.data,rpn_bbox_inside_weights))</span><br><span class="line"></span><br><span class="line">    reg_loss=F.smooth_l1_loss(rpn_bbox_pred,rpn_bbox_targets,size_average=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> po_cnt==<span class="number">0</span>:</span><br><span class="line">        po_cnt=<span class="number">0.001</span></span><br><span class="line">    <span class="keyword">if</span> ne_cnt==<span class="number">0</span>:</span><br><span class="line">        ne_cnt=<span class="number">0.001</span></span><br><span class="line"></span><br><span class="line">    log=(po_cnt,ne_cnt,tp,tn)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cls_loss,reg_loss*<span class="number">10</span>,log</span><br></pre></td></tr></table></figure></p>
+<p>上述代码的rpn_bbox_inside_weights是什么?<br><img src="/2019/02/18/Object-Detection（四）/pic13.png" alt="pic13"><br>用原文的话来说就是只有前景才能提供给regression loss,如果不是前景则不能提供regression loss.因此这里的rpn_bbox_inside_weights是与target_bbox同时产生的用以标记是不是前景,如果是前景,它的4个值都为1，如果不是则都为0.<br>对应代码：<br>bbox_inside_weights=np.zeros((len(inds_inside),4),dtype=np.float32)<br>bbox_inside_weights[labels==1,:]=np.array(cfg.TRAIN.RPN_BBOX_INSIDE_WEIGHTS)<br>即先将inside_weights 统一初始化为0,再将labels=1的正样本对应的值置为配置文件中的TRAIN.RPN BBOX INSIDE WEIGHTS<br>对应论文中的公式:</p>
+<script type="math/tex; mode=display">L({p_i},{t_i})=\frac{1}{N_{cls}}\sum_iL_{cls}(p_i,p_i^* )+\lambda \frac{1}{N_{reg}}\sum_ip_i^* L_{reg}(t_i,t_i^* )</script><p>其中bbox_inside_weights就是与$p_i^* $一致的.</p>
+<p>有些代码中还包含了bbox_outside_weights,这个应该是上式中的$N_{reg}$也可以说是前景anchor的数量</p>
+<p>下面是faster RCNN的loss<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">frcnn_loss</span><span class="params">(frcnn_cls_prob,frcnn_logits,frcnn_bbox_pred,frcnn_labels,frcnn_bbox_targets,frcnn_bbox_inside_weights)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">        frcnn_cls_prob(Tensor):(256,21) 21类概率</span></span><br><span class="line"><span class="string">        frcnn_logits(Tensor):(256,21) 21 类logits</span></span><br><span class="line"><span class="string">        frcnn_bbox_pred(Tensor):(256,84) predicted boxes for 21 class</span></span><br><span class="line"><span class="string">        frcnn_labels(Ndarray):(256,)</span></span><br><span class="line"><span class="string">        frcnn_bbox_targets(Ndarray):(256,84)</span></span><br><span class="line"><span class="string">        frcnn_bbox_inside_weights(Ndarray):(256,84) masking for only foreground box loss</span></span><br><span class="line"><span class="string">    Return :</span></span><br><span class="line"><span class="string">        cls_loss(scalar):classification loss</span></span><br><span class="line"><span class="string">        reg_loss*10(scalar):regression loss</span></span><br><span class="line"><span class="string">        log(tuple):for logging</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line"></span><br><span class="line">    frcnn_labels=to_tensor(frcnn_labels).long()</span><br><span class="line">    fg_cnt=torch.sum(frcnn_labels.ne(<span class="number">0</span>))<span class="comment">##前景数目</span></span><br><span class="line">    bg_cnt=frcnn_labels.numel()-fg_cnt<span class="comment">##后景数目</span></span><br><span class="line">    <span class="comment">##torch.gt 大于; torch.lt 小于 torch.eq等于 torch.nonzero 非零 torch.ne 非</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        maxv,predict=frcnn_cls_prob.data.max(<span class="number">1</span>)</span><br><span class="line">        tp=torch.sum(predict[:fg_cnt].eq(frcnn_labels[:fg_cnt])) <span class="keyword">if</span> fg_cnt&gt;<span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span> <span class="comment">##true positive</span></span><br><span class="line">        tn=torch.sum(predict[fg_cnt:].eq(frcnn_labels[fg_cnt:])) <span class="keyword">if</span> bg_cnt&gt;<span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span> <span class="comment">##true negative</span></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(e)</span><br><span class="line">        print(fg_cnt,frcnn_labels)</span><br><span class="line">        tp=<span class="number">0</span></span><br><span class="line">        tn=<span class="number">0</span></span><br><span class="line"></span><br><span class="line">    frcnn_labels=to_var(frcn_labels)</span><br><span class="line"></span><br><span class="line">    ce_weights=torch.ones(frcnn_cls_prob.size()[<span class="number">1</span>])<span class="comment">#21个1</span></span><br><span class="line">    ce_weights[<span class="number">0</span>]=float(fg_cnt)/bg_cnt <span class="keyword">if</span> bg_cnt!=<span class="number">0</span> <span class="keyword">else</span> <span class="number">1</span> <span class="comment">#前景和背景的比例</span></span><br><span class="line">    <span class="keyword">if</span> torch.cuda.is_available():</span><br><span class="line">        ce_weights=ce_weights.cuda()</span><br><span class="line"></span><br><span class="line">    cls_crit=nn.CrossEntropyLoss(weight=ce_weights)<span class="comment">#带权重的损失</span></span><br><span class="line"></span><br><span class="line">    cls_loss=cls_crit(frcnn_logits,frcnn_labels)</span><br><span class="line">    frcnn_bbox_inside_weights=to_tensor(frcnn_bbox_inside_weights)</span><br><span class="line">    frcnn_bbox_targets=to_tensor(frcnn_bbox_targets)</span><br><span class="line"></span><br><span class="line">    frcnn_bbox_pred=to_var(torch.mul(frcnn_box_pred.data,frcnn_bbox_inside_weights))</span><br><span class="line">    <span class="comment">##这里的bbox_inside_weight 与前面的一样,因为regression只回归前景.</span></span><br><span class="line">    frcnn_bbox_targets=to_var(torch.mul(frcnn_bbox_targets,frcnn_bbox_inside_weights))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    reg_loss=F.smooth_l1_loss(frcnn_bbox_pred,frcnn_bbox_targets,size_average=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> fg_cnt==<span class="number">0</span>:</span><br><span class="line">        fg_cnt=<span class="number">0.001</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> bg_cnt==<span class="number">0</span>:</span><br><span class="line">        bg_cnt=<span class="number">0.001</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    log=(fg_cnt,bg_cnt,tp,tn)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cls_loss,reg_loss,log</span><br></pre></td></tr></table></figure></p>
+<h2 id="box-transform"><a href="#box-transform" class="headerlink" title="box transform"></a>box transform</h2><p>之前提到过在图片经过特征提取网络后,我们会得到一张特征图，它的宽和高分别为W/16和H/16,我们希望H/16×W/16这些个点能表示一定区域的方框.这就需要从特征图映射回去,这也是需要我们写代码的</p>
+<p>下面是一个正向过程,就是已知一个框bbox如何转换成,feature map里存储的信息,feature map里存储的信息是相对信息,一个相对的中心点的偏差值,以及相对的宽高值<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bbox_transform</span><span class="params">(boxes,gt_boxes)</span>:</span></span><br><span class="line">  <span class="string">'''</span></span><br><span class="line"><span class="string">  boxes:(x1,y1,x2,y2)</span></span><br><span class="line"><span class="string">  '''</span></span><br><span class="line">    ex_widths=boxes[:,<span class="number">2</span>]-boxes[:,<span class="number">0</span>]+<span class="number">1.0</span></span><br><span class="line">    ex_heights=boxes[:,<span class="number">3</span>]-boxes[:,<span class="number">1</span>]+<span class="number">1.0</span></span><br><span class="line">    ex_ctr_x=boxes[:,<span class="number">0</span>]+<span class="number">0.5</span>*ex_widths <span class="comment">##中心点的x</span></span><br><span class="line">    ex_ctr_y=boxes[:<span class="number">.1</span>]+<span class="number">0.5</span>*ex_heights<span class="comment">##中心点的y</span></span><br><span class="line">    <span class="comment"># x : predicted box, x_a : anchor box, x* : ground truth box</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># faster R-Cnn paper</span></span><br><span class="line">    <span class="comment"># t_x = (x - x_a)/w_a</span></span><br><span class="line">    <span class="comment"># t_y = (y - y_a)/h_a</span></span><br><span class="line">    <span class="comment"># t_w = log(w/w_a)</span></span><br><span class="line">    <span class="comment"># t_h = log(h/h_a)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># t_x* = (x* - x_a)/w_a</span></span><br><span class="line">    <span class="comment"># t_y* = (y* - y_a)/h_a</span></span><br><span class="line">    <span class="comment"># t_w* = log(w*/w_a)</span></span><br><span class="line">    <span class="comment"># t_h* = log(h*/h_a)</span></span><br><span class="line">    targets_dx = (gt_ctr_x - ex_ctr_x) / ex_widths</span><br><span class="line">    targets_dy = (gt_ctr_y - ex_ctr_y) / ex_heights</span><br><span class="line">    targets_dw = np.log(gt_widths / ex_widths)</span><br><span class="line">    targets_dh = np.log(gt_heights / ex_heights)</span><br><span class="line"></span><br><span class="line">    targets = np.vstack(</span><br><span class="line">        (targets_dx, targets_dy, targets_dw, targets_dh)).transpose()</span><br><span class="line">    <span class="keyword">return</span> targets</span><br></pre></td></tr></table></figure></p>
+<p>另外一个函数是上述过程的逆过程,如何从feature map里的特征信息,转换为框信息<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bbox_transform_inv</span><span class="params">(boxes,deltas)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> boxes.shape[<span class="number">0</span>]==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> np.zeros((<span class="number">0</span>,deltas.shape[<span class="number">1</span>]),dtype=deltas.dtype)</span><br><span class="line">    <span class="comment">##这里boxes应该是anchor box</span></span><br><span class="line">    boxes=boxes.astype(deltas.dtype,copy=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    widths=boxes[:,<span class="number">2</span>]-boxes[:,<span class="number">0</span>]+<span class="number">1.0</span></span><br><span class="line">    heights=box[:,<span class="number">3</span>]-boxes[:,<span class="number">1</span>]+<span class="number">1.0</span></span><br><span class="line">    ctr_x=boxes[:,<span class="number">0</span>]+<span class="number">0.5</span>*widths</span><br><span class="line">    ctr_y=boxes[:,<span class="number">1</span>]+<span class="number">0.5</span>*heights</span><br><span class="line">    <span class="comment">##设置切片  slice(start,stop,step)  </span></span><br><span class="line">    col_0=(slice(<span class="number">0</span>,<span class="keyword">None</span>,<span class="number">4</span>))</span><br><span class="line">    col_1=(slice(<span class="number">1</span>,<span class="keyword">None</span>,<span class="number">4</span>))</span><br><span class="line">    col_2=(slice(<span class="number">2</span>,<span class="keyword">None</span>,<span class="number">4</span>))</span><br><span class="line">    col_3=(slice(<span class="number">3</span>,<span class="keyword">None</span>,<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">##deltas里存储的是相对值</span></span><br><span class="line">    dx=deltas[:,col_0]</span><br><span class="line">    dy=deltas[:,col_1]</span><br><span class="line">    dw=deltas[:,col_2]</span><br><span class="line">    dh=deltas[:,col_3]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># x : predicted box, x_a : anchor box, x* : ground truth box</span></span><br><span class="line"></span><br><span class="line">       <span class="comment"># faster R-Cnn paper</span></span><br><span class="line">       <span class="comment"># t_x = (x - x_a)/w_a</span></span><br><span class="line">       <span class="comment"># t_y = (y - y_a)/h_a</span></span><br><span class="line">       <span class="comment"># t_w = log(w/w_a)</span></span><br><span class="line">       <span class="comment"># t_h = log(h/h_a)</span></span><br><span class="line"></span><br><span class="line">       <span class="comment"># t_x* = (x* - x_a)/w_a</span></span><br><span class="line">       <span class="comment"># t_y* = (y* - y_a)/h_a</span></span><br><span class="line">       <span class="comment"># t_w* = log(w*/w_a)</span></span><br><span class="line">       <span class="comment"># t_h* = log(h*/h_a)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># (H/16 * W/16, 1 ) * (H/16 * W/16, 1) + (H/16 * W/16, 1) = &gt; (H/16 * W/16, 1)</span></span><br><span class="line">    <span class="comment">##求中心点的值和宽高</span></span><br><span class="line">    pred_ctr_x=dx*widths[:,np.newaxis]+ctr_x[:,np.newaxis]</span><br><span class="line">    pred_ctr_y=dy*heights[:,np.newaxis]+ctr_y[:,np.newaxis]</span><br><span class="line">    pred_w=np.exp(dw)*widths[:,np.newaxis]</span><br><span class="line">    pred_h=np.exp(dh)*heights[:,np.newaxis]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    pred_boxes=np.zeros(deltas.shape,dtype=deltas.dtype)</span><br><span class="line"></span><br><span class="line">    pred_boxes[:,col_0]=pred_ctr_x<span class="number">-0.5</span>*pred_w</span><br><span class="line">    pred_boxes[:,col_1]=pred_ctr_y<span class="number">-0.5</span>*pred_h</span><br><span class="line">    pred_boxes[:,col_2]=pred_ctr_x+<span class="number">0.5</span>*pred_w</span><br><span class="line">    pred_boxes[:,col_3]=pred_ctr_y+<span class="number">0.5</span>*pred_h</span><br><span class="line">    <span class="comment">#pred_boxes:(x1,y1,x2,y2)</span></span><br><span class="line">    <span class="keyword">return</span> pred_boxes</span><br></pre></td></tr></table></figure></p>
+<p>从上述代码可以帮助我们更好的理解锚点(anchor)的这个概念,即他就是原图中的一个点或是标记点，且两个锚点之间有一定的间隔,由于是二维平面所以从这个锚点沿着x正方向和y正方到下一个锚点有一定距离,这是一个框,我们要预测的就是落在这个框里的相对位置,这是目标框的中心点,根据这个中心点可以产生9个bbox.(可以结合YOLOv2继续理解这里的思想)</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>还有一些其他操作,比如clip_boxes:为了防止boxes超出image的大小<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clip_boxes</span><span class="params">(boxes,im_shape)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    clip boxes to image boundaries</span></span><br><span class="line"><span class="string">    im_shape:(H,W)</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment">#x1&gt;=0</span></span><br><span class="line">    boxes[:,<span class="number">0</span>::<span class="number">4</span>]=np.maximum(np.minimum(boxes[:,<span class="number">0</span>::<span class="number">4</span>],im_shape[<span class="number">1</span>]<span class="number">-1</span>),<span class="number">0</span>)</span><br><span class="line">    <span class="comment">#y1&gt;=0</span></span><br><span class="line">    boxes[:,<span class="number">1</span>::<span class="number">4</span>]=np.maximum(np.minimum(boxes[:,<span class="number">1</span>::<span class="number">4</span>],im_shape[<span class="number">0</span>]<span class="number">-1</span>),<span class="number">0</span>)</span><br><span class="line">    <span class="comment">#x2&lt;im_shape[1](w)</span></span><br><span class="line">    boxes[:,<span class="number">2</span>::<span class="number">4</span>]=np.maximum(np.minimum(boxes[:,<span class="number">2</span>::<span class="number">4</span>],im_shape[<span class="number">1</span>]<span class="number">-1</span>),<span class="number">0</span>)</span><br><span class="line">    <span class="comment">#y2&lt;im_shape[0](H)</span></span><br><span class="line">    boxes[:,<span class="number">3</span>::<span class="number">4</span>]=np.maximum(np.minimum(boxes[:,<span class="number">3</span>::<span class="number">4</span>],im_shape[<span class="number">0</span>]<span class="number">-1</span>),<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> boxes</span><br></pre></td></tr></table></figure></p>
+<p>filter_boxes是为了过滤掉一些宽高不够大的框<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filter_boxes</span><span class="params">(boxes,min_size)</span>:</span></span><br><span class="line">    ws=boxes[:,<span class="number">2</span>]-boxes[:,<span class="number">0</span>]+<span class="number">1</span></span><br><span class="line">    hs=boxes[:,<span class="number">3</span>]-boxes[:,<span class="number">1</span>]+<span class="number">1</span></span><br><span class="line">    keep=np.where((ws&gt;=min_size)&amp;(hs&gt;=min_size))[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> keep</span><br></pre></td></tr></table></figure></p>
+<p>py_cpu_nms是为了进行NMS,去除一些冗余框<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">py_cpu_nms</span><span class="params">(proposals_boxes_c,thresh)</span>:</span></span><br><span class="line">    scores=proposals_boxes_c[:,<span class="number">-1</span>]</span><br><span class="line">    x1=proposals_boxes_c[:,<span class="number">0</span>]</span><br><span class="line">    y1=proposals_boxes_c[:,<span class="number">1</span>]</span><br><span class="line">    x2=proposals_boxes_c[:,<span class="number">2</span>]</span><br><span class="line">    y2=proposals_boxes_c[:,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">    areas=(x2-x1+<span class="number">1</span>)*(y2-y1+<span class="number">1</span>)</span><br><span class="line">    order=scores.argsort()[::<span class="number">-1</span>]</span><br><span class="line">    keep=[]</span><br><span class="line">    <span class="keyword">while</span> order.size &gt;<span class="number">0</span>:</span><br><span class="line">        i=order[<span class="number">0</span>]</span><br><span class="line">        keep.append(i)</span><br><span class="line">        xx1=np.maximum(x1[i],y1[order[<span class="number">1</span>:]])</span><br><span class="line">        yy1 = np.maximum(y1[i], y1[order[<span class="number">1</span>:]])</span><br><span class="line">        xx2 = np.minimum(x2[i], x2[order[<span class="number">1</span>:]])</span><br><span class="line">        yy2 = np.minimum(y2[i], y2[order[<span class="number">1</span>:]])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        w = np.maximum(<span class="number">0.0</span>, xx2 - xx1 + <span class="number">1</span>)</span><br><span class="line">        h = np.maximum(<span class="number">0.0</span>, yy2 - yy1 + <span class="number">1</span>)</span><br><span class="line">        inter = w * h</span><br><span class="line">        ovr = inter / (areas[i] + areas[order[<span class="number">1</span>:]] - inter)</span><br><span class="line"></span><br><span class="line">        inds=np.where(ovr&lt;=thresh)[<span class="number">0</span>]</span><br><span class="line">        order=order[inds+<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> keep</span><br></pre></td></tr></table></figure></p>
+<h2 id="ProposalLayer"><a href="#ProposalLayer" class="headerlink" title="ProposalLayer"></a>ProposalLayer</h2><p>虽然写在其他的后面但这也是很重要的一个模块,之所以写在其他后面,因为这里会用到其他里的一些函数.ProposalLayer是放在RPN之后,ROIpooling之前的.前面说过,RPN相当于RCNN和FastRCNN里的selective search操作,而在这里经过RPN之后我们会得到一些列proposal仍是需要经过精挑细选。所以我们需要通过ProposalLayer</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProposalLayer</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,args)</span>:</span></span><br><span class="line">        self.args=args</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_get_pos_score</span><span class="params">(self,rpn_cls_prob)</span>:</span><span class="comment">###得到各个位置的分数</span></span><br><span class="line"></span><br><span class="line">        pos_scores=rpn_cls_prob[:,:<span class="number">9</span>]<span class="comment">#(1,9,H/16,W/16)</span></span><br><span class="line">        pos_scores=pos_scores.squeeze(<span class="number">0</span>).permute(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>).contiguous()<span class="comment">#(H/16,W/16,9)</span></span><br><span class="line">        pos_scores=pos_scores.view(<span class="number">-1</span>,<span class="number">1</span>)<span class="comment">#(H/16*W/16*9,1)</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> pos_scores</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_get_bbox_deltas</span><span class="params">(self,rpn_bbox_pred)</span>:</span><span class="comment">###获得各个相对值</span></span><br><span class="line">        bbox_deltas=rpn_bbox_pred.squeeze(<span class="number">0</span>).permute(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>).contiguous()</span><br><span class="line">        bbox_deltas=bbox_deltas.view(<span class="number">-1</span>,<span class="number">4</span>)</span><br><span class="line">        <span class="keyword">return</span> bbox_deltas</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">proposal</span><span class="params">(self,rpn_bbox_pred,rpn_cls_prob,all_anchors_boxes,im_info,test,args)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        Arguments:</span></span><br><span class="line"><span class="string">            rpn_bbox_pred(Tensor):(1,4*9,H/16,W/16)</span></span><br><span class="line"><span class="string">            rpn_cls_prob(Tensor):(1,2*9,H/16,W/16)</span></span><br><span class="line"><span class="string">            all_anchors_boxes(Ndarray):(H/16*W/16*9,4) predicted boxes</span></span><br><span class="line"><span class="string">            im_info(tuple):(Height,width,Channel,Scale)</span></span><br><span class="line"><span class="string">            test(Bool)</span></span><br><span class="line"><span class="string">            args(argparse.Namespace):global arguments</span></span><br><span class="line"><span class="string">        Return:</span></span><br><span class="line"><span class="string">            in each minibatch number of proposal boxes is variable</span></span><br><span class="line"><span class="string">            proposals_boxes(Ndarray):(# proposal boxes,4)</span></span><br><span class="line"><span class="string">            scores(Ndarray):(#proposal boxes,)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#if test==False,using training args else using testing args</span></span><br><span class="line">        pre_nms_topn=args.pre_nms_topn <span class="keyword">if</span> test==<span class="keyword">False</span> <span class="keyword">else</span> args.test_pre_nms_topn</span><br><span class="line">        nms_thresh=args.nms_thresh <span class="keyword">if</span> test==<span class="keyword">False</span> <span class="keyword">else</span> args.test.nms_thresh</span><br><span class="line">        post_nms_topn=args.post_nms_topn <span class="keyword">if</span> test==<span class="keyword">False</span> <span class="keyword">else</span> args.test_post_nms_topn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        bbox_deltas=self._get_bbox_deltas(rpn_bbox_pred).data.cou().numpy()</span><br><span class="line"></span><br><span class="line">        <span class="comment">#1.Convert anchors into proposal via bbox transformation</span></span><br><span class="line">        proposals_boxes=bbox_transform_inv(all_anchors_boxes,bbox_deltas)</span><br><span class="line">        pos_score=self._get_pos_score(rpn_cls_prob).data.cpu().numpy()</span><br><span class="line"></span><br><span class="line">        height,width=im_info[<span class="number">0</span>:<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> args.include_inside_anchor==<span class="keyword">False</span> <span class="keyword">and</span> test==<span class="keyword">False</span>:</span><br><span class="line">            _allowed_border=<span class="number">0</span></span><br><span class="line">            inds_inside=np.where(</span><br><span class="line">            (all_anchors_boxes[:,<span class="number">0</span>]&gt;=-_allowed_border)&amp;</span><br><span class="line">            (all_anchors_boxes[:,<span class="number">1</span>]&gt;=-_allowed_border)&amp;</span><br><span class="line">            (all_anchors_boxes[:,<span class="number">2</span>]&lt;width+_allowed_border)&amp;</span><br><span class="line">            (all_anchors_boxes[:,<span class="number">3</span>]&lt;height+_allowed_border))[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">            mask=np.zeros(proposals_boxes.shape[<span class="number">0</span>],dtype=bool)</span><br><span class="line">            mask[inds_inside]=<span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">            proposals_boxes=proposals_boxes[mask]</span><br><span class="line">            pos_score=pos_score[mask]</span><br><span class="line"></span><br><span class="line">        <span class="comment">#2.clip proposal boxes to image</span></span><br><span class="line">        proposals_boxes=clip_boxes(proposals_boxes,im_info[<span class="number">0</span>:<span class="number">2</span>])</span><br><span class="line">        <span class="comment"># 3.remove predicted boxes with either height or width&lt; threshold</span></span><br><span class="line">        <span class="comment">#Note:convert min_size to input image scale stored in im_info[3]</span></span><br><span class="line"></span><br><span class="line">        filter_indices=filter_boxes(proposals_boxes,self.args.min_size*max(im_info[<span class="number">3</span>]))</span><br><span class="line">        <span class="comment">#delete filter_indices</span></span><br><span class="line">        mask=np.zeros(proposals_boxes.shape[<span class="number">0</span>],dtype=bool)</span><br><span class="line">        mask[filter_indices]=<span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">        proposals_boxes=proposals_boxes[mask]</span><br><span class="line">        pos_score=pos_score[mask]</span><br><span class="line"></span><br><span class="line">        <span class="comment">#4 sort all (proposal,score) pairs by score from highest to lowest</span></span><br><span class="line">        indices=np.argsort(pos_score.squeeze())[::<span class="number">-1</span>]<span class="comment">#descent order</span></span><br><span class="line">        <span class="comment"># 5 take topn score proposal</span></span><br><span class="line">        topn_indices=indices[:pre_nms_topn]</span><br><span class="line">        <span class="comment"># 6.apply nms</span></span><br><span class="line">        proposals_boxes_c=np.hstack((proposals_boxes[topn_indices],pos_score[topn_indices]))</span><br><span class="line">        keep=py_cpu_nms(proposals_boxes_c,nms_thresh)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#7. take after nms_topn</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> post_nms_topn&gt;<span class="number">0</span>:</span><br><span class="line">            keep=keep[:post_nms_topn]</span><br><span class="line"></span><br><span class="line">        <span class="comment">#8.return the top proposals(-&gt;RoIs top)</span></span><br><span class="line">        proposals_boxes=proposals_boxes_c[keep,:<span class="number">-1</span>]</span><br><span class="line">        scores=proposals_boxes_c[keep,<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">return</span> proposals_boxes,scores</span><br></pre></td></tr></table></figure>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li>一个较好的blog:<a href="http://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/#ITEM-1455-2" target="_blank" rel="noopener">http://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/#ITEM-1455-2</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Paper/" rel="tag"># Paper</a>
+          
+            <a href="/tags/Object-Detection/" rel="tag"># Object Detection</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/15/剑指offer（六）/" rel="next" title="剑指offer（六）">
+                <i class="fa fa-chevron-left"></i> 剑指offer（六）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/剑指offer（七）/" rel="prev" title="剑指offer（七）">
+                剑指offer（七） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Fast-RCNN的问题"><span class="nav-number">1.</span> <span class="nav-text">Fast RCNN的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Faster-RCNN"><span class="nav-number">2.</span> <span class="nav-text">Faster RCNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#整体框架"><span class="nav-number">2.1.</span> <span class="nav-text">整体框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络结构"><span class="nav-number">2.2.</span> <span class="nav-text">网络结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RPN训练"><span class="nav-number">2.2.1.</span> <span class="nav-text">RPN训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPN之后"><span class="nav-number">2.2.2.</span> <span class="nav-text">RPN之后</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络结构-1"><span class="nav-number">3.1.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loss"><span class="nav-number">3.2.</span> <span class="nav-text">loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#box-transform"><span class="nav-number">3.3.</span> <span class="nav-text">box transform</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">3.4.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ProposalLayer"><span class="nav-number">3.5.</span> <span class="nav-text">ProposalLayer</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
