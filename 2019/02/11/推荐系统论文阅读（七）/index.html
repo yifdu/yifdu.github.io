@@ -99,7 +99,7 @@
 <meta property="og:description" content="BPR: Bayesian Personalized Ranking from Implicit Feedback项目推荐是预测对一组项目（例如，网站，电影，产品）的个性化排名的任务。在本文中，我们使用隐式反馈（例如点击次数，购买次数）调查最常见的情况。从矩阵分解（MF）或自适应k近邻（kNN）等隐式反馈中有很多项目推荐方法。尽管这些方法是针对个性化排名的项目预测任务而设计的，但它们都没有直接针对">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550739824835&di=d241ba05cc356f31d941f77f5f6ae023&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201712%2F21%2F20171221192741_4mR8H.thumb.700_0.jpeg">
-<meta property="og:updated_time" content="2019-02-21T06:15:55.722Z">
+<meta property="og:updated_time" content="2019-02-26T06:14:53.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="推荐系统论文阅读（七）">
 <meta name="twitter:description" content="BPR: Bayesian Personalized Ranking from Implicit Feedback项目推荐是预测对一组项目（例如，网站，电影，产品）的个性化排名的任务。在本文中，我们使用隐式反馈（例如点击次数，购买次数）调查最常见的情况。从矩阵分解（MF）或自适应k近邻（kNN）等隐式反馈中有很多项目推荐方法。尽管这些方法是针对个性化排名的项目预测任务而设计的，但它们都没有直接针对">
@@ -210,6 +210,16 @@
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
           </a>
         </li>
       
@@ -405,7 +415,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550739824835&di=d241ba05cc356f31d941f77f5f6ae023&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201712%2F21%2F20171221192741_4mR8H.thumb.700_0.jpeg" rel="gallery_cjsl4w15000b6lcwatr7d9sel" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550739824835&di=d241ba05cc356f31d941f77f5f6ae023&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201712%2F21%2F20171221192741_4mR8H.thumb.700_0.jpeg" rel="gallery_cjslt6rkj00bns8wa9sovobv9" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550739824835&di=d241ba05cc356f31d941f77f5f6ae023&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201712%2F21%2F20171221192741_4mR8H.thumb.700_0.jpeg" itemprop="contentUrl">
               </a>
             
@@ -445,8 +455,8 @@
 <script type="math/tex; mode=display">\prod_{u∈U}p(>_ u|\theta)=\prod_{(u,i,j)∈U×I×I}p(i>_ u j|\theta)^{\delta ((u,i,j)∈D_S)} ·(1-p(i >_ u j|\theta))^{\delta((u,j,i)\notin D_S)}</script><p>其中$\delta$是指示函数</p>
 <script type="math/tex; mode=display">\delta(b):=
 \begin{cases}
-1 \ \ \ \ \ if b is true,
-0 \ \ \ \ \ else
+1 \ \ \ \ \ if b\ \ is\ \ \ true,\\
+0 \ \ \ \ \ else\\
 \end{cases}</script><script type="math/tex; mode=display">\prod_{u∈U}p(>_ u|\theta)=\prod_{(u,i,j)∈D_S}p(i >_ u j|\theta)</script><p>到目前为止，通常无法保证获得个性化的总顺序。为了确定这一点，需要充分考虑已经提到的声音特性（总体性，反对称性和传递性）。为此，我们将用户真正更喜欢项目i而不是项目j的个体概率定义为：</p>
 <script type="math/tex; mode=display">p(i>_ u j|\theta):=\sigma(\hat{x}_{uij}(\theta))</script><p>其中$\sigma$是逻辑sigmoid：</p>
 <script type="math/tex; mode=display">\sigma(x):=\frac{1}{1+e^{-x}}</script><p>这里$\hat{x}_{uij}$是模型参数向量$\theta$的一个任意实值函数,他能捕获用户u,项目i和项目j的特定关系.换句话说，我们的通用框架将建模u,i和j之间的关系的任务委托给基础模型类,如矩阵分解或自适应KNN,它负责估计$\hat{x}_{uij}$.因此，对个性化的总顺序$&gt;_ u$进行统计建模是可行的。为了方便起见,在接下来我们将跳过来自$\hat{x}_{uij}$的参数$\theta$。</p>

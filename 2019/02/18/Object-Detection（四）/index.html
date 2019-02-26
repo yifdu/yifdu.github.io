@@ -99,7 +99,7 @@
 <meta property="og:description" content="Fast RCNN的问题Fast RCNN存在的问题:存在瓶颈:由于选择性搜索,找出所有的候选框,这个非常耗时,能否找出一个更加高效的方法来求出这些候选框? 解决:加入一个提取边缘的神经网络,也就说找到候选框的工作也交给神经网络来做了.做这样的任务的神经网络叫做Region Proposal Network(RPN). 具体做法:  将RPN放在最后一个卷积层之后 RPN直接训练得到候选区域  R">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i0.hdslb.com/bfs/archive/923785b53ebfc5634bcd695302525654cefeda96.jpg">
-<meta property="og:updated_time" content="2019-02-26T02:40:59.472Z">
+<meta property="og:updated_time" content="2019-02-26T06:09:31.905Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Object-Detection（四）">
 <meta name="twitter:description" content="Fast RCNN的问题Fast RCNN存在的问题:存在瓶颈:由于选择性搜索,找出所有的候选框,这个非常耗时,能否找出一个更加高效的方法来求出这些候选框? 解决:加入一个提取边缘的神经网络,也就说找到候选框的工作也交给神经网络来做了.做这样的任务的神经网络叫做Region Proposal Network(RPN). 具体做法:  将RPN放在最后一个卷积层之后 RPN直接训练得到候选区域  R">
@@ -210,6 +210,16 @@
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
           </a>
         </li>
       
@@ -416,7 +426,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="http://i0.hdslb.com/bfs/archive/923785b53ebfc5634bcd695302525654cefeda96.jpg" rel="gallery_cjsl4w1vb00cxlcwagp74ceun" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="http://i0.hdslb.com/bfs/archive/923785b53ebfc5634bcd695302525654cefeda96.jpg" rel="gallery_cjslt6s8c00dfs8waizmibhnr" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://i0.hdslb.com/bfs/archive/923785b53ebfc5634bcd695302525654cefeda96.jpg" itemprop="contentUrl">
               </a>
             
@@ -460,7 +470,7 @@
 <p>其总体流程如下所示:</p>
 <ul>
 <li>首先对输入图片进行裁剪操作,并将裁剪后的图片送入预训练好的分类网络中获取图像对应的特征图</li>
-<li>首先在特征图上的每一个点上取9个候选的ROI,并根据相应的比例将其映射到原始图像中(因为特征提取网络一般有conv和pool组成,但是只有pool会改变特征图的大小,因此最终的特征图大小和pool的个数相关)</li>
+<li>首先在特征图上的 <strong>每一个点上取9个候选的ROI</strong> ,并根据相应的比例将其映射到原始图像中(因为特征提取网络一般有conv和pool组成,但是只有pool会改变特征图的大小,因此最终的特征图大小和pool的个数相关)</li>
 <li>接着讲这些候选的ROI输入到RPN网络中,RPN网络对这些ROI进行分类(即确定这些ROI是前景还是背景)同时对其进行初步回归(即计算这些前景ROI与真实目标之间的Boundingbox的偏差,包括$\Delta x,\Delta y,\Delta w,\Delta h$),然后做NMS</li>
 <li>接着对这些不同大小的ROI进行ROI Pooling(即映射为特定大小的feature map,文中是7×7),输出固定大小的feature map</li>
 <li>最后将其输入简单的检测网络中,然后利用1×1的卷积进行分类(区分不同的类别,N+1类,多余的一类是背景,用于删除不准确的ROI),同时进行Bounding Box回归(精确的调整预测的ROI和ground truth的ROI之间的偏差值),从而输出一个Bounding box集合</li>
@@ -498,7 +508,7 @@
 <p>回答第1个问题:RPN的输入特征图就是Faster RCNN的Feature Map,也称共享feature map,主要用以RPN和Rol Pooling共享<br>回答第2个问题:我们可以把3×3的sliding window看作是对特征图做了一次3×3的卷积操作,zuihou得到了一个channle数目是256的特征图,尺寸和公共特征图相同,我们假设是256×(H×W)<br>回答第3个问题:我们可以近似的把这个特征图看作是H×W个向量,每个向量256维,那么图中的256维指的就是其中一个向量,然后我们要对每个特征向量做两次全连接操作,一个得到2个分数,一个得到4个坐标，由于我们要对每个向量做同样的全连接操作,等同于对整个特征图做两次1×1的卷积,得到一个2×H×W和一个4×H×W大小的特征图，换句话说,有H×W个结果,每个结果包含2个分数和4个坐标.<br><img src="/2019/02/18/Object-Detection（四）/pic12.png" alt="pic12"></p>
 <p>这里2个分数分别是前景(物体)的分数和背景的分数.4个坐标指针对原图坐标的偏移,首先一定要记住是原图.<br>其次我们知道,特征图有H×W个结果,我们随机取一点,他跟原图啃地瓜是有个一一映射关系的,由于原图和特征图大小不同,所以特征图上的一个点对应原图肯定是一个框,然而这个框很小,比如说8×8,这里8是指原图和特征图的比例,所以这个并不是我们想要的框,那我们不妨把框的左上角或者框的中心作为锚点,然后想象出一堆框,具体多少,聪明的读者肯定已经猜到,K个,这也就是图中所说的K anchor boxes(由锚点产生的K个框);换句话说,H×W个点,每个点对应原图有K个框,那么就有H×W×K个框默默的在原图上,那RPN的结果其实就是判断这些框是不是物体以及他们的偏倚;那么K个框到底有多大,长宽比是多少？这里是预先设定好的,共有9种组合,所以K等于9,最后我们的结果是针对这9种组合的,所以有H×W×9个结果,也就是18个分数和36个坐标.</p>
 <hr>
-<p>Anchors的生成规则:<br>前面提到经过Conv layers后,图片大小变为原来的1/16.令feat_stride=16,在生成anchor时,我们先定义一个base_anchor,大小为16×16的box(因为特征图(60×40)上的一个点,可以对应到原图1000×600上16×16的区域),源码中转换为[0,0,15,15]的数组,参数 ratio=[0.5,1,2] scale=[8,16,32]<br>先看[0,0,15,15],面积保持不变,长、宽比分别为[0.5,1,2]是产生的Anchors box<br><img src="/2019/02/18/Object-Detection（四）/pic7.png" alt="pic7"><br>如果经过scale 变化,即长宽分别为：(16×8=128)、(16×16=256)、(16×32=512)，对应anchor box如图所示<br><img src="/2019/02/18/Object-Detection（四）/pic8.png" alt="pic8"><br>综上两种变换,最后生成9个Anchor box<br><img src="/2019/02/18/Object-Detection（四）/pic9.png" alt="pic9"></p>
+<p><strong>(Anchors box 用于产生正样例与样例)</strong><br>Anchors的生成规则:<br>前面提到经过Conv layers后,图片大小变为原来的1/16.令feat_stride=16,在生成anchor时,我们先定义一个base_anchor,大小为16×16的box(因为特征图(60×40)上的一个点,可以对应到原图1000×600上16×16的区域),源码中转换为[0,0,15,15]的数组,参数 ratio=[0.5,1,2] scale=[8,16,32]<br>先看[0,0,15,15],面积保持不变,长、宽比分别为[0.5,1,2]是产生的Anchors box<br><img src="/2019/02/18/Object-Detection（四）/pic7.png" alt="pic7"><br>如果经过scale 变化,即长宽分别为：(16×8=128)、(16×16=256)、(16×32=512)，对应anchor box如图所示<br><img src="/2019/02/18/Object-Detection（四）/pic8.png" alt="pic8"><br>综上两种变换,最后生成9个Anchor box<br><img src="/2019/02/18/Object-Detection（四）/pic9.png" alt="pic9"></p>
 <p>特征图大小：60×40,所以会生成60×40×9=21600个Anchor box</p>
 <hr>
 <p><img src="/2019/02/18/Object-Detection（四）/pic11.png" alt="pic11"></p>
@@ -510,7 +520,7 @@
 <li>如果anchor box与ground truth的IOU＜0.3,标记为负样本,label=0</li>
 </ol>
 <p>剩下的既不是正样本也不是负样本,不用于最终训练,label=-1</p>
-<p>除了对anchor box进行标记外,另一件事情就是计算anchor box与ground truth之间的偏移量<br>令:ground truth:标定的框也对应一个中心点位置坐标$x^<em> ,y^</em> 和宽高w^<em> ,h^</em> $<br>anchor box：中心点位置坐标$x_a,y_a和宽高w_a,h_a$<br>所以偏移量:</p>
+<p>除了对anchor box进行标记外,另一件事情就是计算anchor box与ground truth之间的偏移量<br>令:ground truth:标定的框也对应一个中心点位置坐标$x^* ,y^* 和宽高w^* ,h^* $<br>anchor box：中心点位置坐标$x_a,y_a和宽高w_a,h_a$<br>所以偏移量:</p>
 <script type="math/tex; mode=display">\Delta x=(x^* -x_a)/w_a</script><script type="math/tex; mode=display">\Delta y=(y^* -y_a)/h_a</script><script type="math/tex; mode=display">\Delta w=log(w^* /w_a)</script><script type="math/tex; mode=display">\Delta h=log(h^* /h_a)</script><p>通过ground truth box与anchor box之间的差异来进行学习,从而是RPN网络中的权重能够学习到预测box的能力</p>
 <p>RPN_loss,RPN_cls,RPN_bbox,RPN_cls_prob：其中RPN_loss_cls,RPN_loss_bbox分别是softmax,smooth L1计算损失函数,RPN_cls_prob计算概率值(可用于下一层的非最大值抑制操作)<br>RPN训练设置:在训练RPN时,一个Mini-batch是由一幅图像中任意选取的256个proposal组成的,其中正负样本的比例为1:1。如果正样本不足128,则多用一些负样本以满足有256个proposal可以用于训练,反之亦然</p>
 <h3 id="RPN训练"><a href="#RPN训练" class="headerlink" title="RPN训练"></a>RPN训练</h3><script type="math/tex; mode=display">L({p_i},{t_i})=\frac{1}{N_{cls}}\sum_iL_{cls}(p_i,p_i^* )+\lambda \frac{1}{N_{reg}}\sum_ip_i^* L_{reg}(t_i,t_i^* )</script><p>RPN网络训练,那么就涉及ground truth和loss function的问题.对于左支路,ground truth为anchor是否为目标,用0/1表示.那么怎么判定一个anchor内是否有目标呢?论文中采用了这样的规则:1)假如某anchor与任一目标区域的IOU最大,则该anchor判定为有目标;2)加入某anchor与任一目标区域的IOU＞0.7,则判定为有目标;3)假如某anchor与任一目标区域的IOU＜0.3,则判定为背景.所谓IOU,就是预测box和真实box的覆盖率,其值等于两个box的交集除以两个box的并集.其他的anchor不参与训练.于是有了上面的代价函数.<br>上面的$p_i$为anchor预测为目标的概率,$p_i^{*}$是ground truth标签.$t_i=\{t_x,t_y,t_w,t_h\}$是一个向量,表示预测的bounding box包围盒的4个参数化坐标;<br>$t_i^* $是与positive anchor对应的ground truth包围盒的坐标向量;</p>
@@ -570,7 +580,7 @@
   <p><span>本文标题:</span><a href="/2019/02/18/Object-Detection（四）/">Object-Detection（四）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2019年02月18日 - 10:02</p>
-  <p><span>最后更新:</span>2019年02月26日 - 10:02</p>
+  <p><span>最后更新:</span>2019年02月26日 - 14:02</p>
   <p><span>原始链接:</span><a href="/2019/02/18/Object-Detection（四）/" title="Object-Detection（四）">http://yifdu.github.io/2019/02/18/Object-Detection（四）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/02/18/Object-Detection（四）/" aria-label="复制成功！"></i></span>
   </p>
