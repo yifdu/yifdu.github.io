@@ -90,19 +90,19 @@
 
 
 
-<meta name="description" content="注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列将分类和定位分开处理了。 Rich feature hierarchiesfor accurate object detection and semantic segmentation在规范的PASCAL VOC数据集上测量的物体检测性能在过">
+<meta name="description" content="注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列整个流程并不是一气呵成的,不能只输入一张图片,立马得到想要的位置信息和分类信息,在之前还有一个特征提取的过程(像selective search或者RPN)。 Rich feature hierarchies for accurate obj">
 <meta name="keywords" content="Paper,Object Detection">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Object_Detection（二）">
 <meta property="og:url" content="http://yifdu.github.io/2019/02/11/Object-Detection（二）/index.html">
 <meta property="og:site_name" content="深度智障">
-<meta property="og:description" content="注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列将分类和定位分开处理了。 Rich feature hierarchiesfor accurate object detection and semantic segmentation在规范的PASCAL VOC数据集上测量的物体检测性能在过">
+<meta property="og:description" content="注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列整个流程并不是一气呵成的,不能只输入一张图片,立马得到想要的位置信息和分类信息,在之前还有一个特征提取的过程(像selective search或者RPN)。 Rich feature hierarchies for accurate obj">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550166199211&di=275334d3f5d573d76a4aee2467fe945f&imgtype=0&src=http%3A%2F%2Fimg.lynow.cn%2F2017%2F1228%2F20171228093827755.jpg">
-<meta property="og:updated_time" content="2019-02-14T15:12:58.224Z">
+<meta property="og:updated_time" content="2019-02-26T05:29:58.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Object_Detection（二）">
-<meta name="twitter:description" content="注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列将分类和定位分开处理了。 Rich feature hierarchiesfor accurate object detection and semantic segmentation在规范的PASCAL VOC数据集上测量的物体检测性能在过">
+<meta name="twitter:description" content="注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列整个流程并不是一气呵成的,不能只输入一张图片,立马得到想要的位置信息和分类信息,在之前还有一个特征提取的过程(像selective search或者RPN)。 Rich feature hierarchies for accurate obj">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550166199211&di=275334d3f5d573d76a4aee2467fe945f&imgtype=0&src=http%3A%2F%2Fimg.lynow.cn%2F2017%2F1228%2F20171228093827755.jpg">
 
 
@@ -377,7 +377,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  8k 字
+                  8.6k 字
                 </span>
               
 
@@ -393,7 +393,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  29 分钟
+                  31 分钟
                 </span>
               
             </div>
@@ -428,8 +428,8 @@
       
 
       
-        <p><strong>注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列将分类和定位分开处理了。</strong></p>
-<h1 id="Rich-feature-hierarchies"><a href="#Rich-feature-hierarchies" class="headerlink" title="Rich feature hierarchies"></a>Rich feature hierarchies</h1><p>for accurate object detection and semantic segmentation<br>在规范的PASCAL VOC数据集上测量的物体检测性能在过去几年中已经趋于稳定。表现最佳的方法是复杂的集合系统，通常将多个低级图像特征与高级上下文相结合。在本文中，我们提出了一种简单且可扩展的检测算法，相对于之前对VOC 2012的最佳结果，平均精度（mAP）提高了30％以上 - 实现了53.3％的mAP。我们的方法结合了两个关键的见解：（1）可以将高容量卷积神经网络（CNN）应用于自下而上的区域提议(region proposals)，以便定位和分割对象;（2）当标记的训练数据稀缺时，监督预训练对于辅助任务，然后进行特定于域的微调，可以显着提高性能。由于我们将区域提议(region proposals)与CNN结合起来，我们将方法称为R-CNN：具有CNN功能的区域。我们还将R-CNN与最近提出的基于类似CNN架构的滑动窗口检测器OverFeat进行了比较。我们发现R-CNN在200级ILSVRC2013检测数据集上大大优于OverFeat。完整系统的源代码可从<a href="http://www.cs.berkeley.edu/~rbg/rcnn获得。" target="_blank" rel="noopener">http://www.cs.berkeley.edu/~rbg/rcnn获得。</a></p>
+        <p><strong>注意：与YOLO的区别是,YOLO一次输出直接就得到位置和分类信息,所以它叫You only look once,只要看一次就能得到这两个信息.而RCNN系列整个流程并不是一气呵成的,不能只输入一张图片,立马得到想要的位置信息和分类信息,在之前还有一个特征提取的过程(像selective search或者RPN)。</strong></p>
+<h1 id="Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation"><a href="#Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation" class="headerlink" title="Rich feature hierarchies for accurate object detection and semantic segmentation"></a>Rich feature hierarchies for accurate object detection and semantic segmentation</h1><p>在规范的PASCAL VOC数据集上测量的物体检测性能在过去几年中已经趋于稳定。表现最佳的方法是复杂的集合系统，通常将多个低级图像特征与高级上下文相结合。在本文中，我们提出了一种简单且可扩展的检测算法，相对于之前对VOC 2012的最佳结果，平均精度（mAP）提高了30％以上 - 实现了53.3％的mAP。我们的方法结合了两个关键的见解：（1）可以将高容量卷积神经网络（CNN）应用于自下而上的区域提议(region proposals)，以便定位和分割对象;（2）当标记的训练数据稀缺时，监督预训练对于辅助任务，然后进行特定于域的微调，可以显着提高性能。由于我们将区域提议(region proposals)与CNN结合起来，我们将方法称为R-CNN：具有CNN功能的区域。我们还将R-CNN与最近提出的基于类似CNN架构的滑动窗口检测器OverFeat进行了比较。我们发现R-CNN在200级ILSVRC2013检测数据集上大大优于OverFeat。完整系统的源代码可从<a href="http://www.cs.berkeley.edu/~rbg/rcnn获得。" target="_blank" rel="noopener">http://www.cs.berkeley.edu/~rbg/rcnn获得。</a></p>
 <p>特征重要。各种视觉识别任务的最近十年进展基于SIFT [29]和HOG [7]的使用。但是，如果我们看一下规范视觉识别任务，PASCAL VOC物体检测[15]的表现，人们普遍认为2010-2012年进展缓慢，通过建立集合系统和采用成功方法的微小变体获得了小幅收益。</p>
 <p>SIFT和HOG是块层面的方向直方图，我们可以大致将其与V1中的复杂细胞联系起来，V1是灵长类视觉通路中的第一个皮层区域。但是我们也知道识别在下游的几个阶段会发生，这意味着对于计算特征可能存在分层的、多阶段的过程，而这些过程对于视觉识别的信息更为丰富。<br><img src="/2019/02/11/Object-Detection（二）/pic1.png" alt="pic1"></p>
 <p>Fukushima的“neocognitron”[19]，一种用于模式识别的生物学启发的分层和移位不变模型，是这种过程的早期尝试。<br>然而，neocognitron缺乏监督训练算法。以Rumelhart等人为基础。 [33]，LeCun等。 [26]表明，通过反向传播的随机梯度下降对于训练卷积神经网络（CNN）是有效的，CNN是一类扩展新神经元的模型。</p>
@@ -463,7 +463,7 @@
 <h3 id="B-Positive-vs-negative-examples-and-softmax"><a href="#B-Positive-vs-negative-examples-and-softmax" class="headerlink" title="B. Positive vs. negative examples and softmax"></a>B. Positive vs. negative examples and softmax</h3><p>两种设计选择值得进一步讨论。第一个是：为什么正面和负面的例子被定义为微调CNN而不是训练对象检测SVM？为了简要回顾这些定义，对于微调，我们将每个对象提议映射到具有最大IoU重叠（如果有的话）的ground truth，并且如果IoU至少为0.5，则将其标记为匹配的地面实例类的正数。所有其他提议都标有“背景”（即所有类别的反面例子）。相比之下，对于训练SVM，我们仅将ground-truth框作为其各自类别的正面示例，并且标签提议与IoU重叠小于0.3，该类的所有实例都为该类的负数。落入灰色区域的建议（超过0.3 IoU重叠，但不是ground truth）将被忽略。</p>
 <p>从历史上看，我们已经达到了这些定义，因为我们首先通过对ImageNet预训练的CNN计算的特征训练SVM，因此在那个时间点不需要进行微调。在该设置中，我们发现我们用于训练SVM的特定标签定义在我们评估的选项集中是最佳的（其中包括我们现在用于微调的设置）。当我们开始使用微调时，我们最初使用与我们用于SVM训练相同的正面和负面示例定义。然而，我们发现结果比使用我们目前的正面和负面定义所获得的结果要糟糕得多。</p>
 <p>我们的假设是，如何定义正面和负面的差异并不是根本重要的，而是由于微调数据有限这一事实。我们当前的方案引入了许多“抖动”的例子（这些提议在0.5和1之间重叠，但不是ground truth），它将正例的数量扩大了大约30倍。我们猜想在微调整个网络时需要这个大集合以避免过度拟合。但是，我们还注意到使用这些抖动的示例可能不是最理想的，因为网络没有针对精确定位进行微调。</p>
-<p>这导致了第二个问题：为什么在微调之后训练SVM？简单地应用微调网络的最后一层（一种21路softmax回归分类器）作为对象检测器将更加清晰。我们尝试了这一点，发现VOC 2007的性能从mAP的54.2％下降到50.9％。这种性能下降可能源于几个因素的组合，包括微调中使用的正例的定义不强调精确定位，而softmax分类器是在随机抽样的负例上训练而不是在使用的“硬阴性”子集上用于SVM训练。</p>
+<p>这导致了第二个问题：为什么在微调之后训练SVM？简单地应用微调网络的最后一层（一种21路softmax回归分类器）作为对象检测器将更加清晰。我们尝试了这一点，发现VOC 2007的性能从mAP的54.2％下降到50.9％。这种性能下降可能源于几个因素的组合，包括微调中使用的正例的定义不强调精确定位，而softmax分类器是在随机抽样的负例上训练而不是在使用的“硬阴性”(hard negative)子集上用于SVM训练。</p>
 <p>该结果表明，在微调之后，无需训练SVM就可以获得接近相同的性能水平。我们推测，通过一些额外的调整来微调剩余的性能差距可能会被关闭。如果这是真的，这将简化并加速R-CNN训练而不会损失检测性能。</p>
 <h3 id="C-Bounding-box-regression"><a href="#C-Bounding-box-regression" class="headerlink" title="C. Bounding-box regression"></a>C. Bounding-box regression</h3><p>我们使用简单的边界框回归阶段来提高定位性能。在使用特定于类的检测SVM对每个选择性搜索提议进行评分后，我们使用特定于类的边界框回归器来预测用于检测的新边界框。这在思想上与可变形零件模型中使用的边界框回归类似[17]。两种方法之间的主要区别在于，这里我们从CNN计算的特征回归，而不是从推断的DPM零件位置计算的几何特征回归。</p>
 <p>我们的训练算法的输入是一组N个训练对$\{(P^i,G^i)\}_{i = 1,..,N}$，其中$P^i=(P^i_x,P^i_y,P^i_w,P^i_h)$指定中心的像素坐标提议$P^i$的边界框以及$P^i$的宽度和高度（以像素为单位）。<br>因此，除非需要，否则我们删除上标i。<br>每个ground truth边界框G以相同的方式指定：$G =（G_x,G_y,G_w,G_h）$。我们的目标是学习将拟议的方框P映射到ground-truth框G的转换。</p>
@@ -512,7 +512,7 @@
 <h2 id="训练SVM分类器"><a href="#训练SVM分类器" class="headerlink" title="训练SVM分类器"></a>训练SVM分类器</h2><ul>
 <li>训练特定类别的SVM分类器</li>
 <li>训练SVM的正负样本:作者同样是使用IOU阈值的方法,计算每一个region proposal与标准框的IOU,这次的阈值为0.3,大于这个阈值的作为正样本,否则为负样本.</li>
-<li>Hard negative mining<br>一般来说训练一个SVM分类器,需要正负两个样本,训练集图片中作为正样本很少,但是随机产生用于训练的负样本可能远远大于正样本,这样训练出来的SVM效果并不好,所以利用Hard negative mining方法,从负样本中选取出一些有代表性的负样本,使得分类器的训练结果更好.<br>正:标注样本+IOU&gt;0.5<br>负:不包含正样本区域</li>
+<li>Hard negative mining<br>一般来说训练一个SVM分类器,需要正负两个样本,训练集图片中作为正样本很少,但是随机产生用于训练的负样本可能远远大于正样本,这样训练出来的SVM效果并不好,所以利用 <em>Hard negative mining</em> 方法,从负样本中选取出一些有代表性的负样本,使得分类器的训练结果更好.<br>正:标注样本+IOU&gt;0.5<br>负:不包含正样本区域</li>
 <li>输入:CNN提取的区域特征</li>
 <li>输出:每个候选区域特征的概率输出</li>
 </ul>
@@ -536,6 +536,13 @@
 <script type="math/tex; mode=display">w_*=argmin_{\hat{w}_*}\sum_i^N(t_*^i-\hat{w}_*^T\phi_5(P^i))^2+\lambda ||\hat{w}_*||^2</script><p>对每一类目标,使用一个线性回归器进行精修.<br>正则项:$\lambda$=10000<br>输入:CNN网络$pool_5$层的4096维特征<br>输出:xy方向的缩放和平移W=[x,y,w,h]</p>
 <p>训练样本:<br>判定为本类的候选框中,和真值重叠面积大于0.6的候选框.</p>
 <script type="math/tex; mode=display">w_*=argmin_{\hat{w}_*}\sum_i^N(t_*^i-\hat{w}_*^T\phi_5(P^i))^2+\lambda ||\hat{w}_*||^2</script><p>其中*可以是:x,y,w,h,(x,y)是目标中心相对位置,w,h是变换后的宽度和高度缩放比例的对数值.</p>
+<h1 id="最后的一些疑问"><a href="#最后的一些疑问" class="headerlink" title="最后的一些疑问"></a>最后的一些疑问</h1><ol>
+<li><p>为什么fine-tuning 效果那么好？RCNN运用了fine-tuning的方法是在深度学习中很常见的一种方法,如果把CNN当作特征提取器，就类似于SIFT算法一样,可以用于提取各种图片的特征,然后再f6、f7将所学到的特征用于针对特定任务的特征.</p>
+</li>
+<li><p>CNN训练的时候奔雷是对bounding box的物体进行识别分类训练,是一个端到端的任务,在训练的时候最后一层softmax就是分类层,为什么作者闲着没事干要先用CNN做特征提取(提取fc7层数据),把提取的特征用于训练SVM分类器?</p>
+</li>
+</ol>
+<p><strong>这是因为SVM训练和CNN训练过程的正负样本定义方式各不相同,导致最后采用CNN softmax输出比采用SVM精度还低。CNN在训练的时候,对训练数据做了比较宽松的标注,比如一个bounding box可能只包含物体的一部分,那么我也把他标注为正样本,用于训练CNN;采用这个方法的主要原因在于CNN容易过拟合,所以需要大量的训练数据,所以在CNN训练阶段对Bounding box的位置限制条件限制得比较款传送(IOU只要大于0.5都标注为正样本)。而SVM训练的时候,因为SVM适用于少量样本训练,所以对于训练样本数据得IOU要求比较严格,我们只有当bounding box 把整个物体都巴汉进去了,我们才把它标注为物体类别,然后训练SVM.一旦CNN f7特征被提取出来,那么我们将为每个物体类训练一个SVM分类器. 当我们用CNN提取2000个候选框,可以得到2000<em>4096这样的特征向量矩阵,然后我们只需要把这样的一个矩阵与SVM权重矩阵4096</em>N点乘(N为分类类别数目,因为我们训练的N个SVM,每个SVM包含4096个W),就可以得到结果了.</strong></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
 <li>训练(或下载)一个分类模型(比如AlexNet)<br><img src="/2019/02/11/Object-Detection（二）/pic8.png" alt="pic8"></li>
 <li>对该模型做fine-tuning,将分类数从1000改为20,去掉最后一个全连接层<br><img src="/2019/02/11/Object-Detection（二）/pic9.png" alt="pic9"></li>
@@ -749,7 +756,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Rich-feature-hierarchies"><span class="nav-number">1.</span> <span class="nav-text">Rich feature hierarchies</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-detection-with-R-CNN"><span class="nav-number">1.1.</span> <span class="nav-text">Object detection with R-CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Module-Design"><span class="nav-number">1.1.1.</span> <span class="nav-text">Module Design</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Test-time-detection"><span class="nav-number">1.1.2.</span> <span class="nav-text">Test-time detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training"><span class="nav-number">1.1.3.</span> <span class="nav-text">Training</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix"><span class="nav-number">1.2.</span> <span class="nav-text">Appendix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Object-proposal-transformations"><span class="nav-number">1.2.1.</span> <span class="nav-text">A.Object proposal transformations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Positive-vs-negative-examples-and-softmax"><span class="nav-number">1.2.2.</span> <span class="nav-text">B. Positive vs. negative examples and softmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-Bounding-box-regression"><span class="nav-number">1.2.3.</span> <span class="nav-text">C. Bounding-box regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D-Additional-feature-visualizations"><span class="nav-number">1.2.4.</span> <span class="nav-text">D. Additional feature visualizations</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解读"><span class="nav-number">2.</span> <span class="nav-text">解读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#候选区域-region-proposals"><span class="nav-number">2.1.</span> <span class="nav-text">候选区域(region proposals)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Warp"><span class="nav-number">2.2.</span> <span class="nav-text">Warp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征抽取"><span class="nav-number">2.3.</span> <span class="nav-text">特征抽取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN训练"><span class="nav-number">2.4.</span> <span class="nav-text">CNN训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练SVM分类器"><span class="nav-number">2.5.</span> <span class="nav-text">训练SVM分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取每个类别的Bounding-box-BBox"><span class="nav-number">2.6.</span> <span class="nav-text">获取每个类别的Bounding box(BBox)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NMS-非极大值抑制"><span class="nav-number">2.6.1.</span> <span class="nav-text">NMS:非极大值抑制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位置精修"><span class="nav-number">2.7.</span> <span class="nav-text">位置精修</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation"><span class="nav-number">1.</span> <span class="nav-text">Rich feature hierarchies for accurate object detection and semantic segmentation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-detection-with-R-CNN"><span class="nav-number">1.1.</span> <span class="nav-text">Object detection with R-CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Module-Design"><span class="nav-number">1.1.1.</span> <span class="nav-text">Module Design</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Test-time-detection"><span class="nav-number">1.1.2.</span> <span class="nav-text">Test-time detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training"><span class="nav-number">1.1.3.</span> <span class="nav-text">Training</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix"><span class="nav-number">1.2.</span> <span class="nav-text">Appendix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Object-proposal-transformations"><span class="nav-number">1.2.1.</span> <span class="nav-text">A.Object proposal transformations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Positive-vs-negative-examples-and-softmax"><span class="nav-number">1.2.2.</span> <span class="nav-text">B. Positive vs. negative examples and softmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-Bounding-box-regression"><span class="nav-number">1.2.3.</span> <span class="nav-text">C. Bounding-box regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D-Additional-feature-visualizations"><span class="nav-number">1.2.4.</span> <span class="nav-text">D. Additional feature visualizations</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解读"><span class="nav-number">2.</span> <span class="nav-text">解读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#候选区域-region-proposals"><span class="nav-number">2.1.</span> <span class="nav-text">候选区域(region proposals)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Warp"><span class="nav-number">2.2.</span> <span class="nav-text">Warp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征抽取"><span class="nav-number">2.3.</span> <span class="nav-text">特征抽取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN训练"><span class="nav-number">2.4.</span> <span class="nav-text">CNN训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练SVM分类器"><span class="nav-number">2.5.</span> <span class="nav-text">训练SVM分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取每个类别的Bounding-box-BBox"><span class="nav-number">2.6.</span> <span class="nav-text">获取每个类别的Bounding box(BBox)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NMS-非极大值抑制"><span class="nav-number">2.6.1.</span> <span class="nav-text">NMS:非极大值抑制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位置精修"><span class="nav-number">2.7.</span> <span class="nav-text">位置精修</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的一些疑问"><span class="nav-number">3.</span> <span class="nav-text">最后的一些疑问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
