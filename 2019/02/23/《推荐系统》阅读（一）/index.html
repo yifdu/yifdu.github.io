@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Recommended system,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="引言个性化推荐:每个访问者由于其个人偏好不同会看到不同的列表.相对而言,许多其他在线商店或新闻门户提示你的,可能只是它们的畅销商品或热门文章.本书中重点讨论的是个性化推荐. 提供个性化推荐要求系统知道每个用户的信息.推荐系统必须开发并维护一个用户模型(user model) 或用户记录(user profile)保存用户的偏好。 基本概念协同过滤推荐其基本思想是,如果用户在过去有相同的偏好(比如它">
+<meta name="keywords" content="Recommended system">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《推荐系统》阅读（一）">
+<meta property="og:url" content="http://yifdu.github.io/2019/02/23/《推荐系统》阅读（一）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="引言个性化推荐:每个访问者由于其个人偏好不同会看到不同的列表.相对而言,许多其他在线商店或新闻门户提示你的,可能只是它们的畅销商品或热门文章.本书中重点讨论的是个性化推荐. 提供个性化推荐要求系统知道每个用户的信息.推荐系统必须开发并维护一个用户模型(user model) 或用户记录(user profile)保存用户的偏好。 基本概念协同过滤推荐其基本思想是,如果用户在过去有相同的偏好(比如它">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://n.sinaimg.cn/sinacn22/338/w1240h698/20180425/63a6-fztkpin1469897.jpg">
+<meta property="og:updated_time" content="2019-02-23T11:12:07.033Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《推荐系统》阅读（一）">
+<meta name="twitter:description" content="引言个性化推荐:每个访问者由于其个人偏好不同会看到不同的列表.相对而言,许多其他在线商店或新闻门户提示你的,可能只是它们的畅销商品或热门文章.本书中重点讨论的是个性化推荐. 提供个性化推荐要求系统知道每个用户的信息.推荐系统必须开发并维护一个用户模型(user model) 或用户记录(user profile)保存用户的偏好。 基本概念协同过滤推荐其基本思想是,如果用户在过去有相同的偏好(比如它">
+<meta name="twitter:image" content="http://n.sinaimg.cn/sinacn22/338/w1240h698/20180425/63a6-fztkpin1469897.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/02/23/《推荐系统》阅读（一）/">
+
+
+
+
+
+  <title>《推荐系统》阅读（一） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/02/23/《推荐系统》阅读（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《推荐系统》阅读（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-23T09:38:13+08:00">
+                2019-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reading/" itemprop="url" rel="index">
+                    <span itemprop="name">Reading</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  23 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://n.sinaimg.cn/sinacn22/338/w1240h698/20180425/63a6-fztkpin1469897.jpg" rel="gallery_cjsl4w14b00b0lcwasfdem7dq" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://n.sinaimg.cn/sinacn22/338/w1240h698/20180425/63a6-fztkpin1469897.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>个性化推荐:每个访问者由于其个人偏好不同会看到不同的列表.相对而言,许多其他在线商店或新闻门户提示你的,可能只是它们的畅销商品或热门文章.本书中重点讨论的是个性化推荐.</p>
+<p>提供个性化推荐要求系统知道每个用户的信息.推荐系统必须开发并维护一个用户模型(user model) 或用户记录(user profile)保存用户的偏好。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="协同过滤推荐"><a href="#协同过滤推荐" class="headerlink" title="协同过滤推荐"></a>协同过滤推荐</h3><p>其基本思想是,如果用户在过去有相同的偏好(比如它们浏览或买过相同的书),那么它们在未来也会有相似的偏好.用户A与用户B的购买经历非常重叠,那么用户A购买了但用户B还不知道的东西会推荐给用户B.</p>
+<p>协同过滤常见问题如下:</p>
+<ol>
+<li>如何发现与我们要推荐的用户有着相似偏好的用户?</li>
+<li>如何衡量相似度</li>
+<li>如何处理还没有购买经历的新用户</li>
+<li>如果只有很少的评分该怎么办?</li>
+<li>除了利用相似用户之外,还有哪些技术可以用来预测某个用户是否喜欢其物品?</li>
+</ol>
+<p><strong>纯粹的协同过滤方法不会利用或要求任何有关物体本身的知识</strong></p>
+<h3 id="基于内容的推荐"><a href="#基于内容的推荐" class="headerlink" title="基于内容的推荐"></a>基于内容的推荐</h3><p>一般来说,推荐系统有两个目的:1.激发用户去做某件事,比如购买一本书或观赏一部电影2.推荐系统也可以被看作是解决信息过载的工具,因为系统的目标是从大集合里选择最感兴趣的物品</p>
+<p>基于内容推荐的核心是能够得到物品的描述和这些特征的重要记录,例如我们以书为例,这些特征可能是体裁、主题或作者.与物品描述类似,用户记录也需要自动抽取或”学习”,方法是分析用户的行为和反馈,或者直接询问用户的兴趣和偏好.</p>
+<p>基于内容的推荐常见问题如下：</p>
+<ol>
+<li>系统如何自动获取并持续改进用户记录</li>
+<li>如何决定哪个物品匹配或者至少能接近、符合用户的兴趣</li>
+<li>什么技术能自动抽取或学习物品的描述,从而减少人工标注</li>
+</ol>
+<p>与前面不涉及内容的方法相比,基于内容的推荐有两个优点:1.不需要大规模用户就可以达到适度的推荐精度.2.一旦得到物品的属性就能立刻推荐新物品.难点是有些特征很难自动获取,必须由人工输入这些信息,而这个过程不仅投入大而且容易出错</p>
+<h3 id="基于知识的推荐"><a href="#基于知识的推荐" class="headerlink" title="基于知识的推荐"></a>基于知识的推荐</h3><p>如果把注意力投向其他应用领域,比如消费类电子商品,就会涉及大量的单次购买者.这意味着我们可能无法依赖购买记录,而这可是协同过滤和基于内容过滤方法的前提条件.<br>此时系统需要利用额外的因果知识生成推荐.在这种基于知识的方法中,推荐系统通常会用到有关当前用户和有效物品的额外信息(这些信息一般是人工提供的).</p>
+<p>基于约束的推荐就是要利用到相关的产品特征的详细知识,当某些特征与用户相关时,还需要用明确的约束条件来描述情景.但仅仅展现满足已知要求特征的物品时不够的,由于缺少个性化,每个用户(需求特征都是相同的)将会得到相同的推荐集合.因此,基于约束的推荐同样需要维护用户记录.</p>
+<p>这一部分内容,还涵盖了”用户交互”的内容,这是由于在许多基于知识的推荐系统中,用户需求必须通过交互引导得出。就说数码相机推荐系统,它也需要为首次购买的用户服务.在没有购买记录可以利用的情况下,需要更多复杂的交互方式才能确定用户的需求和偏好.一种简单的方法可能就是直接询问用户的要求,比如最高价、最低分辨率等.然而这种方法需要对物品的特征有着深入的专业理解,而且在物品特征非常多的时候还会使人不知道怎么选择才好.真正用心涉及的交互方法应该像平常对话一样,在个性化的一问一答中,系统能够摸索出用户的真正喜好.</p>
+<p>基于知识的推荐系统常见的问题如下:</p>
+<ol>
+<li>哪种领域知识能表示成知识库</li>
+<li>什么机制可根据用户的特点来选择和排名物品</li>
+<li>如何在没有购买记录的领域获取用户信息?如何处理用户直接给出的偏好信息?</li>
+<li>哪种交互方式能够用于交互式推荐系统</li>
+<li>设计对话时,要考虑哪些个性化因素才能确保准确获得用户偏好信息</li>
+</ol>
+<h3 id="混合推荐方法"><a href="#混合推荐方法" class="headerlink" title="混合推荐方法"></a>混合推荐方法</h3><p>由于问题背景的不同,目前讨论的方法各有优缺点.一种显而易见的方法是组合不同技术产生更好或更精确的推荐.如果既有群体知识,又可以取得详尽的物品信息,那么把基于内容的技术与协同或社会化过滤技术相混合就能够增强推荐系统的效果.</p>
+<p>在推荐系统中混合使用不同方法时必须回答以下问题:</p>
+<ol>
+<li>哪种方法能够被组合,特定组合的前提是什么?</li>
+<li>两个或多个推荐算法是应该顺序计算还是采用其他混合方式?</li>
+<li>不同方法的结果如何赋以权重,可以动态决定么？</li>
+</ol>
+<h1 id="协同过滤推荐-1"><a href="#协同过滤推荐-1" class="headerlink" title="协同过滤推荐"></a>协同过滤推荐</h1><h2 id="基于用户的最近邻推荐"><a href="#基于用户的最近邻推荐" class="headerlink" title="基于用户的最近邻推荐"></a>基于用户的最近邻推荐</h2><p>其主要思想：首先给定一个评分数据集和当前(活跃)用户的ID作为输入,找出与当前用户过去有相似偏好的其他用户,这些用户有时也可被称为对等用户或最近邻;然后,对当前用户没有见过的每个产品p,利用其近邻对p的评分计算预测值。这种方法的潜在假设是:(1)如果用户过去有相似偏好,那么它们未来也会有相似的偏好;(2)用户偏好不会随时间而变化.</p>
+<h2 id="基于物品的最近邻推荐"><a href="#基于物品的最近邻推荐" class="headerlink" title="基于物品的最近邻推荐"></a>基于物品的最近邻推荐</h2><p>基于用户的协同过滤方法在有着数以百万计用户和物品的大型电子商务网站上还是会存在严峻挑战。尤其是当需要扫描大量潜在近邻时,这种方法很难做到实时计算预测值。因此大型电子商务网站采用一种不同的技术：基于物品的推荐.这种推荐非常适合做线下预处理,因此在评分矩阵非常大的情况下也能做到实时计算推荐.</p>
+<p>基于物品算法的主要思想是利用物品间相似度,而不是用户间相似度来计算预测值.例子,一个物品5的评分向量为(3,5,4,1)和物品1的评分向量(3,4,3,1)很相似,与物品4(3,3,5,2)部分相似.基于物品推荐的方法就是简单地找到用户Alice对这些相似物品的评分,Alice给物品1评5分,给物品4评4分,那么基于物品的推荐算法会按照权重计算这些评分的平均值,从而预测目标物品5的评分会在4和5之间.</p>
+<p><strong>要注意与基于内容的推荐,这里基于物品的推荐方法并没有用到物品的特征,而是用到了用户对物品的评分.这里基于假设:用户对相似物品的评分应该是相似的.</strong></p>
+<p>基于物品过滤的数据预处理</p>
+<p>传统的基于用户协同过滤的主要问题是,算法不能很好地适应大规模用户和物品数据.给定M个用户和N个物品,在最坏的情况下,必须评估最多包含这N个物品的所有M个用户的记录.在实际情况下,由于大多数用户只评分或购买了非常少的物品,实际复杂对非常低。尽管如此,当用户的数量M达到几百万,线上环境要求必须在极短的时间内返回结果时,实时计算预测值仍然不可行.</p>
+<p>为了在不牺牲推荐精准度的情况下在大规模电子商务网站上应用基于物品的推荐算法，人们通常选择离线预计算数据.其想法是事先构建一个物品相似度矩阵,描述所有物品两两之间的相似度.在运行时,通过确定与p最相似的物品并计算u对这些近邻物品评分的加权总和来得到用户u对物品p的预测评分.近邻数量受限于当前用户评过分的物品个数.由于这样的物品数量一般比较少,因此计算预测值可以在线上交互应用允许的短时间内完成.</p>
+<p>考虑到内存要求,N个物品的相似度矩阵理论上会有$N^2$项.但实际上项数会极低,而且还可以采取进一步的方法降低复杂度.可选的方案有,仅考虑哪些与其他物品同时评分数最少的物品,或者对每个物品只记录有限的近邻.</p>
+<p>原则上,离线预计算邻近的方法对于基于用户的方法也适用.但在实际情况下,两个用户评分重叠的情况非常少见,这就意味着一些其他的评分值可能影响到用户间的相似度.相对用户相似度而言,物品相似度更稳定.这种预处理计算不会过于影响预测准确率.</p>
+<p>除了这些所谓基于模型的方法中采用的不同预处理计算之外,还可以仅利用评分矩阵中的某一部分以降低计算复杂度.一种基本技术是二次采样,这种技术可以随机选取数据的子集,或者忽略哪些仅有非常少量评分或仅包括非常热门物品的用户记录.</p>
+<h2 id="关于评分-协同过滤推荐的评分方法"><a href="#关于评分-协同过滤推荐的评分方法" class="headerlink" title="关于评分(协同过滤推荐的评分方法)"></a>关于评分(协同过滤推荐的评分方法)</h2><p>显式评分：直接收集用户观点,直接询问物品的评分，并且这种方式得到的评分最准确.但有问题,即需要用户额外付出,而用户可能由于看不到好处而不愿意提供这些评分.因此，可用评分比较少,从而导致推荐质量不高.<br>隐式评分:比如购买一件物品，浏览一件物品系统都会解释为正向评分.这些评分过程往往出现在用户操作中,并在用户操作不经意间产生.问题就是没有显式评分那么准确</p>
+<h3 id="数据稀疏和冷启动问题"><a href="#数据稀疏和冷启动问题" class="headerlink" title="数据稀疏和冷启动问题"></a>数据稀疏和冷启动问题</h3><p>实际应用中,由于用户一般只会评价(或购买)少部分物品,评分矩阵一般都非常的稀疏<br>这种情况下的挑战是用相对较少的有效评分得到准确的预测.直接做法就是利用用户的附加信息,比如性别、年龄、教育程度、兴趣等能够帮助分类用户的信息.因此，相似用户(近邻)集合不只是根据象识或隐式评分,也会根据评分矩阵的外部信息来分析.这样会引入一些新问题:如何获取额外信息 and 如何混合不同的分类器.</p>
+<hr>
+<p>人们提出了一些处理冷启动和数据稀疏问题的方法.《Applying associative retrieval techniques to alleviate the sparsity problem in collaborative filtering》这是一种基于图的方法.其主要思想是利用假定用户品味的”传递性”，并由此增强额外信息矩阵.</p>
+<hr>
+<p>缺省投票描述的另外一种用来处理稀疏评分数据的技术.回想一下,标准的相似度方法只考虑那些当前用户和用来比较的用户都评过分的物品.当数量很少时,评分碰巧相同或不同都会对相似度计算影响很大.因此这种思路就是给那些只有一两个用户评过分的物品赋以缺省值(可能也会对一些附加的物品),这样可以提高稀疏评分数据上的预测质量.这些人工缺省投票就像一种缓冲机制,能够减少那些个别巧合因素对相似度的影响.</p>
+<hr>
+<p>冷启动问题是稀疏问题的特例.此类问题包括：(1)如何向还没给任何物品评分的新用户推荐(2)如何处理从未被评过分或购买过的物品.这两类问题都可以通过混合方法来解决,即利用额外的外部信息。</p>
+<h2 id="更多基于模型和预处理的方法"><a href="#更多基于模型和预处理的方法" class="headerlink" title="更多基于模型和预处理的方法"></a>更多基于模型和预处理的方法</h2><p>协同过滤技术一般分为两类:1.基于记忆的;2.基于模型的<br>传统的用户技术是基于记忆的,这是因为原始评分数据保存在内存中,直接生成推荐结果.而基于模型的方法会首先离线处理原始数据,就像基于物品的过滤和某些降维技术。运行时,只需要预计算或”学习过”的模型就能预测.尽管基于记忆的方法能获得全部数据,在理论上推荐精度更高,但也会遇到数以百万计用户和物品带来的扩展性问题.</p>
+<h3 id="矩阵因子分解"><a href="#矩阵因子分解" class="headerlink" title="矩阵因子分解"></a>矩阵因子分解</h3><p>2009年结束的Nexflix竞赛表明，很多参数团队用到的高等矩阵因子分解方法对提高推荐系统的预测准确率非常有帮助.</p>
+<p>简单地来说,推荐系统使用矩阵因子分解方法从评分模式抽取出一组潜在地(隐藏的)因子,并通过这些因子向量描述用户和物品.在电影领域,这些自动识别的因子可能对应一部电影的常见标签,比如风格或类型(戏剧片或动作片),也可能是无法解释的.当当前用户和物品i在这些因子上相似时会推荐物品i.</p>
+<p>1990年Deerwester 提出使用奇异值分解(SVD)发现文档中的潜在因子;<br>在信息检索方面,这种潜在语义分析(LSA)技术也被归为潜在语义索引(LSI).</p>
+<p>信息检索领域的问题通常是根据用户的查询词找到一组文档。文档和用户查询词都被解析为词语的向量.简单的检索方法可能只会测量文档与查询词之间在词语上的重复度。然而这种检索方法无法解决文档或查询词中有同义词或者多义词的问题.SVD将高度相关且一起出现的词语作为单独因子,把通常很大的文档向量矩阵拆解成更小阶的近似矩阵.这样,基于LSI的检索甚至能够在不包含用户查询词中(很多)词语的情况下检索出相关文档.</p>
+<ol>
+<li><p>基于SVD推荐系统<br>SVD的原理:通俗地表述为:将给定矩阵M分解成3个矩阵的乘积，其中U和V分别为左、右奇异向量,$\Sigma$对角线上的值称为奇异值</p>
+<script type="math/tex; mode=display">M=U\SigmaV^T</script><p>如果一个评分矩阵为</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+3\ \ 4 \ \ 3 \ \ 1\\
+1\ \ 3 \ \ 2 \ \ 6\\
+2\ \ 4 \ \ 1 \ \ 5\\
+3\ \ 3 \ \ 5 \ \ 2\\
+\end{bmatrix}</script><p>其中行为物品,列为用户.<br>如果保留U和V的前两列作为两个最重要的特征：则U,V是4×2的矩阵,而$\Sigma$则是2×2的矩阵.</p>
+</li>
+<li><p>主成分分分析——Eigentaste.Goldberg(2001)提出一种不同的降维方法,最初应用在笑话推荐系统.其思想是用主成分分析(PCA)对评分系统预处理,过滤得出数据中”最重要”的方面，以解释大多数变量.经过PCA处理后,原始评分数据被投射到最相关的主特征向量上.然后,在约简后的数据集上,用户被归类到某个近邻聚类后计算物品的平均评分值.所有这些计算密集型的操作都在线下完成.运行时,要求新用户对一组笑话(标准集合)进行数值评分.这些评分经过主成分变化后得到正确的聚类.通过查找预处理数据，可以查询到聚类中评分最高的物品.这样运行时计算的时间复杂度与用户数量无关.</p>
+</li>
+</ol>
+<p>所有的预处理方法都必须解决数据更新问题:如何整合新的评分而不用重新计算整个”模型”。Sarwar提出一种基于SVD方法允许增量更新的技术.类似地,George and Merugu 提出一种基于联合聚类的方法,可以构建可扩展的协同过滤推荐系统,也支持评分数据库的动态更新.</p>
+<p>随着推荐系统早期实验中矩阵因数分解技术的发展,人们提出了一些更复杂和专业的方法.例如，Hofmann提出应用概率潜在语义分析(pLSA)发现用户社区和评分数据里隐藏的兴趣模式,基于这种方法可以达到很好的准确度级别.Hofmann的pLSA方法和LSA在识别隐藏关系这个目标上很相似,然而pLSA的基础不是线性代数而是统计数据,代表着”在统计上有更坚实基础的主流方法”。</p>
+<ol>
+<li>关联规则挖掘<br>关联规则挖掘是一种在大规模交易中识别类似规则关系模式的通用技术.这种技术的典型应用是从超市经常同时购买的商品中发掘成对或成组的商品。一个典型的规则是”如果用户买了婴儿视频,那他/她买尿布的可能性会是70%”。知道了这种关系,就可以利用这一知识进行推销和交叉销售,也可以用来设计商店的布局.</li>
+</ol>
+<p>这种想法也可以移植到协同过滤,换句话说，目标将变成自动发现规则,比如”如果用户X喜欢物品1和物品2,那么他很可能也喜欢物品5”.通过判断该用哪条挖掘出的规则,就能为活跃用户进行推荐,而且可以根据交易中同时出现物品的统计数据产生推荐物品的排序列表.</p>
+<p>关联规则经常写作X$\rightarrow$Y这种i形式,X和Y都是P的子集,且$X∩Y=\empty$.关联规则X$\rightarrow$Y(例如,婴儿食品$\rightarrow$尿布)表示只要交易T包含X里的元素(规则体),Y里元素(规则头)就非常有可能也是相同交易的元素.</p>
+<p>规则挖掘算法,如Apriori,其目标是自动发现这样的规则,并计算这些规则的质量(注意不是人为的指定规则).关联规则的衡量标准是支持度和可信度.规则$X\rightarrow Y$的支持度可以计算为包含X∪Y所有商品的交易量相对所有交易量的比例(也就是说X和Y同时出现在依次交易的概率)。可信度定义为包含X∪Y所有物品的交易量相对仅包含X的交易量的比值,也就是说可信度对应给定X时Y的条件概率</p>
+<script type="math/tex; mode=display">支持度=\frac{交易量包含X∪Y}{交易量}</script><script type="math/tex; mode=display">可信度=\frac{交易量包含X∪Y}{交易量包含X}</script><p>在协同推荐环境中,所有先前的(正向)评分集合或用户的购买行为都可以看作是一次交易.要分析的典型关联是,喜欢物品1的用户也喜欢物品5(物品1$\rightarrow$物品5)的可能性有多大.可以通过计算支持度和可信度.</p>
+<p>线下可以计算足够高可信度和支持度的关联规则集合.运行时,根据《Analysis of recommendation algorithms for e-commerce》中描述的方案就能够高效计算出目标用户Alice的推荐。<br>(1)确定与Alice相关的关联规则X$\rightarrow$Y的集合,即Alice买过(或喜欢)X中的所有元素.因为Alice买了物品1,那么上述规则就与Alice相关<br>(2)计算这些规则中Y集合中没有被Alice购买的物品集合<br>(3)对这些物品根据规则的可信度排序.如果多条规则都推荐一个物品,则取可信度最高的那条规则<br>(4)返回排血列表最前的N个元素作为推荐</p>
+<ol>
+<li>基于概率分析的推荐方法<br>用概率方法实现协同过滤,最初非常简单的方法是将预测问题看作分类问题.通常可以描述为”将一个对象分配给几个事先定义好的类别”的任务.</li>
+</ol>
+<p>贝叶斯分类器是数据挖掘领域用到的一种标准技术.比如朴素贝叶斯.</p>
+<h1 id="基于内容的推荐-1"><a href="#基于内容的推荐-1" class="headerlink" title="基于内容的推荐"></a>基于内容的推荐</h1><p>这里将物品的特征描述为“内容”。采用这种方法的推荐需要两类信息:1.物品特征的描述2.描述了用户(历史)兴趣的用户记录.<br>尽管这种方法必须依赖关于物品和用户偏好的额外信息,但他不需要巨大的用户群体或评分记录,也就是说,只有一个用户也可以产生推荐列表.</p>
+<p>该类方法最初设计的目的是推荐有意思的文本文档。因此,基于内容推荐系统的典型例子是比较候选文章的主要关键词和用户过去高度评价过的其他文章中出现的关键词来推荐新文章.相应地,能够被推荐的物品经常指的就是”文档”.</p>
+<h2 id="内容表示和相似度"><a href="#内容表示和相似度" class="headerlink" title="内容表示和相似度"></a>内容表示和相似度</h2><p>描述物品目录最简单的方法就是维护每个物品特征的详细列表(也叫属性集、特征集或物品记录)。对于推荐图书来说,可以使用体裁、作者名、出版社或其他描述物品的信息,然后将这些信息保存在关系数据库系统中.<br>基于内容推荐系统的一般工作原理是,评估用户还没看到的物品与当前用户过去喜欢的物品的相似度.</p>
+<p>相似度可以用不同方法来衡量.典型相似度度量方法会用到Dice系数,它比较适合多值特征集合.该系数描述如下：如果每本图书$B_i$由一组关键词keywords($B_i$)描述,那么Dice系数计算图书$b_i$和$b_j$之间的相似度为:</p>
+<script type="math/tex; mode=display">\frac{2×|keywords(b_i)∩ keywords(b_j)|}{|keywords(b_i)|+|keywords(b_j)|}</script><p>原则上,实际面临的的问题,各种相似度方法都是可行的.</p>
+<h3 id="向量空间模型和TF-IDF"><a href="#向量空间模型和TF-IDF" class="headerlink" title="向量空间模型和TF-IDF"></a>向量空间模型和TF-IDF</h3><p>严格来说,出版社和作者的信息实际上不算是图书的”内容”，只能算是附加知识.一直以来，基于内容来推荐系统都被用来过滤并推荐基于文本的物品,比如电子邮件或新闻。基于内容推荐的标准方法不是去维护一列”元信息”特征,而是使用一列出现在文档中的相关关键词.当然它的主要思想是,能够从文档内容本身或没有限制的文字描述中自动生成这样的列表.</p>
+<p>文档内容可以用不同的方法转化到这样的关键词列表中.首先,一种非常单纯的方法是将出现在所有文档的所有词语设为一个列表,然后用一个布尔型向量描述每个文档,其中1表示这个歌词出现在文档中,0表示该词没有出现。如果用户记录用一个用一个相似的列表描述(1表示对一个关键词感兴趣),那么计算兴趣和文档的重合程度就可以找到匹配的文档.</p>
+<p>这个简单方法存在的问题很明显。首先，假设每个词在文档中的重要程度相同,然而直观来讲,出现次数多的词更适合描述一篇文档。此外,当文档比较长的时候,用户记录和文档的重叠几率自然会更大而容易被发现。结果,推荐系统会更倾向于推荐长文档。</p>
+<p>为了解决上述简单布尔方法的缺陷,文档一般会用TF-IDF转换形式.</p>
+<script type="math/tex; mode=display">TF(i,j)=\frac{freq(i,j)}{maxOthers(i,j)}</script><p>其中freq(i,j)是i在j中出现的绝对频率.给定关键词i,令OtherKeywords(i,j)表示j中其他关键词集合.最大频率maxOthers(i,j)计算为max(freq(z,j)),z∈OtherKeywords(i,j)   (这里介绍的跟之前介绍的TF好像不一样,应该是一种改进)</p>
+<script type="math/tex; mode=display">IDF(i)=log(\frac{N}{n(i)})</script><p>其中N为所有可推荐文档的数量,n(i)为N中关键词i出现过文档的数量.</p>
+<script type="math/tex; mode=display">TF-IDF(i,j)=TF(i,j)* IDF(i)</script><h3 id="向量空间模型的改进及局限"><a href="#向量空间模型的改进及局限" class="headerlink" title="向量空间模型的改进及局限"></a>向量空间模型的改进及局限</h3><p>TF-IDF向量一般很大而且稀疏.可以使用其他技术让它们更紧凑,而且从向量中删除不相关的信息。</p>
+<ol>
+<li>停用词和词干还原，一种直接的方法是删除所谓的停用词.另一项常用技术是词干还原或合并,目的是将相同词语的不同变形替换成它们共同的词干(根词)</li>
+<li>精简规模.另一种直接方法是仅用n个信息量最大的词语来减少文档描述的规模,期望删除数据中的”噪声”.这属于特征选择过程</li>
+<li>短语，短语比单个词更能描述文本,用它来替换词有可能进一步提高描述的准确性</li>
+</ol>
+<p>局限性：从文本中抽取个别关键词并赋权的方法有一个重要的局限:没有考虑关键词的上下文.</p>
+<h2 id="基于内容的相似度检索"><a href="#基于内容的相似度检索" class="headerlink" title="基于内容的相似度检索"></a>基于内容的相似度检索</h2><ol>
+<li>KNN</li>
+<li>相关性反馈——Rocchio方法：用户不能只提交给系统基于关键词的查询词,还要反馈检索结果是否相关。有了反馈的帮助,系统能够从本质上扩展查询词,并改进下一轮检索的查询结果。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/02/23/《推荐系统》阅读（一）/">《推荐系统》阅读（一）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2019年02月23日 - 09:02</p>
+  <p><span>最后更新:</span>2019年02月23日 - 19:02</p>
+  <p><span>原始链接:</span><a href="/2019/02/23/《推荐系统》阅读（一）/" title="《推荐系统》阅读（一）">http://yifdu.github.io/2019/02/23/《推荐系统》阅读（一）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/02/23/《推荐系统》阅读（一）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Recommended-system/" rel="tag"># Recommended system</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/22/剑指offer（九）/" rel="next" title="剑指offer（九）">
+                <i class="fa fa-chevron-left"></i> 剑指offer（九）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/23/花书重读（三）/" rel="prev" title="花书重读（三）">
+                花书重读（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#协同过滤推荐"><span class="nav-number">1.1.1.</span> <span class="nav-text">协同过滤推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于内容的推荐"><span class="nav-number">1.1.2.</span> <span class="nav-text">基于内容的推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于知识的推荐"><span class="nav-number">1.1.3.</span> <span class="nav-text">基于知识的推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混合推荐方法"><span class="nav-number">1.1.4.</span> <span class="nav-text">混合推荐方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协同过滤推荐-1"><span class="nav-number">2.</span> <span class="nav-text">协同过滤推荐</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于用户的最近邻推荐"><span class="nav-number">2.1.</span> <span class="nav-text">基于用户的最近邻推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于物品的最近邻推荐"><span class="nav-number">2.2.</span> <span class="nav-text">基于物品的最近邻推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于评分-协同过滤推荐的评分方法"><span class="nav-number">2.3.</span> <span class="nav-text">关于评分(协同过滤推荐的评分方法)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据稀疏和冷启动问题"><span class="nav-number">2.3.1.</span> <span class="nav-text">数据稀疏和冷启动问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多基于模型和预处理的方法"><span class="nav-number">2.4.</span> <span class="nav-text">更多基于模型和预处理的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵因子分解"><span class="nav-number">2.4.1.</span> <span class="nav-text">矩阵因子分解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于内容的推荐-1"><span class="nav-number">3.</span> <span class="nav-text">基于内容的推荐</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内容表示和相似度"><span class="nav-number">3.1.</span> <span class="nav-text">内容表示和相似度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#向量空间模型和TF-IDF"><span class="nav-number">3.1.1.</span> <span class="nav-text">向量空间模型和TF-IDF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向量空间模型的改进及局限"><span class="nav-number">3.1.2.</span> <span class="nav-text">向量空间模型的改进及局限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于内容的相似度检索"><span class="nav-number">3.2.</span> <span class="nav-text">基于内容的相似度检索</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

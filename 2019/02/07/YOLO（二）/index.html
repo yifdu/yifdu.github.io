@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="Deep Learning,CV,Object Detection,">
+  <meta name="keywords" content="Deep Learning,Object Detection,CV,">
 
 
 
@@ -91,7 +91,7 @@
 
 
 <meta name="description" content="YOLOv2YOLOv2的改进结果后的效果 YOLOv1的问题 回归得到的box的精准不够高 召回率不够  一般遇到这个类问题的解决思路是把网络加深加宽,而本文通过优化网络学习在准确率不降的情况下提升精度和召回率. Batch NormalizationCNN在训练过程中网络每层输入的分布一直在改变, 会使训练过程难度加大，但可以通过normalize每层的输入解决这个问题。新的YOLO网络在每一">
-<meta name="keywords" content="Deep Learning,CV,Object Detection">
+<meta name="keywords" content="Deep Learning,Object Detection,CV">
 <meta property="og:type" content="article">
 <meta property="og:title" content="YOLO（二）">
 <meta property="og:url" content="http://yifdu.github.io/2019/02/07/YOLO（二）/index.html">
@@ -99,7 +99,7 @@
 <meta property="og:description" content="YOLOv2YOLOv2的改进结果后的效果 YOLOv1的问题 回归得到的box的精准不够高 召回率不够  一般遇到这个类问题的解决思路是把网络加深加宽,而本文通过优化网络学习在准确率不降的情况下提升精度和召回率. Batch NormalizationCNN在训练过程中网络每层输入的分布一直在改变, 会使训练过程难度加大，但可以通过normalize每层的输入解决这个问题。新的YOLO网络在每一">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=195772077,878483657&fm=26&gp=0.jpg">
-<meta property="og:updated_time" content="2019-02-17T13:39:20.274Z">
+<meta property="og:updated_time" content="2019-02-21T08:08:30.767Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="YOLO（二）">
 <meta name="twitter:description" content="YOLOv2YOLOv2的改进结果后的效果 YOLOv1的问题 回归得到的box的精准不够高 召回率不够  一般遇到这个类问题的解决思路是把网络加深加宽,而本文通过优化网络学习在准确率不降的情况下提升精度和召回率. Batch NormalizationCNN在训练过程中网络每层输入的分布一直在改变, 会使训练过程难度加大，但可以通过normalize每层的输入解决这个问题。新的YOLO网络在每一">
@@ -388,7 +388,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  6.2k 字
+                  6.3k 字
                 </span>
               
 
@@ -427,7 +427,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=195772077,878483657&fm=26&gp=0.jpg" rel="gallery_cjse8ihhl00bgrswa0iitkogp" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=195772077,878483657&fm=26&gp=0.jpg" rel="gallery_cjsl4w1ky00cklcwa4ihqnwli" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=195772077,878483657&fm=26&gp=0.jpg" itemprop="contentUrl">
               </a>
             
@@ -452,12 +452,14 @@
 <ol>
 <li>训练输入为224×224图片的分类网络</li>
 <li>进行微调,将输入图片的大小改为448×448,仍为分类网络</li>
-<li>然后微调detection部分,输入仍为448×448<h2 id="Convolutional-With-Anchor-Boxes"><a href="#Convolutional-With-Anchor-Boxes" class="headerlink" title="Convolutional With Anchor Boxes"></a>Convolutional With Anchor Boxes</h2></li>
+<li>然后微调detection部分,输入仍为448×448</li>
 </ol>
-<p>之前的YOLO利用全连接层的数据完成边框的预测，导致丢失较多的空间信息，定位不准。作者在这一版本中借鉴了Faster R-CNN中的anchor思想，回顾一下，anchor是RNP网络中的一个关键步骤，说的是在卷积特征图上进行滑窗操作，每一个中心可以预测9种不同大小的建议框。<br>首先将原网络的全连接层和最后一个pooling层去掉(网络仅采用卷积层和池化层),使得最后的卷积层可以有更高分辨率的特征;然后缩减网络,用416×416大小的输入代替原来448×448.这样做的原因是希望得到的特征图都有奇数大小的宽和高,奇数大小的宽和高会使得每个特征图在划分cell的时候就只有一个center cell(比如可以划分成7×7或9×9个cell,center cell只有一个,如果划分成8×8或10×10的,center cell有4个)。为什么希望只有一个center cell呢?因为大的object一般会占据图像的中心,所以希望用一个center cell去预测,而不是4个center cell去预测.网络最终将416×416的输入变成13×13大小的feature map输出,也就是缩小比例为32.</p>
+<h2 id="Convolutional-With-Anchor-Boxes"><a href="#Convolutional-With-Anchor-Boxes" class="headerlink" title="Convolutional With Anchor Boxes"></a>Convolutional With Anchor Boxes</h2><p>之前的YOLO利用全连接层的数据完成边框的预测，导致丢失较多的空间信息，定位不准。作者在这一版本中借鉴了Faster R-CNN中的anchor思想，回顾一下，anchor是RNP网络中的一个关键步骤，说的是在卷积特征图上进行滑窗操作，每一个中心可以预测9种不同大小的建议框。<br>首先将原网络的全连接层和最后一个pooling层去掉(网络仅采用卷积层和池化层),使得最后的卷积层可以有更高分辨率的特征;然后缩减网络,用416×416大小的输入代替原来448×448.这样做的原因是希望得到的特征图都有奇数大小的宽和高,奇数大小的宽和高会使得每个特征图在划分cell的时候就只有一个center cell(比如可以划分成7×7或9×9个cell,center cell只有一个,如果划分成8×8或10×10的,center cell有4个)。为什么希望只有一个center cell呢?因为大的object一般会占据图像的中心,所以希望用一个center cell去预测,而不是4个center cell去预测.网络最终将416×416的输入变成13×13大小的feature map输出,也就是缩小比例为32.</p>
 <p>我们知道原来的YOLO算法将输入图像分成7×7的网格,每个网格预测两个bounding box,因此一共只有98个box,但是在YOLOv2通过引入anchor boxes,预测的box数量超过了1000(以输出feature map大小为13×13为例,每个grid cell有9个anchor box的话,一共就是13×13×9=1521个,当然由Dimension clusters可知,最终每个grid cell选择5个anchor box).顺便提一下在Faster RCNN在输入大小为1000×600时的boxes数量大概是6000,在SSD300中boxes数量是8732.显然增加box数量是为了提高oject的定位准确率.</p>
 <h2 id="Dimension-Clusters"><a href="#Dimension-Clusters" class="headerlink" title="Dimension Clusters"></a>Dimension Clusters</h2><p>我们知道在Faster-RCNN中anchor box的大小和比例是按经验设定的,然后网络会在训练过程中调整anchor box的尺寸.但是如果一开始就能选择到合适尺寸的anchor box,那肯定可以帮助网络越好地预测detection.所以作者使用k-means的方式对训练集的bounding boxes做聚类,试图找到合适的anchor box.另外作者发现如果采用标准的k-means(即用欧氏距离来衡量差异),在box的尺寸较大的时候其误差也更大,而我们希望的是误差和box的尺寸没有太大关系.所以通过IOU定义了如下的距离函数,使得误差和box的大小无关:</p>
-<script type="math/tex; mode=display">d(box,centroid)=1-IOU(box,centroid)</script><h2 id="Direct-Location-prediction"><a href="#Direct-Location-prediction" class="headerlink" title="Direct Location prediction"></a>Direct Location prediction</h2><p>作者在引入anchor box的时候遇到的第二个问题:模型不稳定,尤其是在训练刚开始的时候.作者认为这种不稳定主要来自预测box的(x,y)值,从而在YOLOv2中改为用sigmoid函数预测offset.这里的$x_a和y_a$是anchor的坐标,$w_a$和$h_a$是anchor的size,x和y是坐标的预测值,$t_x和t_y$是偏移量.</p>
+<script type="math/tex; mode=display">d(box,centroid)=1-IOU(box,centroid)</script><p>Faster RCNN是手选9个 anchor box的宽高的大小,而YOLOv2是通过训练集训练出来适合的宽高大小。<br>通过训练集中各个框的宽高来聚类,得到k=5个标准的宽高.</p>
+<p>YOLOv3也有用Dimension clusters,但要注意：yolov2里的值是相对于特征图的,值很小基本都小于13;但yolov3里的值是相对于原图来说的,相对比较大。</p>
+<h2 id="Direct-Location-prediction"><a href="#Direct-Location-prediction" class="headerlink" title="Direct Location prediction"></a>Direct Location prediction</h2><p>作者在引入anchor box的时候遇到的第二个问题:模型不稳定,尤其是在训练刚开始的时候.作者认为这种不稳定主要来自预测box的(x,y)值,从而在YOLOv2中改为用sigmoid函数预测offset.这里的$x_a和y_a$是anchor的坐标,$w_a$和$h_a$是anchor的size,x和y是坐标的预测值,$t_x和t_y$是偏移量.</p>
 <p>在这里作者并没有采用直接预测offset的方法,还是沿用了YOLO算法中直接预测相当于grid cell的坐标位置的方式。<br>前面提到网络在最后一个卷积层输出13×13大小的feature map,然后每个cell预测5个bounding box,然后每个bounding box预测5个值:$t_x,t_y,t_w,t_h和t_o$(这里的$t_o$类似YOLOv1中的confidence).看下图,$t_x$和$t_y$经过sigmoid函数处理后范围在0到1之间,这里的归一化处理也使得模型训练更加稳定;$c_x$和$c_y$表示cell和图像左上角的横纵距离;$p_w$和$p_h$表示bounding box的宽高,这样$b_x$和$b_y$就是$c_x$和$c_y$这个cell附近的anchor来预测$t_x$和$t_y$得到的结果.</p>
 <script type="math/tex; mode=display">b_x=\sigma (t_x)+c_x</script><script type="math/tex; mode=display">b_y=\sigma (t_y)+c_y</script><script type="math/tex; mode=display">b_w=p_we^{t_w}</script><script type="math/tex; mode=display">b_h=p_he^{t_h}</script><script type="math/tex; mode=display">Pr(object)×IOU(b,object)=\sigma (t_o)</script><p>上面公式可看下图来理解,首先$c_x$和$c_y$,表示grid cell与图像左上角的横纵坐标距离,黑色虚线框是bounding box,蓝色矩形框就是预测结果.<br><img src="/2019/02/07/YOLO（二）/pic3.png" alt="pic3"></p>
 <h2 id="Fine-Grained-features"><a href="#Fine-Grained-features" class="headerlink" title="Fine-Grained features"></a>Fine-Grained features</h2><p>这里主要是添加了一个层:passthrough layer.这个层的作用就是将前面一层的26×26的feature map和本层的13×13的feature map进行连接,有点像ResNet.这样做的原因在于虽然13×13的feature map对于预测大的object已经足够了,但是对于预测小的object就不一定有效.也容易理解,越小的object,经过层层卷积和pooling,可能到最后都不见了,所以通过合并前一层的size大一点的feature map可以有效检测小的object.</p>
@@ -520,7 +522,7 @@
   <p><span>本文标题:</span><a href="/2019/02/07/YOLO（二）/">YOLO（二）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2019年02月07日 - 23:02</p>
-  <p><span>最后更新:</span>2019年02月17日 - 21:02</p>
+  <p><span>最后更新:</span>2019年02月21日 - 16:02</p>
   <p><span>原始链接:</span><a href="/2019/02/07/YOLO（二）/" title="YOLO（二）">http://yifdu.github.io/2019/02/07/YOLO（二）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/02/07/YOLO（二）/" aria-label="复制成功！"></i></span>
   </p>
@@ -554,9 +556,9 @@
           
             <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
           
-            <a href="/tags/CV/" rel="tag"># CV</a>
-          
             <a href="/tags/Object-Detection/" rel="tag"># Object Detection</a>
+          
+            <a href="/tags/CV/" rel="tag"># CV</a>
           
         </div>
       
@@ -662,7 +664,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-count">86</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -673,7 +675,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
