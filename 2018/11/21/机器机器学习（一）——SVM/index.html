@@ -435,7 +435,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" rel="gallery_cjsofd68l00c7u0wav1tmpy6p" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" rel="gallery_cjsooweh000c504waqx7ka98a" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" itemprop="contentUrl">
               </a>
             
@@ -805,10 +805,23 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
 
           
           
+		  
+		  <% if="" (site.tags.length)="" {="" %="">
+    <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+    <div class="widget-wrap">
+        <h3 class="widget-title"><%= __('tagcloud')="" %=""></%=></h3>
+        <div id="myCanvasContainer" class="widget tagcloud">
+            <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                <%- tagcloud()="" %="">
+            </%-></canvas>
+        </div>
+    </div>
+<% }="" %="">
 
           
 
-        </div>
+        </%></%></div>
       </section>
 
       
@@ -824,6 +837,7 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
               <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识-SVM"><span class="nav-number">2.</span> <span class="nav-text">初识 SVM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动机"><span class="nav-number">3.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性SVM——SVM最初的模样。"><span class="nav-number">4.</span> <span class="nav-text">线性SVM——SVM最初的模样。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬间隔"><span class="nav-number">4.1.</span> <span class="nav-text">硬间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软间隔"><span class="nav-number">4.2.</span> <span class="nav-text">软间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求解最优化问题"><span class="nav-number">4.3.</span> <span class="nav-text">求解最优化问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日乘子法"><span class="nav-number">4.3.1.</span> <span class="nav-text">拉格朗日乘子法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KKT条件"><span class="nav-number">4.3.2.</span> <span class="nav-text">KKT条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日对偶性"><span class="nav-number">4.3.3.</span> <span class="nav-text">拉格朗日对偶性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求解SVM的最优化问题"><span class="nav-number">4.3.4.</span> <span class="nav-text">求解SVM的最优化问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬间隔-1"><span class="nav-number">4.3.4.1.</span> <span class="nav-text">硬间隔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软间隔-1"><span class="nav-number">4.3.4.2.</span> <span class="nav-text">软间隔</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非线性SVM与核函数"><span class="nav-number">5.</span> <span class="nav-text">非线性SVM与核函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数的选取"><span class="nav-number">5.1.</span> <span class="nav-text">核函数的选取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数的本质"><span class="nav-number">5.2.</span> <span class="nav-text">核函数的本质</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM实现多分类"><span class="nav-number">6.</span> <span class="nav-text">SVM实现多分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM优缺点"><span class="nav-number">7.</span> <span class="nav-text">SVM优缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#支持向量回归-SVR"><span class="nav-number">8.</span> <span class="nav-text">支持向量回归(SVR)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scikit-learn里的SVM"><span class="nav-number">9.</span> <span class="nav-text">scikit-learn里的SVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分类"><span class="nav-number">9.1.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多分类"><span class="nav-number">9.1.1.</span> <span class="nav-text">多分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非均衡问题"><span class="nav-number">9.2.</span> <span class="nav-text">非均衡问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回归"><span class="nav-number">9.3.</span> <span class="nav-text">回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数"><span class="nav-number">9.4.</span> <span class="nav-text">核函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义核"><span class="nav-number">9.4.0.1.</span> <span class="nav-text">自定义核</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">10.</span> <span class="nav-text">参考文献</span></a></li></div>
             
 
+			
           </div>
         </section>
       <!--/noindex-->
@@ -831,22 +845,13 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
 
       
 	  
+
 	  
-	  
-	  
-			<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
-			<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
-			<div class="widget-wrap">
-				<h3 class="widget-title">Tag Cloud</h3>
-				<div id="myCanvasContainer" class="widget tagcloud">
-					<canvas width="250" height="250" id="resCanvas" style="width=100%">
-						<ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AP/">AP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Attention/">Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTR/">CTR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Convolution-neural-network/">Convolution neural network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cs224n/">Cs224n</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Decision-Tree/">Decision Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learing/">Deep Learing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/">Deep Learning</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Embedding层/">Embedding层</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-enhancement/">Image enhancement</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/K-means/">K-means</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-Schedule/">LR_Schedule</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-model/">Linear model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logistic-Regression/">Logistic Regression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MAP/">MAP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NMT/">NMT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Normalization/">Normalization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Object-Detection/">Object Detection</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P/">P</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paper/">Paper</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/">Project</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/">Pytorch</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recall/">Recall</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recomendation-System/">Recomendation System</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recommended-system/">Recommended system</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recurrent-neural-network/">Recurrent neural network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVD/">SVD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sampling/">Sampling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Support-Vector-Machine/">Support Vector Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word-Window-classification/">Word Window classification</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cifar10/">cifar10</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cs224n/">cs224n</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dependency-parsing/">dependency parsing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/forward-pass/">forward pass</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/information-Processing/">information Processing</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/manifold-learning/">manifold learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paper/">paper</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/parameters/">parameters</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/">pytorch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recommendations-systems/">recommendations systems</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensor/">tensor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorboardX/">tensorboardX</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/torch/">torch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/torchvision/">torchvision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/visualization/">visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/傅里叶变换/">傅里叶变换</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/凸优化/">凸优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/剑指offer/">剑指offer</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/卷积/">卷积</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/彩色图像处理/">彩色图像处理</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最优化/">最优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计学习方法/">统计学习方法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自然语言/">自然语言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/角点/">角点</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/角点检测算法/">角点检测算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/评估标准/">评估标准</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/降维、可视化/">降维、可视化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集成学习/">集成学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/频域与空间域/">频域与空间域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/频率域滤波/">频率域滤波</a><span class="tag-list-count">1</span></li></ul>
-					</canvas>
-				</div>
-			</div>
 	  
 
     </div>
+		  
+	  
   </aside>
 
 
@@ -931,6 +936,8 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
   
 
 
+  
+
 
 
 
@@ -969,6 +976,11 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 

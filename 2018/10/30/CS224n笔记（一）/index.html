@@ -435,7 +435,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjsofd67a00bxu0waz29wjcos" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjsoowebj00bg04wats91hs17" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" itemprop="contentUrl">
               </a>
             
@@ -851,10 +851,23 @@ ratio的值& \text{单词j,k相关} & \text{单词j,k不相关} \\
 
           
           
+		  
+		  <% if="" (site.tags.length)="" {="" %="">
+    <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+    <div class="widget-wrap">
+        <h3 class="widget-title"><%= __('tagcloud')="" %=""></%=></h3>
+        <div id="myCanvasContainer" class="widget tagcloud">
+            <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                <%- tagcloud()="" %="">
+            </%-></canvas>
+        </div>
+    </div>
+<% }="" %="">
 
           
 
-        </div>
+        </%></%></div>
       </section>
 
       
@@ -870,6 +883,7 @@ ratio的值& \text{单词j,k相关} & \text{单词j,k不相关} \\
               <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言涉及的几个-层次"><span class="nav-number">1.</span> <span class="nav-text">自然语言涉及的几个 层次</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-NLP-Deep-Learning-NLP"><span class="nav-number">2.</span> <span class="nav-text">Deep NLP=Deep Learning +NLP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#比如机器翻译"><span class="nav-number">2.1.</span> <span class="nav-text">比如机器翻译</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Word-Embedding"><span class="nav-number">3.</span> <span class="nav-text">Word Embedding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-意义"><span class="nav-number">3.1.</span> <span class="nav-text">1.意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-方法"><span class="nav-number">3.2.</span> <span class="nav-text">2.方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-word2Vector"><span class="nav-number">3.3.</span> <span class="nav-text">3.word2Vector</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Word2Vec"><span class="nav-number">4.</span> <span class="nav-text">Word2Vec</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WordNet"><span class="nav-number">4.1.</span> <span class="nav-text">WordNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributional-Similarity-based-representation"><span class="nav-number">4.2.</span> <span class="nav-text">Distributional Similarity based representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word2vec的主要思想及模型"><span class="nav-number">4.3.</span> <span class="nav-text">Word2vec的主要思想及模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram"><span class="nav-number">4.3.1.</span> <span class="nav-text">Skip-gram</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向传播"><span class="nav-number">4.3.1.1.</span> <span class="nav-text">前向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向传播"><span class="nav-number">4.3.1.2.</span> <span class="nav-text">反向传播</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram代码"><span class="nav-number">4.3.2.</span> <span class="nav-text">Skip-gram代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Continuous-Bag-of-Words-CBOW"><span class="nav-number">4.4.</span> <span class="nav-text">Continuous Bag of Words(CBOW)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hierarchical-Softmax"><span class="nav-number">4.5.</span> <span class="nav-text">Hierarchical Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CBOW-with-Hierarchical-Softmax"><span class="nav-number">4.5.1.</span> <span class="nav-text">CBOW with Hierarchical Softmax:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度计算"><span class="nav-number">4.5.1.1.</span> <span class="nav-text">梯度计算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Negative-Sampling"><span class="nav-number">4.6.</span> <span class="nav-text">Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主要思想"><span class="nav-number">4.6.1.</span> <span class="nav-text">主要思想</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#采样方法"><span class="nav-number">4.6.1.1.</span> <span class="nav-text">采样方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度计算（CBOW）"><span class="nav-number">4.6.1.2.</span> <span class="nav-text">梯度计算（CBOW）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Glove"><span class="nav-number">5.</span> <span class="nav-text">Glove</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计共现矩阵"><span class="nav-number">5.1.</span> <span class="nav-text">统计共现矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用GloVe模型训练词向量"><span class="nav-number">5.2.</span> <span class="nav-text">使用GloVe模型训练词向量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型："><span class="nav-number">5.2.1.</span> <span class="nav-text">模型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型是怎么来的"><span class="nav-number">5.2.2.</span> <span class="nav-text">模型是怎么来的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体权重项应该是怎么样的"><span class="nav-number">5.2.3.</span> <span class="nav-text">具体权重项应该是怎么样的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Countbased-VS-Direct-Prediction"><span class="nav-number">6.</span> <span class="nav-text">Countbased VS Direct Prediction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
+			
           </div>
         </section>
       <!--/noindex-->
@@ -877,22 +891,13 @@ ratio的值& \text{单词j,k相关} & \text{单词j,k不相关} \\
 
       
 	  
+
 	  
-	  
-	  
-			<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
-			<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
-			<div class="widget-wrap">
-				<h3 class="widget-title">Tag Cloud</h3>
-				<div id="myCanvasContainer" class="widget tagcloud">
-					<canvas width="250" height="250" id="resCanvas" style="width=100%">
-						<ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AP/">AP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Attention/">Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTR/">CTR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/">CV</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Convolution-neural-network/">Convolution neural network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cs224n/">Cs224n</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Decision-Tree/">Decision Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learing/">Deep Learing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/">Deep Learning</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Embedding层/">Embedding层</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-enhancement/">Image enhancement</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/K-means/">K-means</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR-Schedule/">LR_Schedule</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-model/">Linear model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logistic-Regression/">Logistic Regression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MAP/">MAP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NMT/">NMT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Normalization/">Normalization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Object-Detection/">Object Detection</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P/">P</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paper/">Paper</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/">Project</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/">Pytorch</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recall/">Recall</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recomendation-System/">Recomendation System</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recommended-system/">Recommended system</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recurrent-neural-network/">Recurrent neural network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVD/">SVD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sampling/">Sampling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Support-Vector-Machine/">Support Vector Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word-Window-classification/">Word Window classification</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cifar10/">cifar10</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cs224n/">cs224n</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dependency-parsing/">dependency parsing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/forward-pass/">forward pass</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/information-Processing/">information Processing</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/manifold-learning/">manifold learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paper/">paper</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/parameters/">parameters</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytorch/">pytorch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recommendations-systems/">recommendations systems</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sklearn/">sklearn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensor/">tensor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorboardX/">tensorboardX</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/torch/">torch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/torchvision/">torchvision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/visualization/">visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/傅里叶变换/">傅里叶变换</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/凸优化/">凸优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/剑指offer/">剑指offer</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/卷积/">卷积</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/彩色图像处理/">彩色图像处理</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最优化/">最优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/统计学习方法/">统计学习方法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自然语言/">自然语言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/角点/">角点</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/角点检测算法/">角点检测算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/评估标准/">评估标准</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/降维、可视化/">降维、可视化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集成学习/">集成学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/频域与空间域/">频域与空间域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/频率域滤波/">频率域滤波</a><span class="tag-list-count">1</span></li></ul>
-					</canvas>
-				</div>
-			</div>
 	  
 
     </div>
+		  
+	  
   </aside>
 
 
@@ -977,6 +982,8 @@ ratio的值& \text{单词j,k相关} & \text{单词j,k不相关} \\
   
 
 
+  
+
 
 
 
@@ -1015,6 +1022,11 @@ ratio的值& \text{单词j,k相关} & \text{单词j,k不相关} \\
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
