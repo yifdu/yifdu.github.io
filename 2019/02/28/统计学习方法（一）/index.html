@@ -98,12 +98,12 @@
 <meta property="og:site_name" content="深度智障">
 <meta property="og:description" content="统计学习方法概述统计学习的主要特点:(1)统计学习以计算机及网络为平台,是建立在计算机及网络之上的(2)统计学习以数据为研究对象,是数据驱动的科学(3)统计学习的目的是对数据进行预测和分析(4)统计学习以方法为中心(5)统计学习是概率论、统计学、信息论、计算理论、最优化理论及计算机科学等多个领域的交叉学科 统计学习的对象是数据(data),数据分为由连续变量和离散变量表示的类型.本书以讨论离散变量">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yifdu.github.io/2019/02/28/统计学习方法（一）/index.html">
-<meta property="og:updated_time" content="2019-02-28T07:34:38.654Z">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551426903076&di=2ea0da6aa447426bd4d14e6dd613f9de&imgtype=0&src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F35fdbf3a406053de7fcd80799d6238570d1017ef.jpg">
+<meta property="og:updated_time" content="2019-03-01T06:54:11.988Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="统计学习方法（一）">
 <meta name="twitter:description" content="统计学习方法概述统计学习的主要特点:(1)统计学习以计算机及网络为平台,是建立在计算机及网络之上的(2)统计学习以数据为研究对象,是数据驱动的科学(3)统计学习的目的是对数据进行预测和分析(4)统计学习以方法为中心(5)统计学习是概率论、统计学、信息论、计算理论、最优化理论及计算机科学等多个领域的交叉学科 统计学习的对象是数据(data),数据分为由连续变量和离散变量表示的类型.本书以讨论离散变量">
-<meta name="twitter:image" content="http://yifdu.github.io/2019/02/28/统计学习方法（一）/index.html">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551426903076&di=2ea0da6aa447426bd4d14e6dd613f9de&imgtype=0&src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F35fdbf3a406053de7fcd80799d6238570d1017ef.jpg">
 
 
 
@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.9k 字
+                  3.1k 字
                 </span>
               
 
@@ -412,7 +412,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  10 分钟
+                  11 分钟
                 </span>
               
             </div>
@@ -435,8 +435,8 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="/" rel="gallery_cjsoszbot009ig8waggm5o0k0" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="/" itemprop="contentUrl">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551426903076&di=2ea0da6aa447426bd4d14e6dd613f9de&imgtype=0&src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F35fdbf3a406053de7fcd80799d6238570d1017ef.jpg" rel="gallery_cjsoszbot009ig8waggm5o0k0" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551426903076&di=2ea0da6aa447426bd4d14e6dd613f9de&imgtype=0&src=http%3A%2F%2Fi2.hdslb.com%2Fbfs%2Farchive%2F35fdbf3a406053de7fcd80799d6238570d1017ef.jpg" itemprop="contentUrl">
               </a>
             
           
@@ -496,6 +496,33 @@
 <p>生成方法由数据学习联合概率分布P(X,Y),然后求出条件概率分布作为预测的模型<br>判别方法由数据直接学习决策函数f(X)或者条件概率分布P(Y|X)作为预测模型</p>
 <p>生成方法的特点是:可以还原出联合概率分布P(X,Y),而判别方法则不能,生成方法的学习收敛速度更快,即当样本容量增加的时候,学习到的模型可以更快地收敛于真实模型.<strong>当存在隐变量时,仍可以用生成方法学习,此时判别方法就不能用.</strong></p>
 <p>判别方法的特点:判别方法直接学习的是条件概率P(Y|X)或决策函数f(X),直接面对预测,往往学习的准确率更高;由于直接学习P(Y|X)或f(X),可以对数据进行各种程度上的抽象、定义特征并使用特征,因此可以简化学习问题</p>
+<h1 id="感知机"><a href="#感知机" class="headerlink" title="感知机"></a>感知机</h1><p>感知机是二分类的线性分类模型,其输入为一个实例的特征向量输出为实例的类别,取+1和-1二值.感知机对应于输入空间(特征空间)中将实例划分为正负两类的分类超平面属于判别模型.感知机旨在求出将训练数据进行线性划分的分离超平面.</p>
+<p>感知机算法具有简单而易于实现的优点,分为原始形式和对偶形式,感知机预测是用学习得到的感知机模型对新的输入实例进行分类.</p>
+<h2 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h2><p>输入空间到输出空间的如下函数:</p>
+<script type="math/tex; mode=display">f(x)=sign(w·x+b)</script><p>称为感知机,一种线性分类模型,属于判别模型.</p>
+<script type="math/tex; mode=display">sign(x)=
+\begin{cases}
++1,  \ \ \ \ \ \ \ x≥0\\
+-1,  \ \ \ \ \ \ \ x<0\\
+\end{cases}</script><h2 id="感知机模型-1"><a href="#感知机模型-1" class="headerlink" title="感知机模型"></a>感知机模型</h2><ol>
+<li>数据集的线性可分性:<br>给定数据集$T={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)}$<br>其中$x_i∈R^n$,$y_i∈{+1,-1}$,i=1,2,….N如果存在某个超平面S,wx+b=0能够将数据集的正实例点和负实例点完全正确地划分到超平面的两侧,即对所有的$y_i$=+1的实例i,$有wx_i+b&gt;0$,对所有$y_i=-1$的实例i,有$wx_i+b&lt;0$,则称数据集T为线性可分数据集.否则称数据集T为线性不可分.</li>
+<li>感知机学习策略<br>感知机的损失函数定义为:<script type="math/tex; mode=display">L(w,b)=-\sum_{x_i∈M}y_i(wx_i+b)</script>其中M为误分类点的集合,这个损失函数就是感知机学习的经验风险函数.<br>损失函数L(w,b)是连续可导函数</li>
+</ol>
+<p>感知机学习的策略是在假设空间中选取使损失函数最小的模型参数w,b即感知机模型。</p>
+<h2 id="感知机学习算法"><a href="#感知机学习算法" class="headerlink" title="感知机学习算法"></a>感知机学习算法</h2><h3 id="感知机学习算法的原始形式"><a href="#感知机学习算法的原始形式" class="headerlink" title="感知机学习算法的原始形式"></a>感知机学习算法的原始形式</h3><p>损失函数极小化问题的解</p>
+<script type="math/tex; mode=display">min_{w,b}L(w,b)=-\sum_{x_i∈M}y_i(wx_i+b)</script><p>感知机学习算法使误分类驱动的,具体采用随机梯度下降法.首先任意选取一个超平面$w_0,b_0$,然后用梯度下降法不断地极小化目标函数(上式).极小化过程中不是一次使M中所有误分类点的梯度下降,而是一次随机选取一个误分类点使其梯度下降.</p>
+<p>损失函数L(w,b)的梯度:</p>
+<script type="math/tex; mode=display">▽_ wL(w,b)=-\sum_{x_i∈M}y_ix_i</script><script type="math/tex; mode=display">▽_ bL(w,b)=-\sum_{x_i∈M}y_i</script><p>随机选取一个误分类点,对w,b进行更新:</p>
+<script type="math/tex; mode=display">w\leftarrow w+\eta y_ix_i</script><script type="math/tex; mode=display">b\leftarrow b+\eta y_i</script><p>其中$\eta$是步长,又称学习率.</p>
+<h3 id="感知机学习算法的对偶形式"><a href="#感知机学习算法的对偶形式" class="headerlink" title="感知机学习算法的对偶形式"></a>感知机学习算法的对偶形式</h3><p>对偶形式的基本想法是,将w和b表示为实例$x_i$和标记$y_i$的线性组合的形式,通过求解其系数而求得w和b.不失一般性,考虑w,b的初始值为0.对误分类点$(x_i,y_i)$通过</p>
+<script type="math/tex; mode=display">w\leftarrow w+\eta y_ix_i</script><script type="math/tex; mode=display">b\leftarrow b+\eta y_i</script><p>逐步修改w,b设修改n次,则w,b关于$(x_i,y_i)$的增量分别是$α_iy_ix_i和α_iy_i$这里$α_i=n_i\eta$。不难发现,最后学习到的w,b可以分别表示为:</p>
+<script type="math/tex; mode=display">w=\sum_{i=1}^Nα_iy_ix_i</script><script type="math/tex; mode=display">b=\sum_{i=1}^Nα_iy_i</script><p>感知机学习算法的对偶形式：<br>输入：线性可分数据集$T=\{(x_1,y_1),(x_2,y_2),…(x_N,y_N)\}$,其中$x_i∈R^n$,$y_i∈\{-1,+1\}$,i=1,2,…,N,学习率$\eta(0＜\eta≤1)$<br>输出:α,b;感知机模型$f(x)=sign(\sum_{j=1}^Nα_jy_jx_j·x+b)$其中α=(α_1,α_2,….,α_N)^T</p>
+<ol>
+<li>$α\leftarrow 0,b\leftarrow 0$</li>
+<li>训练集中选取数据$(x_i,y_i)$</li>
+<li>如果$y_i(\sum_{j=1}^Nα_jy_jx_j·x_i+b)≤0$<script type="math/tex; mode=display">α_i\leftarrow α_i+\eta</script><script type="math/tex; mode=display">b\leftarrow b+\eta y_i</script></li>
+<li>转至(2)直到没有误分类数据</li>
+</ol>
 
       
     </div>
@@ -510,6 +537,35 @@
         <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
     
 </div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/02/28/统计学习方法（一）/">统计学习方法（一）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2019年02月28日 - 11:02</p>
+  <p><span>最后更新:</span>2019年03月01日 - 14:03</p>
+  <p><span>原始链接:</span><a href="/2019/02/28/统计学习方法（一）/" title="统计学习方法（一）">http://yifdu.github.io/2019/02/28/统计学习方法（一）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/02/28/统计学习方法（一）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
 
       
     </div>
@@ -698,7 +754,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#统计学习方法概述"><span class="nav-number">1.</span> <span class="nav-text">统计学习方法概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计学习三要素"><span class="nav-number">1.1.</span> <span class="nav-text">统计学习三要素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略"><span class="nav-number">1.1.2.</span> <span class="nav-text">策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法"><span class="nav-number">1.1.3.</span> <span class="nav-text">算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型评估与模型选择"><span class="nav-number">1.2.</span> <span class="nav-text">模型评估与模型选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#过拟合与模型选择"><span class="nav-number">1.2.1.</span> <span class="nav-text">过拟合与模型选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化与交叉验证"><span class="nav-number">1.3.</span> <span class="nav-text">正则化与交叉验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化"><span class="nav-number">1.3.1.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉验证"><span class="nav-number">1.3.2.</span> <span class="nav-text">交叉验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛化能力"><span class="nav-number">1.4.</span> <span class="nav-text">泛化能力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成模型和判别模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">生成模型和判别模型</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#统计学习方法概述"><span class="nav-number">1.</span> <span class="nav-text">统计学习方法概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计学习三要素"><span class="nav-number">1.1.</span> <span class="nav-text">统计学习三要素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略"><span class="nav-number">1.1.2.</span> <span class="nav-text">策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法"><span class="nav-number">1.1.3.</span> <span class="nav-text">算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型评估与模型选择"><span class="nav-number">1.2.</span> <span class="nav-text">模型评估与模型选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#过拟合与模型选择"><span class="nav-number">1.2.1.</span> <span class="nav-text">过拟合与模型选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化与交叉验证"><span class="nav-number">1.3.</span> <span class="nav-text">正则化与交叉验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化"><span class="nav-number">1.3.1.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉验证"><span class="nav-number">1.3.2.</span> <span class="nav-text">交叉验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛化能力"><span class="nav-number">1.4.</span> <span class="nav-text">泛化能力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成模型和判别模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">生成模型和判别模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#感知机"><span class="nav-number">2.</span> <span class="nav-text">感知机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#感知机模型"><span class="nav-number">2.1.</span> <span class="nav-text">感知机模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#感知机模型-1"><span class="nav-number">2.2.</span> <span class="nav-text">感知机模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#感知机学习算法"><span class="nav-number">2.3.</span> <span class="nav-text">感知机学习算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#感知机学习算法的原始形式"><span class="nav-number">2.3.1.</span> <span class="nav-text">感知机学习算法的原始形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感知机学习算法的对偶形式"><span class="nav-number">2.3.2.</span> <span class="nav-text">感知机学习算法的对偶形式</span></a></li></ol></li></ol></li></ol></div>
             
 
 			
