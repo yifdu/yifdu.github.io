@@ -99,7 +99,7 @@
 <meta property="og:description" content="逻辑回归与线性回归逻辑回归与线性回归虽然都有回归两个字，但两者的作用却大不一样。逻辑回归处理的是分类问题，而线性回归处理的是回归问题。 在逻辑回归的讨论中，我们认为y是因变量，而非$\frac{p}{1-p}$，这便引出了逻辑回归与线性回归的最大的区别，即逻辑回归的因变量为离散的，而线性回归中的因变量是连续的。并且在自变量x与超参数$\theta$确定的情况下，逻辑回归可以看作是广义的线性模型在因">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543345556971&di=d616ab988755bc22f6866d836cdeff55&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-2166664f688ecd8ab5d1d3c7cc062c24_1200x500.jpg">
-<meta property="og:updated_time" content="2018-11-28T06:57:45.651Z">
+<meta property="og:updated_time" content="2019-03-05T09:43:33.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（二）———逻辑回归">
 <meta name="twitter:description" content="逻辑回归与线性回归逻辑回归与线性回归虽然都有回归两个字，但两者的作用却大不一样。逻辑回归处理的是分类问题，而线性回归处理的是回归问题。 在逻辑回归的讨论中，我们认为y是因变量，而非$\frac{p}{1-p}$，这便引出了逻辑回归与线性回归的最大的区别，即逻辑回归的因变量为离散的，而线性回归中的因变量是连续的。并且在自变量x与超参数$\theta$确定的情况下，逻辑回归可以看作是广义的线性模型在因">
@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k 字
+                  3.5k 字
                 </span>
               
 
@@ -412,7 +412,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7 分钟
+                  12 分钟
                 </span>
               
             </div>
@@ -435,7 +435,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543345556971&di=d616ab988755bc22f6866d836cdeff55&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-2166664f688ecd8ab5d1d3c7cc062c24_1200x500.jpg" rel="gallery_cjsuc3eyr001y5swaltszaeoq" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543345556971&di=d616ab988755bc22f6866d836cdeff55&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-2166664f688ecd8ab5d1d3c7cc062c24_1200x500.jpg" rel="gallery_cjswrnqc40087rcwajhj6qmlu" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543345556971&di=d616ab988755bc22f6866d836cdeff55&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-2166664f688ecd8ab5d1d3c7cc062c24_1200x500.jpg" itemprop="contentUrl">
               </a>
             
@@ -471,6 +471,48 @@
 <p>如果把感知器看成是上述神经元模型的形式的话。需要注意的就是这里的激活函数是一个Heaviside函数(阶跃函数)。当输入信号大于阈值，神经元兴奋，输出1；否则抑制输出0</p>
 <p>而逻辑回归也可以表示成神经元模型的形式，但激活函数变成了sigmoid函数(二分类问题)<br><img src="/2018/11/28/机器学习（二）———逻辑回归/LR.png" alt="LR"><br>显然如果多分类的话激活函数就是softmax.</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总的来说，逻辑回归可以被当成浅层神经网络(2层，输入层和输出层)。但该算法最重要的一点就是激活函数的选择，这里用到了sigmoid和softmax.</p>
+<h1 id="面试"><a href="#面试" class="headerlink" title="面试"></a>面试</h1><ol>
+<li><p>一句话概括逻辑回归：<br>逻辑回归是假设数据服从伯努利分布,通过极大似然函数的方法,运用梯度下降来求解参数,来达到数据二分类的目的.</p>
+</li>
+<li><p>逻辑回归为什么要用极大似然函数作为损失函数<br>损失函数一般有:平方损失函数,对数损失函数,HingeLoss0-1函数,绝对值损失函数.将极大似然函数取对数以后等同于对数似然函数.在逻辑回归这个模型下,对数损失函数的训练求解参数的速度比较快.<strong>之所以不选择平方损失函数，因为如果使用平方损失函数,会发现梯度更新和sigmoid函数本身的梯度有关.sigmoid函数在其定义域内的梯度都不大于0.25，训练会很慢.</strong></p>
+</li>
+<li><p>为什么要在训练的过程中将高度相关的特征去掉?</p>
+</li>
+</ol>
+<ul>
+<li>去掉高度相关的特征会让模型的可解释性更好</li>
+<li>可以大大提高训练的速度,如果模型当中有很多特征高度相关的话,就算损失函数本身收敛了,但实际上参数是没有收敛的,这样会拉低训练的速度,其次是特征多了,本身就会增大训练的时间.</li>
+</ul>
+<ol>
+<li><p>逻辑回归的优缺点总结<br>总结一些逻辑回归应用到工业当中的一些优点:<br>(1)形式简单,模型的可解释性非常好.某个特征的权重比较高,那么这个特征最后对结果的影响会比较大<br>(2)模型效果不错.在工程上可以接受的(作为baseline),如果特征工程做的好,效果不会太差,并且特征工程可以大家并行开发,大大加快开发的速度<br>(3)训练速度快.分类的时候,计算量只与特征的数目有关。<br>(4)资源占用小,尤其是内存.<br>(5)方便输出结果调整.因为输出的都是概率值.<br>但逻辑回归本身也有许多缺点:<br>(1)准确率并不是很高,因为形式非常简单,很难拟合数据的真实分布<br>(2)很难处理数据不平衡的问题.举例子:如果我们对于一个正负样本非常不平衡的问题比如正负样本比10000：1,我们把所有样本都预测为正也能使损失函数的值比较小.但作为一个分类器,它对正负样本的区分能力不会很好.<br>(3)处理非线性数据较麻烦.逻辑回归也不引入其他方法的情况下,只能处理线性可分的数据,或者进一步说,处理二分类的问题.<br>(4)逻辑回归本身无法筛选特征。有时候,我们会用gbdt来筛选特征,然后再上逻辑回归.</p>
+</li>
+<li><p>逻辑回归为什么要对特征进行离散化处理?<br>在工业界,很少直接将连续值作为逻辑回归的特征输入,而是将连续特征离散化为一系列0,1特征再交给逻辑回归模型,这样做的优势有以下几点<br>(1)离散特征的增加和减少都很容易,易于模型的快速迭代;<br>(2)稀疏向量内积乘法运算速度快,计算结果方便存储,容易扩展<br>(3)离散化后的特征对异常数据有很强的鲁棒性:比如一个特征是年龄＞30是1,否则0.如果特征没有离散化,一个异常数据年龄300岁，会给模型造成很大的干扰;<br>(4)逻辑回归属于广义线性模型,表达能力受限;单变量离散化为N个后,每个变量都有单独的权重,相当于为模型引入了非线性,能够提升模型表达能力,加大拟合.<br>(5)离散化后可以进行特征交叉,由M+N个向量变为M×N个变量,进一步引入非线性,提升表达能力<br>(6)特征离散化后,模型会更稳定,比如如果对用户年龄离散化,20-30作为一个区间,不会因为一个用户年龄长了一岁就变成一个完全不同的人.当然处于区间相邻的样本会刚好相反,所以怎么划分区间是门学问;<br>(7)特征离散化以后,起到了简化逻辑回归模型的作用,降低了过拟合的风险</p>
+</li>
+</ol>
+<hr>
+<p>模型是使用离散特征还是连续特征,其实是一个”海量离散特征”+”简单模型”同”少量连续特征”+”复杂模型”的权衡.可以离散化用线性模型，也可以用连续特征加深度学习，就看是喜欢折腾特征还是折腾模型了。</p>
+<hr>
+<h2 id="SVM与LR的异同点"><a href="#SVM与LR的异同点" class="headerlink" title="SVM与LR的异同点"></a>SVM与LR的异同点</h2><p>相同点:</p>
+<ol>
+<li>LR和SVM都是分类算法</li>
+<li>若不考虑核函数,SVM与LR都是线性分类算法</li>
+<li>LR和SVM都是监督学习算法</li>
+<li>LR和SVM都是判别模型</li>
+<li>LR和SVM在学术界和工业界都引用广泛</li>
+</ol>
+<p>不同点:</p>
+<ol>
+<li><p>本质上,它们两的loss function不同:<br>LR：基于概率理论,样本的概率可以用sigmoid函数表示,然后求极大似然函数<br>SVM:基于集合间隔最大化原理.</p>
+</li>
+<li><p>支持向量机只考虑局部边界线附近的点(支持向量),LR受所有的数据点影响</p>
+</li>
+<li><p>非线性问题,SVM采用核函数机制,而LR通常会采用特征构造,组合交叉特征引入非线性</p>
+</li>
+<li><p>线性SVM依赖数据表达的距离测度,故需要先对数据进行归一化,而LR不受影响</p>
+</li>
+<li><p>SVM的损失函数自带正则化项$\frac{1}{2}||w||^2$,这是SVM的结构化风险最小化算法的原因,而LR必须另外在损失函数上添加正则化项</p>
+</li>
+</ol>
 
       
     </div>
@@ -495,7 +537,7 @@
   <p><span>本文标题:</span><a href="/2018/11/28/机器学习（二）———逻辑回归/">机器学习（二）———逻辑回归</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月28日 - 00:11</p>
-  <p><span>最后更新:</span>2018年11月28日 - 14:11</p>
+  <p><span>最后更新:</span>2019年03月05日 - 17:03</p>
   <p><span>原始链接:</span><a href="/2018/11/28/机器学习（二）———逻辑回归/" title="机器学习（二）———逻辑回归">http://yifdu.github.io/2018/11/28/机器学习（二）———逻辑回归/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/28/机器学习（二）———逻辑回归/" aria-label="复制成功！"></i></span>
   </p>
@@ -635,7 +677,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -646,7 +688,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -657,7 +699,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -706,7 +748,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归与线性回归"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归与线性回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归的由来"><span class="nav-number">2.</span> <span class="nav-text">逻辑回归的由来</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归的损失函数-loss-function-和成本函数-cost-function"><span class="nav-number">3.</span> <span class="nav-text">逻辑回归的损失函数(loss function)和成本函数(cost function)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用极大似然函数求解逻辑回归"><span class="nav-number">4.</span> <span class="nav-text">用极大似然函数求解逻辑回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多分类的情况下考虑逻辑回归"><span class="nav-number">5.</span> <span class="nav-text">多分类的情况下考虑逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax函数"><span class="nav-number">5.1.</span> <span class="nav-text">softmax函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归与神经网络"><span class="nav-number">6.</span> <span class="nav-text">逻辑回归与神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#感知机"><span class="nav-number">6.1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#神经元模型"><span class="nav-number">6.2.</span> <span class="nav-text">神经元模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归与线性回归"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归与线性回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归的由来"><span class="nav-number">2.</span> <span class="nav-text">逻辑回归的由来</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归的损失函数-loss-function-和成本函数-cost-function"><span class="nav-number">3.</span> <span class="nav-text">逻辑回归的损失函数(loss function)和成本函数(cost function)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用极大似然函数求解逻辑回归"><span class="nav-number">4.</span> <span class="nav-text">用极大似然函数求解逻辑回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多分类的情况下考虑逻辑回归"><span class="nav-number">5.</span> <span class="nav-text">多分类的情况下考虑逻辑回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax函数"><span class="nav-number">5.1.</span> <span class="nav-text">softmax函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归与神经网络"><span class="nav-number">6.</span> <span class="nav-text">逻辑回归与神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#感知机"><span class="nav-number">6.1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#神经元模型"><span class="nav-number">6.2.</span> <span class="nav-text">神经元模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试"><span class="nav-number">8.</span> <span class="nav-text">面试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SVM与LR的异同点"><span class="nav-number">8.1.</span> <span class="nav-text">SVM与LR的异同点</span></a></li></ol></li></ol></div>
             
 
 			
