@@ -98,10 +98,13 @@
 <meta property="og:site_name" content="深度智障">
 <meta property="og:description" content="采用EM算法求解的模型有哪些,为什么不用牛顿法或梯度下降法？EM的求解原理:因为在求解一个含有隐变量的概率模型时,目标是极大化观测数据关于参数的对数似然,而极大化的主要困难是还有未观测数据并有包含和的对数,而EM通过迭代,不断求解下界极大化,而逐步求解对数似然函数极大化. 用EM算法求解的模型有哪些？用EM算法的模型一般有GMM或者协同过滤,k-means也属于EM. EM与k-meansk-me">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-06T05:31:20.328Z">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/05/每日一问（一）/pic1.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/05/每日一问（一）/pic2.png">
+<meta property="og:updated_time" content="2019-03-06T09:57:40.507Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="每日一问（一）">
 <meta name="twitter:description" content="采用EM算法求解的模型有哪些,为什么不用牛顿法或梯度下降法？EM的求解原理:因为在求解一个含有隐变量的概率模型时,目标是极大化观测数据关于参数的对数似然,而极大化的主要困难是还有未观测数据并有包含和的对数,而EM通过迭代,不断求解下界极大化,而逐步求解对数似然函数极大化. 用EM算法求解的模型有哪些？用EM算法的模型一般有GMM或者协同过滤,k-means也属于EM. EM与k-meansk-me">
+<meta name="twitter:image" content="http://yifdu.github.io/2019/03/05/每日一问（一）/pic1.png">
 
 
 
@@ -394,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k 字
+                  2.2k 字
                 </span>
               
 
@@ -410,7 +413,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -450,6 +453,12 @@
 <li>但是聚类中心的个数K需要事先给定,对效果的影响较大.可以用K-means++来解决这个问题</li>
 <li>K-means受初始随机化影响.</li>
 </ol>
+<h2 id="DBSCAN"><a href="#DBSCAN" class="headerlink" title="DBSCAN"></a>DBSCAN</h2><p>DBSCAN是一种具有噪声的基于密度的聚类方法.和K-means这些一般只适用于凸样本集的聚类相比,DBSCAN既可以适用于凸样本集,也可以适用于非凸样本集.</p>
+<p>DBSCAN密度定义:基于一组邻域来描述样本的紧密程度,参数$(\epsilon,Minpts)$,其中$\epsilon$描述了某一样本的邻域距离阈值,Minpts描述了某一样本的距离为$\epsilon$的邻域的样本个数的阈值</p>
+<p>假设样本集D=$(x_1,x_2,…,x_m)$,则DBSCAN具体的密度描述定义如下:<br>(1)$\epsilon$邻域:对于$x_j$∈D,其$\epsilon$-邻域包含样本集D中与$x_j$的距离不大于$\epsilon$的子样本集,即$N_{\epsilon}(x_j)=\{x_i∈D|distance(x_i,x_j)≤\epsilon \}$,这个子样本集的个数记为$|N_{\epsilon}(x_j)|$<br>(2)核心对象:对于任一样本$x_j$∈D,如果$\epsilon$-邻域对应的$N_{\epsilon}$(x_j)至少包含MinPts个样本,即如果$|N_{\epsilon}(x_j)|≥Minpts$,则$x_j$是核心对象.<br>(3)密度直达:如果$x_i$位于$x_j$的$\epsilon$-邻域中,且$x_j$是核心对象,则称$x_i$由$x_j$密度直达。注意反之不一定成立,即此时不能说$x_j$由$x_i$密度直达,除非且$x_i$也是核心对象.(这是不对称性)<br>(4)密度可达:对于$x_i$和$x_j$,如果存在样本序列$p_1,p_2,…,p_T$满足$p_1=x_i$,$p_T=x_j$,且$p_{t+1}$由$p_t$密度直达,则称$x_j$由$x_i$密度可达.也就是说,密度可达满足传递性.此时序列中的传递样本$p_1,p_2,…,p_{T-1}$均为核心对象,因为只有核心对象才能是其他样本密度直达。注意密度可达不满足对称性,因为密度直达不满足对称性(因为最后一个样本$p_{T}$不一定是核心对象).<br>(5)密度相连:对于$x_i$和$x_j$,如果存在核心对象样本$x_k$,使得$x_i$和$x_j$均由$x_k$密度可达,则称$x_i$和$x_j$密度相连.注意密度相连关系是满足对称性的.<br><img src="/2019/03/05/每日一问（一）/pic1.png" alt="pic1"></p>
+<p>DBSCAN聚类思想:由密度可达关系导出的最大密度相连的样本集合,即为我们最终聚类的一个类别,或者一个簇.</p>
+<p>怎样找到簇样本集合?<br>任意选择选择一个没有类别的核心对象作为种子,然后找到所有这个核心对象能够密度可达的样本集合,即为一个聚类簇.接着选择另一个没有类别的核心对象去寻找密度可达的样本的样本集合,这样就得到另一个聚类簇.直到运行到所有核心对象都有类别为止.<br>还有一些小问题要解决:<br>(1)一些异常样本点或者说少量有利于簇外的样本点,这些点不在任何一个核心对象周围.DBSCAN将这些点标记为噪音点<br>(2)距离的度量问题:如何计算某样本和核心对象样本的距离.一般采用最近邻思想<br>(3) 某些样本可能到两个核心对象的距离都小于$\epsilon$,但是两个核心对象又不是密度直达,又不属于同一个聚类簇,那么怎么界定这个样本的类别呢?一般来说,此时DBSCAN采用先来后到的原则,先进性聚类的类别簇会标记该样本为它的类别,也就是说DBSCAB算法是个不完全稳定的算法.</p>
+<h3 id="优缺点："><a href="#优缺点：" class="headerlink" title="优缺点："></a>优缺点：</h3><p>优点:<br>(1)聚类速度快且能够有效处理噪声点和发现任意形状的空间聚类<br>(2)与K-means比较起来,不需要输入要划分的聚类个数<br>(3)聚类簇的形状没有偏倚<br>(4)可以在需要时输入过滤噪声的参数<br>缺点:<br>(1)当数据量增大时,要求较大的内存支持I/O消耗也很大<br>(2)当空间聚类密度不均匀、聚类间距差很大时,聚类质量很差,因为这种情况参数$MinPts$和$\epsilon$选取困难.<br>(3)算法聚类效果依赖于距离公式选取,实际应用中常用欧式距离,对高维数据会导致维度灾难.<br><img src="/2019/03/05/每日一问（一）/pic2.png" alt="pic2"></p>
 
       
     </div>
@@ -658,7 +667,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#采用EM算法求解的模型有哪些-为什么不用牛顿法或梯度下降法？"><span class="nav-number">1.</span> <span class="nav-text">采用EM算法求解的模型有哪些,为什么不用牛顿法或梯度下降法？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用EM算法求解的模型有哪些？"><span class="nav-number">1.1.</span> <span class="nav-text">用EM算法求解的模型有哪些？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EM与k-means"><span class="nav-number">1.1.1.</span> <span class="nav-text">EM与k-means</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么不用牛顿法或梯度下降法"><span class="nav-number">1.2.</span> <span class="nav-text">为什么不用牛顿法或梯度下降法?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#描述什么是K-means算法-请列出步骤-以及分析优缺点"><span class="nav-number">2.</span> <span class="nav-text">描述什么是K-means算法?请列出步骤,以及分析优缺点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#采用EM算法求解的模型有哪些-为什么不用牛顿法或梯度下降法？"><span class="nav-number">1.</span> <span class="nav-text">采用EM算法求解的模型有哪些,为什么不用牛顿法或梯度下降法？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用EM算法求解的模型有哪些？"><span class="nav-number">1.1.</span> <span class="nav-text">用EM算法求解的模型有哪些？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EM与k-means"><span class="nav-number">1.1.1.</span> <span class="nav-text">EM与k-means</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么不用牛顿法或梯度下降法"><span class="nav-number">1.2.</span> <span class="nav-text">为什么不用牛顿法或梯度下降法?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#描述什么是K-means算法-请列出步骤-以及分析优缺点"><span class="nav-number">2.</span> <span class="nav-text">描述什么是K-means算法?请列出步骤,以及分析优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DBSCAN"><span class="nav-number">2.1.</span> <span class="nav-text">DBSCAN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优缺点："><span class="nav-number">2.1.1.</span> <span class="nav-text">优缺点：</span></a></li></ol></li></ol></li></ol></div>
             
 
 			
