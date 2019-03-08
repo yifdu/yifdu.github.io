@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="pytorch,NLP,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Deep Learning with Sequence Data and Text用RNNs的一些应用:  Document classifier:文章分类或者情感分类 Sequence-to-sequence learning：机器翻译 Time-series forecasting： 给定前一天商品价格预测未来价格  Working with text data对于文本的Deeplearnin">
+<meta name="keywords" content="pytorch,NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch-tutorials-学习（四）">
+<meta property="og:url" content="http://yifdu.github.io/2019/03/07/Pytorch-tutorials-学习（四）/index.html">
+<meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="Deep Learning with Sequence Data and Text用RNNs的一些应用:  Document classifier:文章分类或者情感分类 Sequence-to-sequence learning：机器翻译 Time-series forecasting： 给定前一天商品价格预测未来价格  Working with text data对于文本的Deeplearnin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg">
+<meta property="og:updated_time" content="2019-03-07T11:41:12.180Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pytorch-tutorials-学习（四）">
+<meta name="twitter:description" content="Deep Learning with Sequence Data and Text用RNNs的一些应用:  Document classifier:文章分类或者情感分类 Sequence-to-sequence learning：机器翻译 Time-series forecasting： 给定前一天商品价格预测未来价格  Working with text data对于文本的Deeplearnin">
+<meta name="twitter:image" content="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/03/07/Pytorch-tutorials-学习（四）/">
+
+
+
+
+
+  <title>Pytorch-tutorials-学习（四） | 深度智障</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度智障</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/03/07/Pytorch-tutorials-学习（四）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Pytorch-tutorials-学习（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-07T08:53:49+08:00">
+                2019-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/pytorch/" itemprop="url" rel="index">
+                    <span itemprop="name">pytorch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.4k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg" rel="gallery_cjszmtslj00bno4was2h6c6q6" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="Deep-Learning-with-Sequence-Data-and-Text"><a href="#Deep-Learning-with-Sequence-Data-and-Text" class="headerlink" title="Deep Learning with Sequence Data and Text"></a>Deep Learning with Sequence Data and Text</h1><p>用RNNs的一些应用:</p>
+<ol>
+<li>Document classifier:文章分类或者情感分类</li>
+<li>Sequence-to-sequence learning：机器翻译</li>
+<li>Time-series forecasting： 给定前一天商品价格预测未来价格</li>
+</ol>
+<h2 id="Working-with-text-data"><a href="#Working-with-text-data" class="headerlink" title="Working with text data"></a>Working with text data</h2><p>对于文本的Deeplearning模型,就像其他的机器学习模型一样,需要将文本先转换为数值表示.这一过程称为向量化(vectorization).<br>向量化有多种不同的方式:</p>
+<ol>
+<li>转换文本成单词,用向量表示每个单词</li>
+<li>转换文本成字母,用向量表示每个字母</li>
+<li>创建单词的n-gram,用向量表示它</li>
+</ol>
+<p>显然,在将文本表示成向量形式前,需要先分割文本,将其分割成单词或字母这些更小的单元,称之为token.这个过程称之为tokenization.</p>
+<script type="math/tex; mode=display">text \rightarrow unit \rightarrow n-gram representation \rightarrow vector</script><h2 id="Tokenization"><a href="#Tokenization" class="headerlink" title="Tokenization"></a>Tokenization</h2><h3 id="Converting-text-into-words"><a href="#Converting-text-into-words" class="headerlink" title="Converting text into words"></a>Converting text into words</h3><p>python自带英文文本的单词分割方法,直接调用split().主要是基于空格将文本切割为单词<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">"Cao hong mei is my son"</span></span><br><span class="line">a.split()</span><br></pre></td></tr></table></figure></p>
+<p>但中文单词之间不存在空格,这时候往往是将文本分成词语的形式,而不在只是一个单词.这里采用jieba库进行分词操作.<br><strong>常见的中文分词算法：1.基于字符串匹配如正向最大匹配、逆向最大匹配2.基于统计以及机器学习的分词方法如HMM和CRF</strong><br>几种jieba分词</p>
+<ul>
+<li>jieba.cut方法接收三个输入参数:需分词的字符串,cut_all来控制是否采用全模式,HMM参数用来控制是否采用HMM模型</li>
+<li>jieba.cut_for_search方法接受两个参数:需分词的字符串,是否使用HMM模型.该方法适用于搜索引擎构建倒排索引的分词,粒度比较细.</li>
+</ul>
+<p>**注意:</p>
+<ol>
+<li>jieba.cut和jieba.cut_for_search返回的都是一个可迭代的generator,可以使用for循环获得分词后得到的每一个词语(unicode)</li>
+<li>jieba.lcut及jieba.lcut_for_search直接返回list</li>
+<li>jieba.Tokenizer(dictionary=DEFAULT_DICT)新建自定义分词器,可用于同时使用不同词典.</li>
+<li>待分词的字符串可以是unicode或UTF-8字符串、GBK字符串.注意:不建议直接输入GBK字符串,可能无法预料地误解码为UTF-8.**<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jieba.lcut(<span class="string">"曹红梅是我儿子"</span>,cut_all=<span class="keyword">True</span>)</span><br><span class="line">jieba.lcut(<span class="string">"曹红梅是我儿子"</span>,cut_all=<span class="keyword">False</span>)</span><br><span class="line">jieba.lcut_for_search(<span class="string">"曹红梅是我儿子"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="Converting-text-into-characters"><a href="#Converting-text-into-characters" class="headerlink" title="Converting text into characters"></a>Converting text into characters</h3><p>一般只有英文需要将文本转化为字母,中文不需要.<br>很简单,只需要list操作即可.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">"Cao hong mei is my son"</span></span><br><span class="line">list(a)</span><br></pre></td></tr></table></figure></p>
+<h2 id="N-gram-representation"><a href="#N-gram-representation" class="headerlink" title="N-gram representation"></a>N-gram representation</h2><p>这时候英文地n-gram需要用到nltk库,将分词后的单词序列作为ngrams的参数,并指定n的大小.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> nltk <span class="keyword">import</span> ngrams</span><br><span class="line">a=<span class="string">"cao hong mei is my son"</span></span><br><span class="line">list(ngrams(a.split(),<span class="number">2</span>))</span><br></pre></td></tr></table></figure></p>
+<h2 id="Vectorization"><a href="#Vectorization" class="headerlink" title="Vectorization"></a>Vectorization</h2><p>两种流行的向量化方法:1. one-hot encoding 2. word embedding</p>
+<h3 id="One-hot-encoding"><a href="#One-hot-encoding" class="headerlink" title="One-hot encoding"></a>One-hot encoding</h3><p>Onehot编码的前提是要对应词组已经有标签号,将对应词组映射到对应标签号.然后可以通过生成一个全零向量,在对应标签号位置置为1,则可表示该词组的onehot.<br>下面用了sklearn中的preprocessing,先进行LabelEncoder,再进行OnehotEncoder.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> nltk <span class="keyword">import</span> ngrams</span><br><span class="line">a=<span class="string">"cao hong mei is my son"</span></span><br><span class="line">b=list(ngrams(a.split(),<span class="number">3</span>))</span><br><span class="line">c=[<span class="string">' '</span>.join(w) <span class="keyword">for</span> w <span class="keyword">in</span> b]<span class="comment">#b中每个元素是一个元组需要拼接</span></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line">Lencoder=preprocessing.LabelEncoder()</span><br><span class="line">Lcoder=Lencoder.fit_transform(c)</span><br><span class="line">enc=preprocessing.OneHotEncoder()</span><br><span class="line">Lcoder=Lcoder.reshape(<span class="number">4</span>,<span class="number">1</span>).tolist()</span><br><span class="line">enc.fit_transform(Lcoder).toarray()</span><br></pre></td></tr></table></figure>
+<h3 id="Word-embedding"><a href="#Word-embedding" class="headerlink" title="Word embedding"></a>Word embedding</h3><p>word embedding是现在非常流形的通过深度学习来解决文本数据问题的算法.Word embedding将原本稀疏的向量(onehot vector)嵌入到一个密集空间,使稀疏向量转变为密集向量.并且用这种方法使得邻的单词有相似的表达.</p>
+<hr>
+<p>介绍以下所使用用的torchtext<br><img src="/2019/03/07/Pytorch-tutorials-学习（四）/pic1.png" alt="pic1"><br>API:</p>
+<ol>
+<li>torchtext.data</li>
+</ol>
+<ul>
+<li>torchtext.data.Example:用来表示一个样本,数据+标签</li>
+<li>torchtext.vocab.Vocab:词汇表相关</li>
+<li>torchtext.data.Datasets:数据集类, <strong>getitem</strong> 返回Example,制作数据集的类</li>
+<li>torctext.data.Field:用来定义字段的处理方法(文本字段,标签字段),这里用来定义创建Example时的预处理,batch时的一些处理操作</li>
+<li>torchtext.data.Iterator: 迭代器,来生成batch</li>
+</ul>
+<ol>
+<li><p>torchtext.datasets:包含了常见的数据集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchtext.data <span class="keyword">import</span> Field,Example,TabularDataset</span><br><span class="line"><span class="keyword">from</span> torchtext.data <span class="keyword">import</span> BucketIterator</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Field:用来定义字段以及文本预处理方法<br>Example:用来表示一个样本,通常为 “数据+标签”<br>TabularDataset:用来从文件中读取数据,生成Dataset,Dataset是Example实例的集合<br>BucketIterator:迭代器,用来生成batch，类似的有Iterator,BucketIterator功能强大支持排序,动态padding等</p>
+<p>TorchText的数据预处理流程:</p>
+<ol>
+<li>定义样本的处理操作:torchtext.data.Field</li>
+<li>加载corpus(都是string):torchtext.data.datasets</li>
+</ol>
+<ul>
+<li>在Datasets中,torchtext将corpus处理成一个个的torchtext.data.Example实例</li>
+<li>创建torchtext.data.Example的时候,会调用field.preprocess方法</li>
+</ul>
+<ol>
+<li>创建词汇表,用来将string token转化成index: field.build_vocab()</li>
+</ol>
+<ul>
+<li>词汇表负责:string token转换为index,index转换为 string token,string token转换为 word vector</li>
+</ul>
+<ol>
+<li>将处理后的数据进行batch操作：torchtext.data.Iterator</li>
+</ol>
+<ul>
+<li>将Datasets中的数据batch化</li>
+<li>其中会包含一些pad操作,保证一个batch中的example长度一致</li>
+<li>在这里将string token转换为index</li>
+</ul>
+<p>Field对象包含的参数:<br>sequential：是否把数据表示成序列,如果False,不能使用分词.默认值：True<br>use_vocab:是否使用词典对象.如果是False数据的类型必须已经是数值类型。默认:True<br>init_token：每条数据的其实字符,默认值:None<br>eos_token：每条数据的结尾字符,默认值:None<br>fix_length：修改每条数据的长度为该值,不够的用pad_token补全,默认值:None<br>tensor_type:把数据转换成tensor类型,默认值torch.LongTensor<br>preprocessing:在分词之后和数值化之前使用的管道,默认值:None<br>postprocessing:数值化之后和转换成tensor之前使用的管道,默认值:None<br>lower:是否把数据转化成小写,默认值:False<br>tokenize：分此函数:默认值:str.split<br>pad_token：用于补全的字符.默认值:”<pad>“<br>unk_token：不存在词典里的字符.默认值:”<unk>“<br>pad_first:是否补全第一个字符.默认值:False</unk></pad></p>
+<p>torchtext.TabularDataset:继承自pytorch的Dataset,提供了一个可以下载压缩数据并解压的方法(支持zip,gz,tgz)<br>splits方法可以同时读取训练集,验证集,测试集<br>TabularDataset可以很方便读取CSV,TSV或JSON格式的文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train, val, test = data.TabularDataset.splits(</span><br><span class="line">        path=<span class="string">'./data/'</span>, train=<span class="string">'train.tsv'</span>,</span><br><span class="line">        validation=<span class="string">'val.tsv'</span>, test=<span class="string">'test.tsv'</span>, format=<span class="string">'tsv'</span>,</span><br><span class="line">        fields=[(<span class="string">'Text'</span>, TEXT), (<span class="string">'Label'</span>, LABEL)])</span><br></pre></td></tr></table></figure></p>
+<p>加载数据后可以建立词典,建立词典的时候可以使用语训练的wordvector<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TEXT.build_vocab(train,vectors=<span class="string">"glove.6B.100d"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Iterator:是torchtext到模型的输入,它提供了我们对模型的一般处理方式,比如打乱,排序等等.可以动态修改batch大小,这里也有splits方法,可以同时输出训练集,验证集,测试集<br>参数如下<br>dataset：加载的数据集<br>batch_size:Batch大小<br>sort_key:排序的key<br>train:是否是一个训练集<br>repeat:是否在不同epoch中重复迭代<br>shuffle：是否打乱数据<br>sort：是否对数据进行排序<br>sort_within_batch:batch内部是否排序<br>device:指定设备</p>
+<p>train_iter, val_iter, test_iter = data.Iterator.splits(<br>        (train, val, test), sort_key=lambda x: len(x.Text),<br>        batch_sizes=(32, 256, 256), device=-1)</p>
+<hr>
+<p>torchtext有预训练的word embedding向量<br>也可以根据自己任务训练,下面是一个embedding layer<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmbNet</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,emb_size,hidden_size1,hidden_size2=<span class="number">400</span>)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.embedding=nn.Embedding(emb_size,hidden_size1)</span><br><span class="line">        self.fc=nn.Linear(hidden_size2,<span class="number">3</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        embeds=self.embedding(x).view(x.size(<span class="number">0</span>),<span class="number">-1</span>)</span><br><span class="line">        out=self.fc(embeds)</span><br><span class="line">        <span class="keyword">return</span> F.log_softmax(out,dim=<span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>训练过程<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> functional <span class="keyword">as</span> F</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(epoch,model,data_loader,phase=<span class="string">"training"</span>,volatile=False)</span>:</span></span><br><span class="line">    <span class="keyword">if</span>(phase==<span class="string">"training"</span>):</span><br><span class="line">        model.train</span><br><span class="line">    <span class="keyword">if</span>(phase==<span class="string">"validation"</span>):</span><br><span class="line">        model.eval()</span><br><span class="line">        volatile=<span class="keyword">False</span></span><br><span class="line">    running_loss=<span class="number">0.0</span></span><br><span class="line">    running_correct=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> batch_idx,batch <span class="keyword">in</span> enumerate(data_loader):</span><br><span class="line">        text,target=batch.text,batch.label</span><br><span class="line">        <span class="keyword">if</span> is_cuda:</span><br><span class="line">            text,target=text.cuda(),target.cuda()</span><br><span class="line">        <span class="keyword">if</span> phase==<span class="string">"training"</span>:</span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">        output=model(text)</span><br><span class="line">        loss=F.nll_loss(output,target)</span><br><span class="line">        running_loss+=F.nll_loss(output,target,size_average=<span class="keyword">False</span>).data[<span class="number">0</span>]</span><br><span class="line">        preds=output.data.max(dim=<span class="number">1</span>,keepdim=<span class="keyword">True</span>)[<span class="number">1</span>]</span><br><span class="line">        running_correct+=preds.eq(target.data.view_as(preds)).cpu().sum()</span><br><span class="line">        <span class="keyword">if</span>(phase==<span class="string">"training"</span>):</span><br><span class="line">            loss.backward()</span><br><span class="line">            optimizer.step()</span><br><span class="line">    loss=running_loss/len(data_loader.dataset)</span><br><span class="line">    accuracy=<span class="number">100.</span>*running_correct/len(data_loader.dataset)</span><br><span class="line">    <span class="keyword">return</span> loss,accuracy</span><br></pre></td></tr></table></figure></p>
+<h2 id="Recursive-neural-networks"><a href="#Recursive-neural-networks" class="headerlink" title="Recursive neural networks"></a>Recursive neural networks</h2><p>RNN结构已经介绍过很多次了.下面主要是介绍代码</p>
+<h3 id="标准的RNN网络"><a href="#标准的RNN网络" class="headerlink" title="标准的RNN网络"></a>标准的RNN网络</h3><p>定义一个RNN网络<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RNN</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,input_size,hidden_size,output_size)</span>:</span></span><br><span class="line">        super(RNN,self).__init__()</span><br><span class="line">        self.hidden_size-hidden_size</span><br><span class="line">        self.i2h=nn.Linear(input_size+hidden_size,hidden_size)</span><br><span class="line">        self.i2o=nn.Linear(input_size+hidden_size,output_size)</span><br><span class="line">        self.softmax=nn.LogSoftmax(dim=<span class="number">1</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x,hidden)</span>:</span></span><br><span class="line">        combined=torch.cat((x,hidden),<span class="number">1</span>)</span><br><span class="line">        hidden=self.i2h(combined)</span><br><span class="line">        output=self.i2o(combined)</span><br><span class="line">        output=self.softmax(output)</span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">initHidden</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> Variable(torch.zeros(<span class="number">1</span>,self.hidden_size))</span><br></pre></td></tr></table></figure></p>
+<p>设计一个循环过程传入数据<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(model,text)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(text)):</span><br><span class="line">        output,hidden=model(text[i],hidden)</span><br></pre></td></tr></table></figure></p>
+<h3 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h3><ol>
+<li>准备数据</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> torchtext <span class="keyword">import</span> data</span><br><span class="line"><span class="keyword">import</span> torchtext</span><br><span class="line">TEXT=data.Field(lower=<span class="keyword">True</span>,fix_length=<span class="number">200</span>,batch_first=<span class="keyword">False</span>)</span><br><span class="line">LABEL=data.Field(sequential=<span class="keyword">False</span>)</span><br><span class="line">train,test=torchtext.datasets.IMDB.splits(TEXT,LABEL)</span><br><span class="line">TEXT.build_vocab(train,vectors=<span class="string">"glove.6B.50d"</span>,max_size=<span class="number">10000</span>,min_freq=<span class="number">10</span>)</span><br><span class="line">LABEL.build_vocab(train,)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>创造batch<br>这里的数据大小会是[序列长度,batch大小],这里是[200,32]</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">train_iter,test_iter=data.BucketIterator.splits((train,test),batch_size=<span class="number">32</span>)</span><br><span class="line">train_iter.repeat=<span class="keyword">False</span></span><br><span class="line">test_iter.repeat=<span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>创造网络<br>embedding层的大小是词汇表大小×hidden_size(因为输入的一般是onehot)<br>假设hidden_size为100,经过embedding层后输出的数据大小为[200,32,100].100是embedding维度.<br>LSTM接受embeding层的输出伴随着2个隐变量.隐变量应该是和embedding输出相同类型的,它们的大小为[num_layers,batch_size,hidden_size].LSTM处理序列数据产生的输出形状为[Sequence_length,batch_size,hidden_size].最后一个序列的输出的形状为[batch_size,hidden_dim],将其传递到线性层中,将其映射到类别输出上.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IMDBnn</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,n_vocab,hidden_size,n_cat,bs,nl=<span class="number">2</span>)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.hidden_size=hidden_size</span><br><span class="line">        self.bs=bs</span><br><span class="line">        self.nl=nl</span><br><span class="line">        self.e=nn.Embedding(n_vocab,hidden_size)</span><br><span class="line">        self.rnn=nn.LSTM(hidden_size,hidden_size,nl)</span><br><span class="line">        self.fc2=nn.Linear(hidden_size,n_cat)</span><br><span class="line">        self.softmax=nn.LogSoftmax(dim=<span class="number">-1</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        bs=x.size()[<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span>(bs!=self.bs):</span><br><span class="line">            self.bs=bs</span><br><span class="line">        e_out=self.e(x)</span><br><span class="line">        h0=c0=Variable(e_out.data.new(*(self.nl,self.bs,self.hidden_size)).zero_())</span><br><span class="line">        rnn_o,_=self.rnn(e_out,(h_0,c_0))</span><br><span class="line">        rnn_o=rnn_o[<span class="number">-1</span>]</span><br><span class="line">        fc=F.dropout(self.fc2(rnn_o),p=<span class="number">0.8</span>)</span><br><span class="line">        <span class="keyword">return</span> self.softmax(fc)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>训练模型</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">model=IMDBRnn(n_vocab,n_hidden,<span class="number">3</span>,bs=<span class="number">32</span>)</span><br><span class="line">model=model.cuda()</span><br><span class="line">optimizer=nn.Optim.Adam(model.parameters(),lr=<span class="number">1e-3</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(epoch,model,data_loader,phase=<span class="string">'training'</span>,volatile=False)</span>:</span></span><br><span class="line">    <span class="keyword">if</span>(phase==<span class="string">'training'</span>):</span><br><span class="line">        model.train()</span><br><span class="line">    <span class="keyword">if</span>(phase==<span class="string">'validation'</span>):</span><br><span class="line">        model,eval()</span><br><span class="line">        volatile=<span class="keyword">True</span></span><br><span class="line">    running_loss=<span class="number">0.0</span></span><br><span class="line">    running_correct=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> batch_idx,batch <span class="keyword">in</span> enumerate(data_loader):</span><br><span class="line">        text,target=batch.text,batch.label</span><br><span class="line">        <span class="keyword">if</span>(is_cuda):</span><br><span class="line">            text,target=text.cuda(),target=target.cuda()</span><br><span class="line">        <span class="keyword">if</span>(phase==<span class="string">'training'</span>):</span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">        output=model(text)</span><br><span class="line">        loss=F.nll_loss(output,target)</span><br><span class="line">        running_loss+=F.nll_loss(output,target,size_average=<span class="keyword">False</span>).data[<span class="number">0</span>]</span><br><span class="line">        preds=output.data.max(dim=<span class="number">1</span>,keepdim=<span class="keyword">True</span>)[<span class="number">1</span>]</span><br><span class="line">        running_correct+=preds.eq(target.data.view_as(preds)).cpu().sum()</span><br><span class="line">        <span class="keyword">if</span>(phase==<span class="string">"training"</span>):</span><br><span class="line">            loss.backward()</span><br><span class="line">            optimizer.step()</span><br><span class="line">    loss=running_loss/len(data_loader.dataset)</span><br><span class="line">    accuracy=<span class="number">100.</span>*running_correct/len(data_loader.dataset)</span><br><span class="line">    <span class="keyword">return</span> loss,accuracy</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">train_losses,train_accuracy=[],[]</span><br><span class="line">val_losses,val_accuracy=[],[]</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">5</span>):</span><br><span class="line">    epoch_loss,epoch_accuracy=fit(epoch,model,train_iter,phase=<span class="string">"training"</span>)</span><br><span class="line">    val_epoch_loss,val_epoch_accuracy=fit(epoch,model,test_iter,phase=<span class="string">'validation'</span>)</span><br><span class="line">    train_losses.append(epoch_loss)</span><br><span class="line">    train_accuracy.append(epoch_accuracy)</span><br><span class="line">    val_losses.append(val_epoch_loss)</span><br><span class="line">    val_accuracy.append(val_epoch_accuracy)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在序列数据上的卷积网络<br>由于文本数据与图像数据相比,缺少一个channel维度.因此,这里的卷积采用的是Conv1d.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IMDBCnn</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,n_vocab,hidden_size,n_cat,bs=<span class="number">1</span>,kernel_size=<span class="number">3</span>,max_len=<span class="number">200</span>)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.hidden_size=hidden_size</span><br><span class="line">        self.bs=bs</span><br><span class="line">        self.e=nn.Embedding(n_vocab,hidden_size)</span><br><span class="line">        self.cnn=nn.Conv1d(max_len,hidden_size,kernel_size)</span><br><span class="line">        self.avg=nn.AdaptiveAvgPool1d(<span class="number">10</span>)</span><br><span class="line">        self.fc=nn.Linear(<span class="number">1000</span>,n_cat)</span><br><span class="line">        self.softmax=nn.LogSoftmax(dim=<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        bs=x.size()[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">if</span>(bs!=self.bs):</span><br><span class="line">            self.bs=bs</span><br><span class="line">        e_out=self.e(x)</span><br><span class="line">        cnn_o=self.cnn(e_out)</span><br><span class="line">        cnn_avg=self.avg(cnn_o)</span><br><span class="line">        cnn_avg=cnn_avg.view(self.bs,<span class="number">-1</span>)</span><br><span class="line">        fc=F.dropout(self.fc(cnn_avg),p=<span class="number">0.5</span>)</span><br><span class="line">        <span class="keyword">return</span> self.softmax(fc)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">train_losses,train_accuracy=[],[]</span><br><span class="line">val_losses,val_accuracy=[],[]</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">5</span>):</span><br><span class="line">    epoch_loss,epoch_accuracy=fit(epoch,model,train_iter,phase=<span class="string">"training"</span>)</span><br><span class="line">    val_epoch_loss,val_epoch_accuracy=fit(epoch,model,test_iter,phase=<span class="string">'validation'</span>)</span><br><span class="line">    train_losses.append(epoch_loss)</span><br><span class="line">    train_accuracy.append(epoch_accuracy)</span><br><span class="line">    val_losses.append(val_epoch_loss)</span><br><span class="line">    val_accuracy.append(val_epoch_accuracy)</span><br></pre></td></tr></table></figure>
+<h1 id="DeepNLP实践"><a href="#DeepNLP实践" class="headerlink" title="DeepNLP实践"></a>DeepNLP实践</h1><h2 id="Skip-gram-Naive-Softmax"><a href="#Skip-gram-Naive-Softmax" class="headerlink" title="Skip-gram-Naive-Softmax"></a>Skip-gram-Naive-Softmax</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">import</span> nltk</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"></span><br><span class="line">random.seed(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">corpus=list(nltk.corpus.gutenberg.sents(<span class="string">'melville-moby_dick.txt'</span>))[:<span class="number">100</span>]<span class="comment">#采样句子</span></span><br><span class="line"></span><br><span class="line">corpus=[[word.lower() <span class="keyword">for</span> word <span class="keyword">in</span> sent] <span class="keyword">for</span> sent <span class="keyword">in</span> corpus]</span><br><span class="line"></span><br><span class="line">flatten=<span class="keyword">lambda</span> l:[item <span class="keyword">for</span> sublist <span class="keyword">in</span> l <span class="keyword">for</span> item <span class="keyword">in</span> sublist]</span><br><span class="line">word_count=Counter(flatten(corpus))</span><br><span class="line">border=int(len(word_count)*<span class="number">0.01</span>)</span><br><span class="line"></span><br><span class="line">stopwords=word_count.most_common()[:border]+list(reversed(word_count.most_common()))[:border]</span><br><span class="line"></span><br><span class="line">stopwords=[s[<span class="number">0</span>] <span class="keyword">for</span> s <span class="keyword">in</span> stopwords]</span><br><span class="line">vocab=list(set(flatten(corpus))-set(stopwords))</span><br><span class="line">vocab.append(<span class="string">'&lt;UNK&gt;'</span>)</span><br><span class="line">word2index=&#123;<span class="string">'&lt;UNK&gt;'</span>:<span class="number">0</span>&#125;</span><br><span class="line"><span class="keyword">for</span> vo <span class="keyword">in</span> vocab:</span><br><span class="line">    <span class="keyword">if</span>(word2index.get(vo) <span class="keyword">is</span> <span class="keyword">None</span>):</span><br><span class="line">        word2index[vo]=len(word2index)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">index2word=&#123;v:k <span class="keyword">for</span> k,v <span class="keyword">in</span> word2index.items()&#125;</span><br><span class="line"></span><br><span class="line">WINDOW_SIZE=<span class="number">3</span></span><br><span class="line">windows=flatten([list(nltk.ngrams([<span class="string">'&lt;DUMMY&gt;'</span>]*WINDOW_SIZE+c+[<span class="string">'&lt;DUMMY'</span>]*WINDOW_SIZE,WINDOW_SIZE*<span class="number">2</span>+<span class="number">1</span>))<span class="keyword">for</span> c <span class="keyword">in</span> corpus])</span><br><span class="line"></span><br><span class="line">train_data=[]</span><br><span class="line"><span class="keyword">for</span> window <span class="keyword">in</span> windows:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(WINDOW_SIZE*<span class="number">2</span>+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span>(i==WINDOW_SIZE <span class="keyword">or</span> window[i]==<span class="string">'&lt;DUMMY&gt;'</span>):</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        train_data.append((window[WINDOW_SIZE],window[i]))</span><br><span class="line">print(train_data[:WINDOW_SIZE*<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">X_p=[]</span><br><span class="line">y_p=[]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prepare_word</span><span class="params">(word,word2index)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> Variable(torch.LongTensor([word2index[word]]) <span class="keyword">if</span> word2index.get(word) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> torch.LongTensor([word2index[<span class="string">"&lt;UNK&gt;"</span>]]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> tr <span class="keyword">in</span> train_data:</span><br><span class="line">  X_p.append(prepare_word(tr[<span class="number">0</span>],word2index).view(<span class="number">1</span>,<span class="number">-1</span>))</span><br><span class="line">  y_p.append(prepare_word(tr[<span class="number">1</span>],word2index).view(<span class="number">1</span>,<span class="number">-1</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train_data=list(zip(X_p,y_p))</span><br></pre></td></tr></table></figure>
+<p>Model</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Skipgram</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,vocab_size,projection_dim)</span>:</span></span><br><span class="line">        super(Skipgram,self).__init__()</span><br><span class="line">        self.embedding_v=nn.Embedding(vocab_size,projection_dim)</span><br><span class="line">        self.embedding_u=nn.Embedding(vocab_size,projection_dim)</span><br><span class="line"></span><br><span class="line">        self.embedding_v.weight.data.uniform_(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">        self.embedding_u.weight.data.uniform_(<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,center_words,targets_words,other_words)</span>:</span></span><br><span class="line">        center_embeds=self.embedding_v(center_words)</span><br><span class="line">        target_embeds=self.embedding_u(targets_words)</span><br><span class="line">        outer_embeds=self.embedding_u(other_words)</span><br><span class="line"></span><br><span class="line">        scores=target_embeds.bmm(center_embeds.transpose(<span class="number">1</span>,<span class="number">2</span>)).squeeze(<span class="number">2</span>)</span><br><span class="line">        norm_scores=outer_embeds.bmm(center_embeds.transpose(<span class="number">1</span>,<span class="number">2</span>)).squeeze(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        nll=-torch.mean(torch.log(torch.exp(scores)/torch.sum(torch.exp(norm_scores),<span class="number">1</span>).unsqueeze(<span class="number">1</span>)))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nll</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">prediction</span><span class="params">(self,inputs)</span>:</span></span><br><span class="line">        embeds=self.embedding_v(inputs)</span><br><span class="line">        <span class="keyword">return</span> embeds</span><br></pre></td></tr></table></figure>
+<p>train</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">EMBEDDING_SIZE=<span class="number">30</span></span><br><span class="line">BATCH_SIZE=<span class="number">256</span></span><br><span class="line">EPOCH=<span class="number">100</span></span><br><span class="line">model=Skipgram(len(word2index),EMBEDDING_SIZE)</span><br><span class="line">optimizer=optim.Adam(model.parameters(),lr=<span class="number">0.01</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getbatch</span><span class="params">(batch_size,train_data)</span>:</span></span><br><span class="line">    random.shuffle(train_data)</span><br><span class="line">    s=<span class="number">0</span></span><br><span class="line">    e=batch_size</span><br><span class="line">    <span class="keyword">while</span>(e&lt;len(train_data)):</span><br><span class="line">        batch=train_data[s:e]</span><br><span class="line">        tmp=e</span><br><span class="line">        e=e+batch_size</span><br><span class="line">        s=tmp</span><br><span class="line">        <span class="keyword">yield</span> batch</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> e&gt;len(train_data):</span><br><span class="line">        batch=train_data[s:]</span><br><span class="line">        <span class="keyword">yield</span> batch</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prepare_sequence</span><span class="params">(seq,wordindex)</span>:</span></span><br><span class="line">  idxs=list(map(<span class="keyword">lambda</span> w: word2index[w] <span class="keyword">if</span> word2index.get(w) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> word2index[<span class="string">"&lt;UNK&gt;"</span>],seq))</span><br><span class="line">  <span class="keyword">return</span> Variable(torch.LongTensor(idxs))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  losses=[]</span><br><span class="line">  <span class="keyword">for</span> epoch <span class="keyword">in</span> range(EPOCH):</span><br><span class="line">      <span class="keyword">for</span> i,batch <span class="keyword">in</span> enumerate(getbatch(BATCH_SIZE,train_data)):</span><br><span class="line">          inputs,targets=zip(*batch)</span><br><span class="line"></span><br><span class="line">          inputs=torch.cat(inputs)</span><br><span class="line">          targets=torch.cat(targets)</span><br><span class="line">          vocabs=prepare_sequence(list(vocab),word2index).expand(inputs.size(<span class="number">0</span>),len(vocab))</span><br><span class="line"></span><br><span class="line">          model.zero_grad()</span><br><span class="line">          loss=model(inputs,targets,vocabs)</span><br><span class="line">          loss.backward()</span><br><span class="line">          optimizer.step()</span><br><span class="line">          losses.append(loss.item())</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> epoch%<span class="number">10</span>==<span class="number">0</span>:</span><br><span class="line">          print(<span class="string">"Epoch: %d, mean_loss : %.02f"</span>%(epoch,np.mean(losses)))</span><br><span class="line">          losses=[]</span><br></pre></td></tr></table></figure>
+<p>test<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">word_similarity</span><span class="params">(target, vocab)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> USE_CUDA:</span><br><span class="line">        target_V = model.prediction(prepare_word(target, word2index))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        target_V = model.prediction(prepare_word(target, word2index))</span><br><span class="line">    similarities = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(vocab)):</span><br><span class="line">        <span class="keyword">if</span> vocab[i] == target: <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> USE_CUDA:</span><br><span class="line">            vector = model.prediction(prepare_word(list(vocab)[i], word2index))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            vector = model.prediction(prepare_word(list(vocab)[i], word2index))</span><br><span class="line">        cosine_sim = F.cosine_similarity(target_V, vector).data.tolist()[<span class="number">0</span>]</span><br><span class="line">        similarities.append([vocab[i], cosine_sim])</span><br><span class="line">    <span class="keyword">return</span> sorted(similarities, key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>], reverse=<span class="keyword">True</span>)[:<span class="number">10</span>] <span class="comment"># sort by similarity</span></span><br><span class="line"></span><br><span class="line">test = random.choice(list(vocab))</span><br><span class="line">word_similarity(test, vocab)</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/03/07/Pytorch-tutorials-学习（四）/">Pytorch-tutorials-学习（四）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2019年03月07日 - 08:03</p>
+  <p><span>最后更新:</span>2019年03月07日 - 19:03</p>
+  <p><span>原始链接:</span><a href="/2019/03/07/Pytorch-tutorials-学习（四）/" title="Pytorch-tutorials-学习（四）">http://yifdu.github.io/2019/03/07/Pytorch-tutorials-学习（四）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/03/07/Pytorch-tutorials-学习（四）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pytorch/" rel="tag"># pytorch</a>
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/06/大杀器XGBoost/" rel="next" title="大杀器XGBoost">
+                <i class="fa fa-chevron-left"></i> 大杀器XGBoost
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/07/葫芦娃的葫芦书刷题（二）/" rel="prev" title="葫芦娃的葫芦书刷题（二）">
+                葫芦娃的葫芦书刷题（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Learning-with-Sequence-Data-and-Text"><span class="nav-number">1.</span> <span class="nav-text">Deep Learning with Sequence Data and Text</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Working-with-text-data"><span class="nav-number">1.1.</span> <span class="nav-text">Working with text data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tokenization"><span class="nav-number">1.2.</span> <span class="nav-text">Tokenization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Converting-text-into-words"><span class="nav-number">1.2.1.</span> <span class="nav-text">Converting text into words</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Converting-text-into-characters"><span class="nav-number">1.2.2.</span> <span class="nav-text">Converting text into characters</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#N-gram-representation"><span class="nav-number">1.3.</span> <span class="nav-text">N-gram representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vectorization"><span class="nav-number">1.4.</span> <span class="nav-text">Vectorization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#One-hot-encoding"><span class="nav-number">1.4.1.</span> <span class="nav-text">One-hot encoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Word-embedding"><span class="nav-number">1.4.2.</span> <span class="nav-text">Word embedding</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recursive-neural-networks"><span class="nav-number">1.5.</span> <span class="nav-text">Recursive neural networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准的RNN网络"><span class="nav-number">1.5.1.</span> <span class="nav-text">标准的RNN网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSTM"><span class="nav-number">1.5.2.</span> <span class="nav-text">LSTM</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DeepNLP实践"><span class="nav-number">2.</span> <span class="nav-text">DeepNLP实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Skip-gram-Naive-Softmax"><span class="nav-number">2.1.</span> <span class="nav-text">Skip-gram-Naive-Softmax</span></a></li></ol></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
