@@ -99,7 +99,7 @@
 <meta property="og:description" content="面对一个机器学习的问题，通常有两种策略，一种是研发人员尝试各种模型，选择其中表现最好的模型做重点调参优化。这种策略类似于奥运比赛，通过强强竞争来选拔最优的运动员，并逐步提高成绩。另一种重要策略是集各家之长，如同贤明的君主广泛听取众多谋臣的建议，然后综合考虑，得到最终决策。后一种策略的核心，是将多个分类器的结果统一成一个最终的决策。使用这类策略的机器学习方法统称为集成学习。其中的每个单独的分类器称为">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544869167959&di=18b326aa58659648afa9c18b1716c727&imgtype=0&src=http%3A%2F%2Fwww.289.com%2Fup%2Fphoto%2F2015%2F1020%2F142553_28800307.jpg">
-<meta property="og:updated_time" content="2019-03-09T08:01:17.320Z">
+<meta property="og:updated_time" content="2019-03-09T08:13:40.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（四）——集成学习">
 <meta name="twitter:description" content="面对一个机器学习的问题，通常有两种策略，一种是研发人员尝试各种模型，选择其中表现最好的模型做重点调参优化。这种策略类似于奥运比赛，通过强强竞争来选拔最优的运动员，并逐步提高成绩。另一种重要策略是集各家之长，如同贤明的君主广泛听取众多谋臣的建议，然后综合考虑，得到最终决策。后一种策略的核心，是将多个分类器的结果统一成一个最终的决策。使用这类策略的机器学习方法统称为集成学习。其中的每个单独的分类器称为">
@@ -473,8 +473,8 @@
 <p>梯度提升|函数空间F|$F=F_{t-1}-\rho_t▽_ FL|_ {F=F_{i-1}}$|$L=\sum_il(y_i,F(x_i))$<br>梯度下降|参数空间W|$w_t=w_{t-1}-\rho_t▽_ wL|_ {w=w_{t-1}}$|$L=\sum_il(y_i,f_w(w_i))$</p>
 <p>GBDT的优点和局限性有哪些？</p>
 <ul>
-<li>优点：<br>(1)预测阶段的计算速度快，树与树之间可并行化计算。<br>(2)在分布稠密的数据集上，泛化能力和表达能力都很好，使得GBDT在Kaggle的众多竞赛中，经常名列榜首<br>(3)采用决策树作为弱分类器使得GBDT模型具有较好的解释性和鲁棒性，能够自动发现特征间的高阶关系，并且也不需要对数据进行特殊的预处理如归一化等。</li>
-<li>局限性:<br>(1)GBDT在高维稀疏的数据集上，表现不如支持向量机或者神经网络。<br>(2)GBDT在处理文本分类特征问题上，相对其他模型的优势不如它在处理数值特征时明显。<br>(3)训练过程需要串行训练，只能在决策树内部采用一些局部并行的手段提高训练速度。</li>
+<li>优点：<br>(1)<strong>预测阶段</strong> 的计算速度快，树与树之间可并行化计算。<br>(2)在 <strong>分布稠密的数据集上</strong>，泛化能力和表达能力都很好，使得GBDT在Kaggle的众多竞赛中，经常名列榜首<br>(3)采用决策树作为弱分类器使得GBDT模型具有较好的解释性和鲁棒性，能够自动发现特征间的高阶关系，并且也不需要对数据进行特殊的预处理如归一化等。</li>
+<li>局限性:<br>(1)GBDT在 <strong>高维稀疏</strong> 的数据集上，表现不如支持向量机或者神经网络。<br>(2)GBDT在 <strong>处理文本分类特征问题上</strong>，相对其他模型的优势不如它在处理数值特征时明显。<br>(3)<strong>训练过程需要串行训练</strong>，只能在决策树内部采用一些局部并行的手段提高训练速度。</li>
 </ul>
 <h1 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h1><p>被广泛应用在Kaggle竞赛及其他许多机器学习竞赛中并取得了不错的成绩。</p>
 <h2 id="XGBoost-与GBDT的联系和区别有哪些？"><a href="#XGBoost-与GBDT的联系和区别有哪些？" class="headerlink" title="XGBoost 与GBDT的联系和区别有哪些？"></a>XGBoost 与GBDT的联系和区别有哪些？</h2><p>原始的GBDT算法基于经验损失函数的负梯度来构造新的决策树，只是在决策树构建完成后再进行剪枝。而XGBoost在决策树构建阶段就加入了正则项，则</p>
@@ -487,7 +487,7 @@ $$Ω(f_t)=γT+\frac{1}{2}λ\sum_{j=1}^Tw_j^2</script><p>其中T为叶子节点�
 <p>通过将预测值代入到损失函数中可求得损失函数得最小值：</p>
 <script type="math/tex; mode=display">\hat{L_t^* }=-\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{H_j+λ}+γT</script><p>容易计算出分裂前后损失函数的差值为:</p>
 <script type="math/tex; mode=display">Gain=\frac{G_L^2}{H_L+λ}+\frac{G_R^2}{H_R+λ}-\frac{(G_L+G_R)^2}{H_L+H_R+λ}-γ</script><p>XGBoost采用最大化这个差值作为准则来进行决策树的构建，通过遍历所有特征的所有取值，寻找使得损失函数前后相差最大时对应的分裂方式。此外由于损失函数前后存在差值一定为正的限制，此时γ起到了一定的预剪枝效果。</p>
-<p>除恶了算法上与传统的GBDT有一些不同外，XGBoost还在工程实现上做了大量的优化。总得来说，两者之间的区别和联系可以总结成以下几个方面:<br>(1)GBDT是机器学习算法，XGBoost是该算法的工程实现<br>(2)在使用CART作为基分类器时，XGBoost显式地加入了正则项来控制模型的复杂度，有利于防止过拟合，从而提高模型的泛化能力。<br>(3)GBDT在模型训练时只使用了代价函数的一阶导数信息，XGBoost对代价函数使用二阶泰勒展开，可以同时使用一阶和二阶导数<br>(4)传统的GBDT采用CART作为基分类器，XGBoost支持多种类型的基分类器，比如线性分类器<br>(5)传统的GBDT在每轮迭代时使用全部的数据，XGBoost则采用了与随机森林相似的策略，支持对数据进行采用。<br>(6)传统的GBDT没有设计对缺失值的进行处理，XGBoost能够自动学习出缺失值的处理策略</p>
+<p>除恶了算法上与传统的GBDT有一些不同外，XGBoost还在工程实现上做了大量的优化。总得来说，两者之间的区别和联系可以总结成以下几个方面:<br>(1)GBDT是机器学习算法，XGBoost是该算法的 <strong>工程实现</strong><br>(2)在使用CART作为基分类器时，XGBoost显式地加入了正则项来控制模型的复杂度，有利于防止过拟合，从而提高模型的泛化能力。<br><strong>(3)GBDT在模型训练时只使用了代价函数的一阶导数信息，XGBoost对代价函数使用二阶泰勒展开，可以同时使用一阶和二阶导数</strong><br><strong>(4)传统的GBDT采用CART作为基分类器，XGBoost支持多种类型的基分类器，比如线性分类器</strong><br>(5)传统的GBDT在每轮迭代时使用全部的数据，XGBoost则采用了与随机森林相似的策略，支持对数据进行采用。<br>(6)传统的GBDT没有设计对缺失值的进行处理，XGBoost能够自动学习出缺失值的处理策略</p>
 
       
     </div>
