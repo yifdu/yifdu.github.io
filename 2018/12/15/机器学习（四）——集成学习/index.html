@@ -99,7 +99,7 @@
 <meta property="og:description" content="面对一个机器学习的问题，通常有两种策略，一种是研发人员尝试各种模型，选择其中表现最好的模型做重点调参优化。这种策略类似于奥运比赛，通过强强竞争来选拔最优的运动员，并逐步提高成绩。另一种重要策略是集各家之长，如同贤明的君主广泛听取众多谋臣的建议，然后综合考虑，得到最终决策。后一种策略的核心，是将多个分类器的结果统一成一个最终的决策。使用这类策略的机器学习方法统称为集成学习。其中的每个单独的分类器称为">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544869167959&di=18b326aa58659648afa9c18b1716c727&imgtype=0&src=http%3A%2F%2Fwww.289.com%2Fup%2Fphoto%2F2015%2F1020%2F142553_28800307.jpg">
-<meta property="og:updated_time" content="2018-12-18T16:12:05.735Z">
+<meta property="og:updated_time" content="2019-03-09T08:01:17.320Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（四）——集成学习">
 <meta name="twitter:description" content="面对一个机器学习的问题，通常有两种策略，一种是研发人员尝试各种模型，选择其中表现最好的模型做重点调参优化。这种策略类似于奥运比赛，通过强强竞争来选拔最优的运动员，并逐步提高成绩。另一种重要策略是集各家之长，如同贤明的君主广泛听取众多谋臣的建议，然后综合考虑，得到最终决策。后一种策略的核心，是将多个分类器的结果统一成一个最终的决策。使用这类策略的机器学习方法统称为集成学习。其中的每个单独的分类器称为">
@@ -460,7 +460,7 @@
 <h2 id="如何从减少方差和偏差的角度解释Boosting和Bagging的原理"><a href="#如何从减少方差和偏差的角度解释Boosting和Bagging的原理" class="headerlink" title="如何从减少方差和偏差的角度解释Boosting和Bagging的原理"></a>如何从减少方差和偏差的角度解释Boosting和Bagging的原理</h2><p>简单回答就是:Bagging能够提高弱分类器性能的原因是降低了方差，Boosting能够提升弱分类器性能的原因是降低了偏差。</p>
 </li>
 </ul>
-<p>Bagging要对样本集进行再抽样，然后再每个小样本集上训练出来的模型进行平均。假设有n个随机变量，方差记为$\sigma^2$，两两变量之间的相关性为$\rho$,则n个随机变量的均值$\frac{\sum X_i}{n}$的方差为$\rho<em>\sigma^2+(1-\rho)</em> \sigma^2/n $.在随机变量完全独立的情况下，n个随机变量的方差为$\sigma^2/n$,也就是说方差减小到了原来的$\frac{1}{n}$</p>
+<p>Bagging要对样本集进行再抽样，然后再每个小样本集上训练出来的模型进行平均。假设有n个随机变量，方差记为$\sigma^2$，两两变量之间的相关性为$\rho$,则n个随机变量的均值$\frac{\sum X_i}{n}$的方差为$\rho×\sigma^2+(1-\rho)× \sigma^2/n $.在随机变量完全独立的情况下，n个随机变量的方差为$\sigma^2/n$,也就是说方差减小到了原来的$\frac{1}{n}$</p>
 <p>Boosting 的训练过程，在训练好一个弱分类器后，我们需要计算弱分类器的错误或残差，作为下一个分类器的输入。这个过程本身就是在不断减小损失函数，来使模型不断逼近”靶心”,使得模型的偏差不断降低。但Boosting的过程并不会显著降低方差。这是因为Boosting的训练过程使得各弱分类器之间是强相关的，缺乏独立性，所以并不会对降低方差有作用。</p>
 <h1 id="GBDT-Gradient-Boosting-Decision-Tree"><a href="#GBDT-Gradient-Boosting-Decision-Tree" class="headerlink" title="GBDT(Gradient Boosting Decision Tree)"></a>GBDT(Gradient Boosting Decision Tree)</h1><p>GBDT是Boosting算法中非常流形的模型，也是近来在机器学习竞赛、商业应用中表现都非常优秀的模型。GBDT非常好地体现了”从错误中学习”的理念，基于决策树预测的残差进行迭代的学习。</p>
 <p>GBDT<br>1:以一个常数值初始化模型<br>$F_0(x)=arg min_{\rho}\sum_{i=1}^NL(y_i,\rho)$<br>2:For m=1 to M do:<br>3:    $\hat{y_i}=-[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_ {F(x)=F_{m-1}(x)}$,  i=1,…,M<br>4: $a_m=argmin_{a,β}\sum_{i=1}^N[\hat{y_i}-βh(x_i;a)]^2$<br>5:$\rho_m=argmin_{\rho}\sum_{i=1}^NL(y_i,F_{m-1}(x_i)+\rho h(x_i;a_m))$<br>6: $F_m(x)=F_{m-1}(x)+\rho_mh(x;a_m)$<br>7:end format<br>8:end Algorithm</p>
@@ -512,7 +512,7 @@ $$Ω(f_t)=γT+\frac{1}{2}λ\sum_{j=1}^Tw_j^2</script><p>其中T为叶子节点�
   <p><span>本文标题:</span><a href="/2018/12/15/机器学习（四）——集成学习/">机器学习（四）——集成学习</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年12月15日 - 15:12</p>
-  <p><span>最后更新:</span>2018年12月19日 - 00:12</p>
+  <p><span>最后更新:</span>2019年03月09日 - 16:03</p>
   <p><span>原始链接:</span><a href="/2018/12/15/机器学习（四）——集成学习/" title="机器学习（四）——集成学习">http://yifdu.github.io/2018/12/15/机器学习（四）——集成学习/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/15/机器学习（四）——集成学习/" aria-label="复制成功！"></i></span>
   </p>

@@ -99,7 +99,7 @@
 <meta property="og:description" content="GB、GBDT、XGBoost之间紧密相关,GBDT是以决策树CART为基学习器的GB算法,XGBoost扩展和改进了GDBT. Gradient boosting(GB)机器学习的学习算法的目标就是优化或者最小化loss function,Gradient boosting的思想是迭代多个(M个)弱的模型,然后将每个弱模型相加,后面的模型$F_{m+1}$(x)基于前面学习模型的$F_m(x)$">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20180508/9ef3f8c3303d46cbb41bdf07a4618b33.jpeg">
-<meta property="og:updated_time" content="2019-03-08T06:45:42.303Z">
+<meta property="og:updated_time" content="2019-03-08T08:49:44.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大杀器XGBoost">
 <meta name="twitter:description" content="GB、GBDT、XGBoost之间紧密相关,GBDT是以决策树CART为基学习器的GB算法,XGBoost扩展和改进了GDBT. Gradient boosting(GB)机器学习的学习算法的目标就是优化或者最小化loss function,Gradient boosting的思想是迭代多个(M个)弱的模型,然后将每个弱模型相加,后面的模型$F_{m+1}$(x)基于前面学习模型的$F_m(x)$">
@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k 字
+                  2.3k 字
                 </span>
               
 
@@ -412,7 +412,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8 分钟
+                  9 分钟
                 </span>
               
             </div>
@@ -472,25 +472,27 @@
 <li><p>回归树生成：目标函数是平方误差$\sum_{x_i∈R_m}(y_i-f(x_i))^2$来表示回归树对于训练数据的预测误差.<br>上述f(x_i)的形式如下:</p>
 <script type="math/tex; mode=display">f(x)=\sum_{m=1}^Mc_mI(x∈R_m)</script><p>我们注意到,这里有存在符号$R_m和c_m$,$c_m$很简单就是表示在$R_m$中的点贡献的值.并且$R_m$中的最优$\hat{c}_m$是$R_m$上的所有输入实例$x_i$对应的输出$y_i$的均值,即</p>
 <script type="math/tex; mode=display">\hat{c}_m=ave(y_i|x_i∈R_m)</script><p>$R_m$表示将输入空间进行划分后的一块区域.</p>
-<script type="math/tex; mode=display">R_1(j,s)=\{x|x^{(j)≤s}\} \ \ \ \ \ \ R_2(j,s)=\{x|x^{(j)>s}\}</script><p>其中j是表示x中的第j个变量$x^{(j)}$,s表示最优切分点.<br>Q:如何求最优变量j和最优切分点s?</p>
+<script type="math/tex; mode=display">R_1(j,s)=\{x|x^{(j)}≤s\} \ \ \ \ \ \ R_2(j,s)=\{x|x^{(j)}>s\}</script><p>其中j是表示x中的第j个变量$x^{(j)}$,s表示最优切分点.<br>Q:如何求最优变量j和最优切分点s?</p>
 <script type="math/tex; mode=display">min_{j,s}[min_{c_1}\sum_{x_i∈R_1(j,s)}(y_i-c_1)^2+min_{c_2}\sum_{x_i∈R_2(j,s)}(y_i-c_2)^2]</script><p>用启发式的方法求上式.<br>Algorithm:<br>输入:训练数据集D<br>输出:回归树f(x)<br>在训练数据集所在的输入空间中递归地将每个区域划分成两个子区域并决定每个子区域地输出值,构建二叉决策树<br>(1)选择最优切分变量j与切分点s,求解</p>
 <script type="math/tex; mode=display">min_{j,s}[min_{c_1}\sum_{x_i∈R_1(j,s)}(y_i-c_1)^2+min_{c_2}\sum_{x_i∈R_2(j,s)}(y_i-c_2)^2]</script><p>(2)用选定地对(j,s)划分区域并决定相应地输出值</p>
 <script type="math/tex; mode=display">R_1(j,s)=\{x|x^{(j)}≤s\} \ \ \ \ \ \ \ R_2(j,s)={x|x^{(j)}＞s}</script><script type="math/tex; mode=display">\hat{c}_m=\frac{1}{N_m}\sum_{x_i∈R_m(j,s)}y_i \ \ \ \ \ x∈R_m,m=1,2</script><p>(3)继续对两个子区域调用(1)(2),直到满足停止条件<br>(4)将输入空间划分为M个区域$R_1,R_2,…,R_M$,生成决策树:</p>
 <script type="math/tex; mode=display">f(x)=\sum_{m=1}^M\hat{c}_mI(x∈R_m)</script></li>
-<li><p>分类树的生成<br>用基尼指数来选择最优特征,同时也要确定最优二值切分点.然后递归地执行上述步骤.</p>
+<li><p>分类树的生成<br>用基尼(Gini)指数来选择最优特征,同时也要确定最优二值切分点.然后递归地执行上述步骤.</p>
+<script type="math/tex; mode=display">Gini(D)=1-\sum_{i=1}^n(\frac{|C_i|}{|D|})^2</script><p>CART每一次迭代中选择基尼指数最小的特征及其对应的切分点进行分类.<br><strong>与ID3、C4.5不同的是CART是一个二叉树,只采用二元分割法,每一步将数据按特征A的取值切分成两份,分别进入左右子树.特征A的Gini指数定义为:</strong></p>
+<script type="math/tex; mode=display">Gini(D|A)=\sum_{i=1}^n\frac{|D_i|}{|D|}Gini(D_i)</script><p>Gini值越小越好</p>
 </li>
 </ul>
 <ol>
 <li>决策树的剪枝</li>
 </ol>
-<h2 id="回到GBDT"><a href="#回到GBDT" class="headerlink" title="回到GBDT"></a>回到GBDT</h2><p>GBDT实际地核心问题是怎么基于$\{(x_i,r_{im})\}_{i=1}^n$使用CART回归树生成$h_m(x)$</p>
-<h1 id="终于到了XGBoost"><a href="#终于到了XGBoost" class="headerlink" title="终于到了XGBoost"></a>终于到了XGBoost</h1><p>XGBoost是GB算法地高效实现,XGBoost中地基学习器除了可以是CART(GBtree)也可以是线性分类器(GBlinear).</p>
+<h2 id="回到GBDT"><a href="#回到GBDT" class="headerlink" title="回到GBDT"></a>回到GBDT</h2><p>GBDT实际地核心问题是怎么基于$\{(x_i,r_{im})\}_{i=1}^n$使用CART回归树生成$h_m(x)$<br>$r_{im}$是GB里提到的伪残差</p>
+<h1 id="终于到了XGBoost"><a href="#终于到了XGBoost" class="headerlink" title="终于到了XGBoost"></a>终于到了XGBoost</h1><p>XGBoost是GB算法的高效实现,XGBoost中的基学习器除了可以是CART(GBtree)也可以是线性分类器(GBlinear).</p>
 <ol>
 <li>XGBoost在目标函数中显式地加上了正则化项,基学习为CART时,正则化项与树的叶子节点的数量T和叶子节点的值有关.<script type="math/tex; mode=display">L(\phi)=\sum_il(\hat{y}_i,y_i)+\sum_k\Omega(f_k)</script><script type="math/tex; mode=display">其中\Omega(f)=\gamma T+\frac{1}{2} \lambda ||w||^2</script></li>
 <li><p>GB中使用Loss Function对f(x)的一阶导数计算出伪残差用于学习生成$f_m$(x),XGBoost不仅使用了一阶导数,还是用了二阶导数,第t次的loss</p>
 <script type="math/tex; mode=display">L^{(t)}=\sum_{i=1}^nl(y_i,\hat{y}_i^{(t-1)}+f_t(x_i))+\Omega(f_t)</script><p>对上式做二阶泰勒展开:g为一阶导数,h为二阶导数</p>
 <script type="math/tex; mode=display">L^{(t)}≈\sum_{i=1}^n[l(y_i,\hat{y}^{(t-1)})+g_if_t(x_i)+\frac{1}{2}h_if_t^2(x_i)]+\Omega(f_t)</script><script type="math/tex; mode=display">其中g_i=\partial_{\hat{y}^{t-1}}l(y_i,\hat{y}^{(t-1)}) \ \ \ \ and \ \ h_i=\partial^2_{\hat{y}^{t-1}}l(y_i,\hat{y}^{(t-1)})</script></li>
-<li><p>考虑$f_t(x)=w_{q(x)}$,w∈$R^T$,q:$R^d\rightarrow {1,2,..,T}$,其中T表示叶子的数目<br>对上式再进行展开,</p>
+<li><p>考虑$f_t(x)=w_{q(x)}$,w∈$R^T$,q:$R^d\rightarrow {1,2,..,T}$,其中T表示叶子的数目<br>对上式再进行展开,这里是为了将目标函数按叶子结点规约分组.一定要始终注意我们的变量是$f_t(x)$.</p>
 <script type="math/tex; mode=display">L≈\sum_{i=1}^n[g_iw_{q(x_i)}+\frac{1}{2}h_iw^2_{q(x_i)}]+\gamma T+\frac{1}{2}\lambda ||w||^2</script><p>交换求和符号,并将$w_{q(x_i)}$表示成每个叶结点求和的形式</p>
 <script type="math/tex; mode=display">L≈\sum_{t=1}^T[(\sum_{i∈I_t}g_i)w_t+\frac{1}{2}(\sum_{i∈I_t}h_i)w^2_{t}]]+\frac{1}{2}\lambda\sum_{t=1}^Tw_t^2+\gamma T</script><p>将$\sum_{i∈I_t}g_i$用$G_t$表示,将$\sum_{i∈I_t}h_i$用$H_t$表示</p>
 <script type="math/tex; mode=display">L≈\sum_{t=1}^T[G_tw_t+\frac{1}{2}(H_t+\lambda)w_t^2]+\gamma T</script><p>将上式想象成一个二次函数,则w的最优取值为$\frac{-b}{2a}$(韦达定理),即</p>
@@ -500,7 +502,7 @@
 <li>从深度为0开始</li>
 <li>对于树的每个左结点,尝试去添加一个分割点.我们希望分割点能使下面的函数越大越好<script type="math/tex; mode=display">Gain=\frac{1}{2}[\frac{G_L^2}{H_L+\lambda}+\frac{G_R^2}{H_R+\lambda}-\frac{(G_L+G_R)^2}{H_L+H_R+\lambda}]-\gamma</script>第一项是左子树的分数,第二项是右子树的分数,第三项是如果我们不分割得到的分数</li>
 </ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>XGBoost算法的步骤和GB基本相同,都是首先初始化一个常数,GB是根据一阶导数$r_i$,XGBoost是根据一阶导数$g_i$和二阶导数$h_i$,迭代生成基学习器,相加更新学习器.<br>XGBoost还做了许多优化：</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>XGBoost算法的步骤和GB基本相同,都是首先初始化一个常数,GB是根据一阶导数$r_i$,XGBoost是根据一阶导数$g_i$和二阶导数$h_i$,迭代生成基学习器,相加更新学习器.(同时还引入了正则化项)<br>XGBoost还做了许多优化：</p>
 <ul>
 <li><p>最寻找最优分割点时,传统的枚举方法效率太低,XGBoost实现了一种近似的算法.大致思想是根据百分位数列举可能成为分割点的候选者,然后从候选者中根据上面求分割点的公式计算处最佳分割点</p>
 </li>
@@ -511,6 +513,7 @@
 <li><p>XGBoost还考虑了当数据量比较大,内存不够时怎么有效得使用磁盘,主要结合多线程、数据压缩、分片得方法,尽可能的提高算法的效率.</p>
 </li>
 </ul>
+<h2 id="GBDT与深度学习"><a href="#GBDT与深度学习" class="headerlink" title="GBDT与深度学习"></a>GBDT与深度学习</h2><p>XGBoost和深度学习的关系,陈天奇在Quora上解答如下:<br>不同的机器学习模型使用不同类型的任务.深度神经网络通过对时空位置建模,能够很好的捕获图像、语言、文本等高维数据.而基于树模型的XGBoost则能很好地处理表格数据,同时还拥有一些深度神经网络没有的特性(如模型的可解释性、输入数据的不变性、更易于调参).<br>两类模型都很重要,并广泛用于数据竞赛和工业界.</p>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
 <li><a href="https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf" target="_blank" rel="noopener">https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf</a></li>
 </ol>
@@ -720,7 +723,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradient-boosting-GB"><span class="nav-number">1.</span> <span class="nav-text">Gradient boosting(GB)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradient-boosting-Decision-Tree"><span class="nav-number">2.</span> <span class="nav-text">Gradient boosting Decision Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾CART"><span class="nav-number">2.1.</span> <span class="nav-text">回顾CART</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回到GBDT"><span class="nav-number">2.2.</span> <span class="nav-text">回到GBDT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#终于到了XGBoost"><span class="nav-number">3.</span> <span class="nav-text">终于到了XGBoost</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradient-boosting-GB"><span class="nav-number">1.</span> <span class="nav-text">Gradient boosting(GB)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradient-boosting-Decision-Tree"><span class="nav-number">2.</span> <span class="nav-text">Gradient boosting Decision Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾CART"><span class="nav-number">2.1.</span> <span class="nav-text">回顾CART</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回到GBDT"><span class="nav-number">2.2.</span> <span class="nav-text">回到GBDT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#终于到了XGBoost"><span class="nav-number">3.</span> <span class="nav-text">终于到了XGBoost</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GBDT与深度学习"><span class="nav-number">3.2.</span> <span class="nav-text">GBDT与深度学习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
 			
