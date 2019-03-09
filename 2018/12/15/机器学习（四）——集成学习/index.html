@@ -99,7 +99,7 @@
 <meta property="og:description" content="面对一个机器学习的问题，通常有两种策略，一种是研发人员尝试各种模型，选择其中表现最好的模型做重点调参优化。这种策略类似于奥运比赛，通过强强竞争来选拔最优的运动员，并逐步提高成绩。另一种重要策略是集各家之长，如同贤明的君主广泛听取众多谋臣的建议，然后综合考虑，得到最终决策。后一种策略的核心，是将多个分类器的结果统一成一个最终的决策。使用这类策略的机器学习方法统称为集成学习。其中的每个单独的分类器称为">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544869167959&di=18b326aa58659648afa9c18b1716c727&imgtype=0&src=http%3A%2F%2Fwww.289.com%2Fup%2Fphoto%2F2015%2F1020%2F142553_28800307.jpg">
-<meta property="og:updated_time" content="2019-03-09T08:13:40.729Z">
+<meta property="og:updated_time" content="2019-03-09T08:48:36.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（四）——集成学习">
 <meta name="twitter:description" content="面对一个机器学习的问题，通常有两种策略，一种是研发人员尝试各种模型，选择其中表现最好的模型做重点调参优化。这种策略类似于奥运比赛，通过强强竞争来选拔最优的运动员，并逐步提高成绩。另一种重要策略是集各家之长，如同贤明的君主广泛听取众多谋臣的建议，然后综合考虑，得到最终决策。后一种策略的核心，是将多个分类器的结果统一成一个最终的决策。使用这类策略的机器学习方法统称为集成学习。其中的每个单独的分类器称为">
@@ -483,7 +483,7 @@
 $$Ω(f_t)=γT+\frac{1}{2}λ\sum_{j=1}^Tw_j^2</script><p>其中T为叶子节点个数，$w_j$表示第j个叶子节点的预测值。对该损失函数在$F_{t-1}$处进行二阶泰勒展开可以推导出</p>
 <script type="math/tex; mode=display">L_t≈\sum_{j=1}^T[G_jw_j+\frac{1}{2}(H_j+λ)w_j^2]+γT</script><p>其中T为决策树$f_t$中叶子节点的个数，$G_j=\sum_{i∈I_j}▽_ {F_{t-1}}l(y_i,F_{t-1}(x_i)),H_j=\sum_{j∈I_j}▽_ {F_{t-1}}^2l(y_i,F_{t-1}(x_i))$,$I_j$表示所有属于叶子节点j的样本的索引的结合。</p>
 <p>假设决策树的结构已知，通过令损失函数相对于$w_j$的导数为0可以求出在最小化损失函数的情况下各个叶子节点上的预测值</p>
-<script type="math/tex; mode=display">w_j^* =-\frac{G_j}{H_j+λ}</script><p>然而从所有的树结构中寻找最优的树结构是一个NP-hard问题，因此在实际中往往采用贪心法来构建出一个次优的树结构，基本思想是从根节点开始，每次对一个叶子节点进行分裂，针对每一种可能的分裂，根据特定的准则选取最优的分裂。不同的决策树算法采用不同的准则，如IC3算法采用信息增益，C4.5算法为了克服信息增益中容易偏向取值较多的特征而采用信息增益比，CART算法使用基尼指数和平方误差，XGBoost也有特定的准则来选取最优分裂。</p>
+<script type="math/tex; mode=display">w_j^* =-\frac{G_j}{H_j+λ}</script><p>然而从所有的树结构中寻找最优的树结构是一个NP-hard问题，因此在实际中往往采用贪心法来构建出一个次优的树结构，基本思想是从根节点开始，每次对一个叶子节点进行分裂，针对每一种可能的分裂，根据特定的准则选取最优的分裂。不同的决策树算法采用不同的准则，如ID3算法采用信息增益，C4.5算法为了克服信息增益中容易偏向取值较多的特征而采用信息增益比，CART算法使用基尼指数和平方误差，XGBoost也有特定的准则来选取最优分裂。</p>
 <p>通过将预测值代入到损失函数中可求得损失函数得最小值：</p>
 <script type="math/tex; mode=display">\hat{L_t^* }=-\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{H_j+λ}+γT</script><p>容易计算出分裂前后损失函数的差值为:</p>
 <script type="math/tex; mode=display">Gain=\frac{G_L^2}{H_L+λ}+\frac{G_R^2}{H_R+λ}-\frac{(G_L+G_R)^2}{H_L+H_R+λ}-γ</script><p>XGBoost采用最大化这个差值作为准则来进行决策树的构建，通过遍历所有特征的所有取值，寻找使得损失函数前后相差最大时对应的分裂方式。此外由于损失函数前后存在差值一定为正的限制，此时γ起到了一定的预剪枝效果。</p>

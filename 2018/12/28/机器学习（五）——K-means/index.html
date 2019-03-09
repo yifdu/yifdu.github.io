@@ -99,7 +99,7 @@
 <meta property="og:description" content="K-means 与KNN尽管K-means与KNN都是K字辈的算法，但这两个算法是完全不同的。KNN为监督学习中的一种分类算法，K-means为非监督学习中的聚类算法。 两者相同之处是均利用近邻信息来标注类别。但本质上还是有巨大的差别的。 引言在实际工作中，我们常会遇到这样一类问题:给机器输入大量的特征数据，并期望机器通过学习找到数据中存在的某种共性特征或者结构，亦或是数据之间存在的某种关联。例如">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545983636136&di=8ca9a349868979fdb323c5b103771558&imgtype=0&src=http%3A%2F%2Fimg2018.cnblogs.com%2Fblog%2F1484620%2F201810%2F1484620-20181011141245778-1002518076.png">
-<meta property="og:updated_time" content="2018-12-28T07:36:51.329Z">
+<meta property="og:updated_time" content="2019-03-09T08:48:32.718Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（五）——K-means">
 <meta name="twitter:description" content="K-means 与KNN尽管K-means与KNN都是K字辈的算法，但这两个算法是完全不同的。KNN为监督学习中的一种分类算法，K-means为非监督学习中的聚类算法。 两者相同之处是均利用近邻信息来标注类别。但本质上还是有巨大的差别的。 引言在实际工作中，我们常会遇到这样一类问题:给机器输入大量的特征数据，并期望机器通过学习找到数据中存在的某种共性特征或者结构，亦或是数据之间存在的某种关联。例如">
@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  498 字
+                  2.2k 字
                 </span>
               
 
@@ -412,7 +412,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -450,22 +450,22 @@
         <h1 id="K-means-与KNN"><a href="#K-means-与KNN" class="headerlink" title="K-means 与KNN"></a>K-means 与KNN</h1><p>尽管K-means与KNN都是K字辈的算法，但这两个算法是完全不同的。KNN为监督学习中的一种分类算法，K-means为非监督学习中的聚类算法。</p>
 <p>两者相同之处是均利用近邻信息来标注类别。但本质上还是有巨大的差别的。</p>
 <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>在实际工作中，我们常会遇到这样一类问题:给机器输入大量的特征数据，并期望机器通过学习找到数据中存在的某种共性特征或者结构，亦或是数据之间存在的某种关联。例如在推荐系统中的根据用户的行为，对用户进行分组。这类问题被称为”非监督学习”问题。它并不像监督学习那样希望预测出某种输出结果。相比于监督学习，非监督学习的输入数据没有标签信息，需要通过算法模型来挖掘数据内在的结构和模式。非监督学习主要包含两大类学习方法：数据聚类和特征变量关联。其中，聚类算法往往是通过多次迭代找到数据的最优分割，而特征变量关联则是利用各种相关性分析方法来找到变量之间的关系。</p>
-<h1 id="K-means-基本算法"><a href="#K-means-基本算法" class="headerlink" title="K-means 基本算法"></a>K-means 基本算法</h1><p>简述K-means算法的具体步骤<br>K-means算法的核心目标是给定的数据集划分成K个簇，并给出每个数据对应的簇中心点。算法具体步骤：<br>（1）数据预处理,如归一化、离群点处理等<br>（2）随机选取K个簇中心，记为$\mu_1^{(0)},\mu_2^{(0)},…,\mu_K^{(0)}$<br>（3）定义代价函数：$J(c,\mu)=min_{\mu}min_{c}\sum_{i=1}^M||x_i-\mu_{c_i}||^2$<br>（4）令t=0,1,2,…为迭代步数，重复下面过程直到J收敛：</p>
+<h1 id="K-means-基本算法"><a href="#K-means-基本算法" class="headerlink" title="K-means 基本算法"></a>K-means 基本算法</h1><p>简述K-means算法的具体步骤<br>K-means算法的核心目标是给定的数据集划分成K个簇，并给出每个数据对应的簇中心点。算法具体步骤：<br><strong>（1）数据预处理,如归一化、离群点处理等</strong><br>（2）随机选取K个簇中心，记为$\mu_1^{(0)},\mu_2^{(0)},…,\mu_K^{(0)}$<br>（3）定义代价函数：$J(c,\mu)=min_{\mu}min_{c}\sum_{i=1}^M||x_i-\mu_{c_i}||^2$<br>（4）令t=0,1,2,…为迭代步数，重复下面过程直到J收敛：</p>
 <ul>
-<li>对于每个样本$x_i$，将其分配到距离最近的簇<script type="math/tex; mode=display">c_i^{(t)}<——argmin_k||x_i-\mu_k^{(t)}||^2</script></li>
-<li>对于每个类簇k,重新计算该类簇的中心<script type="math/tex; mode=display">\mu_k^{(t+1)}<——argmin_{\mu}\sum_{i:c_i^{(t)=k}}||x_i-\mu||^2</script></li>
+<li>对于每个样本$x_i$，将其分配到距离最近的簇<script type="math/tex; mode=display">c_i^{(t)}\leftarrow argmin_k||x_i-\mu_k^{(t)}||^2</script></li>
+<li>对于每个类簇k,重新计算该类簇的中心<script type="math/tex; mode=display">\mu_k^{(t+1)}\leftarrow argmin_{\mu}\sum_{i:c_i^{(t)=k}}||x_i-\mu||^2</script></li>
 </ul>
 <p>K均值算法在迭代时，假设当前J没有达到最小值，那么首先固定簇中心$\{\mu_k\}$,调整每个样例$x_i$所属的类别$c_i$来让J函数减少；然后固定$\{c_i\}$,调整簇中心$\{\mu_k\}$使J减小。这两个过程交替循环，J单调递减:当J递减到最小值时，$\{\mu_k\}$和$\{c_i\}$也同时收敛。</p>
 <hr>
-<p><strong>坐标下降法(Coordinate descent)</strong><br>坐标下降法属于一种非梯度优化的方法，它在每步迭代中沿一个坐标方向进行搜索，通过循环使用不同的坐标方法来达到目标函数的局部极小值。<br>算法过程：<br>假设目标函数是求解f(x)的极小值，其中$\vec{x}=(x_1,x_2,…,x_n)$是一个n维的向量，我们从初始点x^0开始(x^0是我们猜想的一个初始值)对k进行循环：</p>
+<p><strong>坐标下降法(Coordinate descent)</strong><br>坐标下降法属于一种 <strong>非梯度优化的方法</strong> ，它在每步迭代中沿一个坐标方向进行搜索，通过循环使用不同的坐标方法来达到目标函数的局部极小值。<br>算法过程：<br>假设目标函数是求解f(x)的极小值，其中$\vec{x}=(x_1,x_2,…,x_n)$是一个n维的向量，我们从初始点x^0开始(x^0是我们猜想的一个初始值)对k进行循环：</p>
 <script type="math/tex; mode=display">x_1^{(k)}=arg min_{x_1}f(x_1,x_2^{(k-1)},...,x_n^{(k-1)})</script><script type="math/tex; mode=display">x_2^{(k)}=arg min_{x_2}f(x_2^{(k)},x_2,...,x_n^{(k-1)})</script><p>…..</p>
 <script type="math/tex; mode=display">x_n^{(k)}=arg min_{x_n}f(x_1^{(k)},x_2^{(k)},...,x_n)</script><p>相当于每次迭代都只是更新$\vec{x}$的一个维度，把该维度视为变量，剩下的n-1个维度的值当作常量，最小化f(x),找到该维度对应的新的值。坐标下降法就是通过不断地迭代构造序列$x^0,x^1,…$来求解问题，即最终点收敛到期望的局部最小值点</p>
 <script type="math/tex; mode=display">f(x^{(0)})＞f(x^{(1)})＞.....</script><p>很显然，K-means这里用到的就是坐标下降法。</p>
-<p>在SVM中,我们也有用到坐标下降法，SMO中有出现。</p>
+<p><strong>在SVM中,我们也有用到坐标下降法，SMO中有出现。</strong></p>
 <hr>
 <p><img src="/2018/12/28/机器学习（五）——K-means/K_means.png" alt="K_means"></p>
 <h2 id="K-means存在缺点"><a href="#K-means存在缺点" class="headerlink" title="K-means存在缺点"></a>K-means存在缺点</h2><ol>
-<li>K-means是局部最优的，容易受到初始质心的影响;比如在下图中，因选择初始质心不恰当而造成次优的聚类结果</li>
+<li>K-means是 <strong>局部最优</strong> 的，容易受到初始质心的影响;比如在下图中，因选择初始质心不恰当而造成次优的聚类结果</li>
 <li>同时K值得选取也会直接影响聚类结果，最优聚类得K值应与样本数据本身得结构信息相吻合，而这种结构信息很难去掌握，因此选取最优k值是非常困难的</li>
 </ol>
 <h2 id="如何选择K值"><a href="#如何选择K值" class="headerlink" title="如何选择K值"></a>如何选择K值</h2><p>K值得选择一般基于经验和多次实验结果。可以尝试不同的K值，并将不同K值所对应的损失函数画成折线，横轴为K的取值，纵轴为误差平方和所定义的损失函数。由此可以找到一个最佳点。但是这种方法的缺点就是不够自动化。（手肘法）</p>
@@ -499,7 +499,7 @@
   <p><span>本文标题:</span><a href="/2018/12/28/机器学习（五）——K-means/">机器学习（五）——K-means</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年12月28日 - 13:12</p>
-  <p><span>最后更新:</span>2018年12月28日 - 15:12</p>
+  <p><span>最后更新:</span>2019年03月09日 - 16:03</p>
   <p><span>原始链接:</span><a href="/2018/12/28/机器学习（五）——K-means/" title="机器学习（五）——K-means">http://yifdu.github.io/2018/12/28/机器学习（五）——K-means/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/28/机器学习（五）——K-means/" aria-label="复制成功！"></i></span>
   </p>
