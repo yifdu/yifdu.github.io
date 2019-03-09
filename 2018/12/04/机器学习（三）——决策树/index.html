@@ -99,7 +99,7 @@
 <meta property="og:description" content="决策树模型的简介分类决策树模型是一种描述对实例进行分类的树形结构。我们可以理解这种树形结构是符合if-then的规则，也可以认为是定义在特征空间与类空间上的条件概率分布。我们希望我们构建的树结构的泛化能力尽可能强。在学习时，我们利用训练数据，根据损失函数最小化的原则建立决策树模型。预测时，对新数据利用决策树模型进行分类。   决策树学习通常包括三个步骤：1.特征选择 2.决策树的生成和 3. 决策">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543933865494&di=e9d60d4c2a0d74d7e1ed89ba0604c036&imgtype=0&src=http%3A%2F%2Faliyunzixunbucket.oss-cn-beijing.aliyuncs.com%2Fjpg%2Fcc6710868e2d886eb30524dd9450ed38.jpg%3Fx-oss-process%3Dimage%2Fresize%2Cp_100%2Fauto-orient%2C1%2Fquality%2Cq_90%2Fformat%2Cjpg%2Fwatermark%2Cimage_eXVuY2VzaGk%3D%2Ct_100">
-<meta property="og:updated_time" content="2019-01-06T14:31:41.574Z">
+<meta property="og:updated_time" content="2019-03-09T09:43:03.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（三）——决策树">
 <meta name="twitter:description" content="决策树模型的简介分类决策树模型是一种描述对实例进行分类的树形结构。我们可以理解这种树形结构是符合if-then的规则，也可以认为是定义在特征空间与类空间上的条件概率分布。我们希望我们构建的树结构的泛化能力尽可能强。在学习时，我们利用训练数据，根据损失函数最小化的原则建立决策树模型。预测时，对新数据利用决策树模型进行分类。   决策树学习通常包括三个步骤：1.特征选择 2.决策树的生成和 3. 决策">
@@ -538,7 +538,7 @@
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>决策树的优劣：<br>优点：</p>
 <ul>
 <li>1 决策树易于理解和实现.人们在通过解释后都有能力去理解决策树所表达的意义。</li>
-<li>2 对于决策树，数据的准备往往是简单或者是不必要的.其他的技术往往要求先把数据一般化，比如去掉多余的或者空白的属性。</li>
+<li>2 <strong>对于决策树，数据的准备往往是简单或者是不必要的.其他的技术往往要求先把数据一般化，比如去掉多余的或者空白的属性。</strong></li>
 <li>3 能够同时处理数据型和常规型属性。其他的技术往往要求数据属性的单一。</li>
 <li>4 是一个白盒模型如果给定一个观察的模型，那么根据所产生的决策树很容易推出相应的逻辑表达式。</li>
 <li>5 易于通过静态测试来对模型进行评测。表示有可能测量该模型的可信度。</li>
@@ -546,6 +546,7 @@
 <li>7 计算复杂度不高，输出结果易于理解，数据有缺失也能跑，可以处理不相关特征。<br>缺点:</li>
 <li>1 容易过拟合。</li>
 <li>2 对于那些各类别样本数量不一致的数据，在决策树当中信息增益的结果偏向于那些具有更多数值的特征。</li>
+<li>3.模型不稳定,数据微小变化都有可能造成完全不同的树生成.</li>
 </ul>
 <p>增量学习——有些决策树学习算法可进行”增量学习”,即在接收到新样本后可对已学得的模型进行调整,而不需要完全重新学习。增量学习可有效地降低每次接收到新样本后的训练时间开销,但多步增量学习后的模型会与基于全部数据训练而得的模型有较大差别。</p>
 
@@ -572,7 +573,7 @@
   <p><span>本文标题:</span><a href="/2018/12/04/机器学习（三）——决策树/">机器学习（三）——决策树</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年12月04日 - 19:12</p>
-  <p><span>最后更新:</span>2019年01月06日 - 22:01</p>
+  <p><span>最后更新:</span>2019年03月09日 - 17:03</p>
   <p><span>原始链接:</span><a href="/2018/12/04/机器学习（三）——决策树/" title="机器学习（三）——决策树">http://yifdu.github.io/2018/12/04/机器学习（三）——决策树/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/04/机器学习（三）——决策树/" aria-label="复制成功！"></i></span>
   </p>
