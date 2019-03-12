@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="深度智障">
 <meta property="og:description" content="金融壹帐通Gamma Lab CV实习生面经 resnet是为了解决什么样的问题一直以为resnet解决的是梯度弥散或是梯度爆炸的问题,但查了这个问题才发现并不是这样的.Kaiming的论文中已经说了臭名昭著的梯度弥散/爆炸问题已经很大程度上被normalized initialization and intermediate normalization layer解决了。图像由于具有局部相关性,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-11T11:11:38.766Z">
+<meta property="og:updated_time" content="2019-03-12T11:19:13.194Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网上面试问题集合">
 <meta name="twitter:description" content="金融壹帐通Gamma Lab CV实习生面经 resnet是为了解决什么样的问题一直以为resnet解决的是梯度弥散或是梯度爆炸的问题,但查了这个问题才发现并不是这样的.Kaiming的论文中已经说了臭名昭著的梯度弥散/爆炸问题已经很大程度上被normalized initialization and intermediate normalization layer解决了。图像由于具有局部相关性,">
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.2k 字
+                  1.6k 字
                 </span>
               
 
@@ -410,7 +410,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -444,6 +444,37 @@
 <li>relu负半轴出现饱和为什么好要用它<br>????</li>
 <li>一个定位问题(目标检测)，你如何评价这个模型的好坏？<br>用Mean Average Precision(mAP).为什么要用mAP,因为每张图可能包含多个类别的多个目标,因此,目标检测模型的评价需要同时评价模型的定位、分类效果<br>对于目标检测问题而言,ground truth包括”image”、”classes of the objects” 以及”true bounding boxes of each of the objects in that image”<br>一张图里假设有狗、人、马三个标记,我们需要1.类别标签2.x,y坐标标签3.宽高标签<br>这是一个都分类的问题,往往会涉及到找回率(recall)和精确率(precision)的问题:<br>$Recall =\frac{TP}{TP+FN}$,<br>$Precision=\frac{TP}{TP+FP}$<br>在多分类中,如果仅仅是把groud truth的类当作正例,其他类当作负例,好像优点类表达的不够充分.因此考虑从分类的置信度(某个类的)中进行排序,由高到底排列可以用topN来作为一个阈值,前N个表示正样例,而后面的表示负样例.由此我们就可以得到TP、FN、FP.并且可以由此得到P-R曲线.有了PR曲线,我们可以求AP,什么是AP,AP就是通过改变上述阈值求得的P-R曲线面积们的平均值.由此AP衡量出了学出的模型在给定类别上的好坏,而mAP衡量的是学出的模型在所有类别上的好坏,即对各个类的AP求平均值.(注意:有时也不用TopN而是用一个置信度阈值,大于该阈值时为positive.)</li>
 <li>为什么引入ReLu激活函数<br>引入非线性激活函数是因为,如果不用非线性激活函数,多层线性函数只相当于一层.<br>之所以是ReLu而不是其他的比如sigmoid是因为sigmoid的计算量大,且在反向传播的过程中两端的饱和区梯度趋近于0.而ReLu尽管一侧饱和区输出的都是0,但是这样造成了一定的网络洗属性,减少了参数的相互依存关系,缓解了过拟合的发生</li>
+</ol>
+<h1 id="平安科技医疗部计算机视觉算法电面一面面经"><a href="#平安科技医疗部计算机视觉算法电面一面面经" class="headerlink" title="平安科技医疗部计算机视觉算法电面一面面经"></a>平安科技医疗部计算机视觉算法电面一面面经</h1><h2 id="类别不平衡如何解决"><a href="#类别不平衡如何解决" class="headerlink" title="类别不平衡如何解决"></a>类别不平衡如何解决</h2><h3 id="数据层面"><a href="#数据层面" class="headerlink" title="数据层面"></a>数据层面</h3><ol>
+<li>下采样法:随机采欠样(BalanceCascade)</li>
+<li>过采样方法：随机过采样，SMOTE<h3 id="算法层面"><a href="#算法层面" class="headerlink" title="算法层面"></a>算法层面</h3></li>
+<li>代价敏感学习(代价矩阵)</li>
+<li>分类器集成方法：boosting</li>
+</ol>
+<h2 id="ResNet的特点："><a href="#ResNet的特点：" class="headerlink" title="ResNet的特点："></a>ResNet的特点：</h2><p>跳跃连接和瓶颈层</p>
+<h2 id="为什么要用1×1的卷积"><a href="#为什么要用1×1的卷积" class="headerlink" title="为什么要用1×1的卷积"></a>为什么要用1×1的卷积</h2><p>1×1的卷积来源于Network in Network<br>主要作用使:</p>
+<ol>
+<li>降维,提高泛化能力,防止过拟合</li>
+<li>减少参数</li>
+<li>在保持feature map尺度不变的前提下大幅增加非线性特性,把网络做的deep</li>
+<li>实现跨通道的信息交互和整合<h2 id="知道哪些机器学习常用的损失函数？"><a href="#知道哪些机器学习常用的损失函数？" class="headerlink" title="知道哪些机器学习常用的损失函数？"></a>知道哪些机器学习常用的损失函数？</h2></li>
+<li>交叉熵损失</li>
+<li>hinge loss</li>
+<li>L1损失</li>
+<li>L2损失</li>
+<li>Focal loss<h2 id="什么是Focal-loss"><a href="#什么是Focal-loss" class="headerlink" title="什么是Focal loss"></a>什么是Focal loss</h2>Focal loss主要是为了解决one-stage目标检测中正负样本比例严重失衡的问题。该函数降低了大量简单负样本在训练中所占的权重,也可以理解为一种困难样本挖掘<br>原来的二分类的交叉熵形式为:<script type="math/tex; mode=display">L=
+\begin{cases}
+-logy' \ \ \ \ \ y=1\\
+-log(1-y') \ \ \ \ \ \ y=0\\
+\end{cases}</script>其中y’是经过激活函数的输出,在0-1之间.对预测为正例的概率。<br>Focal loss将其改写为:<script type="math/tex; mode=display">
+L=\begin{cases}
+-(1-y')^{\gamma}logy' \ \ \ \ \ \ \ \ y=1\\
+-y'^{gamma}log(1-y')\ \ \ \ \ \ \ \ \ y=0\\
+\end{cases}</script><h2 id="L1和L2损失在目标检测中的应用知道吗"><a href="#L1和L2损失在目标检测中的应用知道吗" class="headerlink" title="L1和L2损失在目标检测中的应用知道吗"></a>L1和L2损失在目标检测中的应用知道吗</h2><script type="math/tex; mode=display">L_1=\sum_{i=1}^n|Y_i-f(x_i)|</script><script type="math/tex; mode=display">L_2=\sum_{i=1}^n(Y_i-f(x_i))^2</script>L2损失对异常点比较敏感,因为L2将误差平方化,使异常点的误差增大.<br>L1损失函数由于导数不连续,可能存在多个解,当数据解有一个微小的改变,解也有可能有很大改动.具有不稳定的问题.<br>smoothL1损失函数<script type="math/tex; mode=display">L=\sum smoothL1(t_i^u-v_i)</script>其中<script type="math/tex; mode=display">smoothL1=
+\begin{cases}
+0.5x^2 \ \ \ \ \ \ if |x|<1\\
+|x|-0.5 \ \ \ \ \ \ otherwise
+\end{cases}</script>smoothL1损失函数是在Faster RCNN中出现的,它可以让离群点更加鲁棒(相比于L2),且相比于L1更加稳定。</li>
 </ol>
 
       
@@ -649,7 +680,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#金融壹帐通Gamma-Lab-CV实习生面经"><span class="nav-number">1.</span> <span class="nav-text">金融壹帐通Gamma Lab CV实习生面经</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#金融壹帐通Gamma-Lab-CV实习生面经"><span class="nav-number">1.</span> <span class="nav-text">金融壹帐通Gamma Lab CV实习生面经</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#平安科技医疗部计算机视觉算法电面一面面经"><span class="nav-number">2.</span> <span class="nav-text">平安科技医疗部计算机视觉算法电面一面面经</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类别不平衡如何解决"><span class="nav-number">2.1.</span> <span class="nav-text">类别不平衡如何解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据层面"><span class="nav-number">2.1.1.</span> <span class="nav-text">数据层面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法层面"><span class="nav-number">2.1.2.</span> <span class="nav-text">算法层面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNet的特点："><span class="nav-number">2.2.</span> <span class="nav-text">ResNet的特点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用1×1的卷积"><span class="nav-number">2.3.</span> <span class="nav-text">为什么要用1×1的卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知道哪些机器学习常用的损失函数？"><span class="nav-number">2.4.</span> <span class="nav-text">知道哪些机器学习常用的损失函数？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Focal-loss"><span class="nav-number">2.5.</span> <span class="nav-text">什么是Focal loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L1和L2损失在目标检测中的应用知道吗"><span class="nav-number">2.6.</span> <span class="nav-text">L1和L2损失在目标检测中的应用知道吗</span></a></li></ol></li></ol></div>
             
 
 			
