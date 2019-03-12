@@ -90,19 +90,19 @@
 
 
 
-<meta name="description" content="Attention的发展Attention首先起源于视觉图像领域,早在上世纪九十年代就提出来了.但现在的attention,主要指深度学习出现以后的attention. Recurrent Models of Visual Attention该文主要还是借鉴于人类的注意力的机制，我们人看东西并非将目光放在整张图上,尽管有时候会从总体上对目标进行把握,但是也是将目光按照某种次序(例如，从上到下，从左">
+<meta name="description" content="Attention的发展Attention首先起源于视觉图像领域,早在上世纪九十年代就提出来了.但现在的attention,主要指深度学习出现以后的attention. Attention的对齐计算公式 Recurrent Models of Visual Attention该文主要还是借鉴于人类的注意力的机制，我们人看东西并非将目光放在整张图上,尽管有时候会从总体上对目标进行把握,但是也是将目光">
 <meta name="keywords" content="NLP,attention">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NLP中的注意力机制">
 <meta property="og:url" content="http://yifdu.github.io/2019/03/05/NLP中的注意力机制/index.html">
 <meta property="og:site_name" content="深度智障">
-<meta property="og:description" content="Attention的发展Attention首先起源于视觉图像领域,早在上世纪九十年代就提出来了.但现在的attention,主要指深度学习出现以后的attention. Recurrent Models of Visual Attention该文主要还是借鉴于人类的注意力的机制，我们人看东西并非将目光放在整张图上,尽管有时候会从总体上对目标进行把握,但是也是将目光按照某种次序(例如，从上到下，从左">
+<meta property="og:description" content="Attention的发展Attention首先起源于视觉图像领域,早在上世纪九十年代就提出来了.但现在的attention,主要指深度学习出现以后的attention. Attention的对齐计算公式 Recurrent Models of Visual Attention该文主要还是借鉴于人类的注意力的机制，我们人看东西并非将目光放在整张图上,尽管有时候会从总体上对目标进行把握,但是也是将目光">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551872299898&di=acb305d92f4f9a75887480c111d56ae1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201511%2F26%2F20151126182949_tihrM.jpeg">
-<meta property="og:updated_time" content="2019-03-09T10:32:11.868Z">
+<meta property="og:updated_time" content="2019-03-12T06:05:24.873Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NLP中的注意力机制">
-<meta name="twitter:description" content="Attention的发展Attention首先起源于视觉图像领域,早在上世纪九十年代就提出来了.但现在的attention,主要指深度学习出现以后的attention. Recurrent Models of Visual Attention该文主要还是借鉴于人类的注意力的机制，我们人看东西并非将目光放在整张图上,尽管有时候会从总体上对目标进行把握,但是也是将目光按照某种次序(例如，从上到下，从左">
+<meta name="twitter:description" content="Attention的发展Attention首先起源于视觉图像领域,早在上世纪九十年代就提出来了.但现在的attention,主要指深度学习出现以后的attention. Attention的对齐计算公式 Recurrent Models of Visual Attention该文主要还是借鉴于人类的注意力的机制，我们人看东西并非将目光放在整张图上,尽管有时候会从总体上对目标进行把握,但是也是将目光">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551872299898&di=acb305d92f4f9a75887480c111d56ae1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201511%2F26%2F20151126182949_tihrM.jpeg">
 
 
@@ -435,7 +435,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551872299898&di=acb305d92f4f9a75887480c111d56ae1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201511%2F26%2F20151126182949_tihrM.jpeg" rel="gallery_cjt2jvimp00dnmswaf4p95d8z" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551872299898&di=acb305d92f4f9a75887480c111d56ae1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201511%2F26%2F20151126182949_tihrM.jpeg" rel="gallery_cjt5ds6yf00drh4wawd73f4e4" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551872299898&di=acb305d92f4f9a75887480c111d56ae1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201511%2F26%2F20151126182949_tihrM.jpeg" itemprop="contentUrl">
               </a>
             
@@ -448,6 +448,7 @@
 
       
         <h1 id="Attention的发展"><a href="#Attention的发展" class="headerlink" title="Attention的发展"></a>Attention的发展</h1><p>Attention首先起源于视觉图像领域,早在上世纪九十年代就提出来了.但现在的attention,主要指深度学习出现以后的attention.<br><img src="/2019/03/05/NLP中的注意力机制/pic1.png" alt="pic1"></p>
+<p>Attention的对齐计算公式<br><img src="/2019/03/05/NLP中的注意力机制/pic23.png" alt="pic23"></p>
 <h2 id="Recurrent-Models-of-Visual-Attention"><a href="#Recurrent-Models-of-Visual-Attention" class="headerlink" title="Recurrent Models of Visual Attention"></a>Recurrent Models of Visual Attention</h2><p>该文主要还是借鉴于人类的注意力的机制，我们人看东西并非将目光放在整张图上,尽管有时候会从总体上对目标进行把握,但是也是将目光按照某种次序(例如，从上到下，从左到右等)在图像上进行扫描,然后从一个区域转移到另一个区域.这么一个个的区域就是定义的part,或者说是glimpse。然后将这些区域的信息结合起来用于整体的判断和感受.</p>
 <p>总结下来就是这个模型是一个recurrent neural network(RNN),按照时间顺序处理输入,一次在一张图像中处理不同的位置,逐渐地将这些部分信息结合起来,来建立一个该场景或环境的动态间隔表示.并非马上处理整张图像甚至bbox,在每一个步骤中,模型基于过去的信息和任务的需要选择下一个位置进行处理.这样就可以控制模型的参数和计算量,使之摆脱输入图像的大小的约束.这里和CNN有明显不同.本文就是要描述一个端到端的优化序列,能够直接训练模型,最大化性能衡量,依赖于该模型在整个任务上做的决策.利用反向传播来训练神经网络的成分和策略梯度来解决the non-differentiabilities due to the control problem.</p>
 <p><strong>本文将attention problem看作是目标引导的序列决策过程,能够和视觉环境交互.</strong> 在每个时间点,agent只能根据有带宽限制的感知器来观察全局,只能在一个局部区域或者狭窄的频域范围进行信息的提取.The agent可以自主的控制如何布置感知器的资源,即:选择感知的位置区域.该agent也可以通过执行actions来影响环境的真实状态.由于该环境只是部分可观察,它需要额外的信息来辅助其进行决定如何移动和如何最有效布置感知器.每一步,agent都会收到奖励或者惩罚,agent的目标就是奖励最大化.</p>
@@ -690,7 +691,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -99,7 +99,7 @@
 <meta property="og:description" content="Deep Neural Networks for Object Detection简介在本文中,作者利用DNNS的强大功能来解决目标检测问题,不仅对对物体进行分类还试图精确定位物体.本文提出了一个简单而强大的object detection公式通过用回归问题处理覆盖对象的包围框。并且文中定义了一个多尺度推理过程,它能够以较低的成本由少数网络应用产生高分辨率的目标检测(object detectio">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550166352538&di=a49fde0101cec45013796c86daaa7111&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D2859194310%2C3922203063%26fm%3D214%26gp%3D0.jpg">
-<meta property="og:updated_time" content="2019-02-14T15:13:01.424Z">
+<meta property="og:updated_time" content="2019-03-11T12:24:49.587Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Object_Detection(一)">
 <meta name="twitter:description" content="Deep Neural Networks for Object Detection简介在本文中,作者利用DNNS的强大功能来解决目标检测问题,不仅对对物体进行分类还试图精确定位物体.本文提出了一个简单而强大的object detection公式通过用回归问题处理覆盖对象的包围框。并且文中定义了一个多尺度推理过程,它能够以较低的成本由少数网络应用产生高分辨率的目标检测(object detectio">
@@ -446,7 +446,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550166352538&di=a49fde0101cec45013796c86daaa7111&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D2859194310%2C3922203063%26fm%3D214%26gp%3D0.jpg" rel="gallery_cjt2jvhjx006omswafna49sio" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550166352538&di=a49fde0101cec45013796c86daaa7111&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D2859194310%2C3922203063%26fm%3D214%26gp%3D0.jpg" rel="gallery_cjt5ds5qp006qh4wapcgrv5mh" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550166352538&di=a49fde0101cec45013796c86daaa7111&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D2859194310%2C3922203063%26fm%3D214%26gp%3D0.jpg" itemprop="contentUrl">
               </a>
             
@@ -475,7 +475,7 @@
 <p>由于基网络是高度非凸的，且不能保证最优性，因此有时需要根据ground truth mask对每个输出使用不同的权值来正则化损失函数。直观的感觉是，相对于图像大小，大多数对象都很小，而且网络很容易陷入为每个输出分配零值的简单解决方案。为了避免这种不受欢迎的行为，通过一个参数$\lambda∈R^+$，将ground truth mask中对应于非零值的输出的权值增加这是有帮助的。如果$\lambda$选择的值较小，那么ground truth值为0的输出上的错误受到的惩罚要明显小于值为1的输出上的错误，因此即使信号较弱，也鼓励网络预测非零值。</p>
 <p>在我们的实现中，我们使用接受域为225×225的网络，并输出一个大小为d×d的掩码(mask)，使d=24</p>
 <h2 id="Precise-Object-Localization-via-DNN-generated-Masks"><a href="#Precise-Object-Localization-via-DNN-generated-Masks" class="headerlink" title="Precise Object Localization via DNN-generated Masks"></a>Precise Object Localization via DNN-generated Masks</h2><p>尽管所提出的方法能够生成高质量的掩码(mask)，但是还存在一些额外的挑战。首先，单个对象掩码(mask)可能不足以消除相邻对象之间的歧义。其次，由于输出大小的限制，我们生成的掩码比原始图像的大小小得多。例如，对于大小为400×400且d=24的图像，每个输出将对应于大小为16×16的单元格，这将不足以精确定位对象，尤其是在对象很小的情况下。最后，由于我们使用完整的图像作为输入，小的物体会影响很少的输入神经元，因此很难识别。下面，我们将解释如何处理这些问题。</p>
-<h3 id="Multiple-Masks-for-Robust-Localization"><a href="#Multiple-Masks-for-Robust-Localization" class="headerlink" title="Multiple Masks for Robust Localization"></a>Multiple Masks for Robust Localization</h3><p>为了处理多个触摸对象，我们生成的不是一个而是多个掩码，每个掩码表示整个对象或其中的一部分。由于我们的最终目标是生成一个边界框，所以我们使用一个网络来预测对象框掩码，并使用四个额外的网络来预测该框的四个部分:底部、顶部、左侧和右侧的一半，都定义为$m^h、h∈{full,bottom,top,left}。这五个预测过于完整，但有助于减少不确定性，并在某些mask下处理错误。此外，如果将相同类型的两个对象相邻放置，那么在生成的五个掩码中，至少有两个掩码不会合并对象，从而消除它们的歧义。这将允许检测多个对象。</p>
+<h3 id="Multiple-Masks-for-Robust-Localization"><a href="#Multiple-Masks-for-Robust-Localization" class="headerlink" title="Multiple Masks for Robust Localization"></a>Multiple Masks for Robust Localization</h3><p>为了处理多个触摸对象，我们生成的不是一个而是多个掩码，每个掩码表示整个对象或其中的一部分。由于我们的最终目标是生成一个边界框，所以我们使用一个网络来预测对象框掩码，并使用四个额外的网络来预测该框的四个部分:底部、顶部、左侧和右侧的一半，都定义为$m^h$、h∈{full,bottom,top,left}。这五个预测过于完整，但有助于减少不确定性，并在某些mask下处理错误。此外，如果将相同类型的两个对象相邻放置，那么在生成的五个掩码中，至少有两个掩码不会合并对象，从而消除它们的歧义。这将允许检测多个对象。</p>
 <p>在训练时,我们需要将对象框转变为5个mask.因为这些mask是比原图更小,所以为我们需要缩小ground truth mask的尺寸到network输出的大小.图像中出现表示对象的长方形用T(i,j)表示,可以用网络的输出(i,j)来预测.该长方形的左上角在$(\frac{d_1}{d}(i-1),\frac{d_2}{d}(j-1))$并且大小变为$\frac{d_1}{d}×\frac{d_1}{d}$,其中d是输出mask的大小,并且$d_1,d_2$是图像的高和宽.在训练期间,我们设值m(i,j)被预测作为T(i,j)的部分被box bb(h)覆盖:</p>
 <script type="math/tex; mode=display">m^h(i,j;bb)=\frac{area(bb(h)∩T(i,j))}{area(T(i,j))} \ \ \ \ \ \ \ \ (1)</script><p>其中bb(full)对应于ground truth object box。对于h的剩余值,bb(h)对应原来box的4个半(four halves)</p>
 <p>注意，我们使用完整的对象框以及框的顶部、底部、左侧和右侧的halves来定义总共五种不同的覆盖类型。groundtruth box bb的$m^h(bb)$结果用于h型网络的训练时。</p>
@@ -631,7 +631,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
