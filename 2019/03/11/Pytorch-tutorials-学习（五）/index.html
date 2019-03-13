@@ -89,7 +89,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="pytorch,NLP,">
 
 
 
@@ -100,13 +100,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="深度智障">
-<meta property="og:url" content="http://yifdu.github.io/tags/降维、可视化/index.html">
+<meta name="description" content="Pytorch的损失函数汇总loss函数都有size_average和reduce.两个都是布尔型的参数。因为一般函数都是直接计算batch的数据,因此返回的loss结果都是维度为(batch_size,)向量.  reduce=False,那么size_average参数失效,直接返回向量形式的loss 如果reduce=True,那么loss返回的是标量 如果size_average=True">
+<meta name="keywords" content="pytorch,NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch-tutorials-学习（五）">
+<meta property="og:url" content="http://yifdu.github.io/2019/03/11/Pytorch-tutorials-学习（五）/index.html">
 <meta property="og:site_name" content="深度智障">
+<meta property="og:description" content="Pytorch的损失函数汇总loss函数都有size_average和reduce.两个都是布尔型的参数。因为一般函数都是直接计算batch的数据,因此返回的loss结果都是维度为(batch_size,)向量.  reduce=False,那么size_average参数失效,直接返回向量形式的loss 如果reduce=True,那么loss返回的是标量 如果size_average=True">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg">
+<meta property="og:updated_time" content="2019-03-13T06:08:33.065Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深度智障">
+<meta name="twitter:title" content="Pytorch-tutorials-学习（五）">
+<meta name="twitter:description" content="Pytorch的损失函数汇总loss函数都有size_average和reduce.两个都是布尔型的参数。因为一般函数都是直接计算batch的数据,因此返回的loss结果都是维度为(batch_size,)向量.  reduce=False,那么size_average参数失效,直接返回向量形式的loss 如果reduce=True,那么loss返回的是标量 如果size_average=True">
+<meta name="twitter:image" content="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg">
 
 
 
@@ -136,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="http://yifdu.github.io/tags/降维、可视化/">
+  <link rel="canonical" href="http://yifdu.github.io/2019/03/11/Pytorch-tutorials-学习（五）/">
 
 
 
 
 
-  <title>标签: 降维、可视化 | 深度智障</title>
+  <title>Pytorch-tutorials-学习（五） | 深度智障</title>
   
 
 
@@ -161,7 +168,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -297,52 +304,293 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>降维、可视化<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/03/11/Pytorch-tutorials-学习（五）/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度智障">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/11/12/t-SNE/" itemprop="url">
-              
-                <span itemprop="name">t-SNE</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Pytorch-tutorials-学习（五）</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-12T17:01:01+08:00" content="2018-11-12">
-          11-12
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-11T13:09:56+08:00">
+                2019-03-11
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/pytorch/" itemprop="url" rel="index">
+                    <span itemprop="name">pytorch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  871 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg" rel="gallery_cjt6t0m9a0000ugwa4c56kt7g" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://img.mp.itc.cn/upload/20170818/b9dd6613e67446c3bf369f5697f496ce_th.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="Pytorch的损失函数汇总"><a href="#Pytorch的损失函数汇总" class="headerlink" title="Pytorch的损失函数汇总"></a>Pytorch的损失函数汇总</h1><p>loss函数都有size_average和reduce.两个都是布尔型的参数。因为一般函数都是直接计算batch的数据,因此返回的loss结果都是维度为(batch_size,)向量.</p>
+<ol>
+<li>reduce=False,那么size_average参数失效,直接返回向量形式的loss</li>
+<li>如果reduce=True,那么loss返回的是标量<ul>
+<li>如果size_average=True,返回loss.mean()</li>
+</ul>
+</li>
+</ol>
+<h2 id="nn-L1Loss"><a href="#nn-L1Loss" class="headerlink" title="nn.L1Loss"></a>nn.L1Loss</h2><script type="math/tex; mode=display">loss(x_i,y_i)=|x_i-y_i|</script><p>这里只要求x和y的维度要一样<br>得到的loss维度也是对应一样的。</p>
+<h2 id="nn-SmoothL1Loss"><a href="#nn-SmoothL1Loss" class="headerlink" title="nn.SmoothL1Loss"></a>nn.SmoothL1Loss</h2><script type="math/tex; mode=display">loss(x_i,y_i)=
+\begin{cases}
+\frac{1}{2}(x_i-y_i)^2\ \ \ \ if|x_i-y_i|＜1\\
+|x_i-y_i|-\frac{1}{2}\ \ \ \ otherwise \\
+\end{cases}</script><p>这里都是element-wise的操作,下标i是x的第i个元素</p>
+<h2 id="nn-MSELoss"><a href="#nn-MSELoss" class="headerlink" title="nn.MSELoss"></a>nn.MSELoss</h2><script type="math/tex; mode=display">loss(x_i,y_i)=(x_i-y_i)^2</script><p>其中loss,x,y的维度都一样,可以是向量或矩阵<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">loss_fn = torch.nn.MSELoss(reduce=<span class="keyword">False</span>, size_average=<span class="keyword">False</span>)</span><br><span class="line">input = torch.autograd.Variable(torch.randn(<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">target = torch.autograd.Variable(torch.randn(<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">loss = loss_fn(input, target)</span><br><span class="line">print(input); print(target); print(loss)</span><br><span class="line">print(input.size(), target.size(), loss.size())</span><br></pre></td></tr></table></figure></p>
+<h2 id="nn-BCELoss"><a href="#nn-BCELoss" class="headerlink" title="nn.BCELoss"></a>nn.BCELoss</h2><p>二分类用的是交叉熵,用的时候需要在该层前面加上Sigmoid函数.交叉熵的离散版本为:$H(p,q)=-\sum_ip_ilogq_i$,其中p,q都是向量,且都是概率分布.如果二分类的话,因为只有正例和反例,且两者的概率和为1,那么只需要预测一个概率就好了:</p>
+<script type="math/tex; mode=display">loss(x_i,y_i)=-w_i[y_ilogx_i+(1-y_i)log(1-x_i)]</script><p>注意这里x,y可以是向量或者矩阵,i只是下标;$x_i$表示第i个样本预测为正例的概率<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line">loss_fn = torch.nn.BCELoss(reduce=<span class="keyword">False</span>, size_average=<span class="keyword">False</span>)</span><br><span class="line">input = Variable(torch.randn(<span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line">target = Variable(torch.FloatTensor(<span class="number">3</span>, <span class="number">4</span>).random_(<span class="number">2</span>))</span><br><span class="line">loss = loss_fn(F.sigmoid(input), target)</span><br><span class="line">print(input); print(target); print(loss)</span><br></pre></td></tr></table></figure></p>
+<p>有时遇到正负样本不均衡的时候,要设置权重,权重形状与target形状一样<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class_weight = Variable(torch.FloatTensor([<span class="number">1</span>, <span class="number">10</span>])) <span class="comment"># 这里正例比较少，因此权重要大一些</span></span><br><span class="line">target = Variable(torch.FloatTensor(<span class="number">3</span>, <span class="number">4</span>).random_(<span class="number">2</span>))</span><br><span class="line">weight = class_weight[target.long()] <span class="comment"># (3, 4)</span></span><br><span class="line">loss_fn = torch.nn.BCELoss(weight=weight, reduce=<span class="keyword">False</span>, size_average=<span class="keyword">False</span>)</span><br><span class="line"><span class="comment"># balabala...</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="nn-BCEWithLogitsLoss"><a href="#nn-BCEWithLogitsLoss" class="headerlink" title="nn.BCEWithLogitsLoss"></a>nn.BCEWithLogitsLoss</h2><p>上面的nn.BCELoss需要手动加上一个Sigmoid层,这里结合了两者,这样做能够利用log_sum_exo_trick,使得数值结果更加稳定.建议使用这个损失函数</p>
+<h2 id="nn-CrossEntropyLoss"><a href="#nn-CrossEntropyLoss" class="headerlink" title="nn.CrossEntropyLoss"></a>nn.CrossEntropyLoss</h2><p>多分类用的交叉熵损失函数,用这个loss前面不需要加Softmax层<br>这里损失函数的计算,案例说应该也是原始交叉熵公式的形式,但是这里限制了target类型为torch.LongTensor,而且不是多标签意味着标签是one-hot编码形式.</p>
+<script type="math/tex; mode=display">loss(x,label)=-w_{label}log\frac{e^{x_{label}}}{\sum_{j=1}^Ne^{x_j}}</script><h2 id="nn-NLLLoss"><a href="#nn-NLLLoss" class="headerlink" title="nn.NLLLoss"></a>nn.NLLLoss</h2><p>用于多分类的负对数似然损失函数</p>
+<script type="math/tex; mode=display">log(x,label)=-x_{label}</script><p>在前面接上一个nn.LogSoftmax层就等价于交叉熵损失了.事实上，nn.CrossEntropyLoss也是调用这个函数.注意这里的$x_{label}$和上个交叉熵里的不一样</p>
+<h2 id="nn-NLLLoss2d"><a href="#nn-NLLLoss2d" class="headerlink" title="nn.NLLLoss2d"></a>nn.NLLLoss2d</h2><p>和上面类似,但是多了几个维度,一般用在图片上<br>input:(N,C,H,W)<br>target:(N,H,W)<br>比如全卷积网络时,最后图片的每个点都会预测一个类别标签</p>
+<h2 id="nn-KLDivLoss"><a href="#nn-KLDivLoss" class="headerlink" title="nn.KLDivLoss"></a>nn.KLDivLoss</h2><p>KL散度,又叫做相对熵,算的是两个分布之间的距离</p>
+<script type="math/tex; mode=display">loss(x,y)=\frac{1}{N}\sum_{i=1}^N[y_i×(logy_i-x_i)]</script><p>这里的x_i是log概率</p>
+<h2 id="nn-MarginRankingLoss"><a href="#nn-MarginRankingLoss" class="headerlink" title="nn.MarginRankingLoss"></a>nn.MarginRankingLoss</h2><p>评价相似度损失</p>
+<script type="math/tex; mode=display">loss(x_1,x_2,y)=max(0,-y×(x_1-x_2)+margin)</script><p>这里的三个都是标量,y只能取1或者-1.取1时表示$x_1比x_2$要大,反之,$x_2$要大.</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="https://blog.csdn.net/zhangxb35/article/details/72464152?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="noopener">https://blog.csdn.net/zhangxb35/article/details/72464152?utm_source=itdadao&amp;utm_medium=referral</a></li>
+</ol>
 
       
     </div>
+    
+    
+    
 
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/03/11/Pytorch-tutorials-学习（五）/">Pytorch-tutorials-学习（五）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2019年03月11日 - 13:03</p>
+  <p><span>最后更新:</span>2019年03月13日 - 14:03</p>
+  <p><span>原始链接:</span><a href="/2019/03/11/Pytorch-tutorials-学习（五）/" title="Pytorch-tutorials-学习（五）">http://yifdu.github.io/2019/03/11/Pytorch-tutorials-学习（五）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/03/11/Pytorch-tutorials-学习（五）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pytorch/" rel="tag"># pytorch</a>
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/10/统计学习方法（二）/" rel="next" title="统计学习方法（二）">
+                <i class="fa fa-chevron-left"></i> 统计学习方法（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/11/网上面试问题集合/" rel="prev" title="网上面试问题集合">
+                网上面试问题集合 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -350,6 +598,12 @@
 
 
           
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
 
         </div>
         
@@ -370,8 +624,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -449,6 +712,23 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytorch的损失函数汇总"><span class="nav-number">1.</span> <span class="nav-text">Pytorch的损失函数汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nn-L1Loss"><span class="nav-number">1.1.</span> <span class="nav-text">nn.L1Loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nn-SmoothL1Loss"><span class="nav-number">1.2.</span> <span class="nav-text">nn.SmoothL1Loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nn-MSELoss"><span class="nav-number">1.3.</span> <span class="nav-text">nn.MSELoss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nn-BCELoss"><span class="nav-number">1.4.</span> <span class="nav-text">nn.BCELoss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nn-BCEWithLogitsLoss"><span class="nav-number">1.5.</span> <span class="nav-text">nn.BCEWithLogitsLoss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nn-CrossEntropyLoss"><span class="nav-number">1.6.</span> <span class="nav-text">nn.CrossEntropyLoss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nn-NLLLoss"><span class="nav-number">1.7.</span> <span class="nav-text">nn.NLLLoss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nn-NLLLoss2d"><span class="nav-number">1.8.</span> <span class="nav-text">nn.NLLLoss2d</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nn-KLDivLoss"><span class="nav-number">1.9.</span> <span class="nav-text">nn.KLDivLoss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nn-MarginRankingLoss"><span class="nav-number">1.10.</span> <span class="nav-text">nn.MarginRankingLoss</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">2.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -602,6 +882,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -642,6 +926,22 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
 
   
