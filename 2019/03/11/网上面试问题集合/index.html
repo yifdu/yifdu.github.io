@@ -17,7 +17,7 @@
     (function(){
         if('123'){
             if (prompt('请输入文章密码') !== '123'){
-                alert('密码错误！');
+                alert('密码错误！请问博主爸爸');
                 history.back();
             }
         }
@@ -108,10 +108,14 @@
 <meta property="og:site_name" content="深度智障">
 <meta property="og:description" content="金融壹帐通Gamma Lab CV实习生面经 resnet是为了解决什么样的问题一直以为resnet解决的是梯度弥散或是梯度爆炸的问题,但查了这个问题才发现并不是这样的.Kaiming的论文中已经说了臭名昭著的梯度弥散/爆炸问题已经很大程度上被normalized initialization and intermediate normalization layer解决了。图像由于具有局部相关性,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-13T06:02:24.178Z">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic1.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic2.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic3.png">
+<meta property="og:updated_time" content="2019-03-13T11:14:22.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网上面试问题集合">
 <meta name="twitter:description" content="金融壹帐通Gamma Lab CV实习生面经 resnet是为了解决什么样的问题一直以为resnet解决的是梯度弥散或是梯度爆炸的问题,但查了这个问题才发现并不是这样的.Kaiming的论文中已经说了臭名昭著的梯度弥散/爆炸问题已经很大程度上被normalized initialization and intermediate normalization layer解决了。图像由于具有局部相关性,">
+<meta name="twitter:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic1.png">
 
 
 
@@ -484,8 +488,34 @@ L=\begin{cases}
 \begin{cases}
 0.5x^2 \ \ \ \ \ \ if |x|<1\\
 |x|-0.5 \ \ \ \ \ \ otherwise
-\end{cases}</script>smoothL1损失函数是在Faster RCNN中出现的,它可以让离群点更加鲁棒(相比于L2),且相比于L1更加稳定。</li>
+\end{cases}</script>smoothL1损失函数是在Faster RCNN中出现的,它可以让离群点更加鲁棒(相比于L2),且相比于L1更加稳定。<h1 id="小米机器学习算法工程师面经"><a href="#小米机器学习算法工程师面经" class="headerlink" title="小米机器学习算法工程师面经"></a>小米机器学习算法工程师面经</h1><h2 id="bagging和boosting的区别"><a href="#bagging和boosting的区别" class="headerlink" title="bagging和boosting的区别"></a>bagging和boosting的区别</h2></li>
+<li>样本上<br>Bagging:追求的是小方差,要每个模型覆盖的方差不同,因此训练集是在原始集中有放回的选取,且从原始集中选出的各轮训练集之间是独立的<br>Boosting:追求的是小误差,每一轮的训练集不变,只是训练集集中每个样例在分类其中的权重发生变化。权重与上一轮分类结果有关</li>
+<li>样例权重上<br>Bagging:使用均匀采样,每个样例权重相等<br>Boosting:根据错误率不断调整样例的权值,错误率越大权重越大</li>
+<li>计算方式:<br>Bagging：并行计算<br>Boosting：串行计算<h2 id="为什么说Bagging减少variance-而boosting是减少bias"><a href="#为什么说Bagging减少variance-而boosting是减少bias" class="headerlink" title="为什么说Bagging减少variance,而boosting是减少bias"></a>为什么说Bagging减少variance,而boosting是减少bias</h2></li>
+<li>Bagging对样本重采样,对每一重采样得到的子样本集训练一个模型,最后取平均.一般我们都假设各个模型有近似的bias和variance.显然由于$E[\frac{\sum X_i}{n}]=E[X_i]$,可以看出,bagging后的偏差与单个模型差不多,但是对于方差,则有$Var(\frac{\sum X_i}{n})=\frac{Var(X_i)}{n}$,显著降低了variance</li>
+<li>而boosting是每次作用在相同的样本集,不断地增加错误样本的权重以缩小残差.通过用新的模型拟合残差，来逐步降低bias.<h2 id="手推逻辑回归"><a href="#手推逻辑回归" class="headerlink" title="手推逻辑回归"></a>手推逻辑回归</h2>逻辑回归是个分类问题,在线性回归的基础上增加了一个sigmoid函数,使其值域落在[0,1]之间,可以表征分类的概率<script type="math/tex; mode=display">P(y=1|x)=\frac{1}{1+exp(-wx)}=\frac{1}{1+exp(-z)}=\phi(z)</script>其中z=wx<script type="math/tex; mode=display">P(y=y_i|z_i)=\phi(z_i)^{y_i}(1-\phi(z_i))^{(1-y_i)}</script>最简单的构建方法是极大似然估计<script type="math/tex; mode=display">L_i=y_ilog(\phi(z_i))+(1-y_i)log(1-\phi(z_i))</script>梯度上升法迭代求参<script type="math/tex; mode=display">
+\frac{\partial L_i}{\partial w} =\frac{\partial log(P(y_i|z_i))}{\partial z_i}·\frac{\partial z_i}{\partial w}</script><script type="math/tex; mode=display">\frac{\partial L_i}{\partial w} =
+[\frac{y_i\phi'(z)}{\phi(z)}+\frac{(1-y_i)(-\phi'(z))}{1-\phi(z)}]x_i</script>其中$\phi’(z)=\phi(z)(1-\phi(z))$<br>得到：<script type="math/tex; mode=display">\frac{\partial L_i}{\partial w} =[y_i-\phi(z)]x_i</script><h2 id="梯度消失的解决办法"><a href="#梯度消失的解决办法" class="headerlink" title="梯度消失的解决办法"></a>梯度消失的解决办法</h2>为什么会产生梯度消失或爆炸:<br>因为在反向传播的过程中,梯度回传的方式是连乘形式,所以深度一增加就容易出现爆炸和消失的问题</li>
+<li>预训练+微调</li>
+<li>梯度截断、权重正则(针对梯度爆炸)</li>
+<li>BatchNorm</li>
+<li>残差结构</li>
+<li>使用LSTM(序列模型)</li>
+<li>改变不同的激活函数,像sigmoid就有会有饱和区,而relu就不存在梯度消失爆炸的问题<h2 id="BatchNorm是如何缓解梯度消失的"><a href="#BatchNorm是如何缓解梯度消失的" class="headerlink" title="BatchNorm是如何缓解梯度消失的"></a>BatchNorm是如何缓解梯度消失的</h2>BatchNorm主要解决的是Internal Covariate Shift(内部协变量转移)的问题.</li>
 </ol>
+<p>Internal Covariate Shift的概念：<br>首先是来自于机器学习中<x,y>的输入值X的分布老是变,这不符合iid假设,这就是Covariate Shift.那怎么保证能稳定地学习规律能.早前在图像处理中会对输入图像进行白化(Whiten)操作,就是将输入数据分布变换到0均值,单位方差的正态分布.由此可以想到,对于深度神经网络来说,每一个隐层都相当于有一个输入数据,这个输入数据会因为各层参数老在变化,而数据分布也在变化.这就是出现在深度神经网络中的Internal Covariate Shift.而BN的想法是要将每一层的输入都稳定下来,从而解决Internal Covariate Shift.</x,y></p>
+<p>BatchNorm对每一层中的输入信号保证其稳定,将会消除带来的放大缩小的影响,进而解决梯度消失和爆炸的问题,或者可以理解为BN将输入数据(输出数据,该层的输出是下一层的输入)从饱和区拉到非饱和区.</p>
+<p>BatchNorm的其他好处:</p>
+<ol>
+<li>极大提升了训练速度,收敛过程大大加快</li>
+<li>类似于Dropout的一种防止过拟合的正则化表达方式<h2 id="聚类有哪几种"><a href="#聚类有哪几种" class="headerlink" title="聚类有哪几种?"></a>聚类有哪几种?</h2></li>
+<li>基于划分的(k-means):其思想是类内点足够近类外点足够远，通过一种启发式算法实现</li>
+<li>基于层次的:(有自底向上的凝聚方法例AGNES和自上向下的分裂方法,例DIANA):两个cluster之间的距离可以有以下取法:1. 最小距离 2.最大距离 3.平均距离,然后以树的形式分裂或合并.</li>
+<li>基于密度的(DBSCAN)</li>
+</ol>
+<h2 id="L1和L2正则化的方法"><a href="#L1和L2正则化的方法" class="headerlink" title="L1和L2正则化的方法"></a>L1和L2正则化的方法</h2><p>L1 regularizer 和L2 regularizer都是可以用于避免过拟合<br>L1 regularizer:优良性质是能产生稀疏性,产生稀疏权重矩阵.L1适用于特征之间有关联的情况。<br>L2 regularizer:让所有的特征系数都缩小,但是不会减为0,他会使优化求解稳定快速.所以L2适用于特征之间没有关联的情况.</p>
+<script type="math/tex; mode=display">L=loss+L_1/L_2</script><p>通过图来分析：<br><img src="/2019/03/11/网上面试问题集合/pic1.png" alt="pic1"><br><img src="/2019/03/11/网上面试问题集合/pic2.png" alt="pic2"><br><img src="/2019/03/11/网上面试问题集合/pic3.png" alt="pic3"></p>
+<p>从上图L1可以看到,彩色的等高线表示同一个loss,当L1最小的时候,整个L最小,而从图上可以看到,L在靠近w2轴的地方更容易找到最小值.所以L1有稀疏性.</p>
 
       
     </div>
@@ -690,7 +720,7 @@ L=\begin{cases}
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#金融壹帐通Gamma-Lab-CV实习生面经"><span class="nav-number">1.</span> <span class="nav-text">金融壹帐通Gamma Lab CV实习生面经</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#平安科技医疗部计算机视觉算法电面一面面经"><span class="nav-number">2.</span> <span class="nav-text">平安科技医疗部计算机视觉算法电面一面面经</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类别不平衡如何解决"><span class="nav-number">2.1.</span> <span class="nav-text">类别不平衡如何解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据层面"><span class="nav-number">2.1.1.</span> <span class="nav-text">数据层面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法层面"><span class="nav-number">2.1.2.</span> <span class="nav-text">算法层面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNet的特点："><span class="nav-number">2.2.</span> <span class="nav-text">ResNet的特点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用1×1的卷积"><span class="nav-number">2.3.</span> <span class="nav-text">为什么要用1×1的卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知道哪些机器学习常用的损失函数？"><span class="nav-number">2.4.</span> <span class="nav-text">知道哪些机器学习常用的损失函数？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Focal-loss"><span class="nav-number">2.5.</span> <span class="nav-text">什么是Focal loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L1和L2损失在目标检测中的应用知道吗"><span class="nav-number">2.6.</span> <span class="nav-text">L1和L2损失在目标检测中的应用知道吗</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#金融壹帐通Gamma-Lab-CV实习生面经"><span class="nav-number">1.</span> <span class="nav-text">金融壹帐通Gamma Lab CV实习生面经</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#平安科技医疗部计算机视觉算法电面一面面经"><span class="nav-number">2.</span> <span class="nav-text">平安科技医疗部计算机视觉算法电面一面面经</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类别不平衡如何解决"><span class="nav-number">2.1.</span> <span class="nav-text">类别不平衡如何解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据层面"><span class="nav-number">2.1.1.</span> <span class="nav-text">数据层面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法层面"><span class="nav-number">2.1.2.</span> <span class="nav-text">算法层面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNet的特点："><span class="nav-number">2.2.</span> <span class="nav-text">ResNet的特点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用1×1的卷积"><span class="nav-number">2.3.</span> <span class="nav-text">为什么要用1×1的卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知道哪些机器学习常用的损失函数？"><span class="nav-number">2.4.</span> <span class="nav-text">知道哪些机器学习常用的损失函数？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Focal-loss"><span class="nav-number">2.5.</span> <span class="nav-text">什么是Focal loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L1和L2损失在目标检测中的应用知道吗"><span class="nav-number">2.6.</span> <span class="nav-text">L1和L2损失在目标检测中的应用知道吗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小米机器学习算法工程师面经"><span class="nav-number">3.</span> <span class="nav-text">小米机器学习算法工程师面经</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bagging和boosting的区别"><span class="nav-number">3.1.</span> <span class="nav-text">bagging和boosting的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么说Bagging减少variance-而boosting是减少bias"><span class="nav-number">3.2.</span> <span class="nav-text">为什么说Bagging减少variance,而boosting是减少bias</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手推逻辑回归"><span class="nav-number">3.3.</span> <span class="nav-text">手推逻辑回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度消失的解决办法"><span class="nav-number">3.4.</span> <span class="nav-text">梯度消失的解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BatchNorm是如何缓解梯度消失的"><span class="nav-number">3.5.</span> <span class="nav-text">BatchNorm是如何缓解梯度消失的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类有哪几种"><span class="nav-number">3.6.</span> <span class="nav-text">聚类有哪几种?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L1和L2正则化的方法"><span class="nav-number">3.7.</span> <span class="nav-text">L1和L2正则化的方法</span></a></li></ol></li></ol></div>
             
 
 			

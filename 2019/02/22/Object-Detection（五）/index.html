@@ -17,7 +17,7 @@
     (function(){
         if(''){
             if (prompt('请输入文章密码') !== ''){
-                alert('密码错误！');
+                alert('密码错误！请问博主爸爸');
                 history.back();
             }
         }
@@ -109,7 +109,7 @@
 <meta property="og:description" content="写在前面常见计算机视觉的任务:  图像分类(image classification) 物体检测(object detection) 语义分割(Semantic Segmentation) 实例分割(Instance Segmentation)  图像分类就不做介绍了,就是输入一张图,输出该图的类别标签,可以是单个类别的也可以是多个类别的。物体检测,前面介绍的RCNN,Fast RCNN,Fast">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2188456909,1653007460&fm=26&gp=0.jpg">
-<meta property="og:updated_time" content="2019-02-22T11:13:46.797Z">
+<meta property="og:updated_time" content="2019-03-14T06:30:01.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Object-Detection（五）">
 <meta name="twitter:description" content="写在前面常见计算机视觉的任务:  图像分类(image classification) 物体检测(object detection) 语义分割(Semantic Segmentation) 实例分割(Instance Segmentation)  图像分类就不做介绍了,就是输入一张图,输出该图的类别标签,可以是单个类别的也可以是多个类别的。物体检测,前面介绍的RCNN,Fast RCNN,Fast">
@@ -522,7 +522,7 @@
 <ul>
 <li><p>原图上的坐标映射到特征图上时不进行量化(不取整,保持float形式)</p>
 </li>
-<li><p>特征图进行Pooling,同样也不进行量化<br>ROI Align的反向传播<br>类比于ROI Pooling,ROIAlign的反向传播需要作出稍许修改:首先,在ROIAlign中,$x^<em> (r,j)$是一个浮点数的坐标位置,在池化前的特征图中,每一个与$x^</em> (r,j)$横纵坐标均小于1的点都应该接收与此对应的点$y_{rj}$的回传的梯度,故ROI Align的反向传播公式如下:</p>
+<li><p>特征图进行Pooling,同样也不进行量化<br>ROI Align的反向传播<br>类比于ROI Pooling,ROIAlign的反向传播需要作出稍许修改:首先,在ROIAlign中,$x^<em> (r,j)$是一个浮点数的坐标位置,在池化前的特征图中,每一个与$x^\</em> (r,j)$横纵坐标均小于1的点都应该接收与此对应的点$y_{rj}$的回传的梯度,故ROI Align的反向传播公式如下:</p>
 <script type="math/tex; mode=display">\frac{\partial L}{\partial x_i}=\sum_r\sum_j[d(i,i^* (r,j))<1] (1-\Delta h)(1-\Delta w)\frac{\partial L}{\partial y_{rj}}</script></li>
 </ul>
 <p>上式,d(.)表示两点之间的距离,$\Delta h$和$\Delta w$表示$x_i$与$x_i^* (r,j)$横纵坐标的差值,这里作为双线性内插的系数乘在原始的梯度上.</p>
