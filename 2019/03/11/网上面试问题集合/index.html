@@ -111,7 +111,13 @@
 <meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic1.png">
 <meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic2.png">
 <meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic3.png">
-<meta property="og:updated_time" content="2019-03-13T11:14:22.824Z">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic4.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic5.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic6.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic7.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic8.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/11/网上面试问题集合/pic9.png">
+<meta property="og:updated_time" content="2019-03-20T11:32:16.107Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网上面试问题集合">
 <meta name="twitter:description" content="金融壹帐通Gamma Lab CV实习生面经 resnet是为了解决什么样的问题一直以为resnet解决的是梯度弥散或是梯度爆炸的问题,但查了这个问题才发现并不是这样的.Kaiming的论文中已经说了臭名昭著的梯度弥散/爆炸问题已经很大程度上被normalized initialization and intermediate normalization layer解决了。图像由于具有局部相关性,">
@@ -516,6 +522,75 @@ L=\begin{cases}
 <h2 id="L1和L2正则化的方法"><a href="#L1和L2正则化的方法" class="headerlink" title="L1和L2正则化的方法"></a>L1和L2正则化的方法</h2><p>L1 regularizer 和L2 regularizer都是可以用于避免过拟合<br>L1 regularizer:优良性质是能产生稀疏性,产生稀疏权重矩阵.L1适用于特征之间有关联的情况。<br>L2 regularizer:让所有的特征系数都缩小,但是不会减为0,他会使优化求解稳定快速.所以L2适用于特征之间没有关联的情况.</p>
 <script type="math/tex; mode=display">L=loss+L_1/L_2</script><p>通过图来分析：<br><img src="/2019/03/11/网上面试问题集合/pic1.png" alt="pic1"><br><img src="/2019/03/11/网上面试问题集合/pic2.png" alt="pic2"><br><img src="/2019/03/11/网上面试问题集合/pic3.png" alt="pic3"></p>
 <p>从上图L1可以看到,彩色的等高线表示同一个loss,当L1最小的时候,整个L最小,而从图上可以看到,L在靠近w2轴的地方更容易找到最小值.所以L1有稀疏性.</p>
+<h1 id="大佬春招实习算法面经"><a href="#大佬春招实习算法面经" class="headerlink" title="大佬春招实习算法面经"></a>大佬春招实习算法面经</h1><h2 id="bn原理以及改进"><a href="#bn原理以及改进" class="headerlink" title="bn原理以及改进"></a>bn原理以及改进</h2><p>在ML中为了加速训练往往首先会对数据进行预处理,常用的是零均值和PCA(白化).训练开始前,对数据进行零均值是一个必要的操作.但是,随着网络层次加深参数对分布的影响不定,导致网络每层间以及不同迭代的相同层次的输入分布发生改变,导致网络需要重新适应新的分布,迫使我们降低学习率减少影响.这个背景下BN算法开始出现.但是有些人首先提出在每层增加PCA白化(先对数据去相关然后再进行归一化)，这样基本满足了数据的零均值、单位方差、弱相关性。但是这样是不可取的,因为再白化过程中涉及计算协方差矩阵、求逆等操作,计算量会很大,另外在反向传播时,白化也不一定可微,因此出现了BN算法。</p>
+<hr>
+<p>白化：PCA白化和ZCA白化<br>PCA白化保证数据各维度的方差为1,而ZCA白化保证数据各维度的方差相同.PCA白化可以用于降维也可以去相关性,而ZCA白化主要用于去相关性,且尽量使白化后的数据接近原始输入数据.</p>
+<ol>
+<li>PCA白化<br>根据白化的两个要求:首先我们是降低特征之间的相关性,在PCA中,我们选取前K大的特征值的特征向量作为投影方向.如果K＜n,其中n是数据的维度,则还有降维的效果.<br><img src="/2019/03/11/网上面试问题集合/pic4.png" alt="pic4"><br>上图为原数据在二维坐标下的分布,下图为原数据经过坐标变换后的二维坐标下的分布.从原数据中可以看出,x1增加,x2也增加,两者相关性为正.而从变换后的图中可以看到这种相关性明显降低了。</li>
+</ol>
+<p>其次的一个要求是每个输入特征具有单位方差,以直接使用$1/\sqrt{\lambda_i}$作为缩放因子来缩放每个特征$x_{rot,i}$,经过PCA白化处理的数据分布如下图所示,此时协方差矩阵为单位阵I.<br><img src="/2019/03/11/网上面试问题集合/pic5.png" alt="pic5"></p>
+<ol>
+<li>ZCA白化的定义为:<script type="math/tex; mode=display">x_{ZCAwhite}=Ux_{PCAwhite}</script>ZCA白化只是在PCA白化的基础上做了一个旋转操作,使得白化之后的数据更加接近真实数据.<br>ZCA白化首先通过PCA去除了各个特征之间的相关性,然后是输入特征具有单位方差,此时得到PCA白化后的处理结果,然后再把数据旋转回去,得到ZCA白化的处理结果,感觉这个过程让数据的特征之间又具有了一定的相关性.</li>
+<li>PCA白化和ZCA白化的区别<br>PCA白化ZCA白化都降低了特征之间的相关性,同时使得所有特征具有相通的方差</li>
+</ol>
+<ul>
+<li>PCA白化需要保证数据各维度的方差为1,ZCA白化只需保证方差相等</li>
+<li>PCA白化可以进行降维也可以去相关性,而ZCA白化主要用于去相关性.</li>
+<li>ZCA白化相比于PCA白化使得处理后的数据更加接近原始数据</li>
+</ul>
+<hr>
+<p> BN算法的产生<br>上面提到了PCA白化的优点,能够去相关性和数据均值,标准归一化等优点.因此采用一下近似的白化预处理(没有PCA)</p>
+<script type="math/tex; mode=display">\hat{x}^{(k)}=\frac{x^{(k)}-E[x^{(k)}]}{\sqrt{Var[x^{(k)}]}}</script><p>由于训练过程采用了batch随机梯度下降,因此E[x^{(k)}]指的是一批训练数据时,各神经元输入值的平均值;$\sqrt{Var[x^{(k)}]}$指的是一批训练数据时各神经元输入值得标准差.<br>但是,这些应用到深度学习网络中远远不够,因为可能由于这种强制转化导致数据的分布发生破坏.因此需要对公式的鲁棒性进行优化,就有人提出了变换重构的概念.</p>
+<script type="math/tex; mode=display">y^{(k)}=\gamma^{(k)}\hat{x}^{(k)}+β^{(k)}</script><p>这里的参数$\gammma^{(k)}和β^{(k)}$都是可训练的.<br>BN的改进见深度学习中各种Normalization</p>
+<h2 id="Dropout原理"><a href="#Dropout原理" class="headerlink" title="Dropout原理"></a>Dropout原理</h2><p>Dropout出现的原因,模型的参数太多,而训练样本又太少,训练出来的模型很容易过拟合的现象.在训练神经网络的时候疆场会遇到过拟合的问题.过拟合具体表现在:模型在训练数据上损失函数较小,预测准确率较高;但是在测试数据上损失函数比较大,预测准确率较低.<br>原理:减少中间特征的数量,同时可以从ensemble的角度考虑,随机丢弃的几个神经元,相当于一个不同的模型,而在测试的时候取平均相当于进行ensemble的过程.</p>
+<p>Dropout的一种变体是Dropconnect<br><img src="/2019/03/11/网上面试问题集合/pic6.png" alt="pic6"><br>两者的区别很明显:<br>Dropout是对输出进行随机置零,而Dropconnect是对权重进行随机置零.<br><img src="/2019/03/11/网上面试问题集合/pic7.png" alt="pic7"><br>Dropconnect 训练时:与Dropout基本相同<br>Dropconnect 测试时:wine吧需要一种近似的方法<br>r=a((M.×W)v)<br>$r_i=a(u_i)$<br>$u_i=\sum_j(W_{ij}v_j)M_{ij}      ～ N(\mu,\sigma^2)$<br>$\mu=pWv      \sigma=p(1-p)(W×W)(v×v)$<br>假设M的维度为m×n,则可能的掩膜有$2^{m×n}种$,这时可以用中心极限定理:和分布渐进正态分布,来求得最终的近似结果.<br>具体流程:<br><img src="/2019/03/11/网上面试问题集合/pic8.png" alt="pic8"><br>其中Z是在正态分布上的采样次数,一般来说越大越好,但会使计算变慢.</p>
+<h2 id="空洞卷积与感受野"><a href="#空洞卷积与感受野" class="headerlink" title="空洞卷积与感受野"></a>空洞卷积与感受野</h2><p>空洞卷积是为了解决基于FCN思想的语义分割中,输出图像的size要求和输入图像的size一致而需要upsample,但由于FCN中使用pooling操作来增大感受野同时降低分辨率,导致upsample 无法还原由于pooling导致的一些细节信息的损失问题而提出的.为了减小这种损失,自然需要移除pooling层,因此空洞卷积应运而生.</p>
+<p>所谓空洞卷积,一种理解就是在卷积核中注入空洞(即0),注入的空洞的数量由参数dilation决定,以3×3卷积核为例,dilation=2即在卷积核每行每列中间加0,将卷积核变为5×5.<br><img src="/2019/03/11/网上面试问题集合/pic9.png" alt="pic9"><br>(a)普通卷积,1-dilated convolution,卷积核的感受野为3×3<br>(b)扩张卷积,2-dilated convolution,卷积核的感受野为7×7<br>(c)扩张卷积,4-dilated convolution,卷积核的感受野为15×15</p>
+<p>由上可知n-dilated convolution的膨胀卷积核大小为:</p>
+<script type="math/tex; mode=display">[(n-1)×(ksize+1)+ksize]×[(n-1)×(ksize+1)+ksize]</script><script type="math/tex; mode=display">OUT=(IN-filter+2×PADDING)/STRIDE+1</script><ul>
+<li>IN:输入feature map</li>
+<li>OUT:输出 feature map</li>
+<li>FILTER:卷积核的尺寸</li>
+<li>PADDING:补0</li>
+<li>STRIDE:步长</li>
+</ul>
+<p>CNN感受野的计算</p>
+<script type="math/tex; mode=display">r=(m-1)×stride+ksize</script><p>其中r为本层感受野,m为上层感受野,stride为卷积或池化的步长.ksize为卷积核的大小</p>
+<p>空洞卷积的作用：</p>
+<ul>
+<li>扩大感受野：</li>
+<li>捕获多尺度上下文信息：设置不同的dilation rate时,感受野就会不一样,也即获取多尺度信息.多尺度信息在视觉任务钟非常重要.</li>
+</ul>
+<p>语义分割由于需要获得较大的分辨率图,因此常在网络的最后两个stage,取消降采样操作,之后采用空洞卷积弥补丢失的感受野</p>
+<p>空洞卷积gridding问题:<br>空洞卷积存在理论问题,其实就是网格效应/棋盘问题.因为空洞卷积得到的某一层的结果中,邻近的像素是从相互独立的子集中卷积得到,相互之间缺少依赖</p>
+<ul>
+<li>局部信息丢失:由于空洞卷积的计算方式类似于棋盘格式,某一层得到的卷积结果,来自上一层的独立的集合,没有相互依赖,因此该层的卷积结果之间没有相关性,即局部信息缺失</li>
+<li>远距离获取的信息没有相关性:由于空洞卷积稀疏的采样输入信号,使得远距离卷积得到的信息之间没有相关性,影响分类结果.<br>解决方案：</li>
+</ul>
+<ol>
+<li>Panqu Wang,Pengfei Chen, et al.Understanding Convolution for Semantic Segmentation.//WACV 2018</li>
+<li>Sachin Mehta,et al. ESPNet: Efficient Spatial Pyramid of Dilated Convolutions for Semantic Segmentation. //ECCV 2018</li>
+<li>Hyojin Park,et al.Concentrated-Comprehensive Convolutions for lightweight semantic segmentation.//2018</li>
+</ol>
+<h2 id="为什么MaskRCNN要解耦"><a href="#为什么MaskRCNN要解耦" class="headerlink" title="为什么MaskRCNN要解耦"></a>为什么MaskRCNN要解耦</h2><p>MaskRCNN将任务分解,目标检测、定位与分割依次逐一进行,前者决定了后者的输入,因此称任务解耦和.而FCN则将三类任务在一个网络中同时进行,不分现后,任务高度耦合.</p>
+<h1 id="一些常见的工程性问题"><a href="#一些常见的工程性问题" class="headerlink" title="一些常见的工程性问题"></a>一些常见的工程性问题</h1><h2 id="LR-离散特征"><a href="#LR-离散特征" class="headerlink" title="LR+离散特征"></a>LR+离散特征</h2><p>在工业界,很少直接将连续值作为特征喂给逻辑回归模型,而是将连续特征离散化为一系列0、1特征交给逻辑回归模型,这样做的优势有以下几点:</p>
+<ol>
+<li>稀疏向量内积乘法运算速度快,计算结果方便存储,容易scalable(扩展).</li>
+<li>离散化后的特征对异常数据有很强的鲁棒性:比如一个特征是年龄&gt;30是1,否则0.如果特征没有离散化,一个异常数据“300岁”会给模型造成很大的干扰.</li>
+<li>逻辑回归属于广义线性模型,表达能力受限;单变量离散化为N个后,每个变量有单独的权重,相当于为模型引入了非线性,能够提升模型表达能力,加大拟合.</li>
+<li>离散化后可以进行特征交叉,由M+N各变量变为M×N个变量,进一步引入非线性,提升表达能力</li>
+<li>特征离散化后,模型会更稳定,比如如果对用户年龄离散化,20-30作为一个区间不会因为以恶搞用户年龄长了一岁就完全不同.但处于区间相邻处的样本会刚好相反,所以怎么划分区间是个学问.</li>
+</ol>
+<h2 id="LR-离散特征原因"><a href="#LR-离散特征原因" class="headerlink" title="LR+离散特征原因"></a>LR+离散特征原因</h2><p>深度学习一般而言会学出一个dense reoresentation,而特征工程做出来的是一堆sparse representation.某些时候,人工特征其实跟神经网络经过几层非线性之后的结果是高度相似的.在暴力提取高阶/非线性特征的本事上,及其肯定胜过人类.但有些时候,人工features会outperform暴力的机器方法.所以,特征离散化,从数学角度来可以认为是增加robustness.</p>
+<h2 id="LR适用于稀疏特征原因"><a href="#LR适用于稀疏特征原因" class="headerlink" title="LR适用于稀疏特征原因"></a>LR适用于稀疏特征原因</h2><p>对于高维稀疏特征,GBDT很容易过拟合.现在的模型普遍都会带着正则项,而LR等线性模型的正则项是对权重惩罚,而树模型的惩罚项通常为叶子结点数和深度等,如果一个例子10个样本都是类别1,而特征f1的值为0，1,而恰好这10个样本的f1特征值都为1,其余9990个样本的特征f1为0.此时树只需要一个结点就能完全分割9990和10个样本,惩罚项及其之小.</p>
+<h2 id="为什么LR只适合离散特征"><a href="#为什么LR只适合离散特征" class="headerlink" title="为什么LR只适合离散特征"></a>为什么LR只适合离散特征</h2><p>注意离散和连续的最大区别是,对一个字段做连续化的结果就还只是一个特征,而离散化后这一列有多少个key(字段可能的值)就会抽取出多少个特征.</p>
+<ol>
+<li>单变量离散化为N个后,每个变量有单独的权重,在激活函数的作用下相当于为模型增加了非线性,能够提升模型的表达能力,加大拟合.</li>
+<li>离散化后的特征对异常数据有很强的鲁棒性</li>
+<li>离散特征的增加和减少都很容易,易于模型的快速迭代.</li>
+<li>有些人会担心特征多运算缓慢,但是LR是线性模型,在内部计算的时候是向量化计算,而不是循环迭代.<br>海量离散特征+LR是业内常见的一个做法,而少量连续特征+复杂模型是另外一种做法.</li>
+</ol>
+<h1 id="字节跳动计算机视觉算法实习生视频面试-45个问答"><a href="#字节跳动计算机视觉算法实习生视频面试-45个问答" class="headerlink" title="字节跳动计算机视觉算法实习生视频面试(45个问答)"></a>字节跳动计算机视觉算法实习生视频面试(45个问答)</h1><h2 id="focal-loss"><a href="#focal-loss" class="headerlink" title="focal loss"></a>focal loss</h2><p>$y=1时 -（1-y’)^\gamma logy’$<br>$y=0时 -y’^{\gamma}log(1-y)$<br>此外还会加入一个平衡因子α来平衡正负样本本身的比例不均<br>$y=1时 -α(1-y’)^\gamma logy’$<br>$y=0时 -(1-α)y’^\gamma log(1-y’)$</p>
 
       
     </div>
@@ -649,7 +724,7 @@ L=\begin{cases}
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">108</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -660,7 +735,7 @@ L=\begin{cases}
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -671,7 +746,7 @@ L=\begin{cases}
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -720,7 +795,7 @@ L=\begin{cases}
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#金融壹帐通Gamma-Lab-CV实习生面经"><span class="nav-number">1.</span> <span class="nav-text">金融壹帐通Gamma Lab CV实习生面经</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#平安科技医疗部计算机视觉算法电面一面面经"><span class="nav-number">2.</span> <span class="nav-text">平安科技医疗部计算机视觉算法电面一面面经</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类别不平衡如何解决"><span class="nav-number">2.1.</span> <span class="nav-text">类别不平衡如何解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据层面"><span class="nav-number">2.1.1.</span> <span class="nav-text">数据层面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法层面"><span class="nav-number">2.1.2.</span> <span class="nav-text">算法层面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNet的特点："><span class="nav-number">2.2.</span> <span class="nav-text">ResNet的特点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用1×1的卷积"><span class="nav-number">2.3.</span> <span class="nav-text">为什么要用1×1的卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知道哪些机器学习常用的损失函数？"><span class="nav-number">2.4.</span> <span class="nav-text">知道哪些机器学习常用的损失函数？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Focal-loss"><span class="nav-number">2.5.</span> <span class="nav-text">什么是Focal loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L1和L2损失在目标检测中的应用知道吗"><span class="nav-number">2.6.</span> <span class="nav-text">L1和L2损失在目标检测中的应用知道吗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小米机器学习算法工程师面经"><span class="nav-number">3.</span> <span class="nav-text">小米机器学习算法工程师面经</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bagging和boosting的区别"><span class="nav-number">3.1.</span> <span class="nav-text">bagging和boosting的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么说Bagging减少variance-而boosting是减少bias"><span class="nav-number">3.2.</span> <span class="nav-text">为什么说Bagging减少variance,而boosting是减少bias</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手推逻辑回归"><span class="nav-number">3.3.</span> <span class="nav-text">手推逻辑回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度消失的解决办法"><span class="nav-number">3.4.</span> <span class="nav-text">梯度消失的解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BatchNorm是如何缓解梯度消失的"><span class="nav-number">3.5.</span> <span class="nav-text">BatchNorm是如何缓解梯度消失的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类有哪几种"><span class="nav-number">3.6.</span> <span class="nav-text">聚类有哪几种?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L1和L2正则化的方法"><span class="nav-number">3.7.</span> <span class="nav-text">L1和L2正则化的方法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#金融壹帐通Gamma-Lab-CV实习生面经"><span class="nav-number">1.</span> <span class="nav-text">金融壹帐通Gamma Lab CV实习生面经</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#平安科技医疗部计算机视觉算法电面一面面经"><span class="nav-number">2.</span> <span class="nav-text">平安科技医疗部计算机视觉算法电面一面面经</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类别不平衡如何解决"><span class="nav-number">2.1.</span> <span class="nav-text">类别不平衡如何解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据层面"><span class="nav-number">2.1.1.</span> <span class="nav-text">数据层面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法层面"><span class="nav-number">2.1.2.</span> <span class="nav-text">算法层面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNet的特点："><span class="nav-number">2.2.</span> <span class="nav-text">ResNet的特点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用1×1的卷积"><span class="nav-number">2.3.</span> <span class="nav-text">为什么要用1×1的卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知道哪些机器学习常用的损失函数？"><span class="nav-number">2.4.</span> <span class="nav-text">知道哪些机器学习常用的损失函数？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Focal-loss"><span class="nav-number">2.5.</span> <span class="nav-text">什么是Focal loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L1和L2损失在目标检测中的应用知道吗"><span class="nav-number">2.6.</span> <span class="nav-text">L1和L2损失在目标检测中的应用知道吗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小米机器学习算法工程师面经"><span class="nav-number">3.</span> <span class="nav-text">小米机器学习算法工程师面经</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bagging和boosting的区别"><span class="nav-number">3.1.</span> <span class="nav-text">bagging和boosting的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么说Bagging减少variance-而boosting是减少bias"><span class="nav-number">3.2.</span> <span class="nav-text">为什么说Bagging减少variance,而boosting是减少bias</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手推逻辑回归"><span class="nav-number">3.3.</span> <span class="nav-text">手推逻辑回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度消失的解决办法"><span class="nav-number">3.4.</span> <span class="nav-text">梯度消失的解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BatchNorm是如何缓解梯度消失的"><span class="nav-number">3.5.</span> <span class="nav-text">BatchNorm是如何缓解梯度消失的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类有哪几种"><span class="nav-number">3.6.</span> <span class="nav-text">聚类有哪几种?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L1和L2正则化的方法"><span class="nav-number">3.7.</span> <span class="nav-text">L1和L2正则化的方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大佬春招实习算法面经"><span class="nav-number">4.</span> <span class="nav-text">大佬春招实习算法面经</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bn原理以及改进"><span class="nav-number">4.1.</span> <span class="nav-text">bn原理以及改进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dropout原理"><span class="nav-number">4.2.</span> <span class="nav-text">Dropout原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空洞卷积与感受野"><span class="nav-number">4.3.</span> <span class="nav-text">空洞卷积与感受野</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么MaskRCNN要解耦"><span class="nav-number">4.4.</span> <span class="nav-text">为什么MaskRCNN要解耦</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些常见的工程性问题"><span class="nav-number">5.</span> <span class="nav-text">一些常见的工程性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LR-离散特征"><span class="nav-number">5.1.</span> <span class="nav-text">LR+离散特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LR-离散特征原因"><span class="nav-number">5.2.</span> <span class="nav-text">LR+离散特征原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LR适用于稀疏特征原因"><span class="nav-number">5.3.</span> <span class="nav-text">LR适用于稀疏特征原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么LR只适合离散特征"><span class="nav-number">5.4.</span> <span class="nav-text">为什么LR只适合离散特征</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字节跳动计算机视觉算法实习生视频面试-45个问答"><span class="nav-number">6.</span> <span class="nav-text">字节跳动计算机视觉算法实习生视频面试(45个问答)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#focal-loss"><span class="nav-number">6.1.</span> <span class="nav-text">focal loss</span></a></li></ol></li></ol></div>
             
 
 			

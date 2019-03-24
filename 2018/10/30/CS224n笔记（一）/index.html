@@ -109,7 +109,7 @@
 <meta property="og:description" content="自然语言涉及的几个 层次 NLP是一门交叉学科，它往往包含着Computer Science, artificial intelligence 和 linguistics。如上图可以看到自然语言涉及的是内容很广泛，而本课程Cs224n主要围绕图中画圈部分。 Deep NLP=Deep Learning +NLP将自然语言处理的思想与表示学习结合起来，用深度学习的方法解决NLP目标，不仅简化了过程而">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png">
-<meta property="og:updated_time" content="2019-01-31T13:13:51.641Z">
+<meta property="og:updated_time" content="2019-03-22T09:10:17.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS224n笔记（一）">
 <meta name="twitter:description" content="自然语言涉及的几个 层次 NLP是一门交叉学科，它往往包含着Computer Science, artificial intelligence 和 linguistics。如上图可以看到自然语言涉及的是内容很广泛，而本课程Cs224n主要围绕图中画圈部分。 Deep NLP=Deep Learning +NLP将自然语言处理的思想与表示学习结合起来，用深度学习的方法解决NLP目标，不仅简化了过程而">
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  6.5k 字
+                  7k 字
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  25 分钟
+                  27 分钟
                 </span>
               
             </div>
@@ -445,7 +445,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjt5ds6y800dqh4wa5lehv9jf" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" rel="gallery_cjtm9i2fi00ea58wakxkdn0ku" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541511664&di=a599c4c12388fe94065d15a25598d393&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.toptexasuniversities.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fstanford-university-official-logo.png" itemprop="contentUrl">
               </a>
             
@@ -518,7 +518,10 @@
 </ul>
 <p>我们慢慢来一点点介绍。(没办法，课程进度就是这样。。。。)</p>
 <h3 id="Skip-gram"><a href="#Skip-gram" class="headerlink" title="Skip-gram"></a>Skip-gram</h3><p>从上面的示例图，我们可以看到skip-gram算法是已知中心词来最大化上下文词的联合分布概率，并且从算法名字可以看出这是一种词袋模型（与位置无关）。注意：这里上下文词是需要一个窗口来框定的。所以这里的联合概率分布也并非是一个全局的概念而是局部的。常将窗口大小设为5.当然最后是要求所有窗口概率的乘积。</p>
-<p><img src="/2018/10/30/CS224n笔记（一）/skip-gram_example.png" alt="skip-gram_example"></p>
+<hr>
+<p>skip-gram的理解</p>
+<p>首先，网络的目的不是要预测上下文会出现啥词，这只是一个fake task，网络的真正目的正如 @Stark Einstein 所说，是为了实现嵌入。这一点与AntoEncoder是类似的，AutoEncoder的真正目的也不是为了复现输入，而是为了获得隐层压缩的特征。关于题主所说的权值共享问题，我从下面的角度尝试解释一下。从隐层到输出层的计算过程是：center word的词向量，与每个context的词向量进行内积，会计算一个相似度，再用softmax做一下归一化。下面来举个例子，例如“I really love machine learning and deep learning”，假如我们选择machine作为中间词，由这个句子构造出的训练集长这个样子（window_size=2的话）：（machine，really），（machine，love），（machine，learning），（machine，and），也就是说通过context可以构造出4个训练样本。这个时候我们只训练一下这4个样本，意味着给定machine这个词以后，really，love，learning，and的出现的概率都一样。但是这里有个问题，我们的样本是多种多样的，我们下一个句子如果是”I like machine learning“，再训练一下，是不是给定machine这个中心词，context中出现learning的概率就更高了呢？同样的道理，如果我们训练样本足够大且无偏，根据这样训练下来的结果就会出现，给定machine这个center word，其输出的context word的概率也会有一个排序，这就意味着它对应的context的word的词向量肯定不一样。再回过头来说，如果你的100W个句子都是”I really love machine learning and deep learning“，加上权值共享，结果就是给定machine以后，它输出really，love，learning，and这四个词的概率完全相同，这就意味着这四个词的词向量也肯定完全一样了。</p>
+<h2 id="https-www-zhihu-com-question-268674520-answer-340499173"><a href="#https-www-zhihu-com-question-268674520-answer-340499173" class="headerlink" title="https://www.zhihu.com/question/268674520/answer/340499173"></a><a href="https://www.zhihu.com/question/268674520/answer/340499173" target="_blank" rel="noopener">https://www.zhihu.com/question/268674520/answer/340499173</a></h2><p><img src="/2018/10/30/CS224n笔记（一）/skip-gram_example.png" alt="skip-gram_example"></p>
 <p>我们有目标函数：</p>
 <script type="math/tex; mode=display">
 max\ \ J(\Theta)=\prod_{t=1}^{T}\prod_{-m\leq j\leq m \ j\neq0}P（W_{t+j}|W_t;\Theta）</script><p>其中T是表示窗口数，-m≤j≤m是窗口大小，当然不包括中心词自身。这里我们的true label是各个该中心词的context的onehot形式。（可以理解为我们希望中心词与该上下文词相似的概率为1，与其他词的概率为0，因此该true label也是onehot的形式。）</p>
@@ -662,7 +665,7 @@ ratio的值& \text{单词j,k相关} & \text{单词j,k不相关} \\
   <p><span>本文标题:</span><a href="/2018/10/30/CS224n笔记（一）/">CS224n笔记（一）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年10月30日 - 21:10</p>
-  <p><span>最后更新:</span>2019年01月31日 - 21:01</p>
+  <p><span>最后更新:</span>2019年03月22日 - 17:03</p>
   <p><span>原始链接:</span><a href="/2018/10/30/CS224n笔记（一）/" title="CS224n笔记（一）">http://yifdu.github.io/2018/10/30/CS224n笔记（一）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/10/30/CS224n笔记（一）/" aria-label="复制成功！"></i></span>
   </p>
@@ -806,7 +809,7 @@ ratio的值& \text{单词j,k相关} & \text{单词j,k不相关} \\
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">108</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -817,7 +820,7 @@ ratio的值& \text{单词j,k相关} & \text{单词j,k不相关} \\
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -828,7 +831,7 @@ ratio的值& \text{单词j,k相关} & \text{单词j,k不相关} \\
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -877,7 +880,7 @@ ratio的值& \text{单词j,k相关} & \text{单词j,k不相关} \\
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言涉及的几个-层次"><span class="nav-number">1.</span> <span class="nav-text">自然语言涉及的几个 层次</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-NLP-Deep-Learning-NLP"><span class="nav-number">2.</span> <span class="nav-text">Deep NLP=Deep Learning +NLP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#比如机器翻译"><span class="nav-number">2.1.</span> <span class="nav-text">比如机器翻译</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Word-Embedding"><span class="nav-number">3.</span> <span class="nav-text">Word Embedding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-意义"><span class="nav-number">3.1.</span> <span class="nav-text">1.意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-方法"><span class="nav-number">3.2.</span> <span class="nav-text">2.方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-word2Vector"><span class="nav-number">3.3.</span> <span class="nav-text">3.word2Vector</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Word2Vec"><span class="nav-number">4.</span> <span class="nav-text">Word2Vec</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WordNet"><span class="nav-number">4.1.</span> <span class="nav-text">WordNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributional-Similarity-based-representation"><span class="nav-number">4.2.</span> <span class="nav-text">Distributional Similarity based representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word2vec的主要思想及模型"><span class="nav-number">4.3.</span> <span class="nav-text">Word2vec的主要思想及模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram"><span class="nav-number">4.3.1.</span> <span class="nav-text">Skip-gram</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向传播"><span class="nav-number">4.3.1.1.</span> <span class="nav-text">前向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向传播"><span class="nav-number">4.3.1.2.</span> <span class="nav-text">反向传播</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram代码"><span class="nav-number">4.3.2.</span> <span class="nav-text">Skip-gram代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Continuous-Bag-of-Words-CBOW"><span class="nav-number">4.4.</span> <span class="nav-text">Continuous Bag of Words(CBOW)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hierarchical-Softmax"><span class="nav-number">4.5.</span> <span class="nav-text">Hierarchical Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CBOW-with-Hierarchical-Softmax"><span class="nav-number">4.5.1.</span> <span class="nav-text">CBOW with Hierarchical Softmax:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度计算"><span class="nav-number">4.5.1.1.</span> <span class="nav-text">梯度计算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Negative-Sampling"><span class="nav-number">4.6.</span> <span class="nav-text">Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主要思想"><span class="nav-number">4.6.1.</span> <span class="nav-text">主要思想</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#采样方法"><span class="nav-number">4.6.1.1.</span> <span class="nav-text">采样方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度计算（CBOW）"><span class="nav-number">4.6.1.2.</span> <span class="nav-text">梯度计算（CBOW）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Glove"><span class="nav-number">5.</span> <span class="nav-text">Glove</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计共现矩阵"><span class="nav-number">5.1.</span> <span class="nav-text">统计共现矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用GloVe模型训练词向量"><span class="nav-number">5.2.</span> <span class="nav-text">使用GloVe模型训练词向量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型："><span class="nav-number">5.2.1.</span> <span class="nav-text">模型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型是怎么来的"><span class="nav-number">5.2.2.</span> <span class="nav-text">模型是怎么来的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体权重项应该是怎么样的"><span class="nav-number">5.2.3.</span> <span class="nav-text">具体权重项应该是怎么样的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Countbased-VS-Direct-Prediction"><span class="nav-number">6.</span> <span class="nav-text">Countbased VS Direct Prediction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言涉及的几个-层次"><span class="nav-number">1.</span> <span class="nav-text">自然语言涉及的几个 层次</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-NLP-Deep-Learning-NLP"><span class="nav-number">2.</span> <span class="nav-text">Deep NLP=Deep Learning +NLP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#比如机器翻译"><span class="nav-number">2.1.</span> <span class="nav-text">比如机器翻译</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Word-Embedding"><span class="nav-number">3.</span> <span class="nav-text">Word Embedding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-意义"><span class="nav-number">3.1.</span> <span class="nav-text">1.意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-方法"><span class="nav-number">3.2.</span> <span class="nav-text">2.方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-word2Vector"><span class="nav-number">3.3.</span> <span class="nav-text">3.word2Vector</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Word2Vec"><span class="nav-number">4.</span> <span class="nav-text">Word2Vec</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WordNet"><span class="nav-number">4.1.</span> <span class="nav-text">WordNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributional-Similarity-based-representation"><span class="nav-number">4.2.</span> <span class="nav-text">Distributional Similarity based representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word2vec的主要思想及模型"><span class="nav-number">4.3.</span> <span class="nav-text">Word2vec的主要思想及模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram"><span class="nav-number">4.3.1.</span> <span class="nav-text">Skip-gram</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https-www-zhihu-com-question-268674520-answer-340499173"><span class="nav-number">4.4.</span> <span class="nav-text">https://www.zhihu.com/question/268674520/answer/340499173</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向传播"><span class="nav-number">4.4.0.1.</span> <span class="nav-text">前向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向传播"><span class="nav-number">4.4.0.2.</span> <span class="nav-text">反向传播</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram代码"><span class="nav-number">4.4.1.</span> <span class="nav-text">Skip-gram代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Continuous-Bag-of-Words-CBOW"><span class="nav-number">4.5.</span> <span class="nav-text">Continuous Bag of Words(CBOW)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hierarchical-Softmax"><span class="nav-number">4.6.</span> <span class="nav-text">Hierarchical Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CBOW-with-Hierarchical-Softmax"><span class="nav-number">4.6.1.</span> <span class="nav-text">CBOW with Hierarchical Softmax:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度计算"><span class="nav-number">4.6.1.1.</span> <span class="nav-text">梯度计算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Negative-Sampling"><span class="nav-number">4.7.</span> <span class="nav-text">Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主要思想"><span class="nav-number">4.7.1.</span> <span class="nav-text">主要思想</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#采样方法"><span class="nav-number">4.7.1.1.</span> <span class="nav-text">采样方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度计算（CBOW）"><span class="nav-number">4.7.1.2.</span> <span class="nav-text">梯度计算（CBOW）</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Glove"><span class="nav-number">5.</span> <span class="nav-text">Glove</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计共现矩阵"><span class="nav-number">5.1.</span> <span class="nav-text">统计共现矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用GloVe模型训练词向量"><span class="nav-number">5.2.</span> <span class="nav-text">使用GloVe模型训练词向量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型："><span class="nav-number">5.2.1.</span> <span class="nav-text">模型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型是怎么来的"><span class="nav-number">5.2.2.</span> <span class="nav-text">模型是怎么来的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体权重项应该是怎么样的"><span class="nav-number">5.2.3.</span> <span class="nav-text">具体权重项应该是怎么样的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Countbased-VS-Direct-Prediction"><span class="nav-number">6.</span> <span class="nav-text">Countbased VS Direct Prediction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></div>
             
 
 			

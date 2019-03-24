@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="https://mp.weixin.qq.com/s/QVFwMzh2IyKeCjSJ6vjZeA Kaggle比赛集成指南集成模型是一种能在各种的机器学习任务上提高准确率的强有力技术。在第一部分中，我们会讨论从提交文件中建立集成。主要包括：  投票集成 平均 排名平均  第二部分我们会讨论 通过 generalization/blending等方法来创建集成。我会在后续回答为什么集成能够减少泛化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kaggle模型融合">
+<meta property="og:url" content="http://yifdu.github.io/2019/03/18/Kaggle模型融合/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="https://mp.weixin.qq.com/s/QVFwMzh2IyKeCjSJ6vjZeA Kaggle比赛集成指南集成模型是一种能在各种的机器学习任务上提高准确率的强有力技术。在第一部分中，我们会讨论从提交文件中建立集成。主要包括：  投票集成 平均 排名平均  第二部分我们会讨论 通过 generalization/blending等方法来创建集成。我会在后续回答为什么集成能够减少泛化">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/18/Kaggle模型融合/pic1.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/18/Kaggle模型融合/pic2.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/18/Kaggle模型融合/pic3.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/18/Kaggle模型融合/pic4.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/18/Kaggle模型融合/pic5.png">
+<meta property="og:updated_time" content="2019-03-21T18:02:42.589Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kaggle模型融合">
+<meta name="twitter:description" content="https://mp.weixin.qq.com/s/QVFwMzh2IyKeCjSJ6vjZeA Kaggle比赛集成指南集成模型是一种能在各种的机器学习任务上提高准确率的强有力技术。在第一部分中，我们会讨论从提交文件中建立集成。主要包括：  投票集成 平均 排名平均  第二部分我们会讨论 通过 generalization/blending等方法来创建集成。我会在后续回答为什么集成能够减少泛化">
+<meta name="twitter:image" content="http://yifdu.github.io/2019/03/18/Kaggle模型融合/pic1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/03/18/Kaggle模型融合/">
+
+
+
+
+
+  <title>Kaggle模型融合 | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/03/18/Kaggle模型融合/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kaggle模型融合</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T22:51:12+08:00">
+                2019-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://mp.weixin.qq.com/s/QVFwMzh2IyKeCjSJ6vjZeA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/QVFwMzh2IyKeCjSJ6vjZeA</a></p>
+<h1 id="Kaggle比赛集成指南"><a href="#Kaggle比赛集成指南" class="headerlink" title="Kaggle比赛集成指南"></a>Kaggle比赛集成指南</h1><p>集成模型是一种能在各种的机器学习任务上提高准确率的强有力技术。<br>在第一部分中，我们会讨论从提交文件中建立集成。主要包括：</p>
+<ul>
+<li>投票集成</li>
+<li>平均</li>
+<li>排名平均</li>
+</ul>
+<p>第二部分我们会讨论 通过 generalization/blending等方法来创建集成。<br>我会在后续回答为什么集成能够减少泛化误差。最后我会展示不同的集成方法，包括它们的结果以及代码以供你自己去尝试。<br>怎样赢得机器学习比赛：你拿别人的结果和你自己的结果与做集成。 —— Vitaly Kuznetsov NIPS2014。</p>
+<h2 id="对提交文件进行集成"><a href="#对提交文件进行集成" class="headerlink" title="对提交文件进行集成"></a>对提交文件进行集成</h2><p>最简单方便的办法就是对Kaggle提交的csv文件直接进行集成。你只需要模型在测试集上的预测结果，而不需要重新训练一个模型。它简单快速，只需使用已有模型的预测结果，是拼队的理想选择。</p>
+<h3 id="投票集成-预测结果为类别时"><a href="#投票集成-预测结果为类别时" class="headerlink" title="投票集成(预测结果为类别时)"></a>投票集成(预测结果为类别时)</h3><p>我们先看一下简单的投票集成方法。来看看为什么集成模型能够减少错误率，和为什么它能在模型间相关度较低时能取得更好的结果。</p>
+<h3 id="纠错码"><a href="#纠错码" class="headerlink" title="纠错码"></a>纠错码</h3><p>在航天任务中，所有的信号都被正确的传达是非常重要的。<br>如果我们有一个二进制字符串形式的信号，如：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1110110011101111011111011011</span></span><br></pre></td></tr></table></figure></p>
+<p>如果信号在传输过程中有一位发生了翻转(第二位),变成了<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1010110011101111011111011011</span></span><br></pre></td></tr></table></figure></p>
+<p>那这可能是致命的<br>在纠错码中有一个编码解决方案.在最简单的情况下,即纠错码是重复码时:以同样大小的数据块多次传递信号,并进行投票<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Original signal:</span><br><span class="line"><span class="number">1110110011</span></span><br><span class="line"></span><br><span class="line">Encoded:</span><br><span class="line"><span class="number">10</span>,<span class="number">3</span> <span class="number">101011001111101100111110110011</span></span><br><span class="line"></span><br><span class="line">Decoding:</span><br><span class="line"><span class="number">1010110011</span></span><br><span class="line"><span class="number">1110110011</span></span><br><span class="line"><span class="number">1110110011</span></span><br><span class="line"></span><br><span class="line">Majority vote:</span><br><span class="line"><span class="number">1110110011</span></span><br></pre></td></tr></table></figure></p>
+<p>信号失真很少发生且通常在局部发生，因此，多次投票依然出错的可能性就更小了。<br>只要信号失真不是完全不可预测的（有50%的几率发生），信号就能被修复。</p>
+<h2 id="一个机器学习的例子"><a href="#一个机器学习的例子" class="headerlink" title="一个机器学习的例子"></a>一个机器学习的例子</h2><p>假设我们的测试集有10个样本，正确的情况应该都是1：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1111111111</span></span><br></pre></td></tr></table></figure></p>
+<p>我们有3个正确率为70%的二分类器记为A,B,C。你可以将这些分类器视为伪随机数产生器，以70%的概率产生”1”，30%的概率产生”0”。</p>
+<p>下面我们会展示这些伪分类器通过投票集成的方法得到78%的正确率。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">All three are correct</span><br><span class="line">  <span class="number">0.7</span> * <span class="number">0.7</span> * <span class="number">0.7</span></span><br><span class="line">= <span class="number">0.3429</span></span><br><span class="line"></span><br><span class="line">Two are correct</span><br><span class="line">  <span class="number">0.7</span> * <span class="number">0.7</span> * <span class="number">0.3</span></span><br><span class="line">+ <span class="number">0.7</span> * <span class="number">0.3</span> * <span class="number">0.7</span></span><br><span class="line">+ <span class="number">0.3</span> * <span class="number">0.7</span> * <span class="number">0.7</span></span><br><span class="line">= <span class="number">0.4409</span></span><br><span class="line"></span><br><span class="line">Two are wrong</span><br><span class="line">  <span class="number">0.3</span> * <span class="number">0.3</span> * <span class="number">0.7</span></span><br><span class="line">+ <span class="number">0.3</span> * <span class="number">0.7</span> * <span class="number">0.3</span></span><br><span class="line">+ <span class="number">0.7</span> * <span class="number">0.3</span> * <span class="number">0.3</span></span><br><span class="line">= <span class="number">0.189</span></span><br><span class="line"></span><br><span class="line">All three are wrong</span><br><span class="line">  <span class="number">0.3</span> * <span class="number">0.3</span> * <span class="number">0.3</span></span><br><span class="line">= <span class="number">0.027</span></span><br></pre></td></tr></table></figure></p>
+<p>我们看到有44%的概率投票可以校正大部分错误。大部分投票集成会使最终的准确率变成78%左右(0.3429 + 0.4409 = 0.7838)。</p>
+<h2 id="投票个数"><a href="#投票个数" class="headerlink" title="投票个数"></a>投票个数</h2><p>跟重复码相似,随着编码重复次数的增加对错误的校正能力也会增加,因此集成通常可以通过提高集成成员的个数来提升准确率.<br><img src="/2019/03/18/Kaggle模型融合/pic1.png" alt="pic1"></p>
+<p>同样利用上面数学的数学公式：对5个有70%准确率的伪随机分类器进行投票集成会得到83%的准确率。在大约66%的情况下投票可以校正1或2个错误编码。(0.36015 + 0.3087)</p>
+<h2 id="相关性"><a href="#相关性" class="headerlink" title="相关性"></a>相关性</h2><p>在我第一次组队参加2014年KDD杯比赛时，Marios Michailidis (KazAnova)提出了一些奇特的东西，他对我们所有的提交文件计算 皮尔逊相关系数，并且挑选出一些性能较好且相关系数较低的模型。</p>
+<p>从这些挑选出来的文件中创建平均集成模型，给我们在排行榜上带来了巨大的提升，50名的飞跃。不相关的预测结果的集成明显比相关的集成结果要好，这是为什么？</p>
+<p>为了说明这一点，我们再举3个简单的模型。正确的情况仍然是全是1:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1111111100</span> = <span class="number">80</span>% accuracy</span><br><span class="line"><span class="number">1111111100</span> = <span class="number">80</span>% accuracy</span><br><span class="line"><span class="number">1011111100</span> = <span class="number">70</span>% accuracy.</span><br></pre></td></tr></table></figure></p>
+<p>这些模型的预测是高度相关的，当我们进行投票时，可以看到准确率没有提高：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1111111100</span> = <span class="number">80</span>% accuracy</span><br></pre></td></tr></table></figure>
+<p>下面我们比较3个性能相对较差，但是高度不相关的模型：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1111111100</span> = <span class="number">80</span>% accuracy</span><br><span class="line"><span class="number">0111011101</span> = <span class="number">70</span>% accuracy</span><br><span class="line"><span class="number">1000101111</span> = <span class="number">60</span>% accuracy</span><br></pre></td></tr></table></figure>
+<p>但我们做集成进行投票得到的结果:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1111111101</span> = <span class="number">90</span>% accuracy</span><br></pre></td></tr></table></figure></p>
+<p>结果得到了提升：集成低相关性的模型结果似乎会增加纠错能力。</p>
+<h2 id="Kaggle案例：森林植被类型预测"><a href="#Kaggle案例：森林植被类型预测" class="headerlink" title="Kaggle案例：森林植被类型预测"></a>Kaggle案例：森林植被类型预测</h2><p>当评价指标需要有力的预测时，比如多分类问题的准确率，少数服从多数投票法具有重要意义。</p>
+<p>森林植被类型预测 比赛使用 UCI Forest CoverType 数据集。这个数据集有54个属性，6种分类类型。</p>
+<p>我们建立一个有500棵树的随机森林模型作为 起始模型，然后我们再建立更多的模型，并挑选出最好的一个。在这个问题中，我们选择的一个ExtraTreesClassifier 模型表现得最好。</p>
+<h3 id="加权"><a href="#加权" class="headerlink" title="加权"></a>加权</h3><p>接下来，我们讨论加权投票。为什么要加权？通常我们希望模型越好，其权重就越高。所以，在这里，我们将表现最好的模型的投票看作3票，其它的4个模型只看作1票。</p>
+<p>原因是：当表现较差的模型需要否决表现最好的模型时，唯一的办法是它们集体同意另一种选择。我们期望这样的集成能够对表现最好的模型进行一些修正，带来一些小的提高。</p>
+<p>表一是5个模型训练出来的结果，包括结果得分以及加权的得分。</p>
+<p><img src="/2019/03/18/Kaggle模型融合/pic2.png" alt="pic2"></p>
+<h2 id="Kaggle案例：CIFAR-10-图像检测"><a href="#Kaggle案例：CIFAR-10-图像检测" class="headerlink" title="Kaggle案例：CIFAR-10 图像检测"></a>Kaggle案例：CIFAR-10 图像检测</h2><p>CIFAR-10是另一个用准确率衡量的多分类kaggle比赛。</p>
+<p>这个比赛中，我们队的队长Phil Culliton，从dr. Graham那复制了一个好的模型，并第一个发现最好的参数设置。</p>
+<p>然后他对大约30个提交文件使用了投票集成的方法(所有的准确率得分在90%以上)。在集成模型中最好的单模型的得分为 0.93170.</p>
+<p>对30个模型的投票集成得分为0.94120.大约降低了0.01错误率的，使得其识别结果超过人类 estimated human classification accuracy.</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>我们有一个简单的投票脚本 在 MLWave Github repo中找到. 它在kaggle的提交目录中运行，并负责创建一个新的提交文件。更新：Armando Segnini 已经加上了加权部分的代码。</p>
+<hr>
+<p>Ensembling.训练10个神经网络并平均它们的预测结果，这是一个相当简单的技术，却有相当大的性能改进。</p>
+<p>这里可能会有疑惑：为什么平均会有如此大的帮助？这有一个对于平均有效的简单的原因。假设我们有2个错误率70%的分类器，当2者结果一样时，那就是这个结果；当2者发生分歧时，那么如果其中一个分类器总是正确的，那么平均预测结果就会设置更多的权重在那个经常正确的答案上。</p>
+<p>这个作用会特别强，whenever the network is confident when it’s right and unconfident when it’s wrong.——Ilya Sutskever在深度学习的简单概述中说道。</p>
+<hr>
+<h2 id="平均"><a href="#平均" class="headerlink" title="平均"></a>平均</h2><p>平均可以很好的解决一系列问题(二分类与回归问题)与指标(AUC,误差平方或对数损失)。</p>
+<p>与其说平均，不如说采用了多个个体模型预测值的平均。一个在Kaggle中经常听到的词是“bagging submissions”。</p>
+<p>平均预测常常会降低过拟合。在类与类间，你想要理想的平滑的将其分离，而单一模型的预测在边界间可能会有一些粗糙。<br><img src="/2019/03/18/Kaggle模型融合/pic3.png" alt="pic3"><br>上面这幅图片来自这个kaggle比赛：不要过拟合!图中黑线比绿线有更好的分割，绿色线已经从数据点中学习了一些噪声。但不用担心，平均多个不同的绿线应该使我们更接近黑线。</p>
+<p>记住，我们的目标不仅是去记住这些训练数据(这里有比在随机森林里更加有效的方法来存储数据)，而且还要去对我们没有看到的数据进行良好的泛化。</p>
+<h3 id="Kaggle案例-Bag-of-Words-Meets-Bags-of-Popcorn"><a href="#Kaggle案例-Bag-of-Words-Meets-Bags-of-Popcorn" class="headerlink" title="Kaggle案例: Bag of Words Meets Bags of Popcorn"></a>Kaggle案例: Bag of Words Meets Bags of Popcorn</h3><p>这是一个电影情感分析竞赛，在以前的文章中，我们使用 在线感知机脚本 得到了0.952的AUC.</p>
+<p>这个感知机是一个线性分类器，在数据线性可分的情况下一定能找到一个分隔。这是一个受人喜欢的性质，但是你要意识到一旦达到这种分隔，分类器就会停止学习。它不一定会是新数据的最好的分隔。</p>
+<p>那当我们随机初始化5个感知机的权重，并通过平均来组合预测会发生什么？结果是我们在测试集上的结果得到了提升，但这是为什么呢？</p>
+<p><img src="/2019/03/18/Kaggle模型融合/pic4.png" alt="pic4"><br>以上结果还能说明，集成能(暂时)使您不必了解特定机器学习算法的更精细的细节与内部工作原理。如果集成起作用，那很好，如果没起作用，那并无大碍。<br>就算你平均10个相同的线性回归的结果也没事。Bagging一个糟糕的交叉验证与过拟合的提交有可能会增加多样性从而给你带来一点提高。</p>
+<h2 id="排名平均"><a href="#排名平均" class="headerlink" title="排名平均"></a>排名平均</h2><p>当平均多个来自不同模型的输出时，会出现一些问题。并不是所有的预测器的结果是完美 校准的， 它们可能会产生过高或过低的预测概率，或者预测在一定的范围里非常混乱。</p>
+<p>在极端情况下,你可能会有一个这样一个提交：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Id,Prediction</span><br><span class="line"><span class="number">1</span>,<span class="number">0.35000056</span></span><br><span class="line"><span class="number">2</span>,<span class="number">0.35000002</span></span><br><span class="line"><span class="number">3</span>,<span class="number">0.35000098</span></span><br><span class="line"><span class="number">4</span>,<span class="number">0.35000111</span></span><br></pre></td></tr></table></figure></p>
+<p>当评估指标是ranking或者像AUC一样的阈值时，这些预测结果可能会在排行榜上表现的较好。但是当与类似下面这个模型进行平均时：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Id,Prediction</span><br><span class="line"><span class="number">1</span>,<span class="number">0.57</span></span><br><span class="line"><span class="number">2</span>,<span class="number">0.04</span></span><br><span class="line"><span class="number">3</span>,<span class="number">0.96</span></span><br><span class="line"><span class="number">4</span>,<span class="number">0.99</span></span><br></pre></td></tr></table></figure>
+<p>集成不会改变什么。</p>
+<p>我们的解决方案是：首先将预测结果进行一个排名，然后去平均这个排名。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Id,Rank,Prediction</span><br><span class="line"><span class="number">1</span>,<span class="number">1</span>,<span class="number">0.35000056</span></span><br><span class="line"><span class="number">2</span>,<span class="number">0</span>,<span class="number">0.35000002</span></span><br><span class="line"><span class="number">3</span>,<span class="number">2</span>,<span class="number">0.35000098</span></span><br><span class="line"><span class="number">4</span>,<span class="number">3</span>,<span class="number">0.35000111</span></span><br></pre></td></tr></table></figure></p>
+<p>在标准化平均排名在0到1之间后，你肯定会得到一个均匀分布预测。排名平均结果：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Id,Prediction</span><br><span class="line"><span class="number">1</span>,<span class="number">0.33</span></span><br><span class="line"><span class="number">2</span>,<span class="number">0.0</span></span><br><span class="line"><span class="number">3</span>,<span class="number">0.66</span></span><br><span class="line"><span class="number">4</span>,<span class="number">1.0</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="历史排名"><a href="#历史排名" class="headerlink" title="历史排名"></a>历史排名</h3><p>排名需要一个测试集，所以当你要预测一个新样本时，你该怎么办？你可以与老的测试集一起，重新计算排名，但这会增加你的解决方案的复杂性。</p>
+<p>一个解决方案是使用历史排名。存储旧的测试集预测及其排名，现在当你预测一个新的测试样例如“0.35000110”，你去找到最接近的历史预测并取其历史排名(在这里最接近的历史预测是“0.35000111”其历史排名为“3”)。</p>
+<h3 id="Kaggle使用案例-获得有价值的顾客挑战赛"><a href="#Kaggle使用案例-获得有价值的顾客挑战赛" class="headerlink" title="Kaggle使用案例:获得有价值的顾客挑战赛"></a>Kaggle使用案例:获得有价值的顾客挑战赛</h3><p>排名平均在基于排名和基于阈值的指标(如AUC)和搜索引擎质量指标(如k平均精度)上表现良好。</p>
+<p>这个 挑战赛的目标 是对一个购物者成为一个重复顾客的概率进行排名。</p>
+<p>我们队首先将多个Vowpal Wabbit中的模型与一个R语言的GLMNet模型进行取平均，然后我们使用排名平均来提高完全相同的集成的情况。<br><img src="/2019/03/18/Kaggle模型融合/pic5.png" alt="pic5"><br>我已经在 Avito挑战赛中写过排名平均给了我们大幅的提升 。</p>
+<p>finnally, when weighted rank averaging the bagged perceptrons from the previous chapter (1x) with the new bag-of-words tutorial (3x) on fastML.com we improve that model’s performance from 0.96328 AUC to 0.96461 AUC.</p>
+<h2 id="Stacked-Generalization-amp-Blending"><a href="#Stacked-Generalization-amp-Blending" class="headerlink" title="Stacked Generalization &amp; Blending"></a>Stacked Generalization &amp; Blending</h2><p>对预测文件进行平均既简单又好用，但这并不是顶级kaggle选手使用的唯一方法。stacking与blending也能让你颇受收益。做好心理准备，接来下将要给你介绍屠龙技。</p>
+<h3 id="Netflix"><a href="#Netflix" class="headerlink" title="Netflix"></a>Netflix</h3><p>Netdlix公司曾组织并普及了第一次数据科学比赛,在电影推荐挑战赛中，参赛者们将集成发展成为了一门艺术，可能是太极端了以至于Netfilx公司决定不将获胜方案应用到产品中。 因为这实施起来太复杂了。</p>
+<p>不过，这个比赛涌现了很多论文与新颖的方法：</p>
+<ul>
+<li>Feature-Weighted Linear Stacking</li>
+<li>Combining Predictions for Accurate Recommender Systems</li>
+<li>The BigChaos Solution to the Netflix Prize</li>
+</ul>
+<p>这些论文都比较有趣且可以阅读的，当你想要提高你在Kaggle比赛中的成绩时，可以点进去阅读一下。</p>
+<p>这是我工作这么多年以来，最令人印象深刻的集成和看到的最好的成果，它融合了上百个预测模型来得到最终结果。我们在线下使用了一些新方法重新评估了一番，但是我们测试认为该模型对准确率提升效果似乎并不值得将它引入到生产环境——-Netflix 的工程师说。</p>
+<h3 id="Stacked-generalization"><a href="#Stacked-generalization" class="headerlink" title="Stacked generalization"></a>Stacked generalization</h3><p>Wolpert在1992的论文中对stacked generalization进行了介绍，比Breiman的论文 “Bagging Predictors“早了2年。Wolpert的另一成名的机器学习理论是：“没有免费午餐定理”</p>
+<p>stacked generalization背后的基本思想是使用大量基分类器，然后使用另一种分类器来融合它们的预测，旨在降低泛化误差。</p>
+<p>下面来说下2折stacking：</p>
+<ul>
+<li>将训练集分成2部分： train_a 与 train_b</li>
+<li>用train_b来拟合同类型的学习器对train_a进行预测</li>
+<li>最后用整个训练集拟合模型，并对测试集进行预测</li>
+<li>基于初级学习器的概率输出，来训练次级学习器</li>
+</ul>
+<p>一个stacker模型通过使用第一阶段的预测作为特征，比相互独立的训练模型能够得到更多的信息。</p>
+<p>我们通常希望在第0层泛化器是全类型的，而不仅仅是彼此的简单变化(比如我们想要 surface-fitters, Turing-machine builders, statistical extrapolators等等.)这样，所有可能学习到训练集规律的方法都会被使用到， 这就是所谓的初级学习器应该“跨越空间”意思的一部分.</p>
+<p>[…]stacked generalization是将非线性泛化器组合从而形成新的泛化器的手段，是为了尝试最好的集成每个初级泛化器。每个学习器信息越多(在其他学习器上没有重复)，stacked generalization的结果就越好</p>
+<h2 id="Blending"><a href="#Blending" class="headerlink" title="Blending"></a>Blending</h2><p>Blending 一词是Netflix的获胜者们引入的。它与stacked generalization非常像，但更简单并且信息泄露风险更小。一些研究者们交换着使用“stacked ensembling”与“blending”这2个词。</p>
+<p>通过Blinding，不需要对训练集创建折外预测(out-of-fold predictions )，你只需创建一个小的留出集，比如10%的训练集做为留出。stacker模型只在留出集里面进行训练。</p>
+<p>Blending的优势：</p>
+<ul>
+<li>比stacking更加简单</li>
+<li>能够防止信息泄露:generalizers和stackers使用不同的数据</li>
+<li>你不需要跟你的队友设定一个相同的随机种子来进行相同的分折 谁都可以将模型放入“blender”中，由blender来决定是否保留这个模型。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>只使用了整体中数据一部分</li>
+<li>最终的模型有可能对留出集过拟合</li>
+<li>stacking使用交叉验证比使用单一留出集更加稳健 (在更多的折上进行计算)。</li>
+</ul>
+<p>至于性能，两种技术的得到的结果差不多，取决于你的个人喜好以及你更倾向于哪种技能。就我自己而言，我更喜欢stacking。</p>
+<p>如果你不能做选择的话，你可以同时选择这2种，使用stacked泛化器创建stacked集成和折外预测。然后使用留出集在第三层进一步结合这些stacked模型。</p>
+<h2 id="Stacking-分类和回归"><a href="#Stacking-分类和回归" class="headerlink" title="Stacking 分类和回归"></a>Stacking 分类和回归</h2><p>Stacking可以允许你使用分类器来完成回归问题，反之亦然。比如说，在一个二分类问题中，有人可能会尝试使用线性分位回归 来完成分类任务。一个好的stacker应该可以从预测中提取出你想要的信息，尽管回归通常并不是一个好的分类器。</p>
+<p>而使用一个分类器做回归就有点棘手。你先离散化：将y均匀地分为几个的类别。那么一个要求你预测工资的回归问题就可以转换为这样的一个多分类的问题：</p>
+<ul>
+<li>所有低于20k的为类别1</li>
+<li>所有20k到40k之间的为类别2</li>
+<li>所有大于40k的为类别3</li>
+</ul>
+<p>使用分类器预测出来的概率可以帮助回归函数取得更好的预测效果。</p>
+<h2 id="模型选择"><a href="#模型选择" class="headerlink" title="模型选择"></a>模型选择</h2><p>你还可以通过组合多个集成模型来继续优化你评分。</p>
+<ul>
+<li>这有一个特别的方法：使用平均，投票，或秩平均等方法来手动选择表现好的集成模型。</li>
+<li>贪婪前向模型选择 (Caruana et al.)。先使用一个或几个好的模型作为基集成模型。然后不断地增加使得评分提升最大的模型。当然你也可以在期间允许把模型放回去，这样的话一个模型可能会被选择很多次。</li>
+<li>使用遗传算法来做选择，用交叉验证得分作为适应度评分函数。可以看 inversion‘s solution 的解决方案：‘Strategy for top 25 position‘.</li>
+<li>受Caruana的启发，我使用一个完全随机的方法：通过随机选择集成(无放回)，创建一个100或其他个数的集成。然后选择其中评分最高的模型。</li>
+</ul>
+<h2 id="自动化操作"><a href="#自动化操作" class="headerlink" title="自动化操作"></a>自动化操作</h2><p>当我在 Otto product classification比赛中，使用了stacking策略，我很快的得到了前十的成绩。我通过不断的添加越来越多的基分类器，和bagging多个stack集成我的分数得到不断的提高。</p>
+<p>当我达到了7个基模型，用了6个stacker，一阵恐惧和忧郁的感觉向我袭来。我是否能够把所有这些都重现？这些复杂而又笨重的模型让我偏离了快速而又简单的机器学习的初衷。</p>
+<p>我在后续的比赛中，都将时间花在了建造一个自动化stacking的方法。我们去训练那些具有纯随机参数的纯随机算法的基模型。我们写了一个与Scikit-learn的Api协同工作的封装器去负责训练分类模型VW, Sofia-ML, RGF, MLP and XGBoost。</p>
+<p>使用自动化stacking可以让你轻松的打败那些对该问题设计特定算法的领域专家，各个模型的训练都是可以分布式和并行化的。</p>
+<p>你也可以在这里看到自动化融合的代码：MLWave Github repo: “Hodor-autoML“.</p>
+<p>在Otto product 分类比赛中，第1名和第2名融合了超过1000个不同的模型 可以在这里看到更多： first place 和 second place。</p>
+<h2 id="我们为什么要使用如此复杂的集成方法？"><a href="#我们为什么要使用如此复杂的集成方法？" class="headerlink" title="我们为什么要使用如此复杂的集成方法？"></a>我们为什么要使用如此复杂的集成方法？</h2><p>使用stacking，组合1000多个模型，计算几十个小时这也太疯狂了吧。这..确实是的。但是，这些怪物般的集成方法同样有着它的用处：</p>
+<ul>
+<li>它可以使你赢得kaggle比赛</li>
+<li>它可以帮你打败当前学术界性能最好的算法</li>
+<li>You can then compare your new-and-improved benchmark with the performance of a simpler, more production-friendly model</li>
+<li>总有一天，虽然现在的计算机和云端还是很弱。你将做好准备</li>
+<li>我们有可能将集成的知识迁移到到简单的分类器上(Hinton’s Dark Knowledge, Caruana’sModel Compression)</li>
+<li>不是所有基模型都要按时完成的。因为在集成方法中，即使损失一两个模型也是可以接受的。</li>
+<li>自动化的大型集成策略可以通过添加正则项有效的对抗过拟合，而且并不需要太多的调参和特征选择。所以从原则上讲，stacking非常适合于那些“懒人”</li>
+<li>这是目前提升机器学习效果最好的方法，或者说是最效率的方法human ensemble learning</li>
+<li>每1%精度的提升，或许就可以使得你的投资减少大量的损失。更严肃的说：在医疗行业中，每1%的提升，你就能多拯救几个生命。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/18/C-知识点（一）/" rel="next" title="C++知识点（一）">
+                <i class="fa fa-chevron-left"></i> C++知识点（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/19/知识星球上的小知识点/" rel="prev" title="知识星球上的小知识点">
+                知识星球上的小知识点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kaggle比赛集成指南"><span class="nav-number">1.</span> <span class="nav-text">Kaggle比赛集成指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对提交文件进行集成"><span class="nav-number">1.1.</span> <span class="nav-text">对提交文件进行集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#投票集成-预测结果为类别时"><span class="nav-number">1.1.1.</span> <span class="nav-text">投票集成(预测结果为类别时)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纠错码"><span class="nav-number">1.1.2.</span> <span class="nav-text">纠错码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个机器学习的例子"><span class="nav-number">1.2.</span> <span class="nav-text">一个机器学习的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#投票个数"><span class="nav-number">1.3.</span> <span class="nav-text">投票个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关性"><span class="nav-number">1.4.</span> <span class="nav-text">相关性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kaggle案例：森林植被类型预测"><span class="nav-number">1.5.</span> <span class="nav-text">Kaggle案例：森林植被类型预测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加权"><span class="nav-number">1.5.1.</span> <span class="nav-text">加权</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kaggle案例：CIFAR-10-图像检测"><span class="nav-number">1.6.</span> <span class="nav-text">Kaggle案例：CIFAR-10 图像检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">1.6.1.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平均"><span class="nav-number">1.7.</span> <span class="nav-text">平均</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kaggle案例-Bag-of-Words-Meets-Bags-of-Popcorn"><span class="nav-number">1.7.1.</span> <span class="nav-text">Kaggle案例: Bag of Words Meets Bags of Popcorn</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排名平均"><span class="nav-number">1.8.</span> <span class="nav-text">排名平均</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#历史排名"><span class="nav-number">1.8.1.</span> <span class="nav-text">历史排名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kaggle使用案例-获得有价值的顾客挑战赛"><span class="nav-number">1.8.2.</span> <span class="nav-text">Kaggle使用案例:获得有价值的顾客挑战赛</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stacked-Generalization-amp-Blending"><span class="nav-number">1.9.</span> <span class="nav-text">Stacked Generalization &amp; Blending</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Netflix"><span class="nav-number">1.9.1.</span> <span class="nav-text">Netflix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stacked-generalization"><span class="nav-number">1.9.2.</span> <span class="nav-text">Stacked generalization</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blending"><span class="nav-number">1.10.</span> <span class="nav-text">Blending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stacking-分类和回归"><span class="nav-number">1.11.</span> <span class="nav-text">Stacking 分类和回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型选择"><span class="nav-number">1.12.</span> <span class="nav-text">模型选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动化操作"><span class="nav-number">1.13.</span> <span class="nav-text">自动化操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我们为什么要使用如此复杂的集成方法？"><span class="nav-number">1.14.</span> <span class="nav-text">我们为什么要使用如此复杂的集成方法？</span></a></li></ol></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

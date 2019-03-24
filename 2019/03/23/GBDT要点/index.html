@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning,GBDT,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="GBDT算法流程GBDT通过采用加法模型(基函数的线性组合),以及不断减少训练过程产生的残差来达到将数据分类或回归的算法.(boosting的过程)训练过程: gbdt通过多轮迭代,每轮迭代产生一个弱分类器，每个分类器在上一轮分类器的残差基础上进行训练。对弱分类器的要求一般是足够简单，并且是低方差和高偏差的。因为训练的过程是通过降低偏差来不断提高最终分类器的精度，（此处是可以证明的）。 弱分类器一">
+<meta name="keywords" content="Machine Learning,GBDT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GBDT要点">
+<meta property="og:url" content="http://yifdu.github.io/2019/03/23/GBDT要点/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="GBDT算法流程GBDT通过采用加法模型(基函数的线性组合),以及不断减少训练过程产生的残差来达到将数据分类或回归的算法.(boosting的过程)训练过程: gbdt通过多轮迭代,每轮迭代产生一个弱分类器，每个分类器在上一轮分类器的残差基础上进行训练。对弱分类器的要求一般是足够简单，并且是低方差和高偏差的。因为训练的过程是通过降低偏差来不断提高最终分类器的精度，（此处是可以证明的）。 弱分类器一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/23/GBDT要点/pic1.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/23/GBDT要点/pic3.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/23/GBDT要点/pic2.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/03/23/GBDT要点/pic4.png">
+<meta property="og:updated_time" content="2019-03-23T07:35:53.741Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GBDT要点">
+<meta name="twitter:description" content="GBDT算法流程GBDT通过采用加法模型(基函数的线性组合),以及不断减少训练过程产生的残差来达到将数据分类或回归的算法.(boosting的过程)训练过程: gbdt通过多轮迭代,每轮迭代产生一个弱分类器，每个分类器在上一轮分类器的残差基础上进行训练。对弱分类器的要求一般是足够简单，并且是低方差和高偏差的。因为训练的过程是通过降低偏差来不断提高最终分类器的精度，（此处是可以证明的）。 弱分类器一">
+<meta name="twitter:image" content="http://yifdu.github.io/2019/03/23/GBDT要点/pic1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/03/23/GBDT要点/">
+
+
+
+
+
+  <title>GBDT要点 | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/03/23/GBDT要点/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GBDT要点</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T13:09:08+08:00">
+                2019-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="GBDT算法流程"><a href="#GBDT算法流程" class="headerlink" title="GBDT算法流程"></a>GBDT算法流程</h1><p>GBDT通过采用加法模型(基函数的线性组合),以及不断减少训练过程产生的残差来达到将数据分类或回归的算法.(boosting的过程)<br>训练过程:<br><img src="/2019/03/23/GBDT要点/pic1.png" alt="pic1"><br> gbdt通过多轮迭代,每轮迭代产生一个弱分类器，每个分类器在上一轮分类器的残差基础上进行训练。对弱分类器的要求一般是足够简单，并且是低方差和高偏差的。因为训练的过程是通过降低偏差来不断提高最终分类器的精度，（此处是可以证明的）。<br> 弱分类器一般会选择为CART TREE（也就是分类回归树）。由于上述高偏差和简单的要求 每个分类回归树的深度不会很深。最终的总分类器 是将每轮训练得到的弱分类器加权求和得到的（也就是加法模型）。<br> 模型最终可以描述为:</p>
+<script type="math/tex; mode=display">F_m(x)=\sum_{i=1}^MT(x;\theta_m)</script><p> 模型一共训练M轮,每轮产生一个弱分类器$T(x;\theta)$.弱分类器的损失函数</p>
+<script type="math/tex; mode=display">\hat{\theta}_m=arg min_{\theta_m}\sum_{i=1}^N L(y_i,F_{m-1}(x_i)+T(x;\theta_m))</script><p> 这边采用的是经验风险最小化来确定下一个弱分类器的参数.具体到损失函数本身的选择也就是L的选择,有平方损失函数,0-1损失函数,对数损失函数等等.如果我们许纳泽平方损失函数,那么这个差值其实就是残差.<br> 让损失函数沿着梯度的方向下降,这就是GBDT的GB的核心.用一个回归树来拟合残差。GBDT每轮迭代的时候都会去拟合损失函数在当前模型下的负梯度。这样每轮训练的时候能够让损失函数尽可能快的减小,尽快的收敛达到局部最优解或者全局最优解.<br> 注意：GBDT的是在GB上面,采用了负梯度作为残差的概念<br> <img src="/2019/03/23/GBDT要点/pic3.png" alt="pic3"></p>
+<h1 id="GBDT如何选择特征"><a href="#GBDT如何选择特征" class="headerlink" title="GBDT如何选择特征"></a>GBDT如何选择特征</h1><p> gbdt的弱分类器默认选择的是CART TREE。其实也可以选择其他弱分类器的，选择的前提是低方差和高偏差。框架服从boosting 框架即可。</p>
+<p> 下面我们具体来说CART TREE(是一种二叉树) 如何生成。CART TREE 生成的过程其实就是一个选择特征的过程。假设我们目前总共有 M 个特征。第一步我们需要从中选择出一个特征 j，做为二叉树的第一个节点。然后对特征 j 的值选择一个切分点 m. 一个 样本的特征j的值 如果小于m，则分为一类，如果大于m,则分为另外一类。如此便构建了CART 树的一个节点。其他节点的生成过程和这个是一样的。现在的问题是在每轮迭代的时候，如何选择这个特征 j,以及如何选择特征 j 的切分点 m:</p>
+<ul>
+<li>原始的gbdt的做法非常的暴力，首先遍历每个特征，然后对每个特征遍历它所有可能的切分点，找到最优特征 m 的最优切分点 j。</li>
+<li>如何衡量我们找到的特征 m和切分点 j 是最优的呢？ 我们用定义一个函数 FindLossAndSplit 来展示一下求解过程：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findLossAndSplit</span><span class="params">(x,y)</span>:</span></span><br><span class="line">    <span class="comment"># 我们用 x 来表示训练数据</span></span><br><span class="line">    <span class="comment"># 我们用 y 来表示训练数据的label</span></span><br><span class="line">    <span class="comment"># x[i]表示训练数据的第i个特征</span></span><br><span class="line">    <span class="comment"># x_i 表示第i个训练样本</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># minLoss 表示最小的损失</span></span><br><span class="line">    minLoss = Integet.max_value</span><br><span class="line">    <span class="comment"># feature 表示是训练的数据第几纬度的特征</span></span><br><span class="line">    feature = <span class="number">0</span></span><br><span class="line">    <span class="comment"># split 表示切分点的个数</span></span><br><span class="line">    split = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># M 表示 样本x的特征个数</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>,M):</span><br><span class="line">        <span class="comment"># 该维特征下，特征值的每个切分点，这里具体的切分方式可以自己定义</span></span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> range(<span class="number">0</span>,x[j]):</span><br><span class="line">            L = <span class="number">0</span></span><br><span class="line">            <span class="comment"># 第一类</span></span><br><span class="line">            R1 = &#123;x|x[j] &lt;= c&#125;</span><br><span class="line">            <span class="comment"># 第二类</span></span><br><span class="line">            R2 = &#123;x|x[j] &gt; c&#125;</span><br><span class="line">            <span class="comment"># 属于第一类样本的y值的平均值</span></span><br><span class="line">            y1 = ave&#123;y|x 属于 R1&#125;</span><br><span class="line">            <span class="comment"># 属于第二类样本的y值的平均值</span></span><br><span class="line">            y2 = ave&#123;y| x 属于 R2&#125;</span><br><span class="line">            <span class="comment"># 遍历所有的样本，找到 loss funtion 的值</span></span><br><span class="line">            <span class="keyword">for</span> x_1 <span class="keyword">in</span> all x</span><br><span class="line">                <span class="keyword">if</span> x_1 属于 R1：</span><br><span class="line">                    L += (y_1 - y1)^<span class="number">2</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    L += (y_1 - y2)^<span class="number">2</span></span><br><span class="line">            <span class="keyword">if</span> L &lt; minLoss:</span><br><span class="line">               minLoss = L</span><br><span class="line">               feature  = i</span><br><span class="line">               split = c</span><br><span class="line">    <span class="keyword">return</span> minLoss,feature ,split</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里的目标函数是下式:</p>
+<script type="math/tex; mode=display">min_{j,s}[min_{c_1}\sum_{x_i∈R_1(j,s)}(y_i-c_1)^2+min_{c_2}\sum_{x_i∈R_2(j,s)}(y_i-c_2)^2]</script><h1 id="GBDT如何构建特征？"><a href="#GBDT如何构建特征？" class="headerlink" title="GBDT如何构建特征？"></a>GBDT如何构建特征？</h1><p>其实说gbdt 能够构建特征并非很准确，gbdt 本身是不能产生特征的，但是我们可以利用gbdt去产生特征的组合。在CTR预估中，工业界一般会采用逻辑回归去进行处理,逻辑回归本身是适合处理线性可分的数据，如果我们想让逻辑回归处理非线性的数据，其中一种方式便是组合不同特征，增强逻辑回归对非线性分布的拟合能力。</p>
+<p>长久以来，我们都是通过人工的先验知识或者实验来获得有效的组合特征，但是很多时候，使用人工经验知识来组合特征过于耗费人力，造成了机器学习当中一个很奇特的现象：有多少人工就有多少智能。关键是这样通过人工去组合特征并不一定能够提升模型的效果。所以我们的从业者或者学界一直都有一个趋势便是通过算法自动，高效的寻找到有效的特征组合。Facebook 在2014年 发表的一篇论文便是这种尝试下的产物，利用gbdt去产生有效的特征组合，以便用于逻辑回归的训练，提升模型最终的效果。</p>
+<p><img src="/2019/03/23/GBDT要点/pic2.png" alt="pic2"><br>如图 2所示，我们 使用 GBDT 生成了两棵树，两颗树一共有五个叶子节点。我们将样本 X 输入到两颗树当中去，样本X 落在了第一棵树的第二个叶子节点，第二颗树的第一个叶子节点，于是我们便可以依次构建一个五纬的特征向量，每一个纬度代表了一个叶子节点，样本落在这个叶子节点上面的话那么值为1，没有落在该叶子节点的话，那么值为 0.</p>
+<p>于是对于该样本，我们可以得到一个向量[0,1,0,1,0] 作为该样本的组合特征，和原来的特征一起输入到逻辑回归当中进行训练。实验证明这样会得到比较显著的效果提升。</p>
+<h1 id="GBDT如何用于分类"><a href="#GBDT如何用于分类" class="headerlink" title="GBDT如何用于分类"></a>GBDT如何用于分类</h1><p>首先明确一点，gbdt 无论用于分类还是回归一直都是使用的CART 回归树。不会因为我们所选择的任务是分类任务就选用分类树，这里面的核心是因为gbdt 每轮的训练是在上一轮的训练的残差基础之上进行训练的。这里的残差就是当前模型的负梯度值 。这个要求每轮迭代的时候，弱分类器的输出的结果相减是有意义的。残差相减是有意义的。</p>
+<p>如果选用的弱分类器是分类树，类别相减是没有意义的。上一轮输出的是样本 x 属于 A类，本一轮训练输出的是样本 x 属于 B类。 A 和 B 很多时候甚至都没有比较的意义，A 类- B类是没有意义的。</p>
+<ol>
+<li>我们在训练的时候，是针对样本 X 每个可能的类都训练一个分类回归树。举例说明，目前样本有三类，也就是 K = 3。样本 x 属于 第二类。那么针对该样本 x 的分类结果，其实我们可以用一个 三维向量 [0,1,0] 来表示。0表示样本不属于该类，1表示样本属于该类。由于样本已经属于第二类了，所以第二类对应的向量维度为1，其他位置为0。针对样本有 三类的情况，我们实质上是在每轮的训练的时候是同时训练三颗树。第一颗树针对样本x的第一类，输入为（x,0）（x,0）。第二颗树输入针对 样本x 的第二类，输入为（x,1）（x,1）。第三颗树针对样本x 的第三类，输入为（x，0）</li>
+<li>在这里每颗树的训练过程其实就是就是我们之前已经提到过的CATR TREE 的生成过程。在此处我们参照之前的生成树的程序 即可以就解出三颗树，以及三颗树对x 类别的预测值f1(x),f2(x),f3(x)f1(x),f2(x),f3(x)。那么在此类训练中，我们仿照多分类的逻辑回归 ，使用softmax 来产生概率，则属于类别 1 的概率<script type="math/tex; mode=display">p_1=exp(f_1(x))/\sum_{k=1}^3exp(f_k(x))</script><ol>
+<li>并且我们我们可以针对类别1 求出 残差y_{11}(x)=0−p_1(x);类别2 求出残差y_{22}(x)=1−p_2(x);类别3 求出残差y_{33}(x)=0−p_3(x).<br>然后开始第二轮训练 针对第一类 输入为（x,y_{11}(x)）, 针对第二类输入为（x,y_{22}(x)), 针对 第三类输入为 (x,y_{33}(x)).继续训练出三颗树。一直迭代M轮。每轮构建 3颗树.所以当K =3。我们其实应该有三个式子<script type="math/tex; mode=display">F_{1M}(x)=\sum_{m=1}^M\hat{C}_{1m}I(x∈R_{1m})</script><script type="math/tex; mode=display">F_{2M}(x)=\sum_{m=1}^M\hat{C}_{2m}I(x∈R_{2m})</script><script type="math/tex; mode=display">F_{3M}(x)=\sum_{m=1}^M\hat{C}_{3m}I(x∈R_{3m})</script>其中m表示训练的轮数<br>当训练完毕以后，新来一个样本 x_1 ，我们需要预测该样本的类别的时候，便可以有这三个式子产生三个值，f_1(x),f_2(x),f_3(x)。样本属于 某个类别c的概率为<script type="math/tex; mode=display">Softmax(f_c(x))</script></li>
+</ol>
+</li>
+</ol>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
+<li>决策树中的非叶子结点上是没有参数需要学习的,整个决策树需要学习的是叶子结点上的权重值.<br><img src="/2019/03/23/GBDT要点/pic4.png" alt="pic4"></li>
+<li>决策树的复杂度可以用决策树的结点个数,树的深度,树叶权重的L2范数等来描述.<h1 id="GBDT通过什么方式减少误差？"><a href="#GBDT通过什么方式减少误差？" class="headerlink" title="GBDT通过什么方式减少误差？"></a>GBDT通过什么方式减少误差？</h1>A：每棵树都是在拟合当前模型的预测值和真实值之间的误差，GBDT是通过不断迭代来使得误差见小的过程。</li>
+</ol>
+<h1 id="GBDT的效果相比于传统的LR，SVM效果为什么好一些"><a href="#GBDT的效果相比于传统的LR，SVM效果为什么好一些" class="headerlink" title="GBDT的效果相比于传统的LR，SVM效果为什么好一些"></a>GBDT的效果相比于传统的LR，SVM效果为什么好一些</h1><p>A：GBDT基于树模型，继承了树模型的优点 [对异常点鲁棒、不相关的特征干扰性低（LR需要加正则）、可以很好地处理缺失值、受噪音的干扰小]</p>
+<p>如果有不相关的 feature，没什么干扰，如果数据中有不相关的 feature，顶多这个 feature 不出现在树的节点里。逻辑回归和 SVM 没有这样的天然特性(但是有相应的补救措施，比如逻辑回归里的 L1 正则化)。<br>Decision Tree 可以很好的处理 missing feature，这是他的天然特性，因为决策树的每个节点只依赖一个 feature，如果某个 feature 不存在，这颗树依然可以拿来做决策，只是少一些路径。像逻辑回归，SVM 就没这个好处。<br>Decision Tree 可以很好的处理各种类型的 feature，也是天然特性，很好理解，同样逻辑回归和 SVM 没这样的天然特性。<br>对特征空间的 outlier 有鲁棒性，因为每个节点都是 x &lt; 𝑇 的形式，至于大多少，小多少没有区别，outlier 不会有什么大的影响，同样逻辑回归和 SVM 没有这样的天然特性。<br>数据规模影响不大，因为我们对弱分类器的要求不高，作为弱分类器的决策树的深 度一般设的比较小，即使是大数据量，也可以方便处理。像 SVM 这种数据规模大的时候训练会比较麻烦。</p>
+<p><strong>当然 Decision Tree 也不是毫无缺陷，通常在给定的不带噪音的问题上，他能达到的最佳分类效果还是不如 SVM，逻辑回归之类的。但是，我们实际面对的问题中，往往有很大的噪音，使得 Decision Tree 这个弱势就不那么明显了。而且，GBDT 通过不断的叠加组合多个小的 Decision Tree，他在不带噪音的问题上也能达到很好的分类效果。换句话说，通过GBDT训练组合多个小的 Decision Tree 往往要比一次性训练一个很大的 Decision Tree 的效果好很多。因此不能把 GBDT 理解为一颗大的决策树，几颗小树经过叠加后就不再是颗大树了，它比一颗大树更强。</strong></p>
+<h1 id="GBDT-如何加速训练"><a href="#GBDT-如何加速训练" class="headerlink" title="GBDT 如何加速训练"></a>GBDT 如何加速训练</h1><p>A：小数据集使用True,可以加快训练。是否预排序,预排序可以加速查找最佳分裂点（不确定）.在样本规模上的并行计算。</p>
+<h1 id="GBDT的参数有哪些？"><a href="#GBDT的参数有哪些？" class="headerlink" title="GBDT的参数有哪些？"></a>GBDT的参数有哪些？</h1><p>A：分为三类<br>第一类Miscellaneous Parameters: Other parameters for overall functioning. 没啥用<br>其实主要是前两种参数。<br>第二类：Boosting Parameters: These affect the boosting operation in the model.<br>n_estimators 最大弱学习器的个数，太小欠拟合，太大过拟合<br>learning_rate 学习率，太大过拟合，一般很小0.1，和n_estimators一起调<br>subsample 子采样，防止过拟合，太小欠拟合。<strong>GBDT中是不放回采样</strong><br>第三类：Tree-Specific Parameters: These affect each individual tree in the model.<br>max_features 最大特征数<br>max_depth 最大树深，太大过拟合<br>min_samples_split 内部节点再划分所需最小样本数，越大越防过拟合<br>min_weight_fraction_leaf 叶子节点最小的样本权重和。如果存在较多样本有缺失值，或者分类树样本的分布类别偏差很大，就会引入样本权重，这时我们就要注意这个值了。越大越防过拟合<br>max_leaf_nodes:最大叶子节点数 ，太大过拟合<br>min_impurity_split:节点划分最小不纯度<br>presort:是否对数据进行预分类，以加快拟合中最佳分裂点的发现。默认False，适用于大数据集。小数据集使用True,可以加快训练。是否预排序,预排序可以加速查找最佳分裂点，对于稀疏数据不管用，Bool，auto：非稀疏数据则预排序，若稀疏数据则不预排序</p>
+<h1 id="GBDT如何调参？"><a href="#GBDT如何调参？" class="headerlink" title="GBDT如何调参？"></a>GBDT如何调参？</h1><p>A：以下便是整个寻优的过程，接下来把整个过程整理一下：<br>1、首先使用默认的参数，进行数据拟合；<br>2、从步长(learning rate)和迭代次数(n_estimators)入手；一般来说,开始选择一个较小的步长来网格搜索最好的迭代次数。这里，可以将步长初始值设置为0.1。对于迭代次数进行网格搜索；<br>3、接下来对决策树的参数进行寻优<br>4、首先我们对决策树最大深度max_depth和内部节点再划分所需最小样本数min_samples_split进行网格搜索。【min_samples_split暂时不能一起定下来，因为这个还和决策树其他的参数存在关联】<br>5、接着再对内部节点再划分所需最小样本数min_samples_split和叶子节点最少样本数min_samples_leaf一起调参；做到这里，min_samples_split要做两次网格寻优，一次是树的最大深度max_depth，一次是叶子节点最少样本数min_samples_leaf。<br>【具体观察min_samples_split的值是否落在边界上，如果是可以进一步寻优】<br>6、继续对最大特征数max_features进行网格搜索。做完这一步可以看看寻找出的最优参数组合给出的分类器的效果。<br>7、可以进一步考虑对子采样的比例进行网格搜索，得到subsample的寻优参数<br>8、回归到第2步调整设定的步长(learning rate)和迭代次数(n_estimators)，注意两者的乘积保持不变，这里可以分析得到：通过减小步长可以提高泛化能力，但是步长设定过小，也会导致拟合效果反而变差，也就是说，步长不能设置的过小。</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/GBDT/" rel="tag"># GBDT</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/22/葫芦娃的葫芦书刷题（四)/" rel="next" title="葫芦娃的葫芦书刷题(四)">
+                <i class="fa fa-chevron-left"></i> 葫芦娃的葫芦书刷题(四)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/23/Random_Forest/" rel="prev" title="Random Forest">
+                Random Forest <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT算法流程"><span class="nav-number">1.</span> <span class="nav-text">GBDT算法流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT如何选择特征"><span class="nav-number">2.</span> <span class="nav-text">GBDT如何选择特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT如何构建特征？"><span class="nav-number">3.</span> <span class="nav-text">GBDT如何构建特征？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT如何用于分类"><span class="nav-number">4.</span> <span class="nav-text">GBDT如何用于分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">4.1.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT通过什么方式减少误差？"><span class="nav-number">5.</span> <span class="nav-text">GBDT通过什么方式减少误差？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT的效果相比于传统的LR，SVM效果为什么好一些"><span class="nav-number">6.</span> <span class="nav-text">GBDT的效果相比于传统的LR，SVM效果为什么好一些</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT-如何加速训练"><span class="nav-number">7.</span> <span class="nav-text">GBDT 如何加速训练</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT的参数有哪些？"><span class="nav-number">8.</span> <span class="nav-text">GBDT的参数有哪些？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT如何调参？"><span class="nav-number">9.</span> <span class="nav-text">GBDT如何调参？</span></a></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

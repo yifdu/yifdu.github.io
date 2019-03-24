@@ -109,7 +109,7 @@
 <meta property="og:description" content="GB、GBDT、XGBoost之间紧密相关,GBDT是以决策树CART为基学习器的GB算法,XGBoost扩展和改进了GDBT. Gradient boosting(GB)机器学习的学习算法的目标就是优化或者最小化loss function,Gradient boosting的思想是迭代多个(M个)弱的模型,然后将每个弱模型相加,后面的模型$F_{m+1}$(x)基于前面学习模型的$F_m(x)$">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20180508/9ef3f8c3303d46cbb41bdf07a4618b33.jpeg">
-<meta property="og:updated_time" content="2019-03-08T08:49:44.306Z">
+<meta property="og:updated_time" content="2019-03-19T12:39:07.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大杀器XGBoost">
 <meta name="twitter:description" content="GB、GBDT、XGBoost之间紧密相关,GBDT是以决策树CART为基学习器的GB算法,XGBoost扩展和改进了GDBT. Gradient boosting(GB)机器学习的学习算法的目标就是优化或者最小化loss function,Gradient boosting的思想是迭代多个(M个)弱的模型,然后将每个弱模型相加,后面的模型$F_{m+1}$(x)基于前面学习模型的$F_m(x)$">
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.3k 字
+                  3.1k 字
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9 分钟
+                  12 分钟
                 </span>
               
             </div>
@@ -445,7 +445,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="http://5b0988e595225.cdn.sohucs.com/images/20180508/9ef3f8c3303d46cbb41bdf07a4618b33.jpeg" rel="gallery_cjt5ds5s1007bh4waw7k2nnn1" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="http://5b0988e595225.cdn.sohucs.com/images/20180508/9ef3f8c3303d46cbb41bdf07a4618b33.jpeg" rel="gallery_cjtm9i19i007s58wautpljq16" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://5b0988e595225.cdn.sohucs.com/images/20180508/9ef3f8c3303d46cbb41bdf07a4618b33.jpeg" itemprop="contentUrl">
               </a>
             
@@ -467,7 +467,7 @@
 </li>
 </ol>
 <ul>
-<li>计算伪残差<script type="math/tex; mode=display">r_{im}=-[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_ {F(x)=F_{m-1}(x)}</script></li>
+<li>计算伪残差(用负梯度来近似残差,负梯度一般认为是loss下降最快的方向)<script type="math/tex; mode=display">r_{im}=-[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_ {F(x)=F_{m-1}(x)}</script></li>
 <li>基于$\{(x_i,r_{im})\}_{i=1}^n$生成基学习器$h_m(x)$</li>
 <li>计算最优的$\gamma_m$<script type="math/tex; mode=display">\gamma_m=argmin_{\gamma}\sum_{i=1}^nL(y_i,F_{m-1}(x_i)+\gamma h_m(x_i))</script></li>
 <li>更新模型<script type="math/tex; mode=display">F_{m}(x)=F_{m-1}(x)+\gamma_m h_m(x)</script></li>
@@ -510,8 +510,30 @@
 <script type="math/tex; mode=display">L^* =-\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{H_j+\lambda}+\gamma T</script><p>其中$\frac{G_j^2}{H_j+\lambda}$测量了该结构的好坏.<br>$\frac{G_j^2}{H_j+\lambda}$该值越大,$L^* $就越小,说明结构越好.因此我们就可以用$\frac{G_j^2}{H_j+\lambda}$来确定每个结点的分割点.<br>采用的是树的贪婪学习：</p>
 </li>
 <li>从深度为0开始</li>
-<li>对于树的每个左结点,尝试去添加一个分割点.我们希望分割点能使下面的函数越大越好<script type="math/tex; mode=display">Gain=\frac{1}{2}[\frac{G_L^2}{H_L+\lambda}+\frac{G_R^2}{H_R+\lambda}-\frac{(G_L+G_R)^2}{H_L+H_R+\lambda}]-\gamma</script>第一项是左子树的分数,第二项是右子树的分数,第三项是如果我们不分割得到的分数</li>
+<li>对于树的每个左结点,尝试去添加一个分割点.我们希望分割点能使下面的函数越大越好<script type="math/tex; mode=display">Gain=\frac{1}{2}[\frac{G_L^2}{H_L+\lambda}+\frac{G_R^2}{H_R+\lambda}-\frac{(G_L+G_R)^2}{H_L+H_R+\lambda}]-\gamma</script>第一项是左子树的分数,第二项是右子树的分数,第三项是如果我们不分割得到的分数<br><strong>这里需要找到一个分割点能使增益最大化,一般的方法有精确法和近似法</strong></li>
+<li>精确法<br>遍历所有特征及其候选分裂点,找出使其增益最大的最佳特征与最佳分割点.具体地,将样本按照当前特征上地取值排序,遍历样本同时改变$G_L,G_R,H_L,H_R$的值</li>
+<li>近似法<br>对于每个特征,只考虑分位点,减少计算复杂度.近似法可以有两种做法:1.在训练整棵树前,提前为每个特征选择分位点,其二是在每个结点的分裂时,重新提出每个特征的候选切分点.</li>
 </ol>
+<h2 id="与传统GBDT相比-XGBoost有何不同"><a href="#与传统GBDT相比-XGBoost有何不同" class="headerlink" title="与传统GBDT相比,XGBoost有何不同"></a>与传统GBDT相比,XGBoost有何不同</h2><ol>
+<li>基函数不同:GBDT只用CART树,而XGBoost除了CART也支持线性函数</li>
+<li>目标不同:具体体现在结点分裂策略与正则化.GBDT和XGBoost都是根据目标增益分割结点,GBDT根据均方误差(回归)或基尼指数(分类),XGBoost则进一步引入正则项</li>
+<li>正则化不同.XGboost定义正则化,包含了对叶子结点数的约束以及叶子输出权值的L2范数,有利于防止过拟合</li>
+<li>利用导数阶数不同,XGBoost用到了一阶和二阶导数</li>
+<li>最佳特征选择策略不同:GBDT遍历所有特征,而XGBoost有引入类似于RandomForest的列(特征)子采样,有利于防止过拟合与加速运算。</li>
+<li>候选分裂点选取策略不同:GBDT遍历特征所有值,XGBoost有两种做法,其一是遍历,其二是根据二阶导数选择样本分位点作为候补,类似于直方图算法<br>XGBoost为什么那么快</li>
+<li>预排序实现特征粒度的并行</li>
+<li>近似法避免遍历分裂所有点,只尝试分位点<br>XGBoost如何防止过拟合的？</li>
+<li>控制模型复杂度:正则化和最大深度</li>
+<li>该模型增加随机性:行列采样、学习率shrinkage</li>
+</ol>
+<p>XGBoost怎么处理类别不均?</p>
+<ol>
+<li>若只关注预测的排序表现,可以用AUC作metric,然后用scale_pos_weight调整正负样本权重</li>
+<li>若关注预测概率的准确性,最好改变权重,可以改变max_delta_step(调成正数)来加速收敛.</li>
+</ol>
+<p>XGBoost构建树的时候是level-wise还是leaf-wise?<br>贪心法默认是level-wise，逐层分裂.若选用直方图算法,可以通过grow_policy选择depthwise或者lossguid,前者有限分裂距离根最近的叶结点,实际上近似于level-wise,后者优先分裂loss减少量最多的结点</p>
+<p>XGBoost如何实现多分类?<br>对于K分类,每一轮迭代训练K棵树,用softmax代入各树的输出以表示样本属于各类的概率</p>
+<p>XGBoost怎么处理ID类特征?<br>XGBoost并不直接支持ID类,如果输入ID类是数值型,会直接被当成具有大小关系的数值特征处理</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>XGBoost算法的步骤和GB基本相同,都是首先初始化一个常数,GB是根据一阶导数$r_i$,XGBoost是根据一阶导数$g_i$和二阶导数$h_i$,迭代生成基学习器,相加更新学习器.(同时还引入了正则化项)<br>XGBoost还做了许多优化：</p>
 <ul>
 <li><p>最寻找最优分割点时,传统的枚举方法效率太低,XGBoost实现了一种近似的算法.大致思想是根据百分位数列举可能成为分割点的候选者,然后从候选者中根据上面求分割点的公式计算处最佳分割点</p>
@@ -526,6 +548,7 @@
 <h2 id="GBDT与深度学习"><a href="#GBDT与深度学习" class="headerlink" title="GBDT与深度学习"></a>GBDT与深度学习</h2><p>XGBoost和深度学习的关系,陈天奇在Quora上解答如下:<br>不同的机器学习模型使用不同类型的任务.深度神经网络通过对时空位置建模,能够很好的捕获图像、语言、文本等高维数据.而基于树模型的XGBoost则能很好地处理表格数据,同时还拥有一些深度神经网络没有的特性(如模型的可解释性、输入数据的不变性、更易于调参).<br>两类模型都很重要,并广泛用于数据竞赛和工业界.</p>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
 <li><a href="https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf" target="_blank" rel="noopener">https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf</a></li>
+<li><a href="https://blog.csdn.net/songbinxu/article/details/79452547#22_GBDT_237" target="_blank" rel="noopener">https://blog.csdn.net/songbinxu/article/details/79452547#22_GBDT_237</a></li>
 </ol>
 
       
@@ -662,7 +685,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">108</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -673,7 +696,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -684,7 +707,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -733,7 +756,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradient-boosting-GB"><span class="nav-number">1.</span> <span class="nav-text">Gradient boosting(GB)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradient-boosting-Decision-Tree"><span class="nav-number">2.</span> <span class="nav-text">Gradient boosting Decision Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾CART"><span class="nav-number">2.1.</span> <span class="nav-text">回顾CART</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回到GBDT"><span class="nav-number">2.2.</span> <span class="nav-text">回到GBDT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#终于到了XGBoost"><span class="nav-number">3.</span> <span class="nav-text">终于到了XGBoost</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GBDT与深度学习"><span class="nav-number">3.2.</span> <span class="nav-text">GBDT与深度学习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradient-boosting-GB"><span class="nav-number">1.</span> <span class="nav-text">Gradient boosting(GB)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradient-boosting-Decision-Tree"><span class="nav-number">2.</span> <span class="nav-text">Gradient boosting Decision Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾CART"><span class="nav-number">2.1.</span> <span class="nav-text">回顾CART</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回到GBDT"><span class="nav-number">2.2.</span> <span class="nav-text">回到GBDT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#终于到了XGBoost"><span class="nav-number">3.</span> <span class="nav-text">终于到了XGBoost</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#与传统GBDT相比-XGBoost有何不同"><span class="nav-number">3.1.</span> <span class="nav-text">与传统GBDT相比,XGBoost有何不同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GBDT与深度学习"><span class="nav-number">3.3.</span> <span class="nav-text">GBDT与深度学习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
 			
