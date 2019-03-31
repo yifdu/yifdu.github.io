@@ -100,19 +100,19 @@
 
 
 
-<meta name="description" content="逻辑回归算法梳理逻辑回归与线性回归的联系与区别区别:  逻辑回归解决的是分类问题,线性回归解决的是回归问题 逻辑回归的因变量是离散值,线性回归的因变量是连续值(屁话) 逻辑回归的因变量假设是服从伯努利分布的,而线性回归的因变量假设是服从正态分布的. 逻辑回归的损失函数采用的是最大似然,或者交叉熵,线性回归则会采用均方误差等方法(凑数的)联系: 逻辑回归是一种广义的线性回归,逻辑回归相当于对因变量p">
+<meta name="description" content="逻辑回归算法梳理机器学习（二）———逻辑回归 逻辑回归与线性回归的联系与区别区别:  逻辑回归解决的是分类问题,线性回归解决的是回归问题 逻辑回归的因变量是离散值,线性回归的因变量是连续值(屁话) 逻辑回归的因变量假设是服从伯努利分布的,而线性回归的因变量假设是服从正态分布的. 逻辑回归的损失函数采用的是最大似然,或者交叉熵,线性回归则会采用均方误差等方法(凑数的)联系: 逻辑回归是一种广义的线性">
 <meta name="keywords" content="Datawhale">
 <meta property="og:type" content="article">
 <meta property="og:title" content="初级算法梳理（二）">
 <meta property="og:url" content="http://yifdu.github.io/2019/03/31/初级算法梳理（二）/index.html">
 <meta property="og:site_name" content="深度菜鸟">
-<meta property="og:description" content="逻辑回归算法梳理逻辑回归与线性回归的联系与区别区别:  逻辑回归解决的是分类问题,线性回归解决的是回归问题 逻辑回归的因变量是离散值,线性回归的因变量是连续值(屁话) 逻辑回归的因变量假设是服从伯努利分布的,而线性回归的因变量假设是服从正态分布的. 逻辑回归的损失函数采用的是最大似然,或者交叉熵,线性回归则会采用均方误差等方法(凑数的)联系: 逻辑回归是一种广义的线性回归,逻辑回归相当于对因变量p">
+<meta property="og:description" content="逻辑回归算法梳理机器学习（二）———逻辑回归 逻辑回归与线性回归的联系与区别区别:  逻辑回归解决的是分类问题,线性回归解决的是回归问题 逻辑回归的因变量是离散值,线性回归的因变量是连续值(屁话) 逻辑回归的因变量假设是服从伯努利分布的,而线性回归的因变量假设是服从正态分布的. 逻辑回归的损失函数采用的是最大似然,或者交叉熵,线性回归则会采用均方误差等方法(凑数的)联系: 逻辑回归是一种广义的线性">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554045686955&di=3902632ed0baa03157b44e054fb39079&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fq_70%2Cc_zoom%2Cw_640%2Fupload%2F20170518%2F9ca072c9878641c293e1e0035d700a41_th.jpg">
-<meta property="og:updated_time" content="2019-03-31T15:55:37.323Z">
+<meta property="og:updated_time" content="2019-03-31T16:04:32.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初级算法梳理（二）">
-<meta name="twitter:description" content="逻辑回归算法梳理逻辑回归与线性回归的联系与区别区别:  逻辑回归解决的是分类问题,线性回归解决的是回归问题 逻辑回归的因变量是离散值,线性回归的因变量是连续值(屁话) 逻辑回归的因变量假设是服从伯努利分布的,而线性回归的因变量假设是服从正态分布的. 逻辑回归的损失函数采用的是最大似然,或者交叉熵,线性回归则会采用均方误差等方法(凑数的)联系: 逻辑回归是一种广义的线性回归,逻辑回归相当于对因变量p">
+<meta name="twitter:description" content="逻辑回归算法梳理机器学习（二）———逻辑回归 逻辑回归与线性回归的联系与区别区别:  逻辑回归解决的是分类问题,线性回归解决的是回归问题 逻辑回归的因变量是离散值,线性回归的因变量是连续值(屁话) 逻辑回归的因变量假设是服从伯努利分布的,而线性回归的因变量假设是服从正态分布的. 逻辑回归的损失函数采用的是最大似然,或者交叉熵,线性回归则会采用均方误差等方法(凑数的)联系: 逻辑回归是一种广义的线性">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554045686955&di=3902632ed0baa03157b44e054fb39079&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fq_70%2Cc_zoom%2Cw_640%2Fupload%2F20170518%2F9ca072c9878641c293e1e0035d700a41_th.jpg">
 
 
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4.2k 字
+                  4.6k 字
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  15 分钟
+                  17 分钟
                 </span>
               
             </div>
@@ -457,7 +457,8 @@
       
 
       
-        <h1 id="逻辑回归算法梳理"><a href="#逻辑回归算法梳理" class="headerlink" title="逻辑回归算法梳理"></a>逻辑回归算法梳理</h1><h2 id="逻辑回归与线性回归的联系与区别"><a href="#逻辑回归与线性回归的联系与区别" class="headerlink" title="逻辑回归与线性回归的联系与区别"></a>逻辑回归与线性回归的联系与区别</h2><p>区别:</p>
+        <h1 id="逻辑回归算法梳理"><a href="#逻辑回归算法梳理" class="headerlink" title="逻辑回归算法梳理"></a>逻辑回归算法梳理</h1><p><a href="https://yifdu.github.io/2018/11/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E2%80%94%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">机器学习（二）———逻辑回归</a></p>
+<h2 id="逻辑回归与线性回归的联系与区别"><a href="#逻辑回归与线性回归的联系与区别" class="headerlink" title="逻辑回归与线性回归的联系与区别"></a>逻辑回归与线性回归的联系与区别</h2><p>区别:</p>
 <ol>
 <li>逻辑回归解决的是分类问题,线性回归解决的是回归问题</li>
 <li>逻辑回归的因变量是离散值,线性回归的因变量是连续值(屁话)</li>
@@ -481,6 +482,31 @@
 -log(h_{\theta}(x)) \ \ \ if\ \ y=1\\
 -log(1-h_{\theta}(x)) \ \ \ if \ \ y=0\\
 \end{cases}</script><p>可以画张图看看,这两个都是凸函数.<br>所以不采用均方误差的形式.</p>
+<h3 id="逻辑回归的工程应用经验"><a href="#逻辑回归的工程应用经验" class="headerlink" title="逻辑回归的工程应用经验"></a>逻辑回归的工程应用经验</h3><h2 id="参考-https-www-jianshu-com-p-821194a77d22"><a href="#参考-https-www-jianshu-com-p-821194a77d22" class="headerlink" title="参考:https://www.jianshu.com/p/821194a77d22"></a>参考:<a href="https://www.jianshu.com/p/821194a77d22" target="_blank" rel="noopener">https://www.jianshu.com/p/821194a77d22</a></h2><p>样本处理</p>
+<ul>
+<li>样本太大怎么处理</li>
+</ul>
+<ol>
+<li>对特征离散化，离散化后用one-hot编码处理成0,1值，再用LR处理会较快收敛</li>
+<li>如果一定要用连续值的话，可以做scaling</li>
+<li>工具的话有spark Mllib，它损失了一小部分的准确度达到速度的提升</li>
+<li>如果没有并行化平台，想做大数据就试试采样。需要注意采样数据，最好不要随机取，可以按照日期/用户/行为，来分层抽样</li>
+</ol>
+<ul>
+<li>怎样使样本不平衡</li>
+</ul>
+<ol>
+<li>如果样本不均衡，样本充足的情况下可以做“下采样”—-抽样，样本不足的情况下 做“上采样”—-对样本少的做重复</li>
+<li>修改损失函数，给不同权重。比如负样本少，就可以给负样本大一点的权重</li>
+<li>采样后的predict结果，用作判定请还原</li>
+</ol>
+<p>关于特征处理</p>
+<ol>
+<li>离散化优点：映射到高维空间，用linear的LR(快，且兼具更好的分割性)；稀疏化，0,1向量内积乘法运算速度快，计算结果方便存储，容易扩展；离散化后，给线性模型带来一定的非线性；模型稳定，收敛度高，鲁棒性好；在一定程度上降低了过拟合风险</li>
+<li>通过组合特征引入个性化因素：比如uuid+tag</li>
+<li>注意特征的频度： 区分特征重要度，可以用重要特征产出层次判定模型</li>
+</ol>
+<hr>
 <h2 id="正则化与模型评估指标"><a href="#正则化与模型评估指标" class="headerlink" title="正则化与模型评估指标"></a>正则化与模型评估指标</h2><h3 id="正则化项"><a href="#正则化项" class="headerlink" title="正则化项"></a>正则化项</h3><p>正则化项其实也蛮有意思,在判别模型中正则化项被认为是一种对权重的约束,或者说是避免权值过大或是过于复杂化.但是在生成模型中,正则化项会被认为是一种模型的先验信息(或者说是参数的先验分布).<br>这里涉及贝叶斯线性回归的问题就不细讲了(建议看PRML).<br>回到正则化项来讲,常见的有L1和L2正则化.L0正则化也有,相当于限制了参数的个数,但是这类条件属于NP-hard问题,求解比较困难.<br>L1与L2解的稀疏性问题:<br><img src="/2019/03/31/初级算法梳理（二）/pic2.png" alt="pic2"><br>这是经常能看到的一张图,一般不画图感觉很难解释清楚.这里的线都是等高线.假设L1/L2的值不变,我们会发现这个经验风险(绿色圈)与L1的交点更倾向于坐标轴,而经验风险(绿色圈)与L2的交点会倾向于中间,并且尽管两张图交点的位置不同,但它们的求和的结构风险值是一样.所以,我们可以解释,当结构风险值一样的时候,L1更倾向于稀疏(即靠近坐标轴上).而我们说L2更加平滑.</p>
 <p>之前,看到群里提问,有说到过拟合的问题(训练效果佳,测试集下效果不佳),谈谈我的看法:<br>过拟合总的来说就是模型表达不充分的原因,现在常用的深度学习采用的是自动学习数据中的特征,所以一旦出现了模型在训练集中充分表达,而在测试集中表达不足的情况,大家想到的就是增加数据,让测试集中的一些数据特征也能被学习得到,这导致数据越来越多.实际上解决这种问题,不能并不能一上来就搞数据,毕竟在实际应用中数据是很难搞到的.还是要先从数据开始分析,分析我们的训练集数据和测试集数据,看看需不需要一些约束条件,像前面说的在贝叶斯线性回归中就是会假设参数的先验分布为高斯分布等.如果能用正则项解决就用正则项(一般人都是正则项解决不了了才会考虑加数据),如果不能可以考虑一下集成学习bagging的方法.如果还不行可以从模型的角度出发,看看是不是模型上有没有需要改进的.如果最后实在没办法,我们再考虑加数据.</p>
 <h3 id="模型评估指标"><a href="#模型评估指标" class="headerlink" title="模型评估指标"></a>模型评估指标</h3><p>逻辑回归是一种分类问题,最常见的就是要计算混淆矩阵<br>混淆矩阵:<br><img src="/2019/03/31/初级算法梳理（二）/pic3.png" alt="pic3"><br>这个东西也常在Topk问题,目标检测问题中出现,谨记！！</p>
@@ -734,7 +760,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归算法梳理"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归算法梳理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归与线性回归的联系与区别"><span class="nav-number">1.1.</span> <span class="nav-text">逻辑回归与线性回归的联系与区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归的原理"><span class="nav-number">1.2.</span> <span class="nav-text">逻辑回归的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归损失函数推导及优化"><span class="nav-number">1.3.</span> <span class="nav-text">逻辑回归损失函数推导及优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化与模型评估指标"><span class="nav-number">1.4.</span> <span class="nav-text">正则化与模型评估指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化项"><span class="nav-number">1.4.1.</span> <span class="nav-text">正则化项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型评估指标"><span class="nav-number">1.4.2.</span> <span class="nav-text">模型评估指标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归的优缺点"><span class="nav-number">1.5.</span> <span class="nav-text">逻辑回归的优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样本不均衡问题解决办法"><span class="nav-number">1.6.</span> <span class="nav-text">样本不均衡问题解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sklearn参数"><span class="nav-number">1.7.</span> <span class="nav-text">sklearn参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">2.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归算法梳理"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归算法梳理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归与线性回归的联系与区别"><span class="nav-number">1.1.</span> <span class="nav-text">逻辑回归与线性回归的联系与区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归的原理"><span class="nav-number">1.2.</span> <span class="nav-text">逻辑回归的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归损失函数推导及优化"><span class="nav-number">1.3.</span> <span class="nav-text">逻辑回归损失函数推导及优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归的工程应用经验"><span class="nav-number">1.3.1.</span> <span class="nav-text">逻辑回归的工程应用经验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-https-www-jianshu-com-p-821194a77d22"><span class="nav-number">1.4.</span> <span class="nav-text">参考:https://www.jianshu.com/p/821194a77d22</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化与模型评估指标"><span class="nav-number">1.5.</span> <span class="nav-text">正则化与模型评估指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化项"><span class="nav-number">1.5.1.</span> <span class="nav-text">正则化项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型评估指标"><span class="nav-number">1.5.2.</span> <span class="nav-text">模型评估指标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归的优缺点"><span class="nav-number">1.6.</span> <span class="nav-text">逻辑回归的优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样本不均衡问题解决办法"><span class="nav-number">1.7.</span> <span class="nav-text">样本不均衡问题解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sklearn参数"><span class="nav-number">1.8.</span> <span class="nav-text">sklearn参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">2.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
 			
