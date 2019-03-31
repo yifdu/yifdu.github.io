@@ -109,7 +109,7 @@
 <meta property="og:description" content="决策树模型的简介分类决策树模型是一种描述对实例进行分类的树形结构。我们可以理解这种树形结构是符合if-then的规则，也可以认为是定义在特征空间与类空间上的条件概率分布。我们希望我们构建的树结构的泛化能力尽可能强。在学习时，我们利用训练数据，根据损失函数最小化的原则建立决策树模型。预测时，对新数据利用决策树模型进行分类。   决策树学习通常包括三个步骤：1.特征选择 2.决策树的生成和 3. 决策">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543933865494&di=e9d60d4c2a0d74d7e1ed89ba0604c036&imgtype=0&src=http%3A%2F%2Faliyunzixunbucket.oss-cn-beijing.aliyuncs.com%2Fjpg%2Fcc6710868e2d886eb30524dd9450ed38.jpg%3Fx-oss-process%3Dimage%2Fresize%2Cp_100%2Fauto-orient%2C1%2Fquality%2Cq_90%2Fformat%2Cjpg%2Fwatermark%2Cimage_eXVuY2VzaGk%3D%2Ct_100">
-<meta property="og:updated_time" content="2019-03-09T09:43:03.545Z">
+<meta property="og:updated_time" content="2019-03-29T09:12:24.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（三）——决策树">
 <meta name="twitter:description" content="决策树模型的简介分类决策树模型是一种描述对实例进行分类的树形结构。我们可以理解这种树形结构是符合if-then的规则，也可以认为是定义在特征空间与类空间上的条件概率分布。我们希望我们构建的树结构的泛化能力尽可能强。在学习时，我们利用训练数据，根据损失函数最小化的原则建立决策树模型。预测时，对新数据利用决策树模型进行分类。   决策树学习通常包括三个步骤：1.特征选择 2.决策树的生成和 3. 决策">
@@ -445,7 +445,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543933865494&di=e9d60d4c2a0d74d7e1ed89ba0604c036&imgtype=0&src=http%3A%2F%2Faliyunzixunbucket.oss-cn-beijing.aliyuncs.com%2Fjpg%2Fcc6710868e2d886eb30524dd9450ed38.jpg%3Fx-oss-process%3Dimage%2Fresize%2Cp_100%2Fauto-orient%2C1%2Fquality%2Cq_90%2Fformat%2Cjpg%2Fwatermark%2Cimage_eXVuY2VzaGk%3D%2Ct_100" rel="gallery_cjtsk012o00f1zswa2p7drws5" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543933865494&di=e9d60d4c2a0d74d7e1ed89ba0604c036&imgtype=0&src=http%3A%2F%2Faliyunzixunbucket.oss-cn-beijing.aliyuncs.com%2Fjpg%2Fcc6710868e2d886eb30524dd9450ed38.jpg%3Fx-oss-process%3Dimage%2Fresize%2Cp_100%2Fauto-orient%2C1%2Fquality%2Cq_90%2Fformat%2Cjpg%2Fwatermark%2Cimage_eXVuY2VzaGk%3D%2Ct_100" rel="gallery_cjtx3x2kt00f9m8wardrz7a56" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543933865494&di=e9d60d4c2a0d74d7e1ed89ba0604c036&imgtype=0&src=http%3A%2F%2Faliyunzixunbucket.oss-cn-beijing.aliyuncs.com%2Fjpg%2Fcc6710868e2d886eb30524dd9450ed38.jpg%3Fx-oss-process%3Dimage%2Fresize%2Cp_100%2Fauto-orient%2C1%2Fquality%2Cq_90%2Fformat%2Cjpg%2Fwatermark%2Cimage_eXVuY2VzaGk%3D%2Ct_100" itemprop="contentUrl">
               </a>
             
@@ -460,7 +460,7 @@
         <h1 id="决策树模型的简介"><a href="#决策树模型的简介" class="headerlink" title="决策树模型的简介"></a>决策树模型的简介</h1><p>分类决策树模型是一种描述对实例进行分类的树形结构。我们可以理解这种树形结构是符合if-then的规则，也可以认为是定义在特征空间与类空间上的条件概率分布。我们希望我们构建的树结构的泛化能力尽可能强。在学习时，我们利用训练数据，根据损失函数最小化的原则建立决策树模型。预测时，对新数据利用决策树模型进行分类。</p>
 <p>  决策树学习通常包括三个步骤：1.特征选择 2.决策树的生成和 3. 决策树的修剪。</p>
 <p>  决策树的模型有许多种，主要的区别就是信息增益的计算函数不同。</p>
-<h1 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h1><p>特征选择在于选取对训练数据具有分类能力的特征。这样可以提高决策树学习的效率。如果利用一个特征进行分类的结果与随即分类的结果没有很大擦汗别，则称这个特征是没有分类能力的。经验上扔掉这样的特征对决策树学习的精度影响不大。通常特征选择的准则是信息增益或信息增益比。<br>我们进行特征选择是希望决定用哪个特征来划分特征空间。<br>直观熵，如果一个特征具有更好的分类能力，或者说，按照这一特征将训练数据集分割成子集，使得各个子集在当前条件下具有最好的分类，那么就更应该选择这个特征。信息增益(information gain)就能够很好地表示这一直观地准测。</p>
+<h1 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h1><p>特征选择在于选取对训练数据具有分类能力的特征。这样可以提高决策树学习的效率。如果利用一个特征进行分类的结果与随即分类的结果没有很大差别，则称这个特征是没有分类能力的。经验上扔掉这样的特征对决策树学习的精度影响不大。通常特征选择的准则是信息增益或信息增益比。<br>我们进行特征选择是希望决定用哪个特征来划分特征空间。<br>直观熵，如果一个特征具有更好的分类能力，或者说，按照这一特征将训练数据集分割成子集，使得各个子集在当前条件下具有最好的分类，那么就更应该选择这个特征。信息增益(information gain)就能够很好地表示这一直观地准测。</p>
 <p>这里会用到的信息论知识：</p>
 <ul>
 <li>1.信息熵(information entropy)</li>
@@ -556,7 +556,7 @@
 <li>7 计算复杂度不高，输出结果易于理解，数据有缺失也能跑，可以处理不相关特征。<br>缺点:</li>
 <li>1 容易过拟合。</li>
 <li>2 对于那些各类别样本数量不一致的数据，在决策树当中信息增益的结果偏向于那些具有更多数值的特征。</li>
-<li>3.模型不稳定,数据微小变化都有可能造成完全不同的树生成.</li>
+<li>3.模型不稳定,数据微小变化都有可能造成完全不同的树生成.(?????)</li>
 </ul>
 <p>增量学习——有些决策树学习算法可进行”增量学习”,即在接收到新样本后可对已学得的模型进行调整,而不需要完全重新学习。增量学习可有效地降低每次接收到新样本后的训练时间开销,但多步增量学习后的模型会与基于全部数据训练而得的模型有较大差别。</p>
 
@@ -583,7 +583,7 @@
   <p><span>本文标题:</span><a href="/2018/12/04/机器学习（三）——决策树/">机器学习（三）——决策树</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年12月04日 - 19:12</p>
-  <p><span>最后更新:</span>2019年03月09日 - 17:03</p>
+  <p><span>最后更新:</span>2019年03月29日 - 17:03</p>
   <p><span>原始链接:</span><a href="/2018/12/04/机器学习（三）——决策树/" title="机器学习（三）——决策树">http://yifdu.github.io/2018/12/04/机器学习（三）——决策树/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/04/机器学习（三）——决策树/" aria-label="复制成功！"></i></span>
   </p>
@@ -723,7 +723,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">116</span>
+                  <span class="site-state-item-count">120</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
