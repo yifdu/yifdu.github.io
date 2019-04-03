@@ -109,7 +109,7 @@
 <meta property="og:description" content="K-means 与KNN尽管K-means与KNN都是K字辈的算法，但这两个算法是完全不同的。KNN为监督学习中的一种分类算法，K-means为非监督学习中的聚类算法。 两者相同之处是均利用近邻信息来标注类别。但本质上还是有巨大的差别的。 引言在实际工作中，我们常会遇到这样一类问题:给机器输入大量的特征数据，并期望机器通过学习找到数据中存在的某种共性特征或者结构，亦或是数据之间存在的某种关联。例如">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545983636136&di=8ca9a349868979fdb323c5b103771558&imgtype=0&src=http%3A%2F%2Fimg2018.cnblogs.com%2Fblog%2F1484620%2F201810%2F1484620-20181011141245778-1002518076.png">
-<meta property="og:updated_time" content="2019-03-09T08:48:32.718Z">
+<meta property="og:updated_time" content="2019-04-01T17:02:36.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（五）——K-means">
 <meta name="twitter:description" content="K-means 与KNN尽管K-means与KNN都是K字辈的算法，但这两个算法是完全不同的。KNN为监督学习中的一种分类算法，K-means为非监督学习中的聚类算法。 两者相同之处是均利用近邻信息来标注类别。但本质上还是有巨大的差别的。 引言在实际工作中，我们常会遇到这样一类问题:给机器输入大量的特征数据，并期望机器通过学习找到数据中存在的某种共性特征或者结构，亦或是数据之间存在的某种关联。例如">
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.2k 字
+                  2.6k 字
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8 分钟
+                  9 分钟
                 </span>
               
             </div>
@@ -445,7 +445,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545983636136&di=8ca9a349868979fdb323c5b103771558&imgtype=0&src=http%3A%2F%2Fimg2018.cnblogs.com%2Fblog%2F1484620%2F201810%2F1484620-20181011141245778-1002518076.png" rel="gallery_cjtx3x0iz004qm8wavpjt68x9" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545983636136&di=8ca9a349868979fdb323c5b103771558&imgtype=0&src=http%3A%2F%2Fimg2018.cnblogs.com%2Fblog%2F1484620%2F201810%2F1484620-20181011141245778-1002518076.png" rel="gallery_cju19hyh6009zn4wa370xex2y" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545983636136&di=8ca9a349868979fdb323c5b103771558&imgtype=0&src=http%3A%2F%2Fimg2018.cnblogs.com%2Fblog%2F1484620%2F201810%2F1484620-20181011141245778-1002518076.png" itemprop="contentUrl">
               </a>
             
@@ -485,6 +485,12 @@
 <p>K-means++的思路：<br>假设已经选取了n个初始聚类中心(0＜n＜K),则在选取第n+1个聚类中心时，距离当前n个聚类中心越远的点会有更高的概率被选为第n+1个聚类中心。在选取第1个聚类中心(n=1)时同样通过随机的方法，可以说这也符合我们的直觉，聚类中心当然是互相离得越远越好。当选择完初始点后，K-means++后续的执行和经典K-means算法相同。</p>
 <h1 id="ISODATA算法"><a href="#ISODATA算法" class="headerlink" title="ISODATA算法"></a>ISODATA算法</h1><p>当K值大小不确定时，可以使用ISODATA算法，ISODATA算法的全称是迭代自组织数据分析法。在K-means算法中，聚类个数K的值需要预先人为确定;并且在整个算法过程中无法更改。而当遇到高纬度、海量的数据集时，人们往往很难准确地估计出K的大小。ISODATA算法就是针对这个问题进行改进的，它的思想也很直观。当属于某个类别的样本数过少时，把该类别去除;当属于某个类别的样本数过多、分散程度较大时，把该类别分为两个子类别。ISODATA算法在K均值算法的基础之上增加了两个操作，一是分裂操作，对应着增加聚类中心数;二是合并操作，对应着减少聚类中心数。ISODATA算法是一个比较常见的算法，其缺点是需要指定的参数比较多，不仅仅需要一个参考的聚类数量$K_0$,还需要制定3个阈值。下面介绍ISODATA算法的各个输入参数。</p>
 <p>下面介绍ISODATA算法的各个输入参数<br>(1)预期的聚类中心个数$K_0$.在ISODATA运行过程中聚类中心可以变化，$K_0$是一个用户指定的参考值，该算法的聚类中心数目变动范围也由其决定。具体地，最终输出的聚类中心数目常见范围是从$K_0$的一半，到两倍$K_0$<br>(2)每个类所要求的最小样本数目$N_min$。若果分裂后会导致某个子类别所包含样本数目小于该阈值，就不会对该类别进行分裂操作<br>(3)最大方差Sigma。用于控制某个类别中样本的分散程度，当样本的分散程度超过这个阈值时，且分裂后满足(1),进行分裂操作<br>(4)每个聚类中心之间所允许最小距离$D_{min}$.如果两个类靠得非常近(即这两个类别对应聚类中心之间的距离非常小)，小于该阈值时，则对这两个类进行合并操作。</p>
+<h1 id="坐标下降法-Coordinate-Descent-CD"><a href="#坐标下降法-Coordinate-Descent-CD" class="headerlink" title="坐标下降法(Coordinate Descent,CD)"></a>坐标下降法(Coordinate Descent,CD)</h1><p>比较一下梯度下降法(SGD)和坐标下降法(CD)<br>相同点:<br>SGD和CD都是优化损失函数的一种方法.都沿着某个方向对参数不断迭代更新,计算量为O(mn),<br>其中m为特征数目,n为样本数目.</p>
+<p>不同点:<br>SGD是沿着负梯度方向对损失函数进行参数更新（又叫最速下降法）<br>CD是沿着坐标轴下降方向进行参数更新,这一特点决定了两者应用场景不同.</p>
+<p>例:<br>如果在LR(逻辑回归)算法中加入L1正则项,由于L1正则项是参数值绝对值之和,所以在使用SGD进行参数更新时,会使损失函数中出现不可导的点,所以此时不能再用SGD、牛顿法、拟牛顿法等,应该用CD(坐标下降法)进行参数更新。</p>
+<p>CD进行参数更新的思想:每次只变换一个维度$x_i$,其他维度都用该参数当前值$w_{k-1}$进行计算,这样每次都得到一个该维度下的最新值$w_k$,循环迭代计算,直到$w_k$与$w_{k-1}$差别不大时停止迭代。</p>
+<p>CD的数学依据是:当一个可微凸函数F(w),在某一坐标轴上的解$w=(w_1,w_2,…,w_n)$都达到最小值时,那么此时$w=(w_1,w_2,…,w_n)$即为F(w)的全局最小值.</p>
+<p>另,坐标上升和坐标下降都是一个原理,只不过一个求最大,一个求最小.</p>
 
       
     </div>
@@ -509,7 +515,7 @@
   <p><span>本文标题:</span><a href="/2018/12/28/机器学习（五）——K-means/">机器学习（五）——K-means</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年12月28日 - 13:12</p>
-  <p><span>最后更新:</span>2019年03月09日 - 16:03</p>
+  <p><span>最后更新:</span>2019年04月02日 - 01:04</p>
   <p><span>原始链接:</span><a href="/2018/12/28/机器学习（五）——K-means/" title="机器学习（五）——K-means">http://yifdu.github.io/2018/12/28/机器学习（五）——K-means/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/12/28/机器学习（五）——K-means/" aria-label="复制成功！"></i></span>
   </p>
@@ -649,7 +655,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">120</span>
+                  <span class="site-state-item-count">124</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -660,7 +666,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -671,7 +677,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">88</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -720,7 +726,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#K-means-与KNN"><span class="nav-number">1.</span> <span class="nav-text">K-means 与KNN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">2.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-means-基本算法"><span class="nav-number">3.</span> <span class="nav-text">K-means 基本算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#K-means存在缺点"><span class="nav-number">3.1.</span> <span class="nav-text">K-means存在缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何选择K值"><span class="nav-number">3.2.</span> <span class="nav-text">如何选择K值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-means-算法"><span class="nav-number">4.</span> <span class="nav-text">K-means++算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ISODATA算法"><span class="nav-number">5.</span> <span class="nav-text">ISODATA算法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#K-means-与KNN"><span class="nav-number">1.</span> <span class="nav-text">K-means 与KNN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">2.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-means-基本算法"><span class="nav-number">3.</span> <span class="nav-text">K-means 基本算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#K-means存在缺点"><span class="nav-number">3.1.</span> <span class="nav-text">K-means存在缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何选择K值"><span class="nav-number">3.2.</span> <span class="nav-text">如何选择K值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-means-算法"><span class="nav-number">4.</span> <span class="nav-text">K-means++算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ISODATA算法"><span class="nav-number">5.</span> <span class="nav-text">ISODATA算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#坐标下降法-Coordinate-Descent-CD"><span class="nav-number">6.</span> <span class="nav-text">坐标下降法(Coordinate Descent,CD)</span></a></li></ol></div>
             
 
 			

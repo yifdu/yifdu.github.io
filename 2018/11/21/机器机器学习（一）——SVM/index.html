@@ -109,7 +109,7 @@
 <meta property="og:description" content="前言这是机器学习的第一篇，之所以在研究深度学习的时候还选择学习机器学习，是因为8个字“不忘初心，方得始终”。尽管近几年机器学习已被深度学习的光环给笼罩，但我们还是要理智地思考，深度学习终究是数据驱动的，失去了数据，再精密的深度网络结构也是画饼充饥，无的放矢。在很多的实际问题中，我们很难得到海量且带有精确标注的数据，这时深度学习也就没有大显身手的余地，反而是许多传统方法可以灵活巧妙地处理。另外，在研">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg">
-<meta property="og:updated_time" content="2019-03-29T07:43:18.020Z">
+<meta property="og:updated_time" content="2019-04-02T06:38:32.288Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（一）——SVM">
 <meta name="twitter:description" content="前言这是机器学习的第一篇，之所以在研究深度学习的时候还选择学习机器学习，是因为8个字“不忘初心，方得始终”。尽管近几年机器学习已被深度学习的光环给笼罩，但我们还是要理智地思考，深度学习终究是数据驱动的，失去了数据，再精密的深度网络结构也是画饼充饥，无的放矢。在很多的实际问题中，我们很难得到海量且带有精确标注的数据，这时深度学习也就没有大显身手的余地，反而是许多传统方法可以灵活巧妙地处理。另外，在研">
@@ -445,7 +445,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" rel="gallery_cjtx3x2lw00fcm8waqpvjsgbn" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" rel="gallery_cju19hzbo00f6n4wavudu6inb" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" itemprop="contentUrl">
               </a>
             
@@ -460,7 +460,7 @@
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这是机器学习的第一篇，之所以在研究深度学习的时候还选择学习机器学习，是因为8个字“不忘初心，方得始终”。尽管近几年机器学习已被深度学习的光环给笼罩，但我们还是要理智地思考，深度学习终究是数据驱动的，失去了数据，再精密的深度网络结构也是画饼充饥，无的放矢。在很多的实际问题中，我们很难得到海量且带有精确标注的数据，这时深度学习也就没有大显身手的余地，反而是许多传统方法可以灵活巧妙地处理。另外，在研究深度学习的过程中，我们可以看到一些深度学习的模型借鉴了机器学习的思想，因此研究好机器学习，对深度学习也有一定的启发性作用。</p>
 <h1 id="初识-SVM"><a href="#初识-SVM" class="headerlink" title="初识 SVM"></a>初识 SVM</h1><p>SVM全名Support Vector Machine,生于上世纪60年代，出名于上世纪90年代，主要工作是解决监督学习中的分类问题，偶尔也可以解决回归问题。其特殊技巧是kernel trick，将其输入隐式地映射到高维特征空间。其为人正义，往往能以最大间隔把两个类分开。</p>
 <h1 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h1><p>分类数据是机器学习中一项常见的任务。假设某些给定的数据点各自属于两个类之一，而目标是确定新数据点将在哪个类中。对于支持向量机来说，数据点被视为p维，则我们想知道是否可以用(p-1)维超平面来分开这些点。这就是我们常说的线性分类器。而SVM是要选择出所有线性分类器中最佳的超平面，这里定义最佳超平面是能以最大间隔把两个类分开的超平面（特别正义）。显然我们要做的就是让离超平面最近点到超平面的距离最大化（通过调整超平面）。这样得到的超平面称为最大间隔超平面，而其定义的线性分类器就被称为最大间隔分类器。<br><img src="/2018/11/21/机器机器学习（一）——SVM/SVM_1.png" alt="SVM_1"><br>上面(a)图是我们的数据点的分布，(b)、(c)中间的实线都是一种线性分类器，显然(b)的间距更大更稳定。</p>
-<h1 id="线性SVM——SVM最初的模样。"><a href="#线性SVM——SVM最初的模样。" class="headerlink" title="线性SVM——SVM最初的模样。"></a>线性SVM——SVM最初的模样。</h1><p>我们考虑以下形式的n个数据点：$(\vec{x_1},y_1),….,(\vec{x_n},y_n)$<br>其中$y_i$是1或者-1，表明$\vec{x_i}$所属的类。\vec{x_i}中每个都是一个p维实向量。如上所述，我们现在要做的是找到那个p-1维能以最大间隔分类+1，-1两类的超平面。<br>任何一个超平面都可以表达成这种形式：$\vec{w}·\vec{x}-\vec{b}=0$，这里的$\vec{x}$可以是超平面上的所有点。$\vec{w}$是法向量。</p>
+<h1 id="线性SVM——SVM最初的模样。"><a href="#线性SVM——SVM最初的模样。" class="headerlink" title="线性SVM——SVM最初的模样。"></a>线性SVM——SVM最初的模样。</h1><p>我们考虑以下形式的n个数据点：$(\vec{x_1},y_1),….,(\vec{x_n},y_n)$<br>其中$y_i$是1或者-1，表明$\vec{x_i}$所属的类。$\vec{x_i}$中每个都是一个p维实向量。如上所述，我们现在要做的是找到那个p-1维能以最大间隔分类+1，-1两类的超平面。<br>任何一个超平面都可以表达成这种形式：$\vec{w}·\vec{x}-\vec{b}=0$，这里的$\vec{x}$可以是超平面上的所有点。$\vec{w}$是法向量。</p>
 <h2 id="硬间隔"><a href="#硬间隔" class="headerlink" title="硬间隔"></a>硬间隔</h2><p>如果这些训练数据是线性可分的,即可以没有误差地分开两个类。这是非常特殊的情况，既然它那么优秀（各自类别有明显的区分，如下图），那么我们SVM的态度就要强硬点。<br><img src="/2018/11/21/机器机器学习（一）——SVM/SVM_2.png" alt="SVM_2"><br>我们需要分别在两类数据中找到两类数据最近的两个点。然后在这两个点上做两个平行的超平面，使得这两个超平面得距离最大。显然根据前面得关于SVM分类器的特征描述，我们所希望求得的最大间隔超平面，就在这两个平行的超平面的正中间。<br>上面我们描述我们的最大间隔超平面为：$\vec{w}·\vec{x}-\vec{b}=0$<br>这里由于这两个平行的超平面是与最大间隔超平面平行的我们可以表示为：</p>
 <script type="math/tex; mode=display">\vec{w}·\vec{x}-\vec{b}=1</script><p>和</p>
 <script type="math/tex; mode=display">\vec{w}·\vec{x}-\vec{b}=-1</script><p>这里为什么是1和-1，因为无论是什么数我们都可以在等式两侧同除以该数，使其变为1或-1.<br>两个超平面的距离为$\frac{2}{||\vec{w}||}$，因此我们的目标是使这个距离值尽可能大。显然我们需要的是最小化$||\vec{w}||$。同时为了使得样本数据点都在超平面的间隔之外，我们需要保证对于所有的i满足其中的一个条件：</p>
@@ -568,7 +568,7 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
 <li>少数支持向量决定了最终结果，鲁棒性强（1.体现在增删非支持向量样本对模型无影响，2.支持向量样本集具有一定的鲁棒性3.有些成功的应用中，SVM方法对核的选取不敏感）</li>
 <li>它是一个凸优化问题，局部最优一定时全局最优<br>缺点：</li>
 <li>对于参数以及核函数有依赖(将高维空间的复杂性的困难转为求核函数的困难)</li>
-<li>SVM对大规模训练样本难以实施。</li>
+<li><strong>SVM对大规模训练样本难以实施。</strong></li>
 <li>解决多分类问题有点复杂</li>
 </ul>
 <h1 id="支持向量回归-SVR"><a href="#支持向量回归-SVR" class="headerlink" title="支持向量回归(SVR)"></a>支持向量回归(SVR)</h1><p>现在考虑回归问题.给定训练样本$D={(x_1,y_1),(x_2,y_2),….,(x_m,y_m)},y_i∈R$,希望学得一个回归模型，使得f(x)与y尽可能接近,w和b是待确定的模型参数。<br>假设我们能容忍f(x)与y之间最多有$\xi$的偏差，即当f(x)与y之间的差别绝对值大于$\xi$时才计算损失.<br>SVR的问题可形式化为</p>
@@ -602,11 +602,11 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
 </li>
 <li><p>SVM为什么采用间隔最大化?<br>当训练数据线性可分时,存在无穷个分离超平面可以将两类数据正确分开.而要求间隔最大化,不仅能使解唯一,而且更具鲁棒性。</p>
 </li>
-<li><p>为什么要将求解SVM的原问题转换为其对偶问题?<br>(1)对偶问题往往更易于求解<br>(2)自然引入核函数,进而推广到非线性分类问题</p>
+<li><p>为什么要将求解SVM的原问题转换为其对偶问题?<br>(1)对偶问题往往更易于求解<br>(2)自然引入核函数,进而推广到非线性分类问题<br>(3) 对偶问题将原始问题中的约束转为了对偶问题中的等式约束</p>
 </li>
 <li><p>为什么要引入核函数？<br>当样本在原始空间中线性不可分时,可以将样本从原始空间映射到一个更高维的特征空间,使得样本在这个特征空间内线性可分</p>
 </li>
-<li><p>为什么SVM对缺失数据敏感?<br>这里说的缺失数据是指缺失某些特征数据,向量数据不完整.SVM没有处理缺失值的策略(决策树有)。SVM希望样本在特征空间中线性可分,所以特征空间的好坏对SVM的性能很重要.缺失特征数据会影响训练结果的好坏。</p>
+<li><p>为什么SVM对缺失数据敏感?(SVM对噪声并不鲁棒)<br><strong>这里说的缺失数据是指缺失某些特征数据,向量数据不完整.SVM没有处理缺失值的策略(决策树有)。SVM希望样本在特征空间中线性可分,所以特征空间的好坏对SVM的性能很重要.缺失特征数据会影响训练结果的好坏。</strong></p>
 </li>
 <li><p>SVM如何处理多分类问题?<br>典型：一对一和一对多.</p>
 </li>
@@ -638,7 +638,7 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
   <p><span>本文标题:</span><a href="/2018/11/21/机器机器学习（一）——SVM/">机器学习（一）——SVM</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月21日 - 00:11</p>
-  <p><span>最后更新:</span>2019年03月29日 - 15:03</p>
+  <p><span>最后更新:</span>2019年04月02日 - 14:04</p>
   <p><span>原始链接:</span><a href="/2018/11/21/机器机器学习（一）——SVM/" title="机器学习（一）——SVM">http://yifdu.github.io/2018/11/21/机器机器学习（一）——SVM/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/21/机器机器学习（一）——SVM/" aria-label="复制成功！"></i></span>
   </p>
@@ -778,7 +778,7 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">120</span>
+                  <span class="site-state-item-count">124</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -789,7 +789,7 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -800,7 +800,7 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">88</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

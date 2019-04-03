@@ -89,7 +89,7 @@
 
 
 
-  <meta name="keywords" content="Machine Learning,面试,">
+  <meta name="keywords" content="面试,Machine Learning,">
 
 
 
@@ -101,7 +101,7 @@
 
 
 <meta name="description" content="概率图概率图构建了这样一幅图,用观测结点来表示观测到的数据,用隐含结点表示潜在的知识,用边来描述知识与数据的相互关系,最后基于这样的关系图获得一个概率分布,非常优雅的解决了问题.概率图的结点分为隐藏结点和观测结点,边分为有向边和无向边,其中有向边表示单向的依赖关系,无向边表示相互依赖关系.概率图模型分为贝叶斯网络和马尔可夫网络,马尔可夫网络可以表示成一个无向图的网络结构,而贝叶斯网络则是一个有向图">
-<meta name="keywords" content="Machine Learning,面试">
+<meta name="keywords" content="面试,Machine Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="葫芦娃的葫芦书刷题（五）">
 <meta property="og:url" content="http://yifdu.github.io/2019/03/23/葫芦娃的葫芦书刷题（五）/index.html">
@@ -109,7 +109,7 @@
 <meta property="og:description" content="概率图概率图构建了这样一幅图,用观测结点来表示观测到的数据,用隐含结点表示潜在的知识,用边来描述知识与数据的相互关系,最后基于这样的关系图获得一个概率分布,非常优雅的解决了问题.概率图的结点分为隐藏结点和观测结点,边分为有向边和无向边,其中有向边表示单向的依赖关系,无向边表示相互依赖关系.概率图模型分为贝叶斯网络和马尔可夫网络,马尔可夫网络可以表示成一个无向图的网络结构,而贝叶斯网络则是一个有向图">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551728116627&di=5ace6bef47129275e1a94a593a808e96&imgtype=0&src=http%3A%2F%2Fimg2.a0bi.com%2Fupload%2Fttq%2F20140731%2F1406793411495.jpg">
-<meta property="og:updated_time" content="2019-03-23T17:00:12.045Z">
+<meta property="og:updated_time" content="2019-04-02T04:00:57.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="葫芦娃的葫芦书刷题（五）">
 <meta name="twitter:description" content="概率图概率图构建了这样一幅图,用观测结点来表示观测到的数据,用隐含结点表示潜在的知识,用边来描述知识与数据的相互关系,最后基于这样的关系图获得一个概率分布,非常优雅的解决了问题.概率图的结点分为隐藏结点和观测结点,边分为有向边和无向边,其中有向边表示单向的依赖关系,无向边表示相互依赖关系.概率图模型分为贝叶斯网络和马尔可夫网络,马尔可夫网络可以表示成一个无向图的网络结构,而贝叶斯网络则是一个有向图">
@@ -445,7 +445,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551728116627&di=5ace6bef47129275e1a94a593a808e96&imgtype=0&src=http%3A%2F%2Fimg2.a0bi.com%2Fupload%2Fttq%2F20140731%2F1406793411495.jpg" rel="gallery_cjtx3x1lt00c6m8walnv3duwv" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551728116627&di=5ace6bef47129275e1a94a593a808e96&imgtype=0&src=http%3A%2F%2Fimg2.a0bi.com%2Fupload%2Fttq%2F20140731%2F1406793411495.jpg" rel="gallery_cju19hz7w00dcn4wal2azxsbg" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551728116627&di=5ace6bef47129275e1a94a593a808e96&imgtype=0&src=http%3A%2F%2Fimg2.a0bi.com%2Fupload%2Fttq%2F20140731%2F1406793411495.jpg" itemprop="contentUrl">
               </a>
             
@@ -480,7 +480,7 @@
 <ol>
 <li>概率计算问题:已知模型的所有参数,计算观测序列Y出现的概率,可使用前向和后向算法求解</li>
 <li>预测问题:已知模型所有参数,和观测序列Y,计算最可能的隐状态序列X,可使用经典的动态规划算法——维特比算法来求解最可能的状态序列</li>
-<li>学习问题:已知观测序列Y,求解使得该观测学列概率最大的模型参数,包括隐状态序列,隐状态转移概率以及从隐状态到观测状态的输出概率.可使用Baum-Welch算法进行参数学习.</li>
+<li>学习问题:已知观测序列Y,求解使得该观测学列概率最大的模型参数,包括隐状态序列,隐状态转移概率以及从隐状态到观测状态的输出概率.可使用Baum-Welch算法进行参数学习(本质是EM,无监督学习).</li>
 </ol>
 <h3 id="概率计算算法"><a href="#概率计算算法" class="headerlink" title="概率计算算法"></a>概率计算算法</h3><p>常用的计算观测序列O概率$P(O|\lambda)$的方法是前向算法与后向算法.其中$\lambda$是模型的参数$(A,B,\pi)$，A是状态转移概率,B是输出概率,$\pi$是初始状态概率</p>
 <p>先介绍一种理论上可以但计算上不可行的直接计算法</p>
@@ -490,7 +490,7 @@
 <script type="math/tex; mode=display">α_t(i)=P(o_1,o_2,...,o_t,i_t=q_i|\lambda)</script><p>可以递推地求得前向概率α_t(i)及观测序列概率$P(O|\lambda)$<br>前向算法：<br>输入:参数$\lambda$,观测序列O<br>输出：观测序列O出现的概率<br>(1)初值：$α_1(i)=P(o_1,q_i)=P(q_i|\lambda)P(o_1|q_i)=\pi_ib_i(o_1)  i=1,2,…,N$<br>(2)递推:对t=1,2,…,T-1,</p>
 <script type="math/tex; mode=display">α_{t+1}(i)=[\sum_{j=1}^Nα_t(j)a_{ji}]b_i(o_{t+1})</script><p>先要求前t个时刻序列为$o_1,o_2,…,o_t$且下一时刻隐状态为q_i的概率.<br>(3)终止</p>
 <script type="math/tex; mode=display">P(O|\lambda)=\sum_{i=1}^Nα_T(i)</script></li>
-<li><p>后向算法<br><strong>定义后向概率:</strong> 盖顶马尔可夫模型$\lambda$,定义在时刻t状态为$q_t$的条件下,从t+1到T的部分观测序列为$o_{t+1},o_{t+2},…,o_{T}$的概率为后向概率,记作</p>
+<li><p>后向算法<br><strong>定义后向概率:</strong> 给定马尔可夫模型$\lambda$,定义在时刻t状态为$q_t$的条件下,从t+1到T的部分观测序列为$o_{t+1},o_{t+2},…,o_{T}$的概率为后向概率,记作</p>
 <script type="math/tex; mode=display">β_t(i)=P(o_{t+1},o+{t+2},...o_T|i_t=q_i,\lambda)</script><p>这种形式有点像前行概率的互补型<br>后向算法:<br>输入：参数$\lambda$,观测序列O<br>输出：观测序列O出现的概率<br>(1)初值$β_T(i)=1$<br>(2)对t=T-1,T-2,…,1</p>
 <script type="math/tex; mode=display">β_t(i)=\sum_{j=1}^Na_{ij}b_j(o_{t+1})β_{t+1}(j) \ \ \ \ i=1,2,...,N</script><p>t+1时刻的后向概率需要乘以t时刻的转移概率,才能得到$o_{t+1},..o_{T}$和$i_t$的联合概率条件是$i_{t-1}$,然后用输出概率得到含有$o_t$输出的概率,最后求和.<br>(3) 终止：</p>
 <script type="math/tex; mode=display">P(O|\lambda)=\sum_{i=1}^N\pi_ib_i(o_1)β_1(i)</script></li>
@@ -500,9 +500,9 @@
 <li><p>近似算法<br>算法:<br>输入:参数$\lambda$,观测序列<br>输出:最有可能的隐状态序列<br>主要公式：</p>
 <script type="math/tex; mode=display">\gamma_t(i)=\frac{α_t(i)β_t(i)}{P(O|\lambda)}=\frac{α_t(i)β_t(i)}{\sum_{j=1}^Nα_t(j)β_t(j)}</script><p>这里分子得到的是$P(o_1,o_2,…,o_T,q_i|\lambda)$,分母则是P(O|\lambda),前面说过α和β有点像互补</p>
 </li>
-<li><p>维特比算法<br>这是一种动态规划,求概率最大路径(最优路径).这时一条路径对应着状态序列.<br>导入两个变量,定义在时刻t状态为i的所有单个路径$i_1,i_2,…,i_t$中概率最大值为<br>$\delta_t(i)=max_{i_1,i_2,…,i_{t-1}}P(i_t=i,i_{t-1},…,i_1,o_t,…,o_1|\lambda), i=1,2,..,N$<br>由定义可得变量$\delta$的递推公式:</p>
+<li><p>维特比算法<br>这是一种 <strong>动态规划</strong> ,求概率最大路径(最优路径).这时一条路径对应着状态序列.<br>导入两个变量,定义在时刻t状态为i的所有单个路径$i_1,i_2,…,i_t$中概率最大值为<br>$\delta_t(i)=max_{i_1,i_2,…,i_{t-1}}P(i_t=i,i_{t-1},…,i_1,o_t,…,o_1|\lambda), i=1,2,..,N$<br>由定义可得变量$\delta$的递推公式:</p>
 <script type="math/tex; mode=display">\delta_{t+1}(i)=max_{i_1,i_2,...,i_{t}}P(i_{t+1}=i,i_{t},...,i_1,o_{t+1},...,o_1|\lambda)</script><script type="math/tex; mode=display">\delta_{t+1}(i)=max_{1≤j≤N}[\delta_t(j)a_{ji}]b_i(o_{t+1}) \ \ \ \ i=1,2,...,N; t=1,2,...,T-1</script><p>定义在时刻t状态为i的所有单个路径$(i_1,i_2,…,i_{t-1,i})$中概率最大的路径的第t-1个结点为.</p>
-<script type="math/tex; mode=display">\psi_t(i)=argmax_{1≤j≤N}[\delta_{t-1}(j)a_{ji}] \ \ \ \ i=1,2,..,N</script><p>算法:<br>维特比算法<br>输入:模型$\lambda=(A,B,\pi)$和观测$O=(o_1,o_2,..,o_T)$;<br>输出:最优路径$I^<em> $=(i_1^</em> ,i_2^<em> ,…,i_T^</em> ).<br>(1)初值:<br>$\delta_1(i)=\pi_ib_i(o_1),    i=1,2,…,N$<br>$\psi_1(i)=0, i=1,2,…,N$<br>(2)递推:对t=2,3,…,T</p>
+<script type="math/tex; mode=display">\psi_t(i)=argmax_{1≤j≤N}[\delta_{t-1}(j)a_{ji}] \ \ \ \ i=1,2,..,N</script><p>算法:<br>维特比算法<br>输入:模型$\lambda=(A,B,\pi)$和观测$O=(o_1,o_2,..,o_T)$;<br>输出:最优路径$I^<em> =(i_1^</em> ,i_2^<em> ,…,i_T^</em> )$.<br>(1)初值:<br>$\delta_1(i)=\pi_ib_i(o_1),    i=1,2,…,N$<br>$\psi_1(i)=0, i=1,2,…,N$<br>(2)递推:对t=2,3,…,T</p>
 <script type="math/tex; mode=display">\delta_t(i)=max_{1≤j≤N}[\delta_{t-1}(j)a_{ji}]b_i(o_t)</script><script type="math/tex; mode=display">\psi_t(i)=argmax_{1≤j≤N}[\delta_{t-1}(j)a_{ji}]</script><p>(3)最终:</p>
 <script type="math/tex; mode=display">P^* =max_{1≤i≤N}\delta_T(i)</script><p>$$i_T^* =argmax_{1≤i≤N}[\delta_T(i)]</p>
 </li>
@@ -510,7 +510,7 @@
 <h3 id="学习算法"><a href="#学习算法" class="headerlink" title="学习算法"></a>学习算法</h3><p>也有两种算法,一种适用于监督学习,一种适用于非监督学习</p>
 <ol>
 <li>监督学习<br>(1)转移概率$a_{ij}$的估计<br>设样本中时刻t处于状态i时刻t+1转移到状态j的频数为$A_{ij}$,那么状态转移概率$a_{ij}$估计是<script type="math/tex; mode=display">\hat{a}_{ij}=\frac{A_{ij}}{\sum_{j=1}^NA_{ij}}</script>(2)输出概率$b_j(k)$的估计<br>同样也是用频数方式统计<br>(3)初始状态概率$\pi_i$的估计一样是用频率</li>
-<li>Baum-Welch算法(非监督算法,EM算法的特例)<br>(a) $γ_t(i)=P(i_t=q_i|O,\lambda)为前向后向概率计算<script type="math/tex; mode=display">γ_t(i)=\frac{α_t(i)β_t(i)}{P(O|\lambda)}=\frac{α_t(i)β_t(i)}{\sum_{j=1}^Nα_t(j)β_t(j)}</script>(b)$\xi_t(i,j)=P(i_t=q_i,i_{t+1}=q_j|O,\lambda)$在给定模型$\lambda$和观测O,在时刻t处于状态$q_i$且在时间t+1处于状态$q_j$的概率<script type="math/tex; mode=display">\xi_t(i,j)=\frac{α_t(i)a_{ij}b_j(o_{t+1})β_{t+1}(j)}{\sum_{i=1}^N\sum_{j=1}^Nα_t(i)a_{ij}b_j(o_{t+1})β_{t+1}(j)}</script></li>
+<li>Baum-Welch算法(非监督算法,EM算法的特例)<br>(a) $γ_t(i)=P(i_t=q_i|O,\lambda)$为前向后向概率计算<script type="math/tex; mode=display">γ_t(i)=\frac{α_t(i)β_t(i)}{P(O|\lambda)}=\frac{α_t(i)β_t(i)}{\sum_{j=1}^Nα_t(j)β_t(j)}</script>(b)$\xi_t(i,j)=P(i_t=q_i,i_{t+1}=q_j|O,\lambda)$在给定模型$\lambda$和观测O,在时刻t处于状态$q_i$且在时间t+1处于状态$q_j$的概率<script type="math/tex; mode=display">\xi_t(i,j)=\frac{α_t(i)a_{ij}b_j(o_{t+1})β_{t+1}(j)}{\sum_{i=1}^N\sum_{j=1}^Nα_t(i)a_{ij}b_j(o_{t+1})β_{t+1}(j)}</script></li>
 </ol>
 <p>Baum-Welch算法<br>输入:观测数据$O=(o_1,o_2,…,o_T)$<br>输出:隐马尔科夫模型参数$\lambda$<br>(1)初值:<br>对n=0;选取$a_{ij}^(0),b_j(k)^{(0)},\pi_i^{(0)}$,得到模型$\lambda^{(0)}=(A^{(0)},B^{(0)},\pi^{(0)})$<br>(2)递推：<br>对n=1,2,…,</p>
 <script type="math/tex; mode=display">a_{ij}^{(n+1)}=\frac{\sum_{t=1}^{T-1} \xi_t(i,j)}{\sum_{t=1}^{T-1}γ_t(i)}</script><script type="math/tex; mode=display">b_j(k)^{(n+1)}=\frac{\sum_{t=1,o_t=v_k}γ_t(j)}{\sum_{t=1}^Tγ_t(j)}</script><script type="math/tex; mode=display">\pi_i^{(n+1)}=γ_1(i)</script><p>右端各值按观测$O=(o_1,o_2,…,o_T)$和模型$\lambda^{(n)}=(A^{(n)},B^{(n)},\pi^{(n)})$计算,式中$γ_t(i)$,$\xi_t(i,j)$由式(a)和(b)给出<br>(3)终止,得到模型参数$\lambda^{(n+1)}=(A^{(n+1)},B^{(n+1)},\pi^{(n+1)})$</p>
@@ -538,7 +538,7 @@
   <p><span>本文标题:</span><a href="/2019/03/23/葫芦娃的葫芦书刷题（五）/">葫芦娃的葫芦书刷题（五）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2019年03月23日 - 19:03</p>
-  <p><span>最后更新:</span>2019年03月24日 - 01:03</p>
+  <p><span>最后更新:</span>2019年04月02日 - 12:04</p>
   <p><span>原始链接:</span><a href="/2019/03/23/葫芦娃的葫芦书刷题（五）/" title="葫芦娃的葫芦书刷题（五）">http://yifdu.github.io/2019/03/23/葫芦娃的葫芦书刷题（五）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/03/23/葫芦娃的葫芦书刷题（五）/" aria-label="复制成功！"></i></span>
   </p>
@@ -570,9 +570,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
-          
             <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
           
         </div>
       
@@ -678,7 +678,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">120</span>
+                  <span class="site-state-item-count">124</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -689,7 +689,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -700,7 +700,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">88</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

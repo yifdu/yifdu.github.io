@@ -109,7 +109,7 @@
 <meta property="og:description" content="逻辑回归与线性回归逻辑回归与线性回归虽然都有回归两个字，但两者的作用却大不一样。逻辑回归处理的是分类问题，而线性回归处理的是回归问题。 在逻辑回归的讨论中，我们认为y是因变量，而非$\frac{p}{1-p}$，这便引出了逻辑回归与线性回归的最大的区别，即逻辑回归的因变量为离散的，而线性回归中的因变量是连续的。并且在自变量x与超参数$\theta$确定的情况下，逻辑回归可以看作是广义的线性模型在因">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543345556971&di=d616ab988755bc22f6866d836cdeff55&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-2166664f688ecd8ab5d1d3c7cc062c24_1200x500.jpg">
-<meta property="og:updated_time" content="2019-03-05T09:43:33.886Z">
+<meta property="og:updated_time" content="2019-04-02T06:38:37.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（二）———逻辑回归">
 <meta name="twitter:description" content="逻辑回归与线性回归逻辑回归与线性回归虽然都有回归两个字，但两者的作用却大不一样。逻辑回归处理的是分类问题，而线性回归处理的是回归问题。 在逻辑回归的讨论中，我们认为y是因变量，而非$\frac{p}{1-p}$，这便引出了逻辑回归与线性回归的最大的区别，即逻辑回归的因变量为离散的，而线性回归中的因变量是连续的。并且在自变量x与超参数$\theta$确定的情况下，逻辑回归可以看作是广义的线性模型在因">
@@ -445,7 +445,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543345556971&di=d616ab988755bc22f6866d836cdeff55&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-2166664f688ecd8ab5d1d3c7cc062c24_1200x500.jpg" rel="gallery_cjtx3x1k700b8m8wa6bvjvkal" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543345556971&di=d616ab988755bc22f6866d836cdeff55&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-2166664f688ecd8ab5d1d3c7cc062c24_1200x500.jpg" rel="gallery_cju19hygs009sn4wah143t343" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543345556971&di=d616ab988755bc22f6866d836cdeff55&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-2166664f688ecd8ab5d1d3c7cc062c24_1200x500.jpg" itemprop="contentUrl">
               </a>
             
@@ -496,7 +496,7 @@
 <ol>
 <li><p>逻辑回归的优缺点总结<br>总结一些逻辑回归应用到工业当中的一些优点:<br>(1)形式简单,模型的可解释性非常好.某个特征的权重比较高,那么这个特征最后对结果的影响会比较大<br>(2)模型效果不错.在工程上可以接受的(作为baseline),如果特征工程做的好,效果不会太差,并且特征工程可以大家并行开发,大大加快开发的速度<br>(3)训练速度快.分类的时候,计算量只与特征的数目有关。<br>(4)资源占用小,尤其是内存.<br>(5)方便输出结果调整.因为输出的都是概率值.<br>但逻辑回归本身也有许多缺点:<br>(1)准确率并不是很高,因为形式非常简单,很难拟合数据的真实分布<br>(2)很难处理数据不平衡的问题.举例子:如果我们对于一个正负样本非常不平衡的问题比如正负样本比10000：1,我们把所有样本都预测为正也能使损失函数的值比较小.但作为一个分类器,它对正负样本的区分能力不会很好.<br>(3)处理非线性数据较麻烦.逻辑回归也不引入其他方法的情况下,只能处理线性可分的数据,或者进一步说,处理二分类的问题.<br>(4)逻辑回归本身无法筛选特征。有时候,我们会用gbdt来筛选特征,然后再上逻辑回归.</p>
 </li>
-<li><p>逻辑回归为什么要对特征进行离散化处理?<br>在工业界,很少直接将连续值作为逻辑回归的特征输入,而是将连续特征离散化为一系列0,1特征再交给逻辑回归模型,这样做的优势有以下几点<br>(1)离散特征的增加和减少都很容易,易于模型的快速迭代;<br>(2)稀疏向量内积乘法运算速度快,计算结果方便存储,容易扩展<br>(3)离散化后的特征对异常数据有很强的鲁棒性:比如一个特征是年龄＞30是1,否则0.如果特征没有离散化,一个异常数据年龄300岁，会给模型造成很大的干扰;<br>(4)逻辑回归属于广义线性模型,表达能力受限;单变量离散化为N个后,每个变量都有单独的权重,相当于为模型引入了非线性,能够提升模型表达能力,加大拟合.<br>(5)离散化后可以进行特征交叉,由M+N个向量变为M×N个变量,进一步引入非线性,提升表达能力<br>(6)特征离散化后,模型会更稳定,比如如果对用户年龄离散化,20-30作为一个区间,不会因为一个用户年龄长了一岁就变成一个完全不同的人.当然处于区间相邻的样本会刚好相反,所以怎么划分区间是门学问;<br>(7)特征离散化以后,起到了简化逻辑回归模型的作用,降低了过拟合的风险</p>
+<li><p>逻辑回归为什么要对特征进行离散化处理?<br>在工业界,很少直接将连续值作为逻辑回归的特征输入,而是将连续特征离散化为一系列0,1特征再交给逻辑回归模型,这样做的优势有以下几点<br>(1)离散特征的增加和减少都很容易,易于模型的快速迭代;<br>(2)稀疏向量内积乘法运算速度快,计算结果方便存储,容易扩展<br>(3)离散化后的特征对异常数据有很强的 <strong>鲁棒性</strong>:比如一个特征是年龄＞30是1,否则0.如果特征没有离散化,一个异常数据年龄300岁，会给模型造成很大的干扰;<br>(4)逻辑回归属于广义线性模型,表达能力受限;单变量离散化为N个后,<strong>每个变量都有单独的权重,相当于为模型引入了非线性,能够提升模型表达能力,加大拟合.</strong><br>(5)离散化后可以进行 <strong>特征交叉</strong>,由M+N个向量变为M×N个变量,进一步引入非线性,提升表达能力<br>(6)特征离散化后,模型会更稳定,比如如果对用户年龄离散化,20-30作为一个区间,不会因为一个用户年龄长了一岁就变成一个完全不同的人.当然处于区间相邻的样本会刚好相反,所以怎么划分区间是门学问;<br>(7)特征离散化以后,<strong>起到了简化逻辑回归模型的作用,降低了过拟合的风险</strong></p>
 </li>
 </ol>
 <hr>
@@ -547,7 +547,7 @@
   <p><span>本文标题:</span><a href="/2018/11/28/机器学习（二）———逻辑回归/">机器学习（二）———逻辑回归</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月28日 - 00:11</p>
-  <p><span>最后更新:</span>2019年03月05日 - 17:03</p>
+  <p><span>最后更新:</span>2019年04月02日 - 14:04</p>
   <p><span>原始链接:</span><a href="/2018/11/28/机器学习（二）———逻辑回归/" title="机器学习（二）———逻辑回归">http://yifdu.github.io/2018/11/28/机器学习（二）———逻辑回归/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/28/机器学习（二）———逻辑回归/" aria-label="复制成功！"></i></span>
   </p>
@@ -687,7 +687,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">120</span>
+                  <span class="site-state-item-count">124</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -698,7 +698,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -709,7 +709,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-count">88</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

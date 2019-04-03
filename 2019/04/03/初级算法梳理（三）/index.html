@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Datawhale,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="信息论基础熵如果X是一个离散型随机变量,其概率分布为:p(x)=P(X=x),x∈X.X的熵H(X)为: H[x]=-\sum_xp(x)lnp(x)约定0log0=0 联合熵如果X,Y是一对离散型随机变量X,Y～p(x,y),X,Y的联合熵H(X,Y)为： H(X,Y)=-\sum_{x∈X}\sum_{y∈Y}p(x,y)logp(x,y)条件熵定义事件X与Y H(X|Y)=\sum_{i,j">
+<meta name="keywords" content="Datawhale">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初级算法梳理（三）">
+<meta property="og:url" content="http://yifdu.github.io/2019/04/03/初级算法梳理（三）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="信息论基础熵如果X是一个离散型随机变量,其概率分布为:p(x)=P(X=x),x∈X.X的熵H(X)为: H[x]=-\sum_xp(x)lnp(x)约定0log0=0 联合熵如果X,Y是一对离散型随机变量X,Y～p(x,y),X,Y的联合熵H(X,Y)为： H(X,Y)=-\sum_{x∈X}\sum_{y∈Y}p(x,y)logp(x,y)条件熵定义事件X与Y H(X|Y)=\sum_{i,j">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554287451207&di=7794a899d5291834c904de12fd8a5155&imgtype=0&src=http%3A%2F%2F07imgmini.eastday.com%2Fmobile%2F20180827%2F20180827134023_716a67a2073a8759553c7c400e5f3b2a_1.jpeg">
+<meta property="og:updated_time" content="2019-04-03T13:42:13.550Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初级算法梳理（三）">
+<meta name="twitter:description" content="信息论基础熵如果X是一个离散型随机变量,其概率分布为:p(x)=P(X=x),x∈X.X的熵H(X)为: H[x]=-\sum_xp(x)lnp(x)约定0log0=0 联合熵如果X,Y是一对离散型随机变量X,Y～p(x,y),X,Y的联合熵H(X,Y)为： H(X,Y)=-\sum_{x∈X}\sum_{y∈Y}p(x,y)logp(x,y)条件熵定义事件X与Y H(X|Y)=\sum_{i,j">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554287451207&di=7794a899d5291834c904de12fd8a5155&imgtype=0&src=http%3A%2F%2F07imgmini.eastday.com%2Fmobile%2F20180827%2F20180827134023_716a67a2073a8759553c7c400e5f3b2a_1.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/04/03/初级算法梳理（三）/">
+
+
+
+
+
+  <title>初级算法梳理（三） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/04/03/初级算法梳理（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初级算法梳理（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T15:39:38+08:00">
+                2019-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Datawhale/" itemprop="url" rel="index">
+                    <span itemprop="name">Datawhale</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554287451207&di=7794a899d5291834c904de12fd8a5155&imgtype=0&src=http%3A%2F%2F07imgmini.eastday.com%2Fmobile%2F20180827%2F20180827134023_716a67a2073a8759553c7c400e5f3b2a_1.jpeg" rel="gallery_cju19hyek008un4waabmmw1qf" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554287451207&di=7794a899d5291834c904de12fd8a5155&imgtype=0&src=http%3A%2F%2F07imgmini.eastday.com%2Fmobile%2F20180827%2F20180827134023_716a67a2073a8759553c7c400e5f3b2a_1.jpeg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="信息论基础"><a href="#信息论基础" class="headerlink" title="信息论基础"></a>信息论基础</h1><h2 id="熵"><a href="#熵" class="headerlink" title="熵"></a>熵</h2><p>如果X是一个离散型随机变量,其概率分布为:<br>p(x)=P(X=x),x∈X.X的熵H(X)为:</p>
+<script type="math/tex; mode=display">H[x]=-\sum_xp(x)lnp(x)</script><p>约定0log0=0</p>
+<h2 id="联合熵"><a href="#联合熵" class="headerlink" title="联合熵"></a>联合熵</h2><p>如果X,Y是一对离散型随机变量X,Y～p(x,y),<br>X,Y的联合熵H(X,Y)为：</p>
+<script type="math/tex; mode=display">H(X,Y)=-\sum_{x∈X}\sum_{y∈Y}p(x,y)logp(x,y)</script><h2 id="条件熵"><a href="#条件熵" class="headerlink" title="条件熵"></a>条件熵</h2><p>定义事件X与Y</p>
+<script type="math/tex; mode=display">H(X|Y)=\sum_{i,j}p(x_i,y_j)log\frac{p_{y_i}}{p(x_i,y_j)}</script><p>其中$p(x_i,y_j)$为X=$x_i$且Y=$y_j$.<br>推导过程:</p>
+<script type="math/tex; mode=display">H(Y|X)=\sum_{x∈X}p(x)H(Y|X=x)=-\sum_{x∈X}\sum_{y∈Y}p(x,y)logp(y|x)</script><h2 id="相对熵-KL散度"><a href="#相对熵-KL散度" class="headerlink" title="相对熵(KL散度)"></a>相对熵(KL散度)</h2><p>考虑某个未知的分布p(x),假定我们已经使用一个近似的分布q(x)对他进行建模.如果我们使用q(x)来建立一个编码体系,用来把x的值传给接收者,那么,由于我们使用了q(x),而不是真实分布p(x),因此在具体化x的值(假定我们选择了一个高效的编码系统)时,我们需要一些附加的信息,我们需要的平均的附加信息量为</p>
+<script type="math/tex; mode=display">KL(p||q)=-\int p(x)lnq(x)dx-(-\int p(x)lnp(x)dx)=-\int p(x)ln\frac{q(x)}{p(x)}dx</script><p>KL散度不能说为距离,是因为其不满足对称性和三角法则.</p>
+<h2 id="互信息"><a href="#互信息" class="headerlink" title="互信息"></a>互信息</h2><p>互信息实际上是更广泛的相对熵的特殊情形<br>如果变量不是独立的,我们可以考虑考察,联合概率分布与边缘分布乘积之间的KL散度,来判断它们是否”接近”于相互独立.此时,</p>
+<script type="math/tex; mode=display">I[x,y]=KL(p(x,y)||p(x)p(y))=-\int\int p(x,y)ln\frac{p(x)p(y)}{p(x,y)}dxdy</script><script type="math/tex; mode=display">I[x,y]=H[x]-H[x|y]=H[y]-H[y|x]</script><h2 id="互信息-条件熵与联合熵的区别与联系"><a href="#互信息-条件熵与联合熵的区别与联系" class="headerlink" title="互信息,条件熵与联合熵的区别与联系"></a>互信息,条件熵与联合熵的区别与联系</h2><p><img src="/2019/04/03/初级算法梳理（三）/pic1.png" alt="pic1"></p>
+<h2 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h2><p>如果一个随机变量 X ~ p(x),q(x)为用于近似 p(x)的概率分布,那么,随机变量 X 和模型 q 之间的交叉熵定义为:</p>
+<script type="math/tex; mode=display">H(X,q)=H(X)+D(p||q)=-\sum_xp(x)logq(x)</script><p>交叉熵的概念用以衡量估计模型与真实分布之间的差异</p>
+<h2 id="困惑度"><a href="#困惑度" class="headerlink" title="困惑度"></a>困惑度</h2><p>在nlp中有出现<br>在设计语言模型时,我们通常用困惑度来代替交叉熵衡量语言模型的好坏。给定语言L的样本<br>$l_1^n=l_1….l_n$,L的困惑度$PP_q$定义为:</p>
+<script type="math/tex; mode=display">PP_q=2^{H(L,q)}</script><p>2的交叉熵次方</p>
+<h2 id="加权熵"><a href="#加权熵" class="headerlink" title="加权熵"></a>加权熵</h2><script type="math/tex; mode=display">H_w(X)=-\sum_{i=1}^qw_ip_ilogp_i</script><h2 id="瑞丽熵-Renyi-entropy"><a href="#瑞丽熵-Renyi-entropy" class="headerlink" title="瑞丽熵(Renyi entropy)"></a>瑞丽熵(Renyi entropy)</h2><p>设有一离散变量的概率分布$(p_1,p_2,…,p_n)$,Renyi信息熵定义为:</p>
+<script type="math/tex; mode=display">H=\frac{1}{1-q}ln\sum_{i=1}^Np_i^q</script><script type="math/tex; mode=display">R(q)=\frac{log(\sum_{i=1}^n p_i^q)}{1-qq}</script><p>其中,q为一个可取任意实数的一个参数.<br>当q=0时,R(q)=log(n),即计算出了元素的个数的对数<br>当q=1时,分子分母趋近于0,可用洛必达求其极限为:</p>
+<script type="math/tex; mode=display">lim_{q\rightarrow 1}R(q)=-\sum_{i=1}^np_ilog(p_i)</script><p>即当q=1时,Renyi熵变成了香浓熵</p>
+<h2 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h2><p>训练数据集D,|D|为样本容量,即样本的个数,设K个类$C_k$来表示,$|C_k|$为$C_i$的样本个数,|$C_k$|之和为|D|,k=1,2,…,根据特征A将集合D划分为n个子集$D_1,D_2,…,D_n$,$|D_i|$为$D_i$的样本个数,$|D_i|$之和为|D|,i=1,2,…,记$D_i$中属于$C_k$的集合为$D_{ik}$,即交集,$|D_{ik}|$为$D_{ik}$的样本个数,算法如下:</p>
+<script type="math/tex; mode=display">H(D)=-\sum_{k=1}^K\frac{|C_k|}{|D|}log_2\frac{|C_k|}{|D|}</script><p>选定A的条件熵</p>
+<script type="math/tex; mode=display">H(D|A)=\sum_{i=1}^n\frac{|D_i|}{|D|}H(D_i)</script><p>信息增益</p>
+<script type="math/tex; mode=display">g(D,A)=H(D)-H(D|A)</script><h2 id="基尼不纯度"><a href="#基尼不纯度" class="headerlink" title="基尼不纯度"></a>基尼不纯度</h2><p>假设某分类问题有K个类别,样本点属于第k类的概率为$p_k$,其概率分布的基尼系数为</p>
+<script type="math/tex; mode=display">Gini(p)=\sum_{k=1}^Kp_k(1-p_k)=1-\sum_{k=1}^Kp_k^2</script><p>在属性A发生的情况下,决策事件B发生的基尼指数:</p>
+<script type="math/tex; mode=display">Gini(B,A)=\sum_{i=1}^n\frac{|B_i|}{|B|}Gini(B_i)</script><p>基尼指数(Gini Index)是CART算法的衡量依据。决策树的生成就是递归地构建二叉树的过程，对回归树用平方误差最小化准则，对分类树用基尼指数最小化准则，进行特征选择，生成二叉树。</p>
+<h1 id="决策树算法"><a href="#决策树算法" class="headerlink" title="决策树算法"></a>决策树算法</h1><p>优点:</p>
+<ol>
+<li>决策树算法中学习简单的决策树规则建立决策树模型的过程非常容易理解</li>
+<li>决策树模型可以可视化,非常直观</li>
+<li>应用范围广,可用于分类和回归,而且非常容易做多类别的分类</li>
+<li>能够处理数值型和连续的样本特征<br>缺点:</li>
+<li>容易过拟合</li>
+<li>学习一棵最优的决策树被认为是NP-complete问题.实际中的决策树是基于启发式的贪心算法建立的,这种算法不能保证建立全局最优的决策树. Random Forest引入随机能够缓解这个问题<h2 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h2>引入的上面提到的信息增益<script type="math/tex; mode=display">g(D,A)=H(D)-H(D|A)</script>基本思想是,熵表示的是一种混乱程度,熵越大,越混乱,而一旦我们确定下一个特征以后,我们希望这种分类的混乱度应该更低(或者说是更能确定这种该样本的类别),所以确定一个特征是一个熵减的过程,如何确定最好的特征,就需要确定的特征能使熵降低越多越好(即越稳定),所以我们会选择信息增益大的特征为当前结点划分依据.</li>
+</ol>
+<h2 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h2><p>上面提到的ID3存在着一个缺点,它一般会优先选择有较多属性值的Feature,因为属性值多的feature,会有相对相对较大的信息增益(分得越细确定性越高,被认为是越稳定的).为了避免这个问题,C4.5引入了信息增益比来作为选择分支的准则.信息增益比率通过引入一个被称作分裂信息的项来惩罚取值较多的Feature.</p>
+<p><strong>另外最重要的是C4.5还弥补了ID3中不能处理特征属性值连续的问题,但是对连续属性值需要扫描排序,会使C4.5性能下降</strong></p>
+<script type="math/tex; mode=display">SplitInformation(D,A)=-\sum_{i=1}^n\frac{|D_i|}{|D|}log\frac{|D_i|}{|D|}</script><p>这就是那个分裂信息项,主要就是表示该特征的分裂的程度</p>
+<script type="math/tex; mode=display">GainRatio(D,A)=\frac{g(D,A)}{SplitInformation(D,A)}</script><h2 id="CART分类树"><a href="#CART分类树" class="headerlink" title="CART分类树"></a>CART分类树</h2><p>CART又叫分类回归树.<br>主要的评估依据就是前面提到的GINI指数<br>ID3根据属性值分割数据,之后该特征不会再起作用,这种快速分割的方式会影响算法的准确率.CART是一棵二叉树(只会二分),采用二元切分,每次把数据切成两份,分别进入左子树、右子树.而且每个非叶子节点都有两个孩子,所以CART的叶子结点数比非叶子结点树多1(是不是有点像哈夫曼树？！)相比ID3和C4.5,CART应用要多一些,既可以用于分类也可用于回归.CART分类时,使用Gini指数来选择最好的数据分割的特征,gini描述的纯度,与信息熵的含义相似.CART中每一次迭代都会降低Gini系数.</p>
+<h1 id="回归树原理"><a href="#回归树原理" class="headerlink" title="回归树原理"></a>回归树原理</h1><p>之前的线性回归都提到过,回归问题一般都是用均方误差作为损失函数,当然回归树也不例外.</p>
+<script type="math/tex; mode=display">L=\frac{1}{n}\sum_{i=1}^n(y_i-\hat{y_i})^2</script><p>问题是我们将一个样本送入树模型中,最终它只会从一个叶子结点出来,那么它的输出的值只有一个,从那个叶结点输出的值都一样,我们该如何确定这个值?一般想到的都是落在该区域的样本均值,作为该区域的输出值.<br>先将上面的$y$表示成下述形式($\hat{y}$是ground truth)</p>
+<script type="math/tex; mode=display">y=\sum_{m=1}^Mc_mI(x∈R_m)</script><p>加入使用特征j的取值s来将输入空间划分为两个区域,分别为:</p>
+<script type="math/tex; mode=display">R_1(j,s)=\{x|x^{(j)}≤s\}和R_2(j,s)=\{x|x^{(j)}＞ s\}</script><p>考虑最小化损失函数,即:</p>
+<script type="math/tex; mode=display">min_{j,s}[\sum_{x_i∈R_1(j,s)}(y_i-c_1)^2+\sum_{x_i∈R_2(j,s)}(y_i-c_2)^2]</script><p>其中$c_1,c_2$分别为$R_1$,$R_2$区间内的输出平均值.</p>
+<p>为使平方误差最小,我们需要依次对每个特征的每个取值进行遍历,计算出当前每一个可能的切分点的误差,然后选择切分误差最小的切分点将输入空间切分为两个部分,然后递归上述步骤,直到切分结束.此方法切分的树称为最小二乘回归树.</p>
+<p><strong>总结：此方法的复杂度较高，尤其在每次寻找切分点时，需要遍历当前所有特征的所有可能取值，假如总共有F个特征，每个特征有N个取值，生成的决策树有S个内部节点，则该算法的时间复杂度为：O(F<em>N</em>S)。</strong></p>
+<p>CART实践中的特点:<br><img src="/2019/04/03/初级算法梳理（三）/pic2.png" alt="pic2"></p>
+<h1 id="决策树防止过拟合手段"><a href="#决策树防止过拟合手段" class="headerlink" title="决策树防止过拟合手段"></a>决策树防止过拟合手段</h1><p>决策树是很容易过拟合,如何防止过拟合呢？这里采用剪枝操作,分为预剪枝和后剪枝.</p>
+<h2 id="预剪枝"><a href="#预剪枝" class="headerlink" title="预剪枝"></a>预剪枝</h2><p>预剪枝其实就是在树生成的过程进行剪枝。<br>核心思想就是，在每一次实际对结点进行进一步划分之前，先采用验证集的数据来验证如果划分是否能提高划分的准确性。如果不能，就把结点标记为叶结点并退出进一步划分；如果可以就继续递归生成节点。<br><img src="/2019/04/03/初级算法梳理（三）/pic3.png" alt="pic3"></p>
+<h2 id="后剪枝"><a href="#后剪枝" class="headerlink" title="后剪枝"></a>后剪枝</h2><p>后剪枝则是先从训练集生成一颗完整的决策树，然后自底向上地对非叶结点进行考察，若将该结点对应的子树替换为叶结点能带来泛化性能提升，则将该子树替换为叶结点。</p>
+<p><img src="/2019/04/03/初级算法梳理（三）/pic4.png" alt="pic4"><br>解释一下上面的第8步计算,书上的意思是,对完整树$T_0$中的任意内部结点t,以t为单结点树(结点为叶,没有分支)的损失函数</p>
+<script type="math/tex; mode=display">C_α(t)=C(t)+α</script><p>以t为根节点的子树$T_t$的损失函数是</p>
+<script type="math/tex; mode=display">C_α(T_t)=C(T_t)+α|T_t|</script><p>当α=0或充分小时,有不等式:</p>
+<script type="math/tex; mode=display">C_{α}(T_t)＜C_{α}(t)</script><p>当α增大到某一值时,<script type="math/tex">C_α(T_t)=C_α(t)</script><br>当α再继续增大时,不等式反向,所以只要</p>
+<p><script type="math/tex">α=\frac{C(t)-C(T_t)}{|T_t|-1}</script>,$T_t$与t有相同的损失函数值,而t的结点更少,因此,因此t比$T_t$更可取,对$T_t$进行剪枝。</p>
+<p>这里剪枝的目的不是为了最小化损失函数，剪枝的目的是为了达到一个更好的泛化能力。而对于决策树来说，叶结点的数量越多，反应了决策树对训练数据的细节反应的越多，继而弱化了泛化能力。α值衡量了损失函数中叶结点数量的权重,α值越大,在最小化损失函数时,需要更多的考虑叶结点数量的影响.α可以看作是一个系数,不同的α对应不同的损失函数,而对于所有的这些损失函数来说,在训练机上进行决策树生成时候的步骤都一样,差别知识在判断某些结点是否进行展开的区别.<br>这个有点类似于对一个函数的泰勒级数展开，而 α 值控制着展开的次数项，越小的值展开的次数项越多（往回收缩的高次项越少）。因为决策树的结点个数是有限的，对应到α的值来说也是有限的。上述求α过程就是得到具体收缩每一个分支对应的值。</p>
+<h2 id="一些其他的防止过拟合的方法"><a href="#一些其他的防止过拟合的方法" class="headerlink" title="一些其他的防止过拟合的方法"></a>一些其他的防止过拟合的方法</h2><ol>
+<li>集成方法,如随机森林</li>
+<li>控制满足分裂条件的不纯度的阈值</li>
+<li>控制叶子节点个数</li>
+<li>控制继续下一次划分时叶子结点的最小样本数</li>
+</ol>
+<h1 id="sklearn"><a href="#sklearn" class="headerlink" title="sklearn"></a>sklearn</h1><h2 id="分类树"><a href="#分类树" class="headerlink" title="分类树"></a>分类树</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sklearn.tree.DecisionTreeClassifier(criterion=’gini’, splitter=’best’, max_depth=<span class="keyword">None</span>, min_samples_split=<span class="number">2</span>, min_samples_leaf=<span class="number">1</span>, min_weight_fraction_leaf=<span class="number">0.0</span>, max_features=<span class="keyword">None</span>, random_state=<span class="keyword">None</span>, max_leaf_nodes=<span class="keyword">None</span>, min_impurity_decrease=<span class="number">0.0</span>, min_impurity_split=<span class="keyword">None</span>, class_weight=<span class="keyword">None</span>, presort=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>criterion：string类型，可选参数（默认=”gini”）。度量划分属性质量：”gini”指基尼不纯度（Gini impurity）；”entropy”指信息增益。</p>
+</li>
+<li><p>splitter：string类型，可选参数（默认=”best”）。每个结点选择划分属性的策略：“best”选择最好的划分；”random”选择最好的随机划分。</p>
+</li>
+<li><p>max_features：int或float或string类型或None，可选参数（默认=None）。选择划分时所用的特征数目：</p>
+</li>
+<li><p>若是int类型，则使用max_features个特征；<br>若是float类型，则使用int(max_features*特征总数)个特征；<br>若是”auto“或”sqrt“，则使用sqrt(特征总数)个特征；<br>若是“log2”，则使用log2(特征总数)个特征；<br>若是None，则使用全部特征。<br>max_depth：int类型或None，可选参数（默认=None）。树的最大深度。</p>
+</li>
+<li><p>min_samples_split： int或float类型，可选参数（默认=2）。划分一个内部结点所需的最小样本数：若是int类型，则最少使用min_samples_split个样本；若是float类型，则最少使用ceil(min_samples_split*特征总数)个样本。</p>
+</li>
+<li><p>min_samples_leaf：int或float类型，可选参数（默认=1）。叶子结点所需的最小样本数：若是int类型，则最少为min_samples_leaf个样本；若是float类型，则最少为ceil(min_samples_leaf*特征总数)个样本。</p>
+</li>
+<li><p>min_weight_fraction_leaf：float类型，可选参数（默认=0）。限制了叶子节点所有样本权重和的最小值，如果小于这个值，则会和兄弟节点一起被剪枝。</p>
+</li>
+<li><p>max_leaf_nodes：int类型或None，可选参数（默认=None）。叶子结点数目最大值。</p>
+</li>
+<li><p>class_weight：dict或list或”balanced”或None，可选参数（默认=None）。类别权重：</p>
+</li>
+<li><p>dict：{类别标签：权重}指定类别权重；<br>list：多输出问题，应给定一个包含多个dict的list参数；<br>“balanced”：自动调整类别权重根据类别样本个数所占比例：样本总数/（类别的样本数）；<br>random_state：int类型或RandomState实例或None，可选参数（默认=None）。</p>
+</li>
+</ol>
+<p>若是int，random_state是随机数生成器的种子；<br>若是RandomState实例，random_state是随机数生成器；<br>若是None，则随机数生成器是使用np.random的RandomState实例。<br>min_impurity_split：float类型，可选参数（默认=1e-7）。树增长的早停阈值：如果某结点的不纯度小于这个阈值，则该结点为叶子结点。</p>
+<ol>
+<li>presort：bool类型，可选参数（默认=False）。是否在拟合过程中预排序数据to加速寻找最好的划分：对于样本量大的决策树，设为True可能会减慢训练过程；当使用样本量少或者受限深度的决策树，设置为true会加速训练。</li>
+</ol>
+<h2 id="回归树"><a href="#回归树" class="headerlink" title="回归树"></a>回归树</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>sklearn.tree.DecisionTreeRegressor(criterion=’mse’, splitter=’best’, max_depth=<span class="keyword">None</span>, min_samples_split=<span class="number">2</span>, min_samples_leaf=<span class="number">1</span>, min_weight_fraction_leaf=<span class="number">0.0</span>, max_features=<span class="keyword">None</span>, random_state=<span class="keyword">None</span>, max_leaf_nodes=<span class="keyword">None</span>, min_impurity_decrease=<span class="number">0.0</span>, min_impurity_split=<span class="keyword">None</span>, presort=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>criterion：string类型，可选参数（默认=”gini“）。度量划分属性质量：”mse”指均方误差，”mae“指平均绝对误差。<br>其余参数同DecisionTreeClassifier，但是没有class_weight这个参数。属性和方法也和DecisionTreeClassifier一致，没有class_这个属性。</li>
+</ol>
+<h2 id="决策树绘制"><a href="#决策树绘制" class="headerlink" title="决策树绘制"></a>决策树绘制</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.externals.six <span class="keyword">import</span> StringIO</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> tree</span><br><span class="line"><span class="keyword">import</span> pydotplus</span><br><span class="line"></span><br><span class="line">clf = tree.DecisionTreeClassifier()</span><br><span class="line">clf = clf.fit(X, Y)</span><br><span class="line"></span><br><span class="line">dot_data = StringIO()</span><br><span class="line">tree.export_graphviz(clf,out_file = dot_data,</span><br><span class="line">					 feature_names = feature_name,</span><br><span class="line">					 class_names = target_name, filled = <span class="keyword">True</span>,</span><br><span class="line">					 rounded = <span class="keyword">True</span>, special_characters = <span class="keyword">True</span>)</span><br><span class="line">graph = pydotplus.graph_from_dot_data(dot_data.getvalue())</span><br><span class="line">graph.write_pdf(<span class="string">"Tree.pdf"</span>)</span><br><span class="line">print(<span class="string">'Visible tree plot saved as pdf.'</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="https://blog.csdn.net/sun_wangdong/article/details/83057155" target="_blank" rel="noopener">https://blog.csdn.net/sun_wangdong/article/details/83057155</a></li>
+<li><a href="https://blog.csdn.net/am290333566/article/details/81187562" target="_blank" rel="noopener">https://blog.csdn.net/am290333566/article/details/81187562</a></li>
+<li>《数据挖掘导论》之分类基本概念、决策树与模型评估</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Datawhale/" rel="tag"># Datawhale</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/03/特征选择方法/" rel="next" title="特征选择方法">
+                <i class="fa fa-chevron-left"></i> 特征选择方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#信息论基础"><span class="nav-number">1.</span> <span class="nav-text">信息论基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#熵"><span class="nav-number">1.1.</span> <span class="nav-text">熵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联合熵"><span class="nav-number">1.2.</span> <span class="nav-text">联合熵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件熵"><span class="nav-number">1.3.</span> <span class="nav-text">条件熵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相对熵-KL散度"><span class="nav-number">1.4.</span> <span class="nav-text">相对熵(KL散度)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互信息"><span class="nav-number">1.5.</span> <span class="nav-text">互信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互信息-条件熵与联合熵的区别与联系"><span class="nav-number">1.6.</span> <span class="nav-text">互信息,条件熵与联合熵的区别与联系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉熵"><span class="nav-number">1.7.</span> <span class="nav-text">交叉熵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#困惑度"><span class="nav-number">1.8.</span> <span class="nav-text">困惑度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加权熵"><span class="nav-number">1.9.</span> <span class="nav-text">加权熵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#瑞丽熵-Renyi-entropy"><span class="nav-number">1.10.</span> <span class="nav-text">瑞丽熵(Renyi entropy)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息增益"><span class="nav-number">1.11.</span> <span class="nav-text">信息增益</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基尼不纯度"><span class="nav-number">1.12.</span> <span class="nav-text">基尼不纯度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策树算法"><span class="nav-number">2.</span> <span class="nav-text">决策树算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ID3"><span class="nav-number">2.1.</span> <span class="nav-text">ID3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C4-5"><span class="nav-number">2.2.</span> <span class="nav-text">C4.5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CART分类树"><span class="nav-number">2.3.</span> <span class="nav-text">CART分类树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回归树原理"><span class="nav-number">3.</span> <span class="nav-text">回归树原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策树防止过拟合手段"><span class="nav-number">4.</span> <span class="nav-text">决策树防止过拟合手段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#预剪枝"><span class="nav-number">4.1.</span> <span class="nav-text">预剪枝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后剪枝"><span class="nav-number">4.2.</span> <span class="nav-text">后剪枝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些其他的防止过拟合的方法"><span class="nav-number">4.3.</span> <span class="nav-text">一些其他的防止过拟合的方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sklearn"><span class="nav-number">5.</span> <span class="nav-text">sklearn</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分类树"><span class="nav-number">5.1.</span> <span class="nav-text">分类树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回归树"><span class="nav-number">5.2.</span> <span class="nav-text">回归树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树绘制"><span class="nav-number">5.3.</span> <span class="nav-text">决策树绘制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
