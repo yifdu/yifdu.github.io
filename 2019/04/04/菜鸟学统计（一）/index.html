@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="统计学,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="统计学基本知识均值中位数众数 均值主要反映一系列数的平均程度,但及其容易受极端值的影响 中位数:将一系列数排序后,位于中间的数(如果是偶数个数则是中间的两个数,如果是奇数个数则是中间的那一个)  众数:一串数字序列中,出现次数最多的那个数。   12345678910111213nums=[1,2,3,4]#均值import numpy as npnp.mean(nums)#中位数np.media">
+<meta name="keywords" content="统计学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="菜鸟学统计（一）">
+<meta property="og:url" content="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="统计学基本知识均值中位数众数 均值主要反映一系列数的平均程度,但及其容易受极端值的影响 中位数:将一系列数排序后,位于中间的数(如果是偶数个数则是中间的两个数,如果是奇数个数则是中间的那一个)  众数:一串数字序列中,出现次数最多的那个数。   12345678910111213nums=[1,2,3,4]#均值import numpy as npnp.mean(nums)#中位数np.media">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/pic1.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/pic2.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/pic3.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/pic4.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/pic5.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/pic6.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/pic7.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/pic8.png">
+<meta property="og:updated_time" content="2019-04-04T13:56:04.247Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="菜鸟学统计（一）">
+<meta name="twitter:description" content="统计学基本知识均值中位数众数 均值主要反映一系列数的平均程度,但及其容易受极端值的影响 中位数:将一系列数排序后,位于中间的数(如果是偶数个数则是中间的两个数,如果是奇数个数则是中间的那一个)  众数:一串数字序列中,出现次数最多的那个数。   12345678910111213nums=[1,2,3,4]#均值import numpy as npnp.mean(nums)#中位数np.media">
+<meta name="twitter:image" content="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/pic1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/">
+
+
+
+
+
+  <title>菜鸟学统计（一） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/04/04/菜鸟学统计（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">菜鸟学统计（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-04T14:07:53+08:00">
+                2019-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/统计学/" itemprop="url" rel="index">
+                    <span itemprop="name">统计学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="统计学基本知识"><a href="#统计学基本知识" class="headerlink" title="统计学基本知识"></a>统计学基本知识</h1><h2 id="均值中位数众数"><a href="#均值中位数众数" class="headerlink" title="均值中位数众数"></a>均值中位数众数</h2><ol>
+<li>均值主要反映一系列数的平均程度,但及其容易受极端值的影响</li>
+<li><p>中位数:将一系列数排序后,位于中间的数(如果是偶数个数则是中间的两个数,如果是奇数个数则是中间的那一个)</p>
+</li>
+<li><p>众数:一串数字序列中,出现次数最多的那个数。</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">nums=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"><span class="comment">#均值</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">np.mean(nums)</span><br><span class="line"><span class="comment">#中位数</span></span><br><span class="line">np.median(nums)</span><br><span class="line"><span class="comment">#众数</span></span><br><span class="line">counts=np.bincount(nums)</span><br><span class="line">np.argmax(counts)</span><br><span class="line"><span class="comment">#求众数也可以利用scipy下stats模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> stats</span><br><span class="line">stats.mode(nums)[<span class="number">0</span>][<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="极差和中程数"><a href="#极差和中程数" class="headerlink" title="极差和中程数"></a>极差和中程数</h2><p>极差用最大的数减去最小的数.数字越小说明数字之间越紧密,<br>中程数是考虑集中趋势的又一种方式<br>中程数是最大值和最小值的平均值。</p>
+<h2 id="茎叶图"><a href="#茎叶图" class="headerlink" title="茎叶图"></a>茎叶图</h2><p>其的思路是将数组中的数按位数进行比较，将数的大小基本不变或变化不大的位作为一个主干（茎），将变化大的位的数作为分枝（叶），列在主干的后面，这样就可以清楚地看到每个主干后面的几个数，每个数具体是多少。</p>
+<p><strong>茎叶图是一个与直方图相类似的特殊工具，但又与直方图不同，茎叶图保留原始资料的资讯，直方图则失去原始资料的讯息。将茎叶图茎和叶逆时针方向旋转90度，实际上就是一个直方图，可以从中统计出次数，计算出各数据段的频率或百分比。从而可以看出分布是否与正态分布或单峰偏态分布逼近。</strong></p>
+<p>特征:</p>
+<ol>
+<li>茎叶图表示数据有两个优点：一是从统计图上没有原始数据信息的损失，所有数据信息都可以从茎叶图中得到；二是茎叶图中的数据可以随时记录，随时添加，方便记录与表示。</li>
+<li>茎叶图表示数据有两个优点：一是从统计图上没有原始数据信息的损失，所有数据信息都可以从茎叶图中得到；二是茎叶图中的数据可以随时记录，随时添加，方便记录与表示。</li>
+</ol>
+<p>举例:<br>下面有一堆数据共30个</p>
+<p>89 79 57 46 1 24 71 5 6 9 10 15 16 19 22 31 40 41 52 55 60 61 65 69 70 75 85 91 92 94</p>
+<p>茎|叶</p>
+<p>0 |1 5 6 9</p>
+<p>1 |0 5 6 9</p>
+<p>2 | 2 4</p>
+<p>3 | 1</p>
+<p>4 | 0 1 6</p>
+<p>5 | 2 5 7</p>
+<p>6 | 0 1 5 9</p>
+<p>7 | 0159</p>
+<p>8 | 5 9</p>
+<p>9 | 1 2 4</p>
+<p>比如第二行的数字如下：</p>
+<p>1 | 0 5 6 9</p>
+<p>则代表数据集中有10，15，16，19四个数字<br>可以这样理解茎+叶=实际的数值,如 1|0569 中茎值为1,页值为 0,5,6,9 共四个页值.<br>其真实数值计算方式:茎值连接叶值 .茎值:1叶值0连接起来就是10.<br>一个茎可以有很多叶也可以不出现叶.</p>
+<p><img src="/2019/04/04/菜鸟学统计（一）/pic1.png" alt="pic1"></p>
+<p>python 茎叶图<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">x = np.linspace(<span class="number">0.1</span>, <span class="number">2</span>*np.pi, <span class="number">10</span>)</span><br><span class="line">markerline, stemlines, baseline = plt.stem(x, np.cos(x), <span class="string">'-.'</span>)</span><br><span class="line">plt.setp(baseline, <span class="string">'color'</span>, <span class="string">'r'</span>, <span class="string">'linewidth'</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<h2 id="箱线图"><a href="#箱线图" class="headerlink" title="箱线图"></a>箱线图</h2><p>(1)计算上四分位数(Q3),中位数,下四分位数(Q1)<br>(2)计算上四分位数和下四分位数之间的差值,即 <strong>四分位数差</strong><br>(3)绘制箱线图的上下范围,上限为上四分位数,下限为下四分位数.在箱内部中位数的位置绘制横线<br>(4)大于上四分位数1.5倍四分位数差的值,或者小于下四分位数1.5倍四分位数差的值,划为异常值<br>(5)异常值之外,最靠近上边缘和下边缘的两个值处,画横线,作为箱线图的触须.<br>(6)极端异常值,即超出四分位数差3倍距离的异常值,用实心点表示;较为温和的异常值,即处于1.5倍-3倍四分位数差之间的异常值,用空心点表示<br>(7)为箱线图添加名称,数轴等<br><img src="/2019/04/04/菜鸟学统计（一）/pic2.png" alt="pic2"><br>用python绘制箱线图</p>
+<ol>
+<li>未标准化的箱线图<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    data = pd.read_csv(<span class="string">"G:/dataset/abalone.csv"</span>)</span><br><span class="line">    <span class="comment">#需要绘制箱形图的列,不包括ID列和第一列</span></span><br><span class="line">    box_data = np.array(data.ix[:,<span class="number">2</span>:<span class="number">10</span>])</span><br><span class="line">    <span class="comment">#绘制箱线图</span></span><br><span class="line">    plt.boxplot(box_data)</span><br><span class="line">    plt.xlabel(<span class="string">"特征索引"</span>)</span><br><span class="line">    plt.ylabel(<span class="string">"四分位间距"</span>)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/2019/04/04/菜鸟学统计（一）/pic3.png" alt="pic3"></p>
+<ol>
+<li>标准化的箱线图<br>通过将数据进行标准化，可以解决箱线图被压缩的问题。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#对数据进行标准化</span></span><br><span class="line">  box_data = (box_data - np.mean(box_data,axis=<span class="number">0</span>)) / np.std(box_data,axis=<span class="number">0</span>)</span><br><span class="line">  plt.boxplot(box_data)</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/04/菜鸟学统计（一）/pic4.png" alt="pic4"><br>标准化后的数据均值为0，方差为1。标准化之后可以清楚的看到，每个特征的异常值分布情况。</p>
+<h2 id="统计量"><a href="#统计量" class="headerlink" title="统计量:"></a>统计量:</h2><h3 id="统计-集中趋势"><a href="#统计-集中趋势" class="headerlink" title="统计:集中趋势"></a>统计:集中趋势</h3><p>统计学分为描述统计学和推论统计学.<br>描述统计学:用样本集来代表总体。<br>平均值反映了一组数据的集中趋势.</p>
+<p>考虑一组数据:<br>3,3,3,3,3,100<br>如果只算算术平均数,它并不能反映一组数据的特点.因此往往会引入中位数、众数等其他一些统计量.</p>
+<h3 id="样本和总体"><a href="#样本和总体" class="headerlink" title="样本和总体"></a>样本和总体</h3><p>样本是总体里的一个子集,只有随机采样才能更能反映总体.<br>往往用$\mu$表示总体均值,$\overline{X}$表示样本均值</p>
+<h3 id="总体方差"><a href="#总体方差" class="headerlink" title="总体方差"></a>总体方差</h3><p>总体均值是$\mu=\frac{1}{N}\sum_{i=1}^Nx_i$<br>引入一个评估远离集中趋势的标准：</p>
+<script type="math/tex; mode=display">\sigma^2=\frac{\sum_{i=1}^N(x_i-\mu)^2}{N}</script><p>反映数组中的数据离平均值的距离。</p>
+<h3 id="样本方差"><a href="#样本方差" class="headerlink" title="样本方差"></a>样本方差</h3><p>我们推论统计学关心的是通过对样本进行描述性统计,然后推断出总体的情况.<br>样本均值:</p>
+<script type="math/tex; mode=display">\overline{X}=\frac{\sum_{i=1}^n}{n}</script><p>样本方差:</p>
+<script type="math/tex; mode=display">S_n^2=\frac{\sum_{i=1}^n(x_i-\overline{X})^2}{n}</script><p>若是无偏样本方差可以写做</p>
+<script type="math/tex; mode=display">S^2=\frac{\sum_{i=1}^n(x_i-\overline{X})^2}{n-1}</script><p><strong>证明:</strong><br>什么是无偏?</p>
+<script type="math/tex; mode=display">E(S^2)=\sigma^2</script><p>若这里采用的是$S_n^2$,$E(S_n^2)≠\sigma^2$</p>
+<p>看下面推导</p>
+<script type="math/tex; mode=display">S_n^2=\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})^2=\frac{1}{n}\sum_{i=1}^n((x_i-\mu)+(\mu-\overline{x}))^2≤\frac{1}{n}\sum_{i=1}^n(x_i-\mu)^2</script><p>所以可以看到$S_n^2$并不是无偏的</p>
+<p>为什么$E(S^2)=\sigma^2$</p>
+<script type="math/tex; mode=display">E(S_n^2)=E(\frac{1}{n}\sum_i^n(x_i-\overline{x})^2)=E[\frac{1}{n}\sum_{i=1}^n(x_i)^2-2(\overline{x})^2+(\overline{x})^2]</script><p>得到</p>
+<script type="math/tex; mode=display">E(S_n^2)=E[\frac{1}{n}\sum_{i=1}^n(x_i)^2]-E[(\overline{x})^2]=D[(x_i)^2]+(E[x_i])^2-(D[(\overline{x})^2]+(E[\overline{x}])^2)</script><p>因为$E[\overline{x}]=\overline{x},D[\overline{x}]=\frac{1}{n}D[x]$(i=1,2,…,n)<br>所以有$E(S_n^2)=D(x)-\frac{1}{n}D(x)$</p>
+<p>所以修正后的是$E(S_n^2)$的$\frac{n}{n-1}$倍.</p>
+<p>所以$S^2=\frac{1}{n-1}\sum_{i=1}^n(x_i-\overline{x})^2$<br>是总体方差的无偏估计</p>
+<h3 id="标准差"><a href="#标准差" class="headerlink" title="标准差"></a>标准差</h3><p>总体标准差:</p>
+<script type="math/tex; mode=display">\sigma=\sqrt{\frac{\sum_{i=1}^N(x_i-\mu)^2}{N}}</script><p>样本标准差:</p>
+<script type="math/tex; mode=display">S=\sqrt{\frac{\sum_{i=1}^n(x_i-\overline{X})^2}{n}}</script><h3 id="诸方差公式"><a href="#诸方差公式" class="headerlink" title="诸方差公式"></a>诸方差公式</h3><script type="math/tex; mode=display">Var(X)=E[X^2]-(E[X])^2</script><h3 id="随机变量介绍"><a href="#随机变量介绍" class="headerlink" title="随机变量介绍"></a>随机变量介绍</h3><p>随机变量实际是一个函数,输入是一个事件,输出会是这个事件所对应的概率.</p>
+<h2 id="二项分布"><a href="#二项分布" class="headerlink" title="二项分布"></a>二项分布</h2><p>在概率论和统计学里面，带有参数n和p的二项分布表示的是n次独立试验的成功次数的概率分布。在每次独立试验中只有取两个值，表示成功的值的概率为p，那么表示试验不成功的概率为1-p。这样一种判断成功和失败的二值试验又叫做伯努利试验。特殊地，当n=1的时候，我们把二项分布称为伯努利分布。</p>
+<p>其概率分布函数如下:</p>
+<script type="math/tex; mode=display">Pr(k;n,p)=Pr(X=k)=C_n^kp^k(1-p)^{n-k}</script><p>这里n和p为参数,k=0,1,2,…,n<br>其均值为E[X]=np,方差为Var(X)=np(1-p)</p>
+<h3 id="注意常常会提到二项分布与泊松分布的关系"><a href="#注意常常会提到二项分布与泊松分布的关系" class="headerlink" title="注意常常会提到二项分布与泊松分布的关系"></a>注意常常会提到二项分布与泊松分布的关系</h3><p>泊松分布的概率分布函数:</p>
+<script type="math/tex; mode=display">P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!}</script><p>参数$\lambda$是单位时间(或单位面积)内随机事件的平均发生率.<br>统计学上,满足三个条件,即可用泊松分布.</p>
+<ol>
+<li>小概率事件,两次以上事件发生概率趋于0</li>
+<li>事件发生的概率独立且概率互不影响</li>
+<li>发生概率时稳定</li>
+</ol>
+<p>二项分布和泊松分布的关系(泊松小数定律)<br>在二项分布的n次伯努利实验中,如果实验次数n很大,二项分布的概率p很小,且乘积$\lambda=np$比较适中(保持不变),则事件出现的次数的概率可以用泊松分布来逼近.事实上,二项分布可以看作泊松分布在离散时间上的对应物.<br><img src="/2019/04/04/菜鸟学统计（一）/pic5.png" alt="pic5"></p>
+<h3 id="泊松分布与指数分布"><a href="#泊松分布与指数分布" class="headerlink" title="泊松分布与指数分布"></a>泊松分布与指数分布</h3><p>泊松过程是一种重要的随机过程，适合于描述单位时间内随机事件发生的次数。泊松过程中，第k次随机事件与第k+1次随机事件出现的时间间隔服从指数分布。这是因为，第k次随机事件之后长度为t的时间段内，第k+1次随机事件出现的概率等于1减去这个时间段内没有随机事件出现的概率。而根据泊松过程的定义，长度为t的时间段内没有随机事件出现的概率等于</p>
+<script type="math/tex; mode=display">\frac{e^{-\lambda t}(\lambda t)^0}{0!}=e^{-\lambda t}</script><p>所以第k次随机事件之后长度为t的时间段内,第k+1次随机事件出现的概率等于$1-e^{-\lambda t}$,这是指数分布,这还表明了泊松过程的无记忆性.</p>
+<h1 id="泊松过程"><a href="#泊松过程" class="headerlink" title="泊松过程"></a>泊松过程</h1><p>一个简单的应用题<br>学生上学进校门,假设每分钟(单位时间)计数一次,我们通常会认为单位时间内到学校的人数的数学期望应该是一致的.<br>同时,对于某一分钟(单位时间),某一个学生在这一分钟到达学校的概率也是相同的,两个同学互不相关,在满足学校到校时间要求的前提下,它们到达学校的时间是自由的.并且假设每个学生在这一分钟内到达学校的概率为P<br>这时我们可以定义一个随机变量,假设有n个随机变量,它表示</p>
+<script type="math/tex; mode=display">X_i(t)
+\begin{cases}
+1 \ \ \ 第i个学生在t时刻之前已到校
+0 \ \ \ 第i个学生在t时刻还没到校
+\end{cases}</script><p>这样我们可以很容易的得到对于一个确定的时刻t,所有变量的和——假设是X,它的概率模型就是比较常见的二项分布.</p>
+<script type="math/tex; mode=display">P\{X=k\}=P\{\sum_{i=1}^nX_i=k\}=C_n^kp^k(1-p)^{n-k}</script><p>同时我们前面也有提到在单位时间到达学校的人数的数学期望是相同的.我们假设是$\lambda$(人).那么从开始计数到时刻t,随机变量X的数学期望可以写成。</p>
+<script type="math/tex; mode=display">E[X(t)]=np=\lambda t</script><p>由此可以推出</p>
+<script type="math/tex; mode=display">p=\frac{\lambda t}{n}</script><p>我们可以将前面的二项分布改写为</p>
+<script type="math/tex; mode=display">P\{X(t)=k\}=C_n^k(\frac{\lambda t}{n})^k(1-\frac{\lambda t}{n})^{n-k}</script><p>其中n表示的是学校的总人数,这是一个很大的数字,可以考虑其趋近于无穷</p>
+<script type="math/tex; mode=display">lim_{n\rightarrow ∞}P\{X(t)=k\}=\frac{(\lambda t)^k}{k!}e^{-\lambda t}</script><p>没错,这就是泊松过程的表达形式.</p>
+<p>有些地方会看到泊松过程的另一个形式:</p>
+<script type="math/tex; mode=display">P\{N(t+s)-N(s)=n\}=\frac{(\lambda t)^n}{n!}e^{-\lambda t}</script><p>同样的意思,就是t时间间隔内,到了n个人的概率</p>
+<p><strong>泊松过程的关键在于，它的到达间隔序列Tn，即每两次发生的时间是服从的独立同指数分布的。如果每次发生的间隔时间不服从指数分布，那么这个随机过程就会更一般化，我们成为是更新过程，这也是随机过程的推广。</strong></p>
+<p><strong>泊松过程分为齐次泊松过程和非齐次泊松过程，齐次的意思很简单，就是说过程并不依赖于初始时刻，强度函数是一个常数，从上面的公式也看得出来。而非齐次则是变成了,这意味着什么呢？这以为着随着与时间的改变，强度是会改变的，改变服从强度函数，说了这么久，强度究竟是个什么概念？强度的意思就是泊松过程的该事件发生的频率，或者说快慢，泊松分布中我们知道期望就是,实际含义就是，在一段时间内，发生的次数平均水平是次。</strong></p>
+<h1 id="大数定律与正态分布"><a href="#大数定律与正态分布" class="headerlink" title="大数定律与正态分布"></a>大数定律与正态分布</h1><h2 id="大数定律"><a href="#大数定律" class="headerlink" title="大数定律"></a>大数定律</h2><ol>
+<li>大数定律就以严格的数学形式表现了随机现象的一个性质：平稳结果的稳定性（或者说频率的稳定性）</li>
+<li>大数定律从理论上解决：用频率近似代替概率的问题：P(A)≈$\frac{n_A}{n}$,用样本的均值近似代替理论均值$E(\xi)=\frac{1}{n}\sum_{i=1}^n\xi_i$</li>
+</ol>
+<p><strong>大数定律是说，n只要越来越大，我把这n个独立同分布的数加起来去除以n得到的这个样本均值（也是一个随机变量）会依概率收敛到真值u，但是样本均值的分布是怎样的我们不知道。</strong></p>
+<h3 id="弱大数定律："><a href="#弱大数定律：" class="headerlink" title="弱大数定律："></a>弱大数定律：</h3><p>对于独立同分布的随机序列$\xi_i,\xi_2,…,\xi_n$只要总体均值$\mu$存在,那么样本均值$\overline{\xi_n}=\frac{1}{n}\sum_{i=1}^n\xi_i$会随着n增大而以概率收敛到总体均值<br><img src="/2019/04/04/菜鸟学统计（一）/pic6.png" alt="pic6"><br>上图虚线部分表示一个任意小的实数，每条实线表示一个数列，可以看到当样本不断增加后，数列会逐渐收敛到虚线部分里面，偶然会有几条跑出来。这个就叫做弱大数定律的依概率收敛到$\mu$。</p>
+<h3 id="强大数定律"><a href="#强大数定律" class="headerlink" title="强大数定律"></a>强大数定律</h3><p>对于独立同分布的随机序列$\xi_i,\xi_2,…,\xi_n$,只要总体均值$\mu$存在,那么样本均值$\overline{\xi_n}=\frac{1}{n}\sum_{i=1}^n\xi_i$会随着n增大会处处收敛到$\mu$<br><img src="/2019/04/04/菜鸟学统计（一）/pic7.png" alt="pic7"><br>相比较弱大数定律，强大数定律表征着当数列样本量增大后，它再也不会超出虚线所表示的边界，也就是超出这个边界的概率就是0了。这个就叫做强大数定律的处处收敛。</p>
+<h2 id="中心极限定理"><a href="#中心极限定理" class="headerlink" title="中心极限定理"></a>中心极限定理</h2><p>当样本量N逐渐趋于无穷大时，N个抽样样本的均值的频数逐渐趋于正态分布，其对原总体的分布不做任何要求，意味着无论总体是什么分布，其抽样样本的均值的频数的分布都随着抽样数的增多而趋于正态分布。</p>
+<p><strong>中心极限定理是说，n只要越来越大，这n个数的样本均值会趋近于正态分布，并且这个正态分布以$\mu$为均值，$\sigma^2$为方差。</strong></p>
+<h2 id="正态分布"><a href="#正态分布" class="headerlink" title="正态分布"></a>正态分布</h2><p>一种常见的连续概率分布,$X～N(\mu,\sigma^2)$,其概率密度函数为</p>
+<script type="math/tex; mode=display">f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}</script><h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p><img src="/2019/04/04/菜鸟学统计（一）/pic8.png" alt="pic8"></p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="https://blog.csdn.net/sinat_29957455/article/details/80302391" target="_blank" rel="noopener">https://blog.csdn.net/sinat_29957455/article/details/80302391</a></li>
+<li><a href="https://blog.csdn.net/ibelieve8013/article/details/80251822" target="_blank" rel="noopener">https://blog.csdn.net/ibelieve8013/article/details/80251822</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/统计学/" rel="tag"># 统计学</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/03/初级算法梳理（三）/" rel="next" title="初级算法梳理（三）">
+                <i class="fa fa-chevron-left"></i> 初级算法梳理（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#统计学基本知识"><span class="nav-number">1.</span> <span class="nav-text">统计学基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#均值中位数众数"><span class="nav-number">1.1.</span> <span class="nav-text">均值中位数众数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#极差和中程数"><span class="nav-number">1.2.</span> <span class="nav-text">极差和中程数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#茎叶图"><span class="nav-number">1.3.</span> <span class="nav-text">茎叶图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箱线图"><span class="nav-number">1.4.</span> <span class="nav-text">箱线图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计量"><span class="nav-number">1.5.</span> <span class="nav-text">统计量:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#统计-集中趋势"><span class="nav-number">1.5.1.</span> <span class="nav-text">统计:集中趋势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本和总体"><span class="nav-number">1.5.2.</span> <span class="nav-text">样本和总体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总体方差"><span class="nav-number">1.5.3.</span> <span class="nav-text">总体方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本方差"><span class="nav-number">1.5.4.</span> <span class="nav-text">样本方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准差"><span class="nav-number">1.5.5.</span> <span class="nav-text">标准差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#诸方差公式"><span class="nav-number">1.5.6.</span> <span class="nav-text">诸方差公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机变量介绍"><span class="nav-number">1.5.7.</span> <span class="nav-text">随机变量介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二项分布"><span class="nav-number">1.6.</span> <span class="nav-text">二项分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意常常会提到二项分布与泊松分布的关系"><span class="nav-number">1.6.1.</span> <span class="nav-text">注意常常会提到二项分布与泊松分布的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泊松分布与指数分布"><span class="nav-number">1.6.2.</span> <span class="nav-text">泊松分布与指数分布</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泊松过程"><span class="nav-number">2.</span> <span class="nav-text">泊松过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大数定律与正态分布"><span class="nav-number">3.</span> <span class="nav-text">大数定律与正态分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大数定律"><span class="nav-number">3.1.</span> <span class="nav-text">大数定律</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#弱大数定律："><span class="nav-number">3.1.1.</span> <span class="nav-text">弱大数定律：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强大数定律"><span class="nav-number">3.1.2.</span> <span class="nav-text">强大数定律</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中心极限定理"><span class="nav-number">3.2.</span> <span class="nav-text">中心极限定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正态分布"><span class="nav-number">3.3.</span> <span class="nav-text">正态分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质"><span class="nav-number">3.3.1.</span> <span class="nav-text">性质</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
