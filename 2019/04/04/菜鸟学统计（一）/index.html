@@ -109,7 +109,7 @@
 <meta property="og:description" content="统计学基本知识均值中位数众数 均值主要反映一系列数的平均程度,但及其容易受极端值的影响 中位数:将一系列数排序后,位于中间的数(如果是偶数个数则是中间的两个数,如果是奇数个数则是中间的那一个)  众数:一串数字序列中,出现次数最多的那个数。   12345678910111213nums=[1,2,3,4]#均值import numpy as npnp.mean(nums)#中位数np.media">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=926333680,3828962351&fm=11&gp=0.jpg">
-<meta property="og:updated_time" content="2019-04-04T14:04:00.644Z">
+<meta property="og:updated_time" content="2019-04-05T13:39:38.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="菜鸟学统计（一）">
 <meta name="twitter:description" content="统计学基本知识均值中位数众数 均值主要反映一系列数的平均程度,但及其容易受极端值的影响 中位数:将一系列数排序后,位于中间的数(如果是偶数个数则是中间的两个数,如果是奇数个数则是中间的那一个)  众数:一串数字序列中,出现次数最多的那个数。   12345678910111213nums=[1,2,3,4]#均值import numpy as npnp.mean(nums)#中位数np.media">
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.9k 字
+                  4.2k 字
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  15 分钟
+                  16 分钟
                 </span>
               
             </div>
@@ -445,7 +445,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=926333680,3828962351&fm=11&gp=0.jpg" rel="gallery_cju42z1h100dfn8wa2d8g03mg" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=926333680,3828962351&fm=11&gp=0.jpg" rel="gallery_cju44xuq700dykcwa56yzt76c" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=926333680,3828962351&fm=11&gp=0.jpg" itemprop="contentUrl">
               </a>
             
@@ -557,7 +557,13 @@
 <p><strong>大数定律是说，n只要越来越大，我把这n个独立同分布的数加起来去除以n得到的这个样本均值（也是一个随机变量）会依概率收敛到真值u，但是样本均值的分布是怎样的我们不知道。</strong></p>
 <h3 id="弱大数定律："><a href="#弱大数定律：" class="headerlink" title="弱大数定律："></a>弱大数定律：</h3><p>对于独立同分布的随机序列$\xi_i,\xi_2,…,\xi_n$只要总体均值$\mu$存在,那么样本均值$\overline{\xi_n}=\frac{1}{n}\sum_{i=1}^n\xi_i$会随着n增大而以概率收敛到总体均值<br><img src="/2019/04/04/菜鸟学统计（一）/pic6.png" alt="pic6"><br>上图虚线部分表示一个任意小的实数，每条实线表示一个数列，可以看到当样本不断增加后，数列会逐渐收敛到虚线部分里面，偶然会有几条跑出来。这个就叫做弱大数定律的依概率收敛到$\mu$。</p>
 <h3 id="强大数定律"><a href="#强大数定律" class="headerlink" title="强大数定律"></a>强大数定律</h3><p>对于独立同分布的随机序列$\xi_i,\xi_2,…,\xi_n$,只要总体均值$\mu$存在,那么样本均值$\overline{\xi_n}=\frac{1}{n}\sum_{i=1}^n\xi_i$会随着n增大会处处收敛到$\mu$<br><img src="/2019/04/04/菜鸟学统计（一）/pic7.png" alt="pic7"><br>相比较弱大数定律，强大数定律表征着当数列样本量增大后，它再也不会超出虚线所表示的边界，也就是超出这个边界的概率就是0了。这个就叫做强大数定律的处处收敛。</p>
-<h2 id="中心极限定理"><a href="#中心极限定理" class="headerlink" title="中心极限定理"></a>中心极限定理</h2><p>当样本量N逐渐趋于无穷大时，N个抽样样本的均值的频数逐渐趋于正态分布，其对原总体的分布不做任何要求，意味着无论总体是什么分布，其抽样样本的均值的频数的分布都随着抽样数的增多而趋于正态分布。</p>
+<h3 id="强弱大数定律的区别在于"><a href="#强弱大数定律的区别在于" class="headerlink" title="强弱大数定律的区别在于"></a>强弱大数定律的区别在于</h3><p>强弱大数定律有相同的条件,区别在于结论.弱大数定律说的是依概率收敛,强大数定律说的是几乎处处收敛.</p>
+<hr>
+<p>依概率收敛:<br>对于一个随机变量序列$\{\hat{\theta}_n(x)\}_n$.这个随机变量的值由随机变量x决定.对于任意正实数$\xi$,如果存在一个随机变量$\theta(x)$使下式成立:</p>
+<script type="math/tex; mode=display">lim_{n\rightarrow∞}Pr(x,|\hat{\theta}_n(x)-\theta(x)|＜\xi)=1</script><p>则称序列$\{\hat{\theta}_n(x)\}_n$依概率收敛到随机变量$\theta(x)$</p>
+<p>几乎处处收敛：<br>若对于任意正实数$\xi$,如果存在一个随机变量$\theta(x)$使下式成立:</p>
+<script type="math/tex; mode=display">Pr(x,lim_{n\rightarrow∞}|\hat{\theta}_n(x)-\theta(x)|＜\xi)=1</script><p>则称序列$\{\hat{\theta}_n(x)\}_n$几乎处处收敛到随机变量$\theta(x)$</p>
+<h2 id="两者区别在于-前者不需要满足-hat-theta-n-x-theta-x-＜-xi-在x所有的取值范围上成立-而后者"><a href="#两者区别在于-前者不需要满足-hat-theta-n-x-theta-x-＜-xi-在x所有的取值范围上成立-而后者" class="headerlink" title="两者区别在于:前者不需要满足$|\hat{\theta}_n(x)-\theta(x)|＜\xi$在x所有的取值范围上成立,而后者"></a>两者区别在于:前者不需要满足$|\hat{\theta}_n(x)-\theta(x)|＜\xi$在x所有的取值范围上成立,而后者</h2><h2 id="中心极限定理"><a href="#中心极限定理" class="headerlink" title="中心极限定理"></a>中心极限定理</h2><p>当样本量N逐渐趋于无穷大时，N个抽样样本的均值的频数逐渐趋于正态分布，其对原总体的分布不做任何要求，意味着无论总体是什么分布，其抽样样本的均值的频数的分布都随着抽样数的增多而趋于正态分布。</p>
 <p><strong>中心极限定理是说，n只要越来越大，这n个数的样本均值会趋近于正态分布，并且这个正态分布以$\mu$为均值，$\sigma^2$为方差。</strong></p>
 <h2 id="正态分布"><a href="#正态分布" class="headerlink" title="正态分布"></a>正态分布</h2><p>一种常见的连续概率分布,$X～N(\mu,\sigma^2)$,其概率密度函数为</p>
 <script type="math/tex; mode=display">f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}</script><h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p><img src="/2019/04/04/菜鸟学统计（一）/pic8.png" alt="pic8"></p>
@@ -698,7 +704,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">128</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -709,7 +715,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -720,7 +726,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -769,7 +775,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#统计学基本知识"><span class="nav-number">1.</span> <span class="nav-text">统计学基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#均值中位数众数"><span class="nav-number">1.1.</span> <span class="nav-text">均值中位数众数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#极差和中程数"><span class="nav-number">1.2.</span> <span class="nav-text">极差和中程数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#茎叶图"><span class="nav-number">1.3.</span> <span class="nav-text">茎叶图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箱线图"><span class="nav-number">1.4.</span> <span class="nav-text">箱线图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计量"><span class="nav-number">1.5.</span> <span class="nav-text">统计量:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#统计-集中趋势"><span class="nav-number">1.5.1.</span> <span class="nav-text">统计:集中趋势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本和总体"><span class="nav-number">1.5.2.</span> <span class="nav-text">样本和总体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总体方差"><span class="nav-number">1.5.3.</span> <span class="nav-text">总体方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本方差"><span class="nav-number">1.5.4.</span> <span class="nav-text">样本方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准差"><span class="nav-number">1.5.5.</span> <span class="nav-text">标准差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#诸方差公式"><span class="nav-number">1.5.6.</span> <span class="nav-text">诸方差公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机变量介绍"><span class="nav-number">1.5.7.</span> <span class="nav-text">随机变量介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二项分布"><span class="nav-number">1.6.</span> <span class="nav-text">二项分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意常常会提到二项分布与泊松分布的关系"><span class="nav-number">1.6.1.</span> <span class="nav-text">注意常常会提到二项分布与泊松分布的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泊松分布与指数分布"><span class="nav-number">1.6.2.</span> <span class="nav-text">泊松分布与指数分布</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泊松过程"><span class="nav-number">2.</span> <span class="nav-text">泊松过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大数定律与正态分布"><span class="nav-number">3.</span> <span class="nav-text">大数定律与正态分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大数定律"><span class="nav-number">3.1.</span> <span class="nav-text">大数定律</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#弱大数定律："><span class="nav-number">3.1.1.</span> <span class="nav-text">弱大数定律：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强大数定律"><span class="nav-number">3.1.2.</span> <span class="nav-text">强大数定律</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中心极限定理"><span class="nav-number">3.2.</span> <span class="nav-text">中心极限定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正态分布"><span class="nav-number">3.3.</span> <span class="nav-text">正态分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质"><span class="nav-number">3.3.1.</span> <span class="nav-text">性质</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#统计学基本知识"><span class="nav-number">1.</span> <span class="nav-text">统计学基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#均值中位数众数"><span class="nav-number">1.1.</span> <span class="nav-text">均值中位数众数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#极差和中程数"><span class="nav-number">1.2.</span> <span class="nav-text">极差和中程数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#茎叶图"><span class="nav-number">1.3.</span> <span class="nav-text">茎叶图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箱线图"><span class="nav-number">1.4.</span> <span class="nav-text">箱线图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计量"><span class="nav-number">1.5.</span> <span class="nav-text">统计量:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#统计-集中趋势"><span class="nav-number">1.5.1.</span> <span class="nav-text">统计:集中趋势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本和总体"><span class="nav-number">1.5.2.</span> <span class="nav-text">样本和总体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总体方差"><span class="nav-number">1.5.3.</span> <span class="nav-text">总体方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本方差"><span class="nav-number">1.5.4.</span> <span class="nav-text">样本方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准差"><span class="nav-number">1.5.5.</span> <span class="nav-text">标准差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#诸方差公式"><span class="nav-number">1.5.6.</span> <span class="nav-text">诸方差公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机变量介绍"><span class="nav-number">1.5.7.</span> <span class="nav-text">随机变量介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二项分布"><span class="nav-number">1.6.</span> <span class="nav-text">二项分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意常常会提到二项分布与泊松分布的关系"><span class="nav-number">1.6.1.</span> <span class="nav-text">注意常常会提到二项分布与泊松分布的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泊松分布与指数分布"><span class="nav-number">1.6.2.</span> <span class="nav-text">泊松分布与指数分布</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泊松过程"><span class="nav-number">2.</span> <span class="nav-text">泊松过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大数定律与正态分布"><span class="nav-number">3.</span> <span class="nav-text">大数定律与正态分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大数定律"><span class="nav-number">3.1.</span> <span class="nav-text">大数定律</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#弱大数定律："><span class="nav-number">3.1.1.</span> <span class="nav-text">弱大数定律：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强大数定律"><span class="nav-number">3.1.2.</span> <span class="nav-text">强大数定律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强弱大数定律的区别在于"><span class="nav-number">3.1.3.</span> <span class="nav-text">强弱大数定律的区别在于</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两者区别在于-前者不需要满足-hat-theta-n-x-theta-x-＜-xi-在x所有的取值范围上成立-而后者"><span class="nav-number">3.2.</span> <span class="nav-text">两者区别在于:前者不需要满足$|\hat{\theta}_n(x)-\theta(x)|＜\xi$在x所有的取值范围上成立,而后者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中心极限定理"><span class="nav-number">3.3.</span> <span class="nav-text">中心极限定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正态分布"><span class="nav-number">3.4.</span> <span class="nav-text">正态分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质"><span class="nav-number">3.4.1.</span> <span class="nav-text">性质</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
 			
