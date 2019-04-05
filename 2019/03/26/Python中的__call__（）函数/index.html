@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="深度菜鸟">
 <meta property="og:description" content="__call__()函数python中类的实例(对象)可以被当做函数对待.也就是说,我们可以将它们作为输入传递到其他的函数/方法中并调用它们,正如我们调用一个正常的函数那样。而类中的call()函数的意义正在于此.为了将一个类实例当作函数调用,我们需要再类中事先call()方法.假设x是X类的一个实例.调用x.__call__(1,2)等同于调用x(1,2).这个实例本身在这里相当于一个函数. P">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-26T14:25:52.954Z">
+<meta property="og:updated_time" content="2019-04-05T11:08:31.913Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python中的__call__（）函数">
 <meta name="twitter:description" content="__call__()函数python中类的实例(对象)可以被当做函数对待.也就是说,我们可以将它们作为输入传递到其他的函数/方法中并调用它们,正如我们调用一个正常的函数那样。而类中的call()函数的意义正在于此.为了将一个类实例当作函数调用,我们需要再类中事先call()方法.假设x是X类的一个实例.调用x.__call__(1,2)等同于调用x(1,2).这个实例本身在这里相当于一个函数. P">
@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  896 字
+                  1k 字
                 </span>
               
 
@@ -420,7 +420,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3 分钟
+                  4 分钟
                 </span>
               
             </div>
@@ -457,6 +457,12 @@
 <p>deque除了实现list的append和pop外,还支持appendleft()和popleft()</p>
 <h2 id="Counter"><a href="#Counter" class="headerlink" title="Counter"></a>Counter</h2><p>Counter是一个简单的计数器,例如,统计字符出现的个数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c=Counter()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> ch <span class="keyword">in</span> <span class="string">'programming'</span>:</span><br><span class="line">      c[ch]=c[ch]+<span class="number">1</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c</span><br><span class="line">Counter(&#123;<span class="string">'g'</span>:<span class="number">2</span>,<span class="string">'m'</span><span class="number">2</span>,<span class="string">'r'</span>:<span class="number">2</span>,<span class="string">'a'</span>:<span class="number">1</span>,<span class="string">'i'</span>:<span class="number">1</span>,<span class="string">'o'</span>:<span class="number">1</span>,<span class="string">'n'</span>:<span class="number">1</span>,<span class="string">'p'</span>:<span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure></p>
 <p>Counter实际上也是dict的一个子类,上面的结果可以看出,字符’g’,’m’,’r’各出现2次,其他字符出现1次</p>
+<h1 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h1><p>感觉本文成了python专项贴.<br>zip的用法</p>
+<ol>
+<li>解压<br>传入的data为batch个元组,即batch个(iamges,captions) 对儿<br>images,captions=zip(<em> data)<br>表示zip(</em> data)=(batch 个image,batch 个 caption)</li>
+<li>压<br>data=zip(images,captions)<br>例子<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&gt;&gt;&gt;b=[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line">&gt;&gt;&gt;c=[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>]</span><br><span class="line">&gt;&gt;&gt;zipped=zip(a,b)</span><br><span class="line">[(<span class="number">1</span>,<span class="number">4</span>),(<span class="number">2</span>,<span class="number">5</span>),(<span class="number">3</span>,<span class="number">6</span>)]</span><br><span class="line">&gt;&gt;&gt;zip(a,c)</span><br><span class="line">[(<span class="number">1</span>,<span class="number">4</span>),(<span class="number">2</span>,<span class="number">5</span>),(<span class="number">3</span>,<span class="number">6</span>)]</span><br><span class="line">&gt;&gt;&gt;zip(*zipped)</span><br><span class="line">[(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>),(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
       
     </div>
@@ -590,7 +596,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-count">127</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -601,7 +607,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -612,7 +618,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -661,7 +667,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#call-函数"><span class="nav-number">1.</span> <span class="nav-text">__call__()函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-pickle模块学习"><span class="nav-number">2.</span> <span class="nav-text">Python pickle模块学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-collections"><span class="nav-number">3.</span> <span class="nav-text">Python collections</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#namedtuple"><span class="nav-number">3.1.</span> <span class="nav-text">namedtuple</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deque"><span class="nav-number">3.2.</span> <span class="nav-text">deque</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Counter"><span class="nav-number">3.3.</span> <span class="nav-text">Counter</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#call-函数"><span class="nav-number">1.</span> <span class="nav-text">__call__()函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-pickle模块学习"><span class="nav-number">2.</span> <span class="nav-text">Python pickle模块学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-collections"><span class="nav-number">3.</span> <span class="nav-text">Python collections</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#namedtuple"><span class="nav-number">3.1.</span> <span class="nav-text">namedtuple</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deque"><span class="nav-number">3.2.</span> <span class="nav-text">deque</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Counter"><span class="nav-number">3.3.</span> <span class="nav-text">Counter</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zip"><span class="nav-number">4.</span> <span class="nav-text">zip</span></a></li></ol></div>
             
 
 			
