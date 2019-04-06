@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,Tensorflow,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="不打算重新开一个系列了,直接在之前学习NLP的地方进行j记录学习,反正本来就是菜鸟. 本次任务是：  Anaconda 安装 Conda 学习 Python编辑器安装与学习： jupyter notebook  或者 pycharm Tensorflow 库安装与学习安装的东西就不记录了网上的有,而且早就装过一遍了.主要就是记录Conda学习以及Tensorflow学习.  CondaConda是">
+<meta name="keywords" content="NLP,Tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="菜鸟学NLP（三）">
+<meta property="og:url" content="http://yifdu.github.io/2019/04/06/菜鸟学NLP（三）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="不打算重新开一个系列了,直接在之前学习NLP的地方进行j记录学习,反正本来就是菜鸟. 本次任务是：  Anaconda 安装 Conda 学习 Python编辑器安装与学习： jupyter notebook  或者 pycharm Tensorflow 库安装与学习安装的东西就不记录了网上的有,而且早就装过一遍了.主要就是记录Conda学习以及Tensorflow学习.  CondaConda是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://inews.gtimg.com/newsapp_bt/0/8296469312/1000">
+<meta property="og:updated_time" content="2019-04-06T09:10:30.688Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="菜鸟学NLP（三）">
+<meta name="twitter:description" content="不打算重新开一个系列了,直接在之前学习NLP的地方进行j记录学习,反正本来就是菜鸟. 本次任务是：  Anaconda 安装 Conda 学习 Python编辑器安装与学习： jupyter notebook  或者 pycharm Tensorflow 库安装与学习安装的东西就不记录了网上的有,而且早就装过一遍了.主要就是记录Conda学习以及Tensorflow学习.  CondaConda是">
+<meta name="twitter:image" content="https://inews.gtimg.com/newsapp_bt/0/8296469312/1000">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/04/06/菜鸟学NLP（三）/">
+
+
+
+
+
+  <title>菜鸟学NLP（三） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/04/06/菜鸟学NLP（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">菜鸟学NLP（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T14:20:36+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  24 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://inews.gtimg.com/newsapp_bt/0/8296469312/1000" rel="gallery_cju5a2yjg00gt8swahe24n9mw" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://inews.gtimg.com/newsapp_bt/0/8296469312/1000" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <p>不打算重新开一个系列了,直接在之前学习NLP的地方进行j记录学习,反正本来就是菜鸟.</p>
+<p>本次任务是：</p>
+<ol>
+<li>Anaconda 安装</li>
+<li>Conda 学习</li>
+<li>Python编辑器安装与学习： jupyter notebook  或者 pycharm</li>
+<li>Tensorflow 库安装与学习<br>安装的东西就不记录了网上的有,而且早就装过一遍了.主要就是记录Conda学习以及Tensorflow学习.</li>
+</ol>
+<h1 id="Conda"><a href="#Conda" class="headerlink" title="Conda"></a>Conda</h1><p>Conda是一个开源包管理系统和环境管理系统,意思就是它不仅能够管理软件包的安装与删除、更新,还可以创建环境进行环境管理。<br>conda包括Ananconda和Miniconda.<br>Anconda包括conda,conda-build,python和超过150个自动安装的科学包及其依赖包.<br>Miniconda是一个缩小版,只包括conda,python和他们的依赖包.<br>它们都支持用conda install来安装软件包.</p>
+<h2 id="管理conda"><a href="#管理conda" class="headerlink" title="管理conda"></a>管理conda</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda --version<span class="comment">#检查版本</span></span><br><span class="line">conda update conda <span class="comment">#升级当前版本的conda</span></span><br></pre></td></tr></table></figure>
+<h2 id="管理环境"><a href="#管理环境" class="headerlink" title="管理环境"></a>管理环境</h2><p>这个我用的特别6,已经创建了6个环境….<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conda create -n yif python=<span class="number">3.6</span><span class="comment">#创建一个名为yif的带python3.6的环境</span></span><br><span class="line">conda remove -n yif --all <span class="comment">#删除环境</span></span><br><span class="line">source activate yif <span class="comment">#激活环境,Linux要有source,如果是windows可以不加source</span></span><br><span class="line">source deactivate<span class="comment">#推出环境,同上</span></span><br><span class="line">conda info --envs<span class="comment">#列出所有环境</span></span><br><span class="line">conda create -n yifdu --clone yif<span class="comment">#这是用来克隆环境的</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="管理包"><a href="#管理包" class="headerlink" title="管理包"></a>管理包</h1><p>使用此选项可查看环境中安装的是哪个版本的Python或其他程序，或者确认已添加或删除了包。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda list<span class="comment">#查看所有软件包列表</span></span><br><span class="line">conda search tqdm<span class="comment">#搜索包</span></span><br><span class="line">conda install -n yif tqdm<span class="comment">#安装tqdm包,指定环境名称yif,如果没有则默认安装在当前环境</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="分享环境"><a href="#分享环境" class="headerlink" title="分享环境"></a>分享环境</h2><p>(好骚啊)<br>如果你想把你当前的环境配置与别人分享，这样ta可以快速建立一个与你一模一样的环境（同一个版本的python及各种包）来共同开发/进行新的实验。一个分享环境的快速方法就是给ta一个你的环境的.yml文件。<br>首先通过source activate yif切换到分享的环境yif，然后输入下面的命令会在当前工作目录下生成一个environment.yml文件，<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env export &gt; environment.yml</span><br></pre></td></tr></table></figure></p>
+<p>小伙伴拿到environment.yml文件后，将该文件放在工作目录下，可以通过以下命令从该文件创建环境<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env create -f environment.yml</span><br></pre></td></tr></table></figure></p>
+<h2 id="移除conda"><a href="#移除conda" class="headerlink" title="移除conda"></a>移除conda</h2><p>Linux，OS X：<br>移除Anaconda 或 Miniconda 安装文件夹<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/miniconda OR  rm -rf ~/anaconda</span><br></pre></td></tr></table></figure></p>
+<p>Windows：<br>去控制面板，点击“添加或删除程序”，选择“Python2.7（Anaconda）”或“Python2.7（Miniconda）”并点击删除程序。</p>
+<h1 id="Tensorflow学习"><a href="#Tensorflow学习" class="headerlink" title="Tensorflow学习"></a>Tensorflow学习</h1><p>之前用过tensorflow,感觉流程比较繁琐,有点像在用C++一样,要先声明然后再使用,后来改用了pytorch,这就比较贴合python.但是还是知道工业是比较普及的还是tensorflow,所以想趁着这次机会再学一遍,争取能熟练使用.</p>
+<h2 id="tensorflow2-0"><a href="#tensorflow2-0" class="headerlink" title="tensorflow2.0"></a>tensorflow2.0</h2><p>一转眼tensorflow都2.0了….<br>这里都是学习参考文献1的记录</p>
+<h3 id="keras快速入门"><a href="#keras快速入门" class="headerlink" title="keras快速入门"></a>keras快速入门</h3><p>之前放弃tensorflow的原因就是一些复杂实现,想要直接调库,你查阅资料可能会发现keras里怎么实现,slim里怎么实现,很不统一….(归根结底是菜)</p>
+<p>tensorflow2推荐使用keras构建网络,常见的神经网络都在keras.layer中(最新的tf.keras的版本可能和keras不同)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers</span><br><span class="line">print(tf.__version__)</span><br><span class="line">print(tf.keras.__version__)</span><br></pre></td></tr></table></figure></p>
+<p>模型的堆叠<br>最常见的模型类型是层的堆叠:tf.keras.Sequential模型<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model=tf.keras.Sequential()</span><br><span class="line">model.add(layers.Dense(<span class="number">32</span>,activation=‘relu’))<span class="comment">#这里数字表示输出</span></span><br><span class="line">model.add(layers.Dense(<span class="number">32</span>,activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(layers.Dense(<span class="number">10</span>,activation=<span class="string">'softmax'</span>))</span><br></pre></td></tr></table></figure></p>
+<p>上述是最简单的网络形式.<br>看一下构建层的参数:</p>
+<ol>
+<li>activation:激活函数,内置了一些函数名称,默认情况,不应用任何激活函数</li>
+<li>kernel_initializer和bias_initializer:创建层权重(核和偏差)的初始化方案.默认为”Glorot uniform”初始化器</li>
+<li>kernel_regularizer和bias_regularizer:应用层权重(核和偏差)的正则化方案,例如L1或L2正则化.默认,系统不会应用正则化函数.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">layers.Dense(<span class="number">32</span>, activation=<span class="string">'sigmoid'</span>)</span><br><span class="line">layers.Dense(<span class="number">32</span>, activation=tf.sigmoid)</span><br><span class="line">layers.Dense(<span class="number">32</span>, kernel_initializer=<span class="string">'orthogonal'</span>)</span><br><span class="line">layers.Dense(<span class="number">32</span>, kernel_initializer=tf.keras.initializers.glorot_normal)</span><br><span class="line">layers.Dense(<span class="number">32</span>, kernel_regularizer=tf.keras.regularizers.l2(<span class="number">0.01</span>))</span><br><span class="line">layers.Dense(<span class="number">32</span>, kernel_regularizer=tf.keras.regularizers.l1(<span class="number">0.01</span>))</span><br></pre></td></tr></table></figure>
+<p>训练和评估<br>当我们像上面一样构建好一个完整的网络结构以后,可以开始训练<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.compile(optimizer=tf.keras.optimizers.Adam(<span class="number">0.001</span>),loss=tf.keras.categorical_crossentropy,metrics=[tf.keras.metrics.categorical_accuracy])</span><br></pre></td></tr></table></figure></p>
+<p>有没有发现这里的调用学习的命令显得特别紧凑,当然,这有一个好处就是很直观,loss是什么,metric是什么.但是总觉得pytorch显得更加灵活,而这种形式比较死板(可能是我太菜,还不会自定义)。</p>
+<p>输入Numpy 数据<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">train_x = np.random.random((<span class="number">1000</span>, <span class="number">72</span>))</span><br><span class="line">train_y = np.random.random((<span class="number">1000</span>, <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">val_x = np.random.random((<span class="number">200</span>, <span class="number">72</span>))</span><br><span class="line">val_y = np.random.random((<span class="number">200</span>, <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">model.fit(train_x, train_y, epochs=<span class="number">10</span>, batch_size=<span class="number">100</span>,</span><br><span class="line">          validation_data=(val_x, val_y))</span><br></pre></td></tr></table></figure></p>
+<p>这里相比pytorch,只要直接输入numpy数据就行了,不用转变为tensor形式,但看到没有,model.fit()这一步也被封装的很死,在pytorch中往往是自己实现的,当然这也能显得tensorflow的优点是简便.</p>
+<p>tf.data输入数据<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dataset = tf.data.Dataset.from_tensor_slices((train_x, train_y))</span><br><span class="line">dataset = dataset.batch(<span class="number">32</span>)</span><br><span class="line">dataset = dataset.repeat()</span><br><span class="line">val_dataset = tf.data.Dataset.from_tensor_slices((val_x, val_y))</span><br><span class="line">val_dataset = val_dataset.batch(<span class="number">32</span>)</span><br><span class="line">val_dataset = val_dataset.repeat()</span><br><span class="line"></span><br><span class="line">model.fit(dataset, epochs=<span class="number">10</span>, steps_per_epoch=<span class="number">30</span>,</span><br><span class="line">          validation_data=val_dataset, validation_steps=<span class="number">3</span>)</span><br></pre></td></tr></table></figure></p>
+<p>tf.data API感觉有点像torch.utils.Dataset和torch.utils.Dataloader,就是为了用简单的代码来构建复杂的输入pipeline。</p>
+<ol>
+<li><p>tf.data.Dataset:表示一系列元素,其中每个元素包含一个或多个Tensor对象.可以通过两种方式来创建数据集<br>(1)直接从Tensor创建Dataset(例如Dataset.from_tensor_slices());当然Numpy也是可以的,Tensorflow会自动将其转换为tensor<br>(2)通过对一个或多个tf.data.Dataset对象来使用变换(例如Dataset.batch())来创建Dataset</p>
+</li>
+<li><p>tf.data.Iterator:这是从数据集中提取元素的主要方法.Iterator.get_next()命令会在执行时生成Dataset的下一个元素,并且此命令通常充当输入管道和模型之间的接口.最简单的迭代器是”单词迭代器”,他会对处理好的Dataset进行单词迭代,可以通过Iterator.initializer指令使用不同的数据集重新初始化和参数化迭代器,这样一来,您就可以在同一个程序中对训练和验证数据进行多次迭代<br>来自<a href="https://zhuanlan.zhihu.com/p/30751039" target="_blank" rel="noopener">优秀学长的介绍</a><br>这一部分比较复杂,先贴这儿以后细说.</p>
+</li>
+</ol>
+<p>评估和预测<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">test_x = np.random.random((<span class="number">1000</span>, <span class="number">72</span>))</span><br><span class="line">test_y = np.random.random((<span class="number">1000</span>, <span class="number">10</span>))</span><br><span class="line">model.evaluate(test_x, test_y, batch_size=<span class="number">32</span>)</span><br><span class="line">test_data = tf.data.Dataset.from_tensor_slices((test_x, test_y))</span><br><span class="line">test_data = test_data.batch(<span class="number">32</span>).repeat()</span><br><span class="line">model.evaluate(test_data, steps=<span class="number">30</span>)</span><br><span class="line"><span class="comment"># predict</span></span><br><span class="line">result = model.predict(test_x, batch_size=<span class="number">32</span>)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure></p>
+<p>构建高级API<br>刚刚的tf.keras.Sequential模型是层层堆叠的,如果遇到了需要多输入多输出的模型怎么办?<br>可以采用函数式API<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">input_x = tf.keras.Input(shape=(<span class="number">72</span>,))</span><br><span class="line">hidden1 = layers.Dense(<span class="number">32</span>, activation=<span class="string">'relu'</span>)(input_x)</span><br><span class="line">hidden2 = layers.Dense(<span class="number">16</span>, activation=<span class="string">'relu'</span>)(hidden1)</span><br><span class="line">pred = layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>)(hidden2)</span><br><span class="line"></span><br><span class="line">model = tf.keras.Model(inputs=input_x, outputs=pred)</span><br><span class="line">model.compile(optimizer=tf.keras.optimizers.Adam(<span class="number">0.001</span>),</span><br><span class="line">             loss=tf.keras.losses.categorical_crossentropy,</span><br><span class="line">             metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line">model.fit(train_x, train_y, batch_size=<span class="number">32</span>, epochs=<span class="number">5</span>)</span><br></pre></td></tr></table></figure></p>
+<p>输入张量input_x和输出张量pred用于定义tf.keras.Model实例.后续的训练方式则和Sequential模型一样.</p>
+<p>模型子类化<br>通过tf.keras.Model进行子类化并定义自己前向传播来构建完全可自定义的模型.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyModel</span><span class="params">(tf.keras.Model)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, num_classes=<span class="number">10</span>)</span>:</span></span><br><span class="line">        super(MyModel, self).__init__(name=<span class="string">'my_model'</span>)</span><br><span class="line">        self.num_classes = num_classes</span><br><span class="line">        self.layer1 = layers.Dense(<span class="number">32</span>, activation=<span class="string">'relu'</span>)</span><br><span class="line">        self.layer2 = layers.Dense(num_classes, activation=<span class="string">'softmax'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, inputs)</span>:</span></span><br><span class="line">        h1 = self.layer1(inputs)</span><br><span class="line">        out = self.layer2(h1)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">compute_output_shape</span><span class="params">(self, input_shape)</span>:</span></span><br><span class="line">        shape = tf.TensorShapej(input_shape).as_list()</span><br><span class="line">        shape[<span class="number">-1</span>] = self.num_classes</span><br><span class="line">        <span class="keyword">return</span> tf.TensorShape(shape)</span><br><span class="line"></span><br><span class="line">model = MyModel(num_classes=<span class="number">10</span>)</span><br><span class="line">model.compile(optimizer=tf.keras.optimizers.RMSprop(<span class="number">0.001</span>),</span><br><span class="line">             loss=tf.keras.losses.categorical_crossentropy,</span><br><span class="line">             metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line"></span><br><span class="line">model.fit(train_x, train_y, batch_size=<span class="number">16</span>, epochs=<span class="number">5</span>)</span><br></pre></td></tr></table></figure></p>
+<p>与Pytorch一样是在<strong>init</strong>中初始化,然后在call中定义前向传播(pytorch是用forward来定义)<br>compute_output_shape(input_shape)：如果层修改了输入数据的shape，你应该在这里指定shape变化的方法，这个函数使得Keras可以做自动shape推断。</p>
+<p>自定义层:<br>通过tf.keras.layers.Layer进行子类化并实现以下方法来创建自定义层:<br>build:创建层的权重.使用add_weight方法添加权重<br>call:定义前向传播<br>compute_output_shape:指定在给定输入形状的情况下如何计算层的输出形状.或者,可以通过实现get_config方法和from_config类方法序列化层.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyLayer</span><span class="params">(layers.Layer)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, output_dim, **kwargs)</span>:</span></span><br><span class="line">        self.output_dim = output_dim</span><br><span class="line">        super(MyLayer, self).__init__(**kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build</span><span class="params">(self, input_shape)</span>:</span></span><br><span class="line">        shape = tf.TensorShape((input_shape[<span class="number">1</span>], self.output_dim))</span><br><span class="line">        self.kernel = self.add_weight(name=<span class="string">'kernel1'</span>, shape=shape,</span><br><span class="line">                                   initializer=<span class="string">'uniform'</span>, trainable=<span class="keyword">True</span>)</span><br><span class="line">        super(MyLayer, self).build(input_shape)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, inputs)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tf.matmul(inputs, self.kernel)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">compute_output_shape</span><span class="params">(self, input_shape)</span>:</span></span><br><span class="line">        shape = tf.TensorShape(input_shape).as_list()</span><br><span class="line">        shape[<span class="number">-1</span>] = self.output_dim</span><br><span class="line">        <span class="keyword">return</span> tf.TensorShape(shape)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_config</span><span class="params">(self)</span>:</span></span><br><span class="line">        base_config = super(MyLayer, self).get_config()</span><br><span class="line">        base_config[<span class="string">'output_dim'</span>] = self.output_dim</span><br><span class="line">        <span class="keyword">return</span> base_config</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_config</span><span class="params">(cls, config)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls(**config)</span><br><span class="line"></span><br><span class="line">model = tf.keras.Sequential(</span><br><span class="line">[</span><br><span class="line">    MyLayer(<span class="number">10</span>),</span><br><span class="line">    layers.Activation(<span class="string">'softmax'</span>)</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model.compile(optimizer=tf.keras.optimizers.RMSprop(<span class="number">0.001</span>),</span><br><span class="line">             loss=tf.keras.losses.categorical_crossentropy,</span><br><span class="line">             metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line"></span><br><span class="line">model.fit(train_x, train_y, batch_size=<span class="number">16</span>, epochs=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>回调(感觉算是一种训练策略)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">callbacks = [</span><br><span class="line">    tf.keras.callbacks.EarlyStopping(patience=<span class="number">2</span>, monitor=<span class="string">'val_loss'</span>),</span><br><span class="line">    tf.keras.callbacks.TensorBoard(log_dir=<span class="string">'./logs'</span>)</span><br><span class="line">]</span><br><span class="line">model.fit(train_x, train_y, batch_size=<span class="number">16</span>, epochs=<span class="number">5</span>,</span><br><span class="line">         callbacks=callbacks, validation_data=(val_x, val_y))</span><br></pre></td></tr></table></figure></p>
+<p>权重保存:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">model = tf.keras.Sequential([</span><br><span class="line">layers.Dense(<span class="number">64</span>, activation=<span class="string">'relu'</span>),</span><br><span class="line">layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>)])</span><br><span class="line"></span><br><span class="line">model.compile(optimizer=tf.keras.optimizers.Adam(<span class="number">0.001</span>),</span><br><span class="line">              loss=<span class="string">'categorical_crossentropy'</span>,</span><br><span class="line">              metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line"></span><br><span class="line">model.save_weights(<span class="string">'./weights/model'</span>)</span><br><span class="line">model.load_weights(<span class="string">'./weights/model'</span>)</span><br><span class="line">model.save_weights(<span class="string">'./model.h5'</span>)</span><br><span class="line">model.load_weights(<span class="string">'./model.h5'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>保存网络结构<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 序列化成json</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> pprint</span><br><span class="line">json_str = model.to_json()</span><br><span class="line">pprint.pprint(json.loads(json_str))</span><br><span class="line">fresh_model = tf.keras.models.model_from_json(json_str)</span><br><span class="line"><span class="comment"># 保持为yaml格式  #需要提前安装pyyaml</span></span><br><span class="line"></span><br><span class="line">yaml_str = model.to_yaml()</span><br><span class="line">print(yaml_str)</span><br><span class="line">fresh_model = tf.keras.models.model_from_yaml(yaml_str)</span><br></pre></td></tr></table></figure></p>
+<p>保存整个模型<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">model = tf.keras.Sequential([</span><br><span class="line">  layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>, input_shape=(<span class="number">72</span>,)),</span><br><span class="line">  layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>)</span><br><span class="line">])</span><br><span class="line">model.compile(optimizer=<span class="string">'rmsprop'</span>,</span><br><span class="line">              loss=<span class="string">'categorical_crossentropy'</span>,</span><br><span class="line">              metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line">model.fit(train_x, train_y, batch_size=<span class="number">32</span>, epochs=<span class="number">5</span>)</span><br><span class="line">model.save(<span class="string">'all_model.h5'</span>)</span><br><span class="line">model = tf.keras.models.load_model(<span class="string">'all_model.h5'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>keras用于Estimator<br>Estimator API 用于针对分布式环境训练模型。它适用于一些行业使用场景，例如用大型数据集进行分布式训练并导出模型以用于生产(感觉这个好方便啊)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">model = tf.keras.Sequential([layers.Dense(<span class="number">10</span>,activation=<span class="string">'softmax'</span>),</span><br><span class="line">                          layers.Dense(<span class="number">10</span>,activation=<span class="string">'softmax'</span>)])</span><br><span class="line"></span><br><span class="line">model.compile(optimizer=tf.keras.optimizers.RMSprop(<span class="number">0.001</span>),</span><br><span class="line">              loss=<span class="string">'categorical_crossentropy'</span>,</span><br><span class="line">              metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line"></span><br><span class="line">estimator = tf.keras.estimator.model_to_estimator(model)</span><br></pre></td></tr></table></figure></p>
+<h3 id="eager模式"><a href="#eager模式" class="headerlink" title="eager模式"></a>eager模式</h3><p>这个模式很早前就听过了但还没有用过.<br>像前面说的,tensorflow的弊端在于它是静态图,计算的定义和执行分开,非常不方便.但是引入Eager Execution模式以后,Tensorflow就拥有了类似于pytorch一样的动态图模型能力,我们可以不必等到session.run(* )才看到执行结果,可以方便的在IDE随时调试代码,查看OPs执行结果.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">tf.enable_eager_execution()</span><br></pre></td></tr></table></figure></p>
+<p>那这个很爽啊.<br>Eager 模式下能够使用Python的debug调试工具、数据结构、控制流， 且不必再使用placeholder、session, 操作结果直接可以得到。在此种执行模式下， tensor的表现如同numpy array一般， 可以和numpy的库函数兼容。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在eager模式下可以直接进行运算</span></span><br><span class="line">x = [[<span class="number">3.</span>]]</span><br><span class="line">m = tf.matmul(x, x)</span><br><span class="line">print(m.numpy())</span><br><span class="line">​</span><br><span class="line">a = tf.constant([[<span class="number">1</span>,<span class="number">9</span>],[<span class="number">3</span>,<span class="number">6</span>]])</span><br><span class="line">print(a)</span><br><span class="line">​</span><br><span class="line">b = tf.add(a, <span class="number">2</span>)</span><br><span class="line">print(b)</span><br><span class="line">print(a*b)</span><br><span class="line">​</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">s = np.multiply(a,b)</span><br><span class="line">print(s)</span><br><span class="line">[[<span class="number">9.</span>]]</span><br><span class="line">tf.Tensor(</span><br><span class="line">[[<span class="number">1</span> <span class="number">9</span>]</span><br><span class="line"> [<span class="number">3</span> <span class="number">6</span>]], shape=(<span class="number">2</span>, <span class="number">2</span>), dtype=int32)</span><br><span class="line">tf.Tensor(</span><br><span class="line">[[ <span class="number">3</span> <span class="number">11</span>]</span><br><span class="line"> [ <span class="number">5</span>  <span class="number">8</span>]], shape=(<span class="number">2</span>, <span class="number">2</span>), dtype=int32)</span><br><span class="line">tf.Tensor(</span><br><span class="line">[[ <span class="number">3</span> <span class="number">99</span>]</span><br><span class="line"> [<span class="number">15</span> <span class="number">48</span>]], shape=(<span class="number">2</span>, <span class="number">2</span>), dtype=int32)</span><br><span class="line">[[ <span class="number">3</span> <span class="number">99</span>]</span><br><span class="line"> [<span class="number">15</span> <span class="number">48</span>]]</span><br></pre></td></tr></table></figure></p>
+<p>动态控制流:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fizzbuzz</span><span class="params">(max_num)</span>:</span></span><br><span class="line">    counter = tf.constant(<span class="number">0</span>)</span><br><span class="line">    max_num = tf.convert_to_tensor(max_num)</span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> range(<span class="number">1</span>, max_num.numpy()+<span class="number">1</span>):</span><br><span class="line">        num = tf.constant(num)</span><br><span class="line">        <span class="keyword">if</span> int(num % <span class="number">3</span>) == <span class="number">0</span> <span class="keyword">and</span> int(num % <span class="number">5</span>) == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'FizzBuzz'</span>)</span><br><span class="line">        <span class="keyword">elif</span> int(num % <span class="number">3</span>) == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'Fizz'</span>)</span><br><span class="line">        <span class="keyword">elif</span> int(num % <span class="number">5</span>) == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'Buzz'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(num.numpy())</span><br><span class="line">        counter += <span class="number">1</span></span><br><span class="line">fizzbuzz(<span class="number">16</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line">Fizz</span><br><span class="line"><span class="number">4</span></span><br><span class="line">Buzz</span><br><span class="line">Fizz</span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line">Fizz</span><br><span class="line">Buzz</span><br><span class="line"><span class="number">11</span></span><br><span class="line">Fizz</span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line">FizzBuzz</span><br><span class="line"><span class="number">16</span></span><br></pre></td></tr></table></figure></p>
+<p>构建模型<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果必须强制执行该层，则在构造函数中设置self.dynamic = True：</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySimpleLayer</span><span class="params">(tf.keras.layers.Layer)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, output_units)</span>:</span></span><br><span class="line">        super(MySimpleLayer, self).__init__()</span><br><span class="line">        self.output_units = output_units</span><br><span class="line">        self.dynamic = <span class="keyword">True</span></span><br><span class="line">​</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build</span><span class="params">(self, input_shape)</span>:</span></span><br><span class="line">        self.kernel = self.add_variable(</span><br><span class="line">        <span class="string">"kernel"</span>, [input_shape[<span class="number">-1</span>], self.output_units])</span><br><span class="line">​</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, input)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tf.matmul(input, self.kernel)</span><br><span class="line"><span class="comment"># 构造一个模型</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MNISTModel</span><span class="params">(tf.keras.Model)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(MNISTModel, self).__init__()</span><br><span class="line">        self.dense1 = tf.keras.layers.Dense(units=<span class="number">10</span>)</span><br><span class="line">        self.dense2 = tf.keras.layers.Dense(units=<span class="number">10</span>)</span><br><span class="line">​</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, inputs)</span>:</span></span><br><span class="line">        <span class="string">"""Run the model."""</span></span><br><span class="line">        result = self.dense1(inputs)</span><br><span class="line">        result = self.dense2(result)</span><br><span class="line">        result = self.dense2(result)  <span class="comment"># reuse variables from dense2 layer</span></span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">​</span><br><span class="line">model = MNISTModel()</span><br></pre></td></tr></table></figure></p>
+<p>注意上面的层需要设置self.dynamic = True</p>
+<p>使用eager模式训练<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算梯度</span></span><br><span class="line">w = tf.Variable([[<span class="number">1.0</span>]])</span><br><span class="line"><span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">    loss = w*w</span><br><span class="line">grad = tape.gradient(loss, w)</span><br><span class="line">print(grad)</span><br><span class="line">​</span><br><span class="line">tf.Tensor([[<span class="number">2.</span>]], shape=(<span class="number">1</span>, <span class="number">1</span>), dtype=float32)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 训练一个模型</span></span><br><span class="line">(mnist_images, mnist_labels), _ = tf.keras.datasets.mnist.load_data()</span><br><span class="line">​</span><br><span class="line">dataset = tf.data.Dataset.from_tensor_slices(</span><br><span class="line">  (tf.cast(mnist_images[...,tf.newaxis]/<span class="number">255</span>, tf.float32),</span><br><span class="line">   tf.cast(mnist_labels,tf.int64)))</span><br><span class="line">dataset = dataset.shuffle(<span class="number">1000</span>).batch(<span class="number">32</span>)</span><br><span class="line">mnist_model = tf.keras.Sequential([</span><br><span class="line">  tf.keras.layers.Conv2D(<span class="number">16</span>,[<span class="number">3</span>,<span class="number">3</span>], activation=<span class="string">'relu'</span>,</span><br><span class="line">                         input_shape=(<span class="keyword">None</span>, <span class="keyword">None</span>, <span class="number">1</span>)),</span><br><span class="line">  tf.keras.layers.Conv2D(<span class="number">16</span>,[<span class="number">3</span>,<span class="number">3</span>], activation=<span class="string">'relu'</span>),</span><br><span class="line">  tf.keras.layers.GlobalAveragePooling2D(),</span><br><span class="line">  tf.keras.layers.Dense(<span class="number">10</span>)</span><br><span class="line">])</span><br><span class="line"><span class="keyword">for</span> images,labels <span class="keyword">in</span> dataset.take(<span class="number">1</span>):</span><br><span class="line">    print(<span class="string">"Logits: "</span>, mnist_model(images[<span class="number">0</span>:<span class="number">1</span>]).numpy())</span><br><span class="line">​</span><br><span class="line">optimizer = tf.keras.optimizers.Adam()</span><br><span class="line">loss_object = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=<span class="keyword">True</span>)</span><br><span class="line">​</span><br><span class="line">loss_history = []</span><br><span class="line"><span class="keyword">for</span> (batch, (images, labels)) <span class="keyword">in</span> enumerate(dataset.take(<span class="number">400</span>)):</span><br><span class="line">    <span class="keyword">if</span> batch % <span class="number">10</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">'.'</span>, end=<span class="string">''</span>)</span><br><span class="line">    <span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">        logits = mnist_model(images, training=<span class="keyword">True</span>)</span><br><span class="line">        loss_value = loss_object(labels, logits)</span><br><span class="line">​</span><br><span class="line">    loss_history.append(loss_value.numpy().mean())</span><br><span class="line">    grads = tape.gradient(loss_value, mnist_model.trainable_variables)</span><br><span class="line">    optimizer.apply_gradients(zip(grads, mnist_model.trainable_variables))</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">​</span><br><span class="line">plt.plot(loss_history)</span><br><span class="line">plt.xlabel(<span class="string">'Batch #'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Loss [entropy]'</span>)</span><br><span class="line">Logits:  [[<span class="number">-0.05677134</span>  <span class="number">0.00057287</span>  <span class="number">0.00242344</span>  <span class="number">0.04665339</span> <span class="number">-0.07706797</span>  <span class="number">0.00323912</span></span><br><span class="line">   <span class="number">0.01508885</span> <span class="number">-0.07409166</span> <span class="number">-0.01701452</span>  <span class="number">0.05076526</span>]]</span><br><span class="line">........................................</span><br></pre></td></tr></table></figure>
+<p>变量求导优化<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyModel</span><span class="params">(tf.keras.Model)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(MyModel, self).__init__()</span><br><span class="line">        self.W = tf.Variable(<span class="number">5.</span>, name=<span class="string">'weight'</span>)</span><br><span class="line">        self.B = tf.Variable(<span class="number">10.</span>, name=<span class="string">'bias'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, inputs)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> inputs * self.W + self.B</span><br><span class="line">​</span><br><span class="line"><span class="comment"># A toy dataset of points around 3 * x + 2</span></span><br><span class="line">NUM_EXAMPLES = <span class="number">2000</span></span><br><span class="line">training_inputs = tf.random.normal([NUM_EXAMPLES])</span><br><span class="line">noise = tf.random.normal([NUM_EXAMPLES])</span><br><span class="line">training_outputs = training_inputs * <span class="number">3</span> + <span class="number">2</span> + noise</span><br><span class="line">​</span><br><span class="line"><span class="comment"># The loss function to be optimized</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loss</span><span class="params">(model, inputs, targets)</span>:</span></span><br><span class="line">    error = model(inputs) - targets</span><br><span class="line">    <span class="keyword">return</span> tf.reduce_mean(tf.square(error))</span><br><span class="line">​</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">grad</span><span class="params">(model, inputs, targets)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">        loss_value = loss(model, inputs, targets)</span><br><span class="line">    <span class="keyword">return</span> tape.gradient(loss_value, [model.W, model.B])</span><br><span class="line">​</span><br><span class="line"><span class="comment"># Define:</span></span><br><span class="line"><span class="comment"># 1. A model.</span></span><br><span class="line"><span class="comment"># 2. Derivatives of a loss function with respect to model parameters.</span></span><br><span class="line"><span class="comment"># 3. A strategy for updating the variables based on the derivatives.</span></span><br><span class="line">model = MyModel()</span><br><span class="line">optimizer = tf.keras.optimizers.SGD(learning_rate=<span class="number">0.01</span>)</span><br><span class="line">​</span><br><span class="line">print(<span class="string">"Initial loss: &#123;:.3f&#125;"</span>.format(loss(model, training_inputs, training_outputs)))</span><br><span class="line">​</span><br><span class="line"><span class="comment"># Training loop</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">300</span>):</span><br><span class="line">    grads = grad(model, training_inputs, training_outputs)</span><br><span class="line">    optimizer.apply_gradients(zip(grads, [model.W, model.B]))</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">20</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"Loss at step &#123;:03d&#125;: &#123;:.3f&#125;"</span>.format(i, loss(model, training_inputs, training_outputs)))</span><br><span class="line">​</span><br><span class="line">print(<span class="string">"Final loss: &#123;:.3f&#125;"</span>.format(loss(model, training_inputs, training_outputs)))</span><br><span class="line">print(<span class="string">"W = &#123;&#125;, B = &#123;&#125;"</span>.format(model.W.numpy(), model.B.numpy()))</span><br><span class="line">Initial loss: <span class="number">68.801</span></span><br><span class="line">Loss at step <span class="number">000</span>: <span class="number">66.129</span></span><br><span class="line">Loss at step <span class="number">020</span>: <span class="number">30.134</span></span><br><span class="line">Loss at step <span class="number">040</span>: <span class="number">14.026</span></span><br><span class="line">Loss at step <span class="number">060</span>: <span class="number">6.816</span></span><br><span class="line">Loss at step <span class="number">080</span>: <span class="number">3.589</span></span><br><span class="line">Loss at step <span class="number">100</span>: <span class="number">2.144</span></span><br><span class="line">Loss at step <span class="number">120</span>: <span class="number">1.497</span></span><br><span class="line">Loss at step <span class="number">140</span>: <span class="number">1.207</span></span><br><span class="line">Loss at step <span class="number">160</span>: <span class="number">1.078</span></span><br><span class="line">Loss at step <span class="number">180</span>: <span class="number">1.020</span></span><br><span class="line">Loss at step <span class="number">200</span>: <span class="number">0.994</span></span><br><span class="line">Loss at step <span class="number">220</span>: <span class="number">0.982</span></span><br><span class="line">Loss at step <span class="number">240</span>: <span class="number">0.977</span></span><br><span class="line">Loss at step <span class="number">260</span>: <span class="number">0.974</span></span><br><span class="line">Loss at step <span class="number">280</span>: <span class="number">0.973</span></span><br><span class="line">Final loss: <span class="number">0.973</span></span><br><span class="line">W = <span class="number">3.0180840492248535</span>, B = <span class="number">2.0045783519744873</span></span><br></pre></td></tr></table></figure></p>
+<p>eager模式下的对象<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 变量即对象</span></span><br><span class="line"><span class="keyword">if</span> tf.test.is_gpu_available():</span><br><span class="line">    <span class="keyword">with</span> tf.device(<span class="string">"gpu:0"</span>):</span><br><span class="line">        v = tf.Variable(tf.random.normal([<span class="number">1000</span>, <span class="number">1000</span>]))</span><br><span class="line">        v = <span class="keyword">None</span>  <span class="comment"># v no longer takes up GPU memory</span></span><br><span class="line"><span class="comment"># 对象保存</span></span><br><span class="line">x = tf.Variable(<span class="number">6.0</span>)</span><br><span class="line">checkpoint = tf.train.Checkpoint(x=x)</span><br><span class="line">​</span><br><span class="line">x.assign(<span class="number">1.0</span>)</span><br><span class="line">checkpoint.save(<span class="string">'./ckpt/'</span>)</span><br><span class="line">​</span><br><span class="line">x.assign(<span class="number">8.0</span>)</span><br><span class="line">checkpoint.restore(tf.train.latest_checkpoint(<span class="string">'./ckpt/'</span>))</span><br><span class="line">print(x)</span><br><span class="line">&lt;tf.Variable <span class="string">'Variable:0'</span> shape=() dtype=float32, numpy=<span class="number">1.0</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模型保存</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">model = tf.keras.Sequential([</span><br><span class="line">  tf.keras.layers.Conv2D(<span class="number">16</span>,[<span class="number">3</span>,<span class="number">3</span>], activation=<span class="string">'relu'</span>),</span><br><span class="line">  tf.keras.layers.GlobalAveragePooling2D(),</span><br><span class="line">  tf.keras.layers.Dense(<span class="number">10</span>)</span><br><span class="line">])</span><br><span class="line">optimizer = tf.keras.optimizers.Adam(learning_rate=<span class="number">0.001</span>)</span><br><span class="line">checkpoint_dir = <span class="string">'./ck_model_dir'</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(checkpoint_dir):</span><br><span class="line">    os.makedirs(checkpoint_dir)</span><br><span class="line">checkpoint_prefix = os.path.join(checkpoint_dir, <span class="string">"ckpt"</span>)</span><br><span class="line">root = tf.train.Checkpoint(optimizer=optimizer,</span><br><span class="line">                           model=model)</span><br><span class="line">​</span><br><span class="line">root.save(checkpoint_prefix)</span><br><span class="line">root.restore(tf.train.latest_checkpoint(checkpoint_dir))</span><br></pre></td></tr></table></figure>
+<h3 id="variable"><a href="#variable" class="headerlink" title="variable"></a>variable</h3><p>之前一直搞不懂为什么有的地方可以直接输入Numpy型数据,有的地方则要用tf.Variable进行转换,后来搞懂了,直接输入Numpy的地方是用到了高级的API(tf.keras)实现的模型训练,而在写低级别的tf时要加上tf.Variable</p>
+<p>创建变量<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">my_var = tf.Variable(tf.ones([<span class="number">2</span>,<span class="number">3</span>]))</span><br><span class="line">print(my_var)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">with</span> tf.device(<span class="string">"/device:GPU:0"</span>):</span><br><span class="line">        v = tf.Variable(tf.zeros([<span class="number">10</span>, <span class="number">10</span>]))</span><br><span class="line">        print(v)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">'no gpu'</span>)</span><br><span class="line">&lt;tf.Variable <span class="string">'Variable:0'</span> shape=(<span class="number">2</span>, <span class="number">3</span>) dtype=float32, numpy=</span><br><span class="line">array([[<span class="number">1.</span>, <span class="number">1.</span>, <span class="number">1.</span>],</span><br><span class="line">       [<span class="number">1.</span>, <span class="number">1.</span>, <span class="number">1.</span>]], dtype=float32)&gt;</span><br><span class="line">no gpu</span><br></pre></td></tr></table></figure></p>
+<p>使用变量<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = tf.Variable(<span class="number">1.0</span>)</span><br><span class="line">b = (a+<span class="number">2</span>) *<span class="number">3</span></span><br><span class="line">print(b)</span><br><span class="line">tf.Tensor(<span class="number">9.0</span>, shape=(), dtype=float32)</span><br><span class="line">a = tf.Variable(<span class="number">1.0</span>)</span><br><span class="line">b = (a.assign_add(<span class="number">2</span>)) *<span class="number">3</span></span><br><span class="line">print(b)</span><br><span class="line">tf.Tensor(<span class="number">9.0</span>, shape=(), dtype=float32)</span><br></pre></td></tr></table></figure></p>
+<h3 id="AutoGraph"><a href="#AutoGraph" class="headerlink" title="AutoGraph"></a>AutoGraph</h3><p>tf.function的一个很酷的新功能是AutoGraph，它允许使用自然的Python语法编写图形代码。(就是直接用python语句构建tf的计算图)</p>
+<ol>
+<li>tf.function装饰器<br>当使用tf.function注释函数时，可以像调用任何其他函数一样调用它。 它将被编译成图，这意味着可以获得更快执行，更好地在GPU或TPU上运行或导出到SavedModel。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@tf.function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">simple_nn_layer</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> tf.nn.relu(tf.matmul(x, y))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x = tf.random.uniform((<span class="number">3</span>, <span class="number">3</span>))</span><br><span class="line">y = tf.random.uniform((<span class="number">3</span>, <span class="number">3</span>))</span><br><span class="line"></span><br><span class="line">simple_nn_layer(x, y)</span><br><span class="line">&lt;tf.Tensor: id=<span class="number">25</span>, shape=(<span class="number">3</span>, <span class="number">3</span>), dtype=float32, numpy=</span><br><span class="line">array([[<span class="number">0.75023645</span>, <span class="number">0.19047515</span>, <span class="number">0.10737072</span>],</span><br><span class="line">       [<span class="number">1.1521267</span> , <span class="number">0.49491584</span>, <span class="number">0.19416495</span>],</span><br><span class="line">       [<span class="number">0.5541876</span> , <span class="number">0.24642248</span>, <span class="number">0.09543521</span>]], dtype=float32)&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果代码使用多个函数，则无需对它们进行全部注释 - 从带注释函数调用的任何函数也将以图形模式运行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">linear_layer</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * x + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@tf.function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">deep_net</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> tf.nn.relu(linear_layer(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">deep_net(tf.constant((<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)))</span><br><span class="line">&lt;tf.Tensor: id=<span class="number">39</span>, shape=(<span class="number">3</span>,), dtype=int32, numpy=array([<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>], dtype=int32)&gt;</span><br></pre></td></tr></table></figure>
+<p>在tf.function中使用依赖于数据的控制流时，可以使用Python控制流语句，AutoGraph会将它们转换为适当的TensorFlow操作。 例如，如果语句依赖于Tensor，则语句将转换为tf.cond（）<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@tf.function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square_if_positive</span><span class="params">(x)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> x &gt; <span class="number">0</span>:</span><br><span class="line">    x = x * x</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    x = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(<span class="string">'square_if_positive(2) = &#123;&#125;'</span>.format(square_if_positive(tf.constant(<span class="number">2</span>))))</span><br><span class="line">print(<span class="string">'square_if_positive(-2) = &#123;&#125;'</span>.format(square_if_positive(tf.constant(<span class="number">-2</span>))))</span><br><span class="line">square_if_positive(<span class="number">2</span>) = <span class="number">4</span></span><br><span class="line">square_if_positive(<span class="number">-2</span>) = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>AutoGraph支持常见的Python语句，例如while，if，break，continue和return，支持嵌套。 这意味着可以在while和if语句的条件下使用Tensor表达式，或者在for循环中迭代Tensor。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@tf.function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum_even</span><span class="params">(items)</span>:</span></span><br><span class="line">  s = <span class="number">0</span></span><br><span class="line">  <span class="keyword">for</span> c <span class="keyword">in</span> items:</span><br><span class="line">    <span class="keyword">if</span> c % <span class="number">2</span> &gt; <span class="number">0</span>:</span><br><span class="line">      <span class="keyword">continue</span></span><br><span class="line">    s += c</span><br><span class="line">  <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sum_even(tf.constant([<span class="number">10</span>, <span class="number">12</span>, <span class="number">15</span>, <span class="number">20</span>]))</span><br><span class="line">&lt;tf.Tensor: id=<span class="number">149</span>, shape=(), dtype=int32, numpy=<span class="number">42</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>AutoGraph还为高级用户提供了低级API。 例如，我们可以使用它来查看生成的代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">print(tf.autograph.to_code(sum_even.python_function, experimental_optional_features=<span class="keyword">None</span>))</span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tf__sum_even</span><span class="params">(items)</span>:</span></span><br><span class="line">  do_return = <span class="keyword">False</span></span><br><span class="line">  retval_ = <span class="keyword">None</span></span><br><span class="line">  s = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">loop_body</span><span class="params">(loop_vars, s_2)</span>:</span></span><br><span class="line">    c = loop_vars</span><br><span class="line">    continue_ = <span class="keyword">False</span></span><br><span class="line">    cond = c % <span class="number">2</span> &gt; <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">if_true</span><span class="params">()</span>:</span></span><br><span class="line">      continue_ = <span class="keyword">True</span></span><br><span class="line">      <span class="keyword">return</span> continue_</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">if_false</span><span class="params">()</span>:</span></span><br><span class="line">      <span class="keyword">return</span> continue_</span><br><span class="line">    continue_ = ag__.if_stmt(cond, if_true, if_false)</span><br><span class="line">    cond_1 = ag__.not_(continue_)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">if_true_1</span><span class="params">()</span>:</span></span><br><span class="line">      s_1, = s_2,</span><br><span class="line">      s_1 += c</span><br><span class="line">      <span class="keyword">return</span> s_1</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">if_false_1</span><span class="params">()</span>:</span></span><br><span class="line">      <span class="keyword">return</span> s_2</span><br><span class="line">    s_2 = ag__.if_stmt(cond_1, if_true_1, if_false_1)</span><br><span class="line">    <span class="keyword">return</span> s_2,</span><br><span class="line">  s, = ag__.for_stmt(items, <span class="keyword">None</span>, loop_body, (s,))</span><br><span class="line">  do_return = <span class="keyword">True</span></span><br><span class="line">  retval_ = s</span><br><span class="line">  <span class="keyword">return</span> retval_</span><br></pre></td></tr></table></figure>
+<p>一个更复杂的控制流程的例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@tf.function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fizzbuzz</span><span class="params">(n)</span>:</span></span><br><span class="line">  msg = tf.constant(<span class="string">''</span>)</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> tf.range(n):</span><br><span class="line">    <span class="keyword">if</span> tf.equal(i % <span class="number">3</span>, <span class="number">0</span>):</span><br><span class="line">      msg += <span class="string">'Fizz'</span></span><br><span class="line">    <span class="keyword">elif</span> tf.equal(i % <span class="number">5</span>, <span class="number">0</span>):</span><br><span class="line">      msg += <span class="string">'Buzz'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      msg += tf.as_string(i)</span><br><span class="line">    msg += <span class="string">'\n'</span></span><br><span class="line">  <span class="keyword">return</span> msg</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(fizzbuzz(tf.constant(<span class="number">15</span>)).numpy().decode())</span><br><span class="line">Fizz</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line">Fizz</span><br><span class="line"><span class="number">4</span></span><br><span class="line">Buzz</span><br><span class="line">Fizz</span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line">Fizz</span><br><span class="line">Buzz</span><br><span class="line"><span class="number">11</span></span><br><span class="line">Fizz</span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>keras和AutoGraph<br>也可以将tf.function与对象方法一起使用。 例如，可以通过注释模型的调用函数来装饰自定义Keras模型。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomModel</span><span class="params">(tf.keras.models.Model)</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @tf.function</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, input_data)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> tf.reduce_mean(input_data) &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> input_data</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> input_data // <span class="number">2</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = CustomModel()</span><br><span class="line"></span><br><span class="line">model(tf.constant([<span class="number">-2</span>, <span class="number">-4</span>]))</span><br><span class="line">&lt;tf.Tensor: id=<span class="number">281</span>, shape=(<span class="number">2</span>,), dtype=int32, numpy=array([<span class="number">-1</span>, <span class="number">-2</span>], dtype=int32)&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>副作用 就像在eager模式下一样，你可以使用带有副作用的操作，比如通常在tf.function中的tf.assign或tf.print，它会插入必要的控件依赖项以确保它们按顺序执行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">v = tf.Variable(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@tf.function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_next_odd</span><span class="params">()</span>:</span></span><br><span class="line">  v.assign(v + <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">if</span> tf.equal(v % <span class="number">2</span>, <span class="number">0</span>):</span><br><span class="line">    v.assign(v + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">find_next_odd()</span><br><span class="line">v</span><br><span class="line">&lt;tf.Variable <span class="string">'Variable:0'</span> shape=() dtype=int32, numpy=<span class="number">7</span>&gt;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>用AutoGraph训练一个简单模型<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prepare_mnist_features_and_labels</span><span class="params">(x, y)</span>:</span></span><br><span class="line">  x = tf.cast(x, tf.float32) / <span class="number">255.0</span></span><br><span class="line">  y = tf.cast(y, tf.int64)</span><br><span class="line">  <span class="keyword">return</span> x, y</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mnist_dataset</span><span class="params">()</span>:</span></span><br><span class="line">  (x, y), _ = tf.keras.datasets.mnist.load_data()</span><br><span class="line">  ds = tf.data.Dataset.from_tensor_slices((x, y))</span><br><span class="line">  ds = ds.map(prepare_mnist_features_and_labels)</span><br><span class="line">  ds = ds.take(<span class="number">20000</span>).shuffle(<span class="number">20000</span>).batch(<span class="number">100</span>)</span><br><span class="line">  <span class="keyword">return</span> ds</span><br><span class="line"></span><br><span class="line">train_dataset = mnist_dataset()</span><br><span class="line">model = tf.keras.Sequential((</span><br><span class="line">    tf.keras.layers.Reshape(target_shape=(<span class="number">28</span> * <span class="number">28</span>,), input_shape=(<span class="number">28</span>, <span class="number">28</span>)),</span><br><span class="line">    tf.keras.layers.Dense(<span class="number">100</span>, activation=<span class="string">'relu'</span>),</span><br><span class="line">    tf.keras.layers.Dense(<span class="number">100</span>, activation=<span class="string">'relu'</span>),</span><br><span class="line">    tf.keras.layers.Dense(<span class="number">10</span>)))</span><br><span class="line">model.build()</span><br><span class="line">optimizer = tf.keras.optimizers.Adam()</span><br><span class="line">compute_loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">compute_accuracy = tf.keras.metrics.SparseCategoricalAccuracy()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train_one_step</span><span class="params">(model, optimizer, x, y)</span>:</span></span><br><span class="line">  <span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">    logits = model(x)</span><br><span class="line">    loss = compute_loss(y, logits)</span><br><span class="line"></span><br><span class="line">  grads = tape.gradient(loss, model.trainable_variables)</span><br><span class="line">  optimizer.apply_gradients(zip(grads, model.trainable_variables))</span><br><span class="line"></span><br><span class="line">  compute_accuracy(y, logits)</span><br><span class="line">  <span class="keyword">return</span> loss</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@tf.function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(model, optimizer)</span>:</span></span><br><span class="line">  train_ds = mnist_dataset()</span><br><span class="line">  step = <span class="number">0</span></span><br><span class="line">  loss = <span class="number">0.0</span></span><br><span class="line">  accuracy = <span class="number">0.0</span></span><br><span class="line">  <span class="keyword">for</span> x, y <span class="keyword">in</span> train_ds:</span><br><span class="line">    step += <span class="number">1</span></span><br><span class="line">    loss = train_one_step(model, optimizer, x, y)</span><br><span class="line">    <span class="keyword">if</span> tf.equal(step % <span class="number">10</span>, <span class="number">0</span>):</span><br><span class="line">      tf.print(<span class="string">'Step'</span>, step, <span class="string">': loss'</span>, loss, <span class="string">'; accuracy'</span>, compute_accuracy.result())</span><br><span class="line">  <span class="keyword">return</span> step, loss, accuracy</span><br><span class="line"></span><br><span class="line">step, loss, accuracy = train(model, optimizer)</span><br><span class="line">print(<span class="string">'Final step'</span>, step, <span class="string">': loss'</span>, loss, <span class="string">'; accuracy'</span>, compute_accuracy.result())</span><br><span class="line">Step <span class="number">10</span> : loss <span class="number">1.85892391</span> ; accuracy <span class="number">0.37</span></span><br><span class="line">...</span><br><span class="line">Step <span class="number">190</span> : loss <span class="number">0.213473886</span> ; accuracy <span class="number">0.848105252</span></span><br><span class="line">Step <span class="number">200</span> : loss <span class="number">0.224886</span> ; accuracy <span class="number">0.85145</span></span><br><span class="line">Final step tf.Tensor(<span class="number">200</span>, shape=(), dtype=int32) : loss tf.Tensor(<span class="number">0.224886</span>, shape=(), dtype=float32) ; accuracy tf.Tensor(<span class="number">0.85145</span>, shape=(), dtype=float32)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>关于批处理的说明<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square_if_positive</span><span class="params">(x)</span>:</span></span><br><span class="line">  <span class="keyword">return</span> [i ** <span class="number">2</span> <span class="keyword">if</span> i &gt; <span class="number">0</span> <span class="keyword">else</span> i <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">square_if_positive(range(<span class="number">-5</span>, <span class="number">5</span>))</span><br><span class="line">[<span class="number">-5</span>, <span class="number">-4</span>, <span class="number">-3</span>, <span class="number">-2</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>]</span><br><span class="line"><span class="comment"># 在tensorflow中上面的代码应该改成下面所示</span></span><br><span class="line"><span class="meta">@tf.function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square_if_positive_naive</span><span class="params">(x)</span>:</span></span><br><span class="line">  result = tf.TensorArray(tf.int32, size=x.shape[<span class="number">0</span>])</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> tf.range(x.shape[<span class="number">0</span>]):</span><br><span class="line">    <span class="keyword">if</span> x[i] &gt; <span class="number">0</span>:</span><br><span class="line">      result = result.write(i, x[i] ** <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      result = result.write(i, x[i])</span><br><span class="line">  <span class="keyword">return</span> result.stack()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">square_if_positive_naive(tf.range(<span class="number">-5</span>, <span class="number">5</span>))</span><br><span class="line">&lt;tf.Tensor: id=<span class="number">1544</span>, shape=(<span class="number">10</span>,), dtype=int32, numpy=array([<span class="number">-5</span>, <span class="number">-4</span>, <span class="number">-3</span>, <span class="number">-2</span>, <span class="number">-1</span>,  <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">4</span>,  <span class="number">9</span>, <span class="number">16</span>], dtype=int32)&gt;</span><br><span class="line"><span class="comment"># 也可以怎么写</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square_if_positive_vectorized</span><span class="params">(x)</span>:</span></span><br><span class="line">  <span class="keyword">return</span> tf.where(x &gt; <span class="number">0</span>, x ** <span class="number">2</span>, x)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">square_if_positive_vectorized(tf.range(<span class="number">-5</span>, <span class="number">5</span>))</span><br><span class="line">&lt;tf.Tensor: id=<span class="number">1554</span>, shape=(<span class="number">10</span>,), dtype=int32, numpy=array([<span class="number">-5</span>, <span class="number">-4</span>, <span class="number">-3</span>, <span class="number">-2</span>, <span class="number">-1</span>,  <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">4</span>,  <span class="number">9</span>, <span class="number">16</span>], dtype=int32)&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="https://github.com/czy36mengfei/tensorflow2_tutorials_chinese" target="_blank" rel="noopener">https://github.com/czy36mengfei/tensorflow2_tutorials_chinese</a></li>
+<li><a href="https://github.com/ageron/tf2_course" target="_blank" rel="noopener">https://github.com/ageron/tf2_course</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/04/06/菜鸟学NLP（三）/">菜鸟学NLP（三）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2019年04月06日 - 14:04</p>
+  <p><span>最后更新:</span>2019年04月06日 - 17:04</p>
+  <p><span>原始链接:</span><a href="/2019/04/06/菜鸟学NLP（三）/" title="菜鸟学NLP（三）">http://yifdu.github.io/2019/04/06/菜鸟学NLP（三）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/04/06/菜鸟学NLP（三）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/Tensorflow/" rel="tag"># Tensorflow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/05/达观数据竞赛（一）/" rel="next" title="达观数据竞赛（一）">
+                <i class="fa fa-chevron-left"></i> 达观数据竞赛（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">129</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Conda"><span class="nav-number">1.</span> <span class="nav-text">Conda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#管理conda"><span class="nav-number">1.1.</span> <span class="nav-text">管理conda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理环境"><span class="nav-number">1.2.</span> <span class="nav-text">管理环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管理包"><span class="nav-number">2.</span> <span class="nav-text">管理包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分享环境"><span class="nav-number">2.1.</span> <span class="nav-text">分享环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移除conda"><span class="nav-number">2.2.</span> <span class="nav-text">移除conda</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tensorflow学习"><span class="nav-number">3.</span> <span class="nav-text">Tensorflow学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tensorflow2-0"><span class="nav-number">3.1.</span> <span class="nav-text">tensorflow2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#keras快速入门"><span class="nav-number">3.1.1.</span> <span class="nav-text">keras快速入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eager模式"><span class="nav-number">3.1.2.</span> <span class="nav-text">eager模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#variable"><span class="nav-number">3.1.3.</span> <span class="nav-text">variable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AutoGraph"><span class="nav-number">3.1.4.</span> <span class="nav-text">AutoGraph</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
