@@ -109,7 +109,7 @@
 <meta property="og:description" content="关于torchtext之前介绍过torchtext，在Pytorch-tutorial-学习（四）中,本以为可以省很多事,但用户体验太差….(也可能是我太菜). 它主要的流程是,先定义一个Field,在定义的同时可以包括各种文本预处理操作,比如分词、padding、初始化和,固定句长等.然后是将每一条文本实例化(torchtext.data.example),实例化的同时会作用上之前定义好的Fie">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yifdu.github.io/2019/04/05/菜鸟学NLP（二）/pic1.png">
-<meta property="og:updated_time" content="2019-04-06T06:09:22.212Z">
+<meta property="og:updated_time" content="2019-04-10T04:44:27.109Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="菜鸟学NLP（二）">
 <meta name="twitter:description" content="关于torchtext之前介绍过torchtext，在Pytorch-tutorial-学习（四）中,本以为可以省很多事,但用户体验太差….(也可能是我太菜). 它主要的流程是,先定义一个Field,在定义的同时可以包括各种文本预处理操作,比如分词、padding、初始化和,固定句长等.然后是将每一条文本实例化(torchtext.data.example),实例化的同时会作用上之前定义好的Fie">
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  621 字
+                  1.7k 字
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -461,6 +461,18 @@
 <hr>
 <p>P.S.一个好玩的现象是,这里的a的形状是(1,10),而不是我本来认为的(1,10,1).当我采用(1,10,1)输入到embedding层中会报错,也就是说,embedding层接受的输入就是二维的形式,且只要把每个batch里的每个单词视为一个标量就行了.(是我多此一举了)</p>
 <hr>
+<h2 id="SeqAttention"><a href="#SeqAttention" class="headerlink" title="SeqAttention"></a>SeqAttention</h2><p>今天终于把attention的代码实现了,奈何数据量小,而且没有用预训练,效果一般…<br>总结一下这次遇到的问题.</p>
+<h3 id="Embedding层"><a href="#Embedding层" class="headerlink" title="Embedding层"></a>Embedding层</h3><p>之前写过embedding的代码,但是还是第一次调用torch里的embedding layer.embedding layer接收的数据形式为(batch_size,sequence_length),本来我以为后面要多一维,后来发现其实这是多此一举.输入时(batch_size,Sequence_length),输出是(batch_size,Sequence_length,hidden_size).可以看到在embedding layer的时候这个维度还是正常的.</p>
+<h3 id="Tensor形式"><a href="#Tensor形式" class="headerlink" title="Tensor形式"></a>Tensor形式</h3><p>一般我们见到的(CV中)tensor的形式是(batch,channel,w,h),但在pytorch的NLP中并非如此,一些RNN组件默认接受的的tensor形式是(Sequence_length×Batch×hidden_side),也就是说Batch不是第一维度的.当然pytorch也很人性,在RNN组件中增加了Batch_first的设置.所以在使用Pytorch的时候,要注意许多换维度的情况.这里就会用到transpose,transpose(0,1)能将第0维与第1维互换.</p>
+<h3 id="Pack-Padded-Sequence和Pad-Packed-Sequence"><a href="#Pack-Padded-Sequence和Pad-Packed-Sequence" class="headerlink" title="Pack_Padded_Sequence和Pad_Packed_Sequence"></a>Pack_Padded_Sequence和Pad_Packed_Sequence</h3><p>之前的许多RNN的训练形式是都是用for循环的方式,将数据序列中的数据反复输入倒RNN中.而用Pack_Padded_Sequence和Pad_Packed_Sequence可以简化这个过程.因为我们在预处理的时候,往往会处理一句话将其Pad为等长的序列.所以我们在模型的输入端拿到的就是Padded_Sequence.当要输入到RNN的时候,我们只要将有效长度的数据输入到RNN中即可,而后续的Pad是无效的可以不输入到RNN中.所以我们在输入到RNN之前需要Pack操作,它是对Padded_sequence做压缩操作,压缩到有效长度.而这个有效长度是多少,我们往往会在输入的时候就告诉这个长度是多少(在dataloader的时候会统计).Pack_padded_Sequence希望接收到的一个batch的句子,是经过长度由大到小排序过的,在Pack_padded_sequence中会默认进行排序.在经过RNN之后,我们得到的输出(output)还是Pack_Padded_Sequence形式的数据,此时需要变成tensor形式或者说是带pad的tensor数据通过Pad_Packed_Sequence.(好像发现从RNN中输出的hidden的形式仍是tensor数据,可能是因为hidden一个batch里的数据的sequence_length都是1.)</p>
+<h3 id="Attention-layer"><a href="#Attention-layer" class="headerlink" title="Attention layer"></a>Attention layer</h3><p>如果用一般的RNN或许可以用Pack_Padded_Sequence和Pad_Packed_Sequence操作.但是我们要用到Attention,只能用for循环.在Encoder的RNN部分,我们可以采用上述操作.但是在Decoder的RNN部分,由于要计算attention,即将待求状态$h_t$的前一个状态$h_{t-1}$与Encoder的输出output里的每个时间点隐状态进行点积或者其他的一些操作,计算出$h_{t-1}$与Encoder中各个时间点的hidden state的关联程度(权重),然后将其作为一种权重,对Encoder_output进行加权求和参与到求$h_t$的过程中.<br>在Attention的计算过程中,我们需要输入Decoder_Pre_hidden(1×batch_size×hidden_size),和Encoder_output(sequence_length×batch_size×hidden_size).这里有时会需要加入矩阵变换,但是输入的数据是3维的,我们不能用Linear,因为Linear的输入形式是(batch_size,hidden_size).所以这里我才用的是矩阵运算.直接用matmul(W)</p>
+<hr>
+<p>区分bmm,matmul和mm,mul<br>bmm是在batch上进行的矩阵相乘.(batch_wise).这个操作是batch_first,而且要求两个数据在batch维度上的大小相同.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>batch1 = torch.randn(<span class="number">10</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>batch2 = torch.randn(<span class="number">10</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res = torch.bmm(batch1, batch2)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res.size()</span><br><span class="line">torch.Size([<span class="number">10</span>, <span class="number">3</span>, <span class="number">5</span>])</span><br></pre></td></tr></table></figure></p>
+<p>matmul则是可以进行自动补全(广播),当A(C×Q×P×M),B(M×N),则A.matmul(B)得到的形式为(C×Q×P×N).</p>
+<p>mm则只能进行2维的矩阵乘法操作,A(m×n),B(n×p), A.mm(B)得到形式为m×p</p>
+<p>mul则是对应位数字相乘,A(C×Q×P×M),B(C×Q×P×M),则A.mul(B)得到的形式为(C×Q×P×M)</p>
+<hr>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>首先是Tanh激活函数<br>pytorch中这tanh激活函数的输入为(N,<em> ),这里</em>意味着后面的维度是任意的.其输出也是(N, * ).<br>其次是损失函数,这里用的是log_softmax+NLLLoss,事实上log_softmax+NLLLoss等价于cross_entropy.</p>
 
       
     </div>
@@ -485,7 +497,7 @@
   <p><span>本文标题:</span><a href="/2019/04/05/菜鸟学NLP（二）/">菜鸟学NLP（二）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2019年04月05日 - 00:04</p>
-  <p><span>最后更新:</span>2019年04月06日 - 14:04</p>
+  <p><span>最后更新:</span>2019年04月10日 - 12:04</p>
   <p><span>原始链接:</span><a href="/2019/04/05/菜鸟学NLP（二）/" title="菜鸟学NLP（二）">http://yifdu.github.io/2019/04/05/菜鸟学NLP（二）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/04/05/菜鸟学NLP（二）/" aria-label="复制成功！"></i></span>
   </p>
@@ -627,7 +639,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">134</span>
+                  <span class="site-state-item-count">136</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -649,7 +661,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -698,7 +710,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于torchtext"><span class="nav-number">1.</span> <span class="nav-text">关于torchtext</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Seq2Seq实验"><span class="nav-number">2.</span> <span class="nav-text">Seq2Seq实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本预处理"><span class="nav-number">2.1.</span> <span class="nav-text">文本预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实操记录"><span class="nav-number">2.2.</span> <span class="nav-text">实操记录</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于torchtext"><span class="nav-number">1.</span> <span class="nav-text">关于torchtext</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Seq2Seq实验"><span class="nav-number">2.</span> <span class="nav-text">Seq2Seq实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本预处理"><span class="nav-number">2.1.</span> <span class="nav-text">文本预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实操记录"><span class="nav-number">2.2.</span> <span class="nav-text">实操记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SeqAttention"><span class="nav-number">2.3.</span> <span class="nav-text">SeqAttention</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Embedding层"><span class="nav-number">2.3.1.</span> <span class="nav-text">Embedding层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensor形式"><span class="nav-number">2.3.2.</span> <span class="nav-text">Tensor形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pack-Padded-Sequence和Pad-Packed-Sequence"><span class="nav-number">2.3.3.</span> <span class="nav-text">Pack_Padded_Sequence和Pad_Packed_Sequence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Attention-layer"><span class="nav-number">2.3.4.</span> <span class="nav-text">Attention layer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">2.3.5.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li></ol></div>
             
 
 			

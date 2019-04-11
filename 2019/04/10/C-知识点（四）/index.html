@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if('123'){
+            if (prompt('请输入文章密码') !== '123'){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试,C++,输入输出格式,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="C++的输入输出总结C++中的输入输出都是通过流来进行的.C++把输入输出看作字节流,输入时从字节流中抽取字节,输出时把字节插入到字节流中. 使用cin进行输入cin&amp;gt;&amp;gt;input,输入一个字符串,当遇到空白格、换行、制表之类的,输入都会停止.这里所谓的停止不是指停止键入,而是指停止从字节流中抽取字节. cin.get()cin的方法get()是专门用于单字符的输入.在有参数或者没有参">
+<meta name="keywords" content="面试,C++,输入输出格式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++知识点（四）">
+<meta property="og:url" content="http://yifdu.github.io/2019/04/10/C-知识点（四）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="C++的输入输出总结C++中的输入输出都是通过流来进行的.C++把输入输出看作字节流,输入时从字节流中抽取字节,输出时把字节插入到字节流中. 使用cin进行输入cin&amp;gt;&amp;gt;input,输入一个字符串,当遇到空白格、换行、制表之类的,输入都会停止.这里所谓的停止不是指停止键入,而是指停止从字节流中抽取字节. cin.get()cin的方法get()是专门用于单字符的输入.在有参数或者没有参">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552853606276&di=8de94ba4b105afeb460e87cdc116711f&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fb151f8198618367a56013c5c25738bd4b21ce5a3.jpg">
+<meta property="og:updated_time" content="2019-04-10T17:59:40.092Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++知识点（四）">
+<meta name="twitter:description" content="C++的输入输出总结C++中的输入输出都是通过流来进行的.C++把输入输出看作字节流,输入时从字节流中抽取字节,输出时把字节插入到字节流中. 使用cin进行输入cin&amp;gt;&amp;gt;input,输入一个字符串,当遇到空白格、换行、制表之类的,输入都会停止.这里所谓的停止不是指停止键入,而是指停止从字节流中抽取字节. cin.get()cin的方法get()是专门用于单字符的输入.在有参数或者没有参">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552853606276&di=8de94ba4b105afeb460e87cdc116711f&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fb151f8198618367a56013c5c25738bd4b21ce5a3.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/04/10/C-知识点（四）/">
+
+
+
+
+
+  <title>C++知识点（四） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/04/10/C-知识点（四）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++知识点（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T16:46:06+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  22 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552853606276&di=8de94ba4b105afeb460e87cdc116711f&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fb151f8198618367a56013c5c25738bd4b21ce5a3.jpg" rel="gallery_cjuct1r2600grdkwaol84vff0" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552853606276&di=8de94ba4b105afeb460e87cdc116711f&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fb151f8198618367a56013c5c25738bd4b21ce5a3.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="C-的输入输出总结"><a href="#C-的输入输出总结" class="headerlink" title="C++的输入输出总结"></a>C++的输入输出总结</h1><p>C++中的输入输出都是通过流来进行的.<br>C++把输入输出看作字节流,输入时从字节流中抽取字节,输出时把字节插入到字节流中.</p>
+<h2 id="使用cin进行输入"><a href="#使用cin进行输入" class="headerlink" title="使用cin进行输入"></a>使用cin进行输入</h2><p>cin&gt;&gt;input,输入一个字符串,当遇到空白格、换行、制表之类的,输入都会停止.这里所谓的停止不是指停止键入,而是指停止从字节流中抽取字节.</p>
+<h3 id="cin-get"><a href="#cin-get" class="headerlink" title="cin.get()"></a>cin.get()</h3><p>cin的方法get()是专门用于单字符的输入.在有参数或者没有参数的情况下,get函数读取一个输入字符,不管这个字符空白、换行和制表都可以直接读进去.要注意get不会忽略换行符,所以要注意换行符被不小心读进去的情况.</p>
+<p>cin.get()与cin.get(ch)的比较<br><img src="/2019/04/10/C-知识点（四）/pic1.png" alt="pic1"></p>
+<p>注意使用cin.get(若干参数或者没有)，get()函数在遇到换行符读取完字符时并不会读取换行符或者是本来的默认分界符，而这些东西都只会留在原始流之内，</p>
+<p>cin.get()可以给定参数,限定从流中提取的数目,以及碰到什么时候会结束.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> input[<span class="number">10</span>]</span><br><span class="line"><span class="keyword">char</span> ch;</span><br><span class="line"><span class="built_in">cin</span>.get(input,<span class="number">10</span>,<span class="string">'a'</span>);</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; input &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cin</span>.get(ch);</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;ch&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输入sdsdsda  </span></span><br><span class="line"><span class="comment">//输出sdsdsd</span></span><br><span class="line"><span class="comment">//a</span></span><br></pre></td></tr></table></figure></p>
+<p>(不丢弃,保留在流中)</p>
+<h2 id="getline-函数"><a href="#getline-函数" class="headerlink" title="getline()函数"></a>getline()函数</h2><p>与get函数不同,getline()函数会自动丢弃换行符等分界符.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> input[<span class="number">10</span>]</span><br><span class="line"><span class="keyword">char</span> ch;</span><br><span class="line"><span class="built_in">cin</span>.getline(input,<span class="number">10</span>,<span class="string">'a'</span>);</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; input &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cin</span>.get(ch);</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;ch&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">\\ 输入 sdsdsda  </span><br><span class="line">\\输出sdsdsd</span><br></pre></td></tr></table></figure></p>
+<p>(丢弃,不保留在流中)</p>
+<h2 id="gets"><a href="#gets" class="headerlink" title="gets()"></a>gets()</h2><p>不能写为m=gets()</p>
+<p>看cin与gets的区别<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">      <span class="keyword">char</span> str[<span class="number">20</span>];</span><br><span class="line">      <span class="built_in">cin</span>&gt;&gt;str;</span><br><span class="line">      <span class="built_in">cout</span>&lt;&lt;str&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输入：abc abc</span></span><br><span class="line"><span class="comment">//输出：abc</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">      <span class="keyword">char</span> str[<span class="number">20</span>];</span><br><span class="line">      gets(str);</span><br><span class="line">      <span class="built_in">cout</span>&lt;&lt;str&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输入：abc abc</span></span><br><span class="line"><span class="comment">//输出：abc abc</span></span><br></pre></td></tr></table></figure>
+<p>cin不接受空格、TAB、换行等的输入,但gets则接收这些输入.<br>gets可以无限读取,不会判断上线,以回车或EOF结束读取,并将读取的结果存放在buffer指针所指向的字符数组中.换行符不作为读取串的内容.</p>
+<h2 id="getchar"><a href="#getchar" class="headerlink" title="getchar()"></a>getchar()</h2><p>getchar()是以字符为单位对输入的数据进行读取.<br>注意:<br><strong>在控制台中通过键盘输入数据时，以回车键作为结束标志。当输入结束后，键盘输入的数据连同回车键一起被输入到输入缓冲区中。在程序中第一次调用getchar()函数从输入缓冲区中读取一个字节的数据。需要注意的是，如果此时在程序中第二次调用getchar()函数，因为此时输入缓冲区中还有回车键的数据没有被读出，第二个getchar()函数读出的是回车符。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> test1 = getchar();</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> test2 = getchar();</span><br></pre></td></tr></table></figure>
+<p>此时在控制台中输入字符“a”并且按下回车键，test1的值是字符“a”，而test2的值是“\n”，如图1所示。</p>
+<h1 id="C-Map"><a href="#C-Map" class="headerlink" title="C++ Map"></a>C++ Map</h1><p><img src="/2019/04/10/C-知识点（四）/pic2.png" alt="pic2"><br>上面是Map接口的几个实现方式。</p>
+<ol>
+<li>TreeMap是基于树（红黑树）的实现方式，即添加到一个有序列表，在O(log n)的复杂度内通过key值找到value，优点是空间要求低，但在时间上不如HashMap。C++中Map的实现就是基于这种方式</li>
+<li>HashMap是基于HashCode的实现方式，在查找上要比TreeMap速度快，添加时也没有任何顺序，但空间复杂度高。C++ unordered_Map就是基于该种方式。</li>
+<li>HashTable与HashMap类似，只是HashMap是线程不安全的，HashTable是线程安全的，现在很少使用</li>
+</ol>
+<h2 id="Hash-map的原理"><a href="#Hash-map的原理" class="headerlink" title="Hash map的原理"></a>Hash map的原理</h2><p>Hash map说白了就是数据结构里的哈希表.</p>
+<p>哈希表最大的长处。就是把数据的存储和查找消耗的时间大大减少，差点儿能够看成是常数时间；而代价不过消耗比較多的内存。然而在当前可利用内存越来越多的情况下，用空间换时间的做法是值得的。另外，编码比較easy也是它的特点之中的一个。</p>
+<p>其基本原理是：使用一个下标范围比較大的数组来存储元素。能够设计一个函数（哈希函数，也叫做散列函数），使得每个元素的keyword都与一个函数值（即数组下标，hash值）相相应，于是用这个数组单元来存储这个元素。也能够简单的理解为。依照keyword为每个元素“分类”，然后将这个元素存储在相应“类”所相应的地方，称为桶。</p>
+<p>可是不可以保证每一个元素的keyword与函数值是一一相应的。因此极有可能出现对于不同的元素。却计算出了同样的函数值，这样就产生了“冲突”。换句话说，就是把不同的元素分在了同样的“类”之中。 总的来说。“直接定址”与“解决冲突”是哈希表的两大特点。</p>
+<p>hash_map，首先分配一大片内存。形成很多桶。是利用hash函数，对key进行映射到不同区域（桶）进行保存。</p>
+<p>其插入过程是：</p>
+<ol>
+<li>得到key</li>
+<li>通过hash函数得到hash值</li>
+<li>得到桶号(一般都为hash值对桶数求模)</li>
+<li>存放key和value在桶内。<br>其取值过程是:</li>
+<li>得到key</li>
+<li>通过hash函数得到hash值</li>
+<li>得到桶号(一般都为hash值对桶数求模)</li>
+<li>比較桶的内部元素是否与key相等，若都不相等，则没有找到。</li>
+<li>取出相等的记录的value。</li>
+</ol>
+<p>**hash_map中直接地址用hash函数生成，解决冲突，用比較函数解决。这里能够看出。假设每一个桶内部仅仅有一个元素，那么查找的时候仅仅有一次比較。当很多桶内没有值时，很多查询就会更快了(指查不到的时候).</p>
+<p>由此可见，要实现哈希表, 和用户相关的是：hash函数和比較函数。这两个參数刚好是我们在使用hash_map时须要指定的參数。**</p>
+<h2 id="hash-map的使用"><a href="#hash-map的使用" class="headerlink" title="hash map的使用"></a>hash map的使用</h2><p>hash_map类在头文件hash_map中，和全部其他的C++标准库一样。头文件没有扩展名。例如以下声明：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;hash_map&gt;  </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;  </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> stdext;</span><br></pre></td></tr></table></figure></p>
+<p>hash_map是一个聚合类，它继承自_Hash类，包含一个vector。一个list和一个pair。当中vector用于保存桶，list用于进行冲突处理，pair用于保存key-&gt;value结构，简要地伪码例如以下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">hash_map</span>&lt;class _ Tkey, class _ Tval&gt;  </span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line"><span class="keyword">private</span>:  </span><br><span class="line">    <span class="keyword">typedef</span> pair&lt;_ Tkey, _ Tval&gt; hash_pair;  </span><br><span class="line">    <span class="keyword">typedef</span> <span class="built_in">list</span>&lt;hash_pair&gt;    hash_list;  </span><br><span class="line">    <span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;hash_list&gt;  hash_table;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="hash-map和map的差别"><a href="#hash-map和map的差别" class="headerlink" title="hash_map和map的差别"></a>hash_map和map的差别</h2><ol>
+<li><p>构造函数：hash_map需要hash函数(等于函数).map仅仅需要比较函数(小雨函数)</p>
+</li>
+<li><p>存储结构.hash_map采用hash表存储,而map一般采用红黑树(RB Tree)实现.因此其memory数据结构是不一样的.</p>
+</li>
+<li><p>什么时候须要用hash_map，什么时候须要用map?<br>整体来说，hash_map 查找速度会比map快。并且查找速度基本和数据数据量大小，属于常数级别;而map的查找速度是log(n)级别。并不一定常数就比log(n)小，hash还有hash函数的耗时。明确了吧，假设你考虑效率，特别是在元素达到一定数量级时，考虑考虑hash_map。但若你对内存使用特别严格，希望程序尽可能少消耗内存，那么一定要小心，hash_map可能会让你陷入尴尬。特别是当你的hash_map对象特别多时，你就更无法控制了，并且hash_map的构造速度较慢。</p>
+</li>
+</ol>
+<p>如今知道怎样选择了吗？权衡三个因素: 查找速度, 数据量, 内存使用。</p>
+<h1 id="动态规划-Dynamic-Programming"><a href="#动态规划-Dynamic-Programming" class="headerlink" title="动态规划(Dynamic Programming)"></a>动态规划(Dynamic Programming)</h1><p>动态规划求解的一般思路:<br>判断问题的子结构(也可看作状态),当具有最优子结构时,动态规划可能适用.<br>求解重叠子问题.一个递归算法不断地调用同一问题,递归可以转化为查表从而利用子问题地解.分治法则不同,每次递归产生新的问题.重新构造一个最优解.</p>
+<h2 id="例题1：硬币找零"><a href="#例题1：硬币找零" class="headerlink" title="例题1：硬币找零"></a>例题1：硬币找零</h2><p>假设有几种硬币，如1、3、5，并且数量无限。请找出能够组成某个数目的找零所使用最少的硬币数。</p>
+<p>思路:<br><strong>用待找零的数值k描述子结构/状态，记作sum[k]，其值为所需的最小硬币数。对于不同的硬币面值coin[0…n]，有sum[k] = min(sum[k-coin[0]] , sum[k-coin[1]], …)+1。对应于给定数目的找零total，需要求解sum[total]的值。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> nCoin; <span class="comment">//使用硬币数量</span></span><br><span class="line">    <span class="comment">//以下两个成员是为了便于构造出求解过程的展示</span></span><br><span class="line">    <span class="keyword">int</span> lastSum;<span class="comment">//上一个状态</span></span><br><span class="line">    <span class="keyword">int</span> addCoin;<span class="comment">//从上一个状态达到当前状态所用的硬币种类</span></span><br><span class="line">&#125; state;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">state *sum = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(state)*(total+<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//init</span></span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=total;i++)</span><br><span class="line">    sum[i].nCoin = INF;</span><br><span class="line">sum[<span class="number">0</span>].nCoin = <span class="number">0</span>;</span><br><span class="line">sum[<span class="number">0</span>].lastSum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=total;i++)</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">        <span class="keyword">if</span>(i-coin[j]&gt;=<span class="number">0</span> &amp;&amp; sum[i-coin[j]].nCoin+<span class="number">1</span>&lt;sum[i].nCoin)</span><br><span class="line">        &#123;</span><br><span class="line">            sum[i].nCoin = sum[i-coin[j]].nCoin+<span class="number">1</span>;</span><br><span class="line">            sum[i].lastSum = j;</span><br><span class="line">            sum[i].addCoin = coin[j];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(sum[total].nCoin == INF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"can't make change.\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">//output</span></span><br><span class="line">　　　　;</span><br></pre></td></tr></table></figure>
+<p>通过sum[total].lastSum和sum[total].addCoin，很容易通过循环逆序地或者编写递归调用的函数正序地输出从结束状态到开始状态使用的硬币种类。以下各题输出状态转换的方法同样，不再赘述。下面为了方便起见，有的题没有在构造子结构的解时记录状态转换，如果需要请类似地完成。</p>
+<h2 id="例题2-字符串相似度-编辑距离（edit-distance）"><a href="#例题2-字符串相似度-编辑距离（edit-distance）" class="headerlink" title="例题2 字符串相似度/编辑距离（edit distance）"></a>例题2 字符串相似度/编辑距离（edit distance）</h2><p>对于序列S和T，它们之间距离定义为：对二者其一进行几次以下的操作(1)删去一个字符；(2)插入一个字符；(3)改变一个字符。每进行一次操作，计数增加1。将S和T变为同一个字符串的最小计数即为它们的距离。给出相应算法。</p>
+<p>解法:<br>将S和T的长度分别记为len(S)和len(T)，并把S和T的距离记为m[len(S)][len(T)]，有以下几种情况：</p>
+<ol>
+<li>如果末尾字符相同，那么m[len(S)][len(T)]=m[len(S)-1][len(T)-1]；</li>
+<li>如果末尾字符不同，有以下处理方式:<br>　　修改S或T末尾字符使其与另一个一致来完成,m[len(S)][len(T)]=m[len(S)-1][len(T)-1]+1；<br>　　在S末尾插入T末尾的字符，比较S[1…len(S)]和S[1…len(T)-1]；<br>　　在T末尾插入S末尾的字符，比较S[1…len(S)-1]和S[1…len(T)]；<br>　　删除S末尾的字符，比较S[1…len(S)-1]和S[1…len(T)]；<br>　　删除T末尾的字符，比较S[1…len(S)]和S[1…len(T)-1]；</li>
+</ol>
+<p>总结为，对于i&gt;0,j&gt;0的状态(i,j),m[i][j] = min( m[i-1][j-1]+(s[i]==s[j])?0:1 , m[i-1][j]+1, m[i][j-1] +1)。</p>
+<p>这里的重叠子结构是S[1…i]，T[1…j]。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> L[<span class="number">1001</span>][<span class="number">1001</span>];<span class="comment">//备份的二维数组</span></span><br><span class="line"><span class="keyword">int</span> a,b,c;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LED</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n, <span class="built_in">string</span> x, <span class="built_in">string</span> y)</span><span class="comment">//生成最优解的函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m+<span class="number">1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        L[i][<span class="number">0</span>] = i;</span><br><span class="line">    &#125;<span class="comment">//当一个x字符串为0时，最小编辑距离为y字符串的长度</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n+<span class="number">1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        L[<span class="number">0</span>][i] = i;</span><br><span class="line">    &#125;&#125;<span class="comment">//当一个y字符串为0时，最小编辑距离为x字符串的长度</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;m+<span class="number">1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;n+<span class="number">1</span>;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            a = L[i<span class="number">-1</span>][j] + <span class="number">1</span>;<span class="comment">//case1：删掉X[i]</span></span><br><span class="line">            b = L[i][j<span class="number">-1</span>] + <span class="number">1</span>;<span class="comment">//case2：添加X[i+1]</span></span><br><span class="line">            c = L[i<span class="number">-1</span>][j<span class="number">-1</span>] + (x[i] == y[j] ? <span class="number">0</span>:<span class="number">1</span>);</span><br><span class="line">            <span class="comment">//case3:改变x[i],其中若X[i]==y[i]则赋0，否则赋1</span></span><br><span class="line">            L[i][j] = min(c,min(a,b));<span class="comment">//L[i][j]为最小的一个</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m,n;</span><br><span class="line">    <span class="built_in">string</span> x,y;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; m &gt;&gt; x)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; y;</span><br><span class="line">        <span class="built_in">memset</span>(L,<span class="number">0</span>,<span class="keyword">sizeof</span>(L));</span><br><span class="line"><span class="comment">//对x，y进行预处理，使得X[i]为字符串的第i个元素，使得算法易于理解。</span></span><br><span class="line">        x = <span class="string">" "</span>+x;</span><br><span class="line">        y = <span class="string">" "</span>+y;</span><br><span class="line">        LED(m,n,x,y);</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; L[m][n] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="例题3-最长公共子序列"><a href="#例题3-最长公共子序列" class="headerlink" title="例题3 最长公共子序列"></a>例题3 最长公共子序列</h2><p>和2类似，对于X[1…m]和Y[1…n]，它们的任意一个lcs是Z[1…k]。<br>　　(1)如果X[m]=Y[n]，那么Z[k]=X[m]=Y[n],且Z[1…k-1]是X[1…m-1]和Y[1…n-1]的一个lcs；<br>　　(2)如果X[m]!=Y[n]，那么Z[k]!=X[m]时Z是X[1…m-1]和Y的一个lcs；<br>　　(3)如果X[m]!=Y[n]，那么Z[k]!=Y[n]时Z是X和Y[1…n-1]的一个lcs；<br>　　下面是《算法导论》上用伪码描述的lcs算法。其中c[i][j]记录当前lcs长度，b[i][j]记录到达该状态的上一个状态。<br><img src="/2019/04/10/C-知识点（四）/pic3.png" alt="pic3"><br><a href="https://blog.csdn.net/someone_and_anyone/article/details/81044153" target="_blank" rel="noopener">最长公共子序列</a><br>这篇博客里的图描述的已经很清晰了.<br>公共子序列并没有要求连续,而公共子串会要求连续.</p>
+<h2 id="例题4-最长公共子串"><a href="#例题4-最长公共子串" class="headerlink" title="例题4 最长公共子串"></a>例题4 最长公共子串</h2><p>同样也可以采用上述的方法来做.不同的是创建数组的迭代公式不同,<br>如果X[i]=Y[j],则b[i][j]=b[i-1][j-1]+1<br>如果X[i]!=Y[j],则b[i][j]=0<br>因为往往我们认为X[i]与Y[j]的后缀存在公共子串,若X[i],Y[j]最后一个元素不能匹配,则在数组中置为0.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//dp[i][j]:串(x1,x2,...,xi)与串(y1,y2,...,yj)，</span></span><br><span class="line"><span class="comment">//d[i][j]表示这两个串结与最长公共子串结尾相同时，最长公共子串的长度</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//状态转移方程如下：</span></span><br><span class="line"><span class="comment">//若i=0或j=0，则dp[i][j] = 0</span></span><br><span class="line"><span class="comment">//否则：</span></span><br><span class="line"><span class="comment">//		若A[i]==B[j]，则dp[i][j] = dp[i-1][j-1] + 1</span></span><br><span class="line"><span class="comment">//		若A[i]!=B[j]，则dp[i][j] = 0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//用于打印的函数，后面才用到</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_substring</span><span class="params">(<span class="built_in">string</span> str, <span class="keyword">int</span> end, <span class="keyword">int</span> length)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> start = end - length + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k=start;k&lt;=end;k++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; str[k];</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> A,B;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; A &gt;&gt; B;</span><br><span class="line">	<span class="keyword">int</span> x = A.length();</span><br><span class="line">	<span class="keyword">int</span> y = B.length();</span><br><span class="line">	A = <span class="string">" "</span> + A;<span class="comment">//特殊处理一下，便于编程</span></span><br><span class="line">	B = <span class="string">" "</span> + B;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//回忆一下dp[][]的含义？</span></span><br><span class="line">	<span class="keyword">int</span> ** dp = <span class="keyword">new</span> <span class="keyword">int</span>* [x+<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">int</span> i,j;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=x;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		dp[i] = <span class="keyword">new</span> <span class="keyword">int</span>[y+<span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;=y;j++)</span><br><span class="line">			dp[i][j] = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">//下面计算dp[i][j]的值并记录最大值</span></span><br><span class="line">	<span class="keyword">int</span> max_length = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=x;i++)</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=y;j++)</span><br><span class="line">			<span class="keyword">if</span>(A[i]==B[j])</span><br><span class="line">			&#123;</span><br><span class="line">				dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">if</span>(dp[i][j]&gt;max_length)</span><br><span class="line">					max_length = dp[i][j];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				dp[i][j] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">//LCS的长度已经知道了，下面是根据这个最大长度和dp[][]的值，</span></span><br><span class="line">	<span class="comment">//找到对应的 LCS具体子串， 注意：可能有多个</span></span><br><span class="line">	<span class="keyword">int</span> <span class="keyword">const</span> arr_length = (x&gt;y?x:y) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> end_A[arr_length];	<span class="comment">//记录LCS在字符串A中结束的位置</span></span><br><span class="line">	<span class="keyword">int</span> num_max_length = <span class="number">0</span>;	<span class="comment">//记录LCS的个数</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=x;i++)</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=y;j++)</span><br><span class="line">			<span class="keyword">if</span>(dp[i][j] == max_length)</span><br><span class="line">				end_A[num_max_length++] = i;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"the length of LCS(substring) is : "</span> &lt;&lt; max_length  &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="string">" nums: "</span> &lt;&lt; num_max_length &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="string">"they are (it is): "</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;num_max_length;k++)	<span class="comment">//输出每个具体的子串</span></span><br><span class="line">		print_substring(A, end_A[k], max_length);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="例题5-最长递增子序列（Longest-Increasing-Subsequence-lis）"><a href="#例题5-最长递增子序列（Longest-Increasing-Subsequence-lis）" class="headerlink" title="例题5 最长递增子序列（Longest Increasing Subsequence,lis）"></a>例题5 最长递增子序列（Longest Increasing Subsequence,lis）</h2><ol>
+<li>解法一：转化为求最长公共子序列<br>其实可以把 求最长递增子序列问题 转化为 求最长公共子序列的问题。</li>
+</ol>
+<p>设数组 { 3， 5， 7， 1， 2， 8 } 为 A<br>对数组 A 排序，排序后的数组为 B = { 1， 2， 3， 5， 7， 8 }。<br>于是，求数组 A 的最长递增子序列，就是求数组 A 与数组 B 的最长公共子序列。</p>
+<ol>
+<li>解法二:动态规划法<br>虽然解法一也是使用动态规划，但是与解法一不同的是，解法二不进行转化，而是直接在原问题上采用动态规划法。</li>
+</ol>
+<p>设长度为N的数组为{a0，a1, a2, …an-1)，则假定以aj结尾的数组序列的最长递增子序列长度为L(j)，则L(j)={ max(L(i))+1, i&lt;j且a[i]&lt;a[j] }。也就是说，我们需要遍历在j之前的所有位置i(从0到j-1)，找出满足条件a[i]&lt;a[j]的L(i)，求出max(L(i))+1即为L(j)的值。最后，我们遍历所有的L(j)（从0到N-1），找出最大值即为最大递增子序列。时间复杂度为O(N^2)。</p>
+<p>例如给定的数组为{5，6，7，1，2，8}，则L(0)=1, L(1)=2, L(2)=3, L(3)=1, L(4)=2, L(5)=4。所以该数组最长递增子序列长度为4，序列为{5，6，7，8}。算法代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;  </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;  </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> len(a) (sizeof(a) / sizeof(a[0])) <span class="comment">//数组长度  </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lis</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> len)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">int</span> longest[len];  </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;len; i++)  </span><br><span class="line">        longest[i] = <span class="number">1</span>;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;len; j++) &#123;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;j; i++) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (arr[j]&gt;arr[i] &amp;&amp; longest[j]&lt;longest[i]+<span class="number">1</span>)&#123; <span class="comment">//注意longest[j]&lt;longest[i]+1这个条件，不能省略。  </span></span><br><span class="line">                longest[j] = longest[i] + <span class="number">1</span>; <span class="comment">//计算以arr[j]结尾的序列的最长递增子序列长度  </span></span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;len; j++) &#123;  </span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"longest["</span> &lt;&lt; j &lt;&lt; <span class="string">"]="</span> &lt;&lt; longest[j] &lt;&lt; <span class="built_in">endl</span>;  </span><br><span class="line">        <span class="keyword">if</span> (longest[j] &gt; max) max = longest[j];  <span class="comment">//从longest[j]中找出最大值  </span></span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> max;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">int</span> arr[] = &#123;<span class="number">1</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">8</span>&#125;; <span class="comment">//测试数组  </span></span><br><span class="line">    <span class="keyword">int</span> ret = lis(arr, len(arr));  </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"max increment substring len="</span> &lt;&lt; ret &lt;&lt; <span class="built_in">endl</span>;  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>解法三: 最长上升子序列nlogn算法<br>假设存在一个序列d[1..9] = 2 1 5 3 6 4 8 9 7，可以看出来它的LIS长度为5。n<br>下面一步一步试着找出它。<br>我们定义一个序列B，然后令 i = 1 to 9 逐个考察这个序列。<br>此外，我们用一个变量Len来记录现在最长算到多少了</li>
+</ol>
+<p>首先，把d[1]有序地放到B里，令B[1] = 2，就是说当只有1一个数字2的时候，长度为1的LIS的最小末尾是2。这时Len=1</p>
+<p>然后，把d[2]有序地放到B里，令B[1] = 1，就是说长度为1的LIS的最小末尾是1，d[1]=2已经没用了，很容易理解吧。这时Len=1</p>
+<p>接着，d[3] = 5，d[3]&gt;B[1]，所以令B[1+1]=B[2]=d[3]=5，就是说长度为2的LIS的最小末尾是5，很容易理解吧。这时候B[1..2] = 1, 5，Len＝2</p>
+<p>再来，d[4] = 3，它正好加在1,5之间，放在1的位置显然不合适，因为1小于3，长度为1的LIS最小末尾应该是1，这样很容易推知，长度为2的LIS最小末尾是3，于是可以把5淘汰掉，这时候B[1..2] = 1, 3，Len = 2</p>
+<p>继续，d[5] = 6，它在3后面，因为B[2] = 3, 而6在3后面，于是很容易可以推知B[3] = 6, 这时B[1..3] = 1, 3, 6，还是很容易理解吧？ Len = 3 了噢。</p>
+<p>第6个, d[6] = 4，你看它在3和6之间，于是我们就可以把6替换掉，得到B[3] = 4。B[1..3] = 1, 3, 4， Len继续等于3</p>
+<p>第7个, d[7] = 8，它很大，比4大，嗯。于是B[4] = 8。Len变成4了</p>
+<p>第8个, d[8] = 9，得到B[5] = 9，嗯。Len继续增大，到5了。</p>
+<p>最后一个, d[9] = 7，它在B[3] = 4和B[4] = 8之间，所以我们知道，最新的B[4] =7，B[1..5] = 1, 3, 4, 7, 9，Len = 5。</p>
+<p>于是我们知道了LIS的长度为5。</p>
+<p>!!!!! 注意。这个1,3,4,7,9不是LIS，它只是存储的对应长度LIS的最小末尾。有了这个末尾，我们就可以一个一个地插入数据。虽然最后一个d[9] = 7更新进去对于这组数据没有什么意义，但是如果后面再出现两个数字 8 和 9，那么就可以把8更新到d[5], 9更新到d[6]，得出LIS的长度为6。</p>
+<p>然后应该发现一件事情了：在B中插入数据是有序的，而且是进行替换而不需要挪动——也就是说，我们可以使用二分查找，将每一个数字的插入时间优化到O(logN)<del>~</del>于是算法的时间复杂度就降低到了O(NlogN)～！</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 1000010</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> cmp(a,b) ((a)&gt;(b))</span></span><br><span class="line"><span class="keyword">int</span> n,num[MAX],len_min[MAX];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binary_search</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="keyword">int</span> mid;</span><br><span class="line"> <span class="keyword">while</span>(a&lt;b)</span><br><span class="line"> <span class="keyword">if</span>(cmp(k,len_min[mid=(a+b)&gt;&gt;<span class="number">1</span>])) a=mid+<span class="number">1</span>;</span><br><span class="line"> <span class="keyword">else</span> b=mid;</span><br><span class="line"> <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">LIS</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="keyword">int</span> a=<span class="number">0</span>,b=<span class="number">0</span>,k;</span><br><span class="line"> <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">if</span>(len_min[k=binary_search(a,b<span class="number">-1</span>,num[i])]&gt;=num[i]) len_min[k]=num[i];</span><br><span class="line"> <span class="keyword">else</span> len_min[b++]=num[i];</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/输入输出格式/" rel="tag"># 输入输出格式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/09/达观数据竞赛（二）/" rel="next" title="达观数据竞赛（二）">
+                <i class="fa fa-chevron-left"></i> 达观数据竞赛（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/11/菜鸟学NLP（五）/" rel="prev" title="菜鸟学NLP（五）">
+                菜鸟学NLP（五） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-的输入输出总结"><span class="nav-number">1.</span> <span class="nav-text">C++的输入输出总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用cin进行输入"><span class="nav-number">1.1.</span> <span class="nav-text">使用cin进行输入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cin-get"><span class="nav-number">1.1.1.</span> <span class="nav-text">cin.get()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getline-函数"><span class="nav-number">1.2.</span> <span class="nav-text">getline()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gets"><span class="nav-number">1.3.</span> <span class="nav-text">gets()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getchar"><span class="nav-number">1.4.</span> <span class="nav-text">getchar()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-Map"><span class="nav-number">2.</span> <span class="nav-text">C++ Map</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash-map的原理"><span class="nav-number">2.1.</span> <span class="nav-text">Hash map的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash-map的使用"><span class="nav-number">2.2.</span> <span class="nav-text">hash map的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash-map和map的差别"><span class="nav-number">2.3.</span> <span class="nav-text">hash_map和map的差别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划-Dynamic-Programming"><span class="nav-number">3.</span> <span class="nav-text">动态规划(Dynamic Programming)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例题1：硬币找零"><span class="nav-number">3.1.</span> <span class="nav-text">例题1：硬币找零</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题2-字符串相似度-编辑距离（edit-distance）"><span class="nav-number">3.2.</span> <span class="nav-text">例题2 字符串相似度/编辑距离（edit distance）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题3-最长公共子序列"><span class="nav-number">3.3.</span> <span class="nav-text">例题3 最长公共子序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题4-最长公共子串"><span class="nav-number">3.4.</span> <span class="nav-text">例题4 最长公共子串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题5-最长递增子序列（Longest-Increasing-Subsequence-lis）"><span class="nav-number">3.5.</span> <span class="nav-text">例题5 最长递增子序列（Longest Increasing Subsequence,lis）</span></a></li></ol></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
