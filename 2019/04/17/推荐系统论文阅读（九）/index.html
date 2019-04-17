@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="广告指标,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="计算广告常用指标ROI (Return On Investment): 投资回报率 =订单额/消费量（即广告费用）=（单均额转化量）/（CPA转化量）=单均额/CPA CPC (Cost Per Click): 按点击计费（平均点击价格）=消费量/点击量 CPA (Cost Per Action): 按成果数计费 =消费量/转化量=（CPC点击量）/（CVR点击量）=CPC/CVR CPM (Co">
+<meta name="keywords" content="广告指标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统论文阅读（九）">
+<meta property="og:url" content="http://yifdu.github.io/2019/04/17/推荐系统论文阅读（九）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="计算广告常用指标ROI (Return On Investment): 投资回报率 =订单额/消费量（即广告费用）=（单均额转化量）/（CPA转化量）=单均额/CPA CPC (Cost Per Click): 按点击计费（平均点击价格）=消费量/点击量 CPA (Cost Per Action): 按成果数计费 =消费量/转化量=（CPC点击量）/（CVR点击量）=CPC/CVR CPM (Co">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yifdu.github.io/2019/04/17/推荐系统论文阅读（九）/pic1.png">
+<meta property="og:updated_time" content="2019-04-16T20:10:10.418Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="推荐系统论文阅读（九）">
+<meta name="twitter:description" content="计算广告常用指标ROI (Return On Investment): 投资回报率 =订单额/消费量（即广告费用）=（单均额转化量）/（CPA转化量）=单均额/CPA CPC (Cost Per Click): 按点击计费（平均点击价格）=消费量/点击量 CPA (Cost Per Action): 按成果数计费 =消费量/转化量=（CPC点击量）/（CVR点击量）=CPC/CVR CPM (Co">
+<meta name="twitter:image" content="http://yifdu.github.io/2019/04/17/推荐系统论文阅读（九）/pic1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/04/17/推荐系统论文阅读（九）/">
+
+
+
+
+
+  <title>推荐系统论文阅读（九） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/04/17/推荐系统论文阅读（九）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">推荐系统论文阅读（九）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-17T02:40:40+08:00">
+                2019-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="计算广告常用指标"><a href="#计算广告常用指标" class="headerlink" title="计算广告常用指标"></a>计算广告常用指标</h1><p>ROI (Return On Investment): 投资回报率 =订单额/消费量（即广告费用）=（单均额<em>转化量）/（CPA</em>转化量）=单均额/CPA</p>
+<p>CPC (Cost Per Click): 按点击计费（平均点击价格）=消费量/点击量</p>
+<p>CPA (Cost Per Action): 按成果数计费 =消费量/转化量=（CPC<em>点击量）/（CVR</em>点击量）=CPC/CVR</p>
+<p>CPM (Cost Per Mille): 按千次展现计费（千次展现价格）=（消费量/展现量）×1000</p>
+<p>CVR (Click Value Rate): 转化率，衡量CPA广告效果的指标 =转化量/点击量</p>
+<p>CTR (Click Through Rate): 点击率 =点击量/展现量</p>
+<p>PV (Page View): 流量(即页面浏览量,不管是否相同IP,只要对目标页面进行一次有效访问即为1pv)</p>
+<p>UV (Unique Visitor):独立访客，一台电脑24小时以内访问N次计为1次(同一天内,uv只记录第一次进入网站的具有独立IP的访问者,在同一天内再次访问该网站则不计数.)</p>
+<p>ADPV (Advertisement Page View): 载有广告的pageview流量</p>
+<p>ADimp (ADimpression): 单个广告的展示次数</p>
+<p>PV单价: 每PV的收入，衡量页面流量变现能力的指标</p>
+<p>RPS (Revenue Per Search): 每搜索产生的收入，衡量搜索结果变现能力指标</p>
+<h2 id="GSP——广义二阶竞价规则"><a href="#GSP——广义二阶竞价规则" class="headerlink" title="GSP——广义二阶竞价规则"></a>GSP——广义二阶竞价规则</h2><p>常见对的一阶竞价规则是:每个竞价者不公布自己的出价，把它密封在信封里交给卖主，拍卖主让最高出价者赢得竞拍，并且支付最高出价者的出价。</p>
+<p>**有人说，这种方式看起来很完美啊，符合广告主不公开报价的需求，而且也被很多实践证明过，然而这种竞价方式广告主的出价策略取决于别人怎么出，反而和自己的真实估值关系不大，而这应用到在线广告拍卖就会存在问题。<br>在线广告一个特征就是重复博弈，什么意思呢？比如线下的工程招标是一次性的，竞拍者会更加倾向于谨慎对待自己的出价，因为他只有一次机会。然而在线广告是多次的，即广告主有多次机会不断试探别人的出价，从而实现自己的最优策略。</p>
+<hr>
+<p>在最简单的GSP拍卖中，对于一个特定的关键词，广告主给出他对一次点击的最高出价。 当用户 输入一个关键词，用户会得到搜索结果和赞助链接，赞助链接是以广告的出价降序展示的。 出价最高 的广告展示在最顶部，出价次高的展示在第二个广告位，以此类推。 如果一个用户点击了位置i上的广 告，广告主需要付下一个广告的出价，就是位置i + 1上的广告出价。 如果一个搜索引擎只展示一个 广告，那GSP机制就与标准的Second-Price或是Vickrey-Clarke-Groves(VCG)没有区别。 当有多个广告 位时，在GSP机制下，每个广告主对每次点击付费为下一名的出价。我们将会解释， 这种多个广告位 的GSP拍卖与VCG不等价，并缺乏一些VCG的一些好的特性。 特别是，不同于VCG机制，GSP一般在 占优策略中没有一个均衡点。</p>
+<p>GSP中每个广告主对每个关键词只能给出一个出价――尽管可能是不同的商品出售(在不同的广告 位)。 GSP的不寻常出价要求在下面的场景中是合理的：每个广告位的价值区别在于每个广告位所能带 来的点击量不同， 一个广告在较高的位置的好处在于这个广告得到的点击更多，但是在不同的广告位 上广告的一次点击对广告主的价值是相同的 (比如，相同的购买机率)。结果就是，尽管GSP是一个多元素的环境中，购买者的估价却可以用单无素充分表达。 对一些广告主来讲，每个关键词一个出价，可 能无法充分表达他们的意向。 比如，单一出价忽略了点击第5个广告位与点击第2个广告位用户的不同 性，等等。 不管怎么讲，这些限制显然不足以成为让竞价变复杂的理由。 <strong>Nico Brooks(2004)发现在不 同的广告位展示的广告对影响用户购买机率只有很小的差别。</strong></p>
+<p>我们还忽略了一个重要的因素，就是点击率，比如，在同一个广告位，两个不同的广告有着不 同的点击率。 (这个在业界被称为”click-though-rates”, 或CTR)。不同的引擎对点击率的态度不同。 Yahoo!直接忽略点击率，仅按用户的出价的降序对广告进行排序，并按下一名广告主的出价扣费。 Google将用户的出价乘上广告的质量得分(”Quality Score”)，质量得分的计算基于CTR和其它因素， 质量得分被用于广告排序，每次点击付费为下一名的出价加上一个很小的值。</p>
+<p>广义二阶拍卖，在广义一价定价拍卖中，能快速改变广告出价的广告主有着巨大的竞争优势。 这种 拍卖机制实质上鼓励了广告主们在这个系统中博弈，博弈的结果就是导致出价和配置低效，影响了引擎 的引入。 Google在2002年它提出自己的pay-per-click系统Adwords Select时指出了这个问题， Google还 指出了在广告位i的广告主只愿意比i + 1广告位的广告主多出一点， Google将这个现象融合进了它新 设计的GSP拍卖机制中，在最简单的GSP拍卖中， 在第i个广告位的广告每次点击所付的费用，等于 第i + 1个广告位的广告出价加上一个很小的值(一般是$0.01)。 这种二价定价方式使用广告主之间更友好，并更少地受到博弈的影响。</p>
+<h1 id="Pandas处理大数据的一些技巧"><a href="#Pandas处理大数据的一些技巧" class="headerlink" title="Pandas处理大数据的一些技巧"></a>Pandas处理大数据的一些技巧</h1><h2 id="Pandas分批读取大数据集"><a href="#Pandas分批读取大数据集" class="headerlink" title="Pandas分批读取大数据集"></a>Pandas分批读取大数据集</h2><p>电脑内存小在本地读取数据的时候会跑不动.<br>这里考虑分批读取.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df=pd.read_csv(<span class="string">r'E:\Click-Through Rate Prediction\test.csv'</span>,chunksize=<span class="number">1000000</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> chunk <span class="keyword">in</span> df:</span><br><span class="line">  <span class="keyword">print</span> chunk.shape</span><br></pre></td></tr></table></figure></p>
+<p>这里通过设置了一个chunksize来实现分批读入.</p>
+<h2 id="一行代码，Pandas秒变分布式，快速处理TB级数据"><a href="#一行代码，Pandas秒变分布式，快速处理TB级数据" class="headerlink" title="一行代码，Pandas秒变分布式，快速处理TB级数据"></a>一行代码，Pandas秒变分布式，快速处理TB级数据</h2><p>加州大学伯克利分校RiseLab最近在研究的Pandas on Ray，就是为了让Pandas运行得更快，能搞定TB级数据而生的。这个DataFrame库想要满足现有Pandas用户不换API，就提升性能、速度、可扩展性的需求。</p>
+<p>研究团队说，只需要替换一行代码，8核机器上的Pandas查询速度就可以提高4倍。</p>
+<p>其实也就是用一个API替换了Pandas中的部分函数，这个API基于Ray运行。Ray是伯克利年初推出的分布式AI框架，能用几行代码，将家用电脑上的原型算法转换成适合大规模部署的分布式计算应用。</p>
+<p>Pandas on Ray的性能虽说比不上另一个分布式DataFrame库Dask，但更容易上手，用起来和Pandas几乎没有差别。用户不需要懂分布式计算，也不用学一个新的API。</p>
+<p>与Dask不同的是，Ray使用了Apache Arrow里的共享内存对象存储，不需要对数据进行序列化和复制，就能跨进程通讯。</p>
+<p>它将Pandas包裹起来并透明地把数据和计算分布出去。用户不需要知道他们的系统或者集群有多少核，也不用指定如何分配数据，可以继续用之前的Pandas notebook。</p>
+<p>前面说过，使用Pandas on Ray需要替换一行代码，其实就是换掉导入语句。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ray.dataframe <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+<p>这时候你应该看到:<br><img src="/2019/04/17/推荐系统论文阅读（九）/pic1.png" alt="pic1"><br>初始化完成，Ray自动识别了你机器上可用的核心，接下来的用法，就和Pandas一样了。</p>
+<p>Pandas on Ray目前还处于早期，实现了Pandas的一部分功能。以一个股票波动的数据集为例，它所支持的Pandas功能包括检查数据、查询上涨的天数、按日期索引、按日期查询、查询股票上涨的所有日期等等。</p>
+<p>这个项目的最终目标是在Ray上完整实现Pandas API的功能，让用户可以在云上用Pandas。</p>
+<p>目前，伯克利RiseLab的研究员们已经用45天时间，实现了Pandas DataFrame API的25%。</p>
+<h2 id="to-csv-to-excel的选择"><a href="#to-csv-to-excel的选择" class="headerlink" title="to_csv,to_excel的选择"></a>to_csv,to_excel的选择</h2><p>在输出结果时统称会遇到输出格式的选择，平时大家用的最多的.csv, .xls, .xlsx，后两者一个是excel2003，一个是excel2007，我的经验是csv&gt;xls&gt;xlsx，大文件输出csv比输出excel要快的多，xls只支持60000+条记录，xlsx虽然支持记录变多了，但是，如果内容有中文常常会出现诡异的内容丢失。因此，如果数量较小可以选择xls，而数量较大则建议输出到csv，xlsx还是有数量限制，而且大数据量的话，会让你觉得python都死掉了</p>
+<h2 id="读入时处理日期列"><a href="#读入时处理日期列" class="headerlink" title="读入时处理日期列"></a>读入时处理日期列</h2><p>我之前都是在数据读入后通过to_datetime函数再去处理日期列，如果数据量较大这又是一个浪费时间的过程，其实在读入数据时，可以通过parse_dates参数来直接指定解析为日期的列。它有几种参数，TRUE的时候会将index解析为日期格式，将列名作为list传入则将每一个列都解析为日期格式</p>
+<p>关于to_datetime函数再多说几句，我们拿到的时期格式常常出现一些乱七八糟的怪数据，遇到这些数据to_datimetime函数默认会报错，其实，这些数据是可以忽略的，只需要在函数中将errors参数设置为’ignore’就可以了。</p>
+<p>另外，to_datetime就像函数名字显示的，返回的是一个时间戳，有时我们只需要日期部分，我们可以在日期列上做这个修改，datetime_col = datetime_col.apply(lambda x: x.date())，用map函数也是一样的datetime_col = datetime_col.map(lambda x: x.date())</p>
+<h2 id="把一些数值编码转化为文字"><a href="#把一些数值编码转化为文字" class="headerlink" title="把一些数值编码转化为文字"></a>把一些数值编码转化为文字</h2><p>前面提到了map方法，我就又想到了一个小技巧，我们拿到的一些数据往往是通过数字编码的，比如我们有gender这一列，其中0代表男，1代表女。当然我们可以用索引的方式来完成<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">'gender'</span>].ix[data[<span class="string">'gender'</span>]==<span class="number">0</span>] = <span class="string">u'女'</span></span><br><span class="line">data[<span class="string">'gender'</span>].ix[data[<span class="string">'gender'</span>]==<span class="number">1</span>] = <span class="string">u'男'</span></span><br><span class="line"><span class="comment">#这里要注意一下，上面的写法是给索引找到的列修改值，而下面的方法则不会对原有值进行修改</span></span><br><span class="line">data.ix[data[<span class="string">'gender'</span>]==<span class="number">0</span>][<span class="string">'gender'</span>] = <span class="string">u'女'</span></span><br><span class="line">data.ix[data[<span class="string">'gender'</span>]==<span class="number">1</span>][<span class="string">'gender'</span>] = <span class="string">u'男</span></span><br></pre></td></tr></table></figure></p>
+<p>其实我们有更简单的方法，对要修改的列传入一个dict，就会达到同样的效果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">'gender'</span>] = data[<span class="string">'gender'</span>].map(&#123;<span class="number">0</span>:<span class="string">'男'</span>, <span class="number">1</span>:<span class="string">'女'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="https://blog.csdn.net/songbinxu/article/details/80662870" target="_blank" rel="noopener">计算广告中常用模型的相关资料整理</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/20694813" target="_blank" rel="noopener">谈谈广告平台的竞价原理：GFP,GSP,VCG
+</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/广告指标/" rel="tag"># 广告指标</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/15/程序员代码面试指南（一）/" rel="next" title="程序员代码面试指南（一）">
+                <i class="fa fa-chevron-left"></i> 程序员代码面试指南（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算广告常用指标"><span class="nav-number">1.</span> <span class="nav-text">计算广告常用指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GSP——广义二阶竞价规则"><span class="nav-number">1.1.</span> <span class="nav-text">GSP——广义二阶竞价规则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pandas处理大数据的一些技巧"><span class="nav-number">2.</span> <span class="nav-text">Pandas处理大数据的一些技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pandas分批读取大数据集"><span class="nav-number">2.1.</span> <span class="nav-text">Pandas分批读取大数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一行代码，Pandas秒变分布式，快速处理TB级数据"><span class="nav-number">2.2.</span> <span class="nav-text">一行代码，Pandas秒变分布式，快速处理TB级数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#to-csv-to-excel的选择"><span class="nav-number">2.3.</span> <span class="nav-text">to_csv,to_excel的选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读入时处理日期列"><span class="nav-number">2.4.</span> <span class="nav-text">读入时处理日期列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把一些数值编码转化为文字"><span class="nav-number">2.5.</span> <span class="nav-text">把一些数值编码转化为文字</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

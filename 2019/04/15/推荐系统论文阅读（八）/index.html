@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="paper,recommendations systems,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="计算广告中的CTRCTR预测是计算广告中的一项重要任务.所谓CTR就是根据用户的特征来估计用户点击广告的概率用于CTR是一项分类任务,主要用于预估是否点击.并且所得到的用户特征数据,广告数据等多为离散型数据.最基本的模型是采用LR模型. max_w\frac{\lambda}{2}||w||_ 2^2+\sum_{i=1}^m (y_ilogh_{\theta}(x_i)+(1-y_i)log(1">
+<meta name="keywords" content="paper,recommendations systems">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统论文阅读（八）">
+<meta property="og:url" content="http://yifdu.github.io/2019/04/15/推荐系统论文阅读（八）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="计算广告中的CTRCTR预测是计算广告中的一项重要任务.所谓CTR就是根据用户的特征来估计用户点击广告的概率用于CTR是一项分类任务,主要用于预估是否点击.并且所得到的用户特征数据,广告数据等多为离散型数据.最基本的模型是采用LR模型. max_w\frac{\lambda}{2}||w||_ 2^2+\sum_{i=1}^m (y_ilogh_{\theta}(x_i)+(1-y_i)log(1">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555309618645&di=2c6b55755315d3810437fb8ef7556914&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201711%2F10%2F20171110230913_Y2n8J.jpeg">
+<meta property="og:updated_time" content="2019-04-16T11:39:28.135Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="推荐系统论文阅读（八）">
+<meta name="twitter:description" content="计算广告中的CTRCTR预测是计算广告中的一项重要任务.所谓CTR就是根据用户的特征来估计用户点击广告的概率用于CTR是一项分类任务,主要用于预估是否点击.并且所得到的用户特征数据,广告数据等多为离散型数据.最基本的模型是采用LR模型. max_w\frac{\lambda}{2}||w||_ 2^2+\sum_{i=1}^m (y_ilogh_{\theta}(x_i)+(1-y_i)log(1">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555309618645&di=2c6b55755315d3810437fb8ef7556914&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201711%2F10%2F20171110230913_Y2n8J.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/04/15/推荐系统论文阅读（八）/">
+
+
+
+
+
+  <title>推荐系统论文阅读（八） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/04/15/推荐系统论文阅读（八）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">推荐系统论文阅读（八）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-15T11:17:42+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  19 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555309618645&di=2c6b55755315d3810437fb8ef7556914&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201711%2F10%2F20171110230913_Y2n8J.jpeg" rel="gallery_cjuldznor00h858wachyee1b4" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555309618645&di=2c6b55755315d3810437fb8ef7556914&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201711%2F10%2F20171110230913_Y2n8J.jpeg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="计算广告中的CTR"><a href="#计算广告中的CTR" class="headerlink" title="计算广告中的CTR"></a>计算广告中的CTR</h1><p>CTR预测是计算广告中的一项重要任务.<br>所谓CTR就是根据用户的特征来估计用户点击广告的概率<br>用于CTR是一项分类任务,主要用于预估是否点击.并且所得到的用户特征数据,广告数据等多为离散型数据.<br>最基本的模型是采用LR模型.</p>
+<script type="math/tex; mode=display">max_w\frac{\lambda}{2}||w||_ 2^2+\sum_{i=1}^m (y_ilogh_{\theta}(x_i)+(1-y_i)log(1-h_{\theta}(x_i)))</script><h1 id="FFM-Field-aware-Factorization-Machine-for-CTR-Prediction"><a href="#FFM-Field-aware-Factorization-Machine-for-CTR-Prediction" class="headerlink" title="FFM(Field-aware Factorization Machine for CTR Prediction)"></a>FFM(Field-aware Factorization Machine for CTR Prediction)</h1><p>论文中先给定了目标函数的形式:</p>
+<script type="math/tex; mode=display">min_w \frac{\lambda}{2}||w||_ 2^2+\sum_{i=1}^mlog(1+exp(-y_i\phi_{LM}(w,x_i)))</script><p>首先引出了一个已有模型degree-2 polynomial mappings(Poly2)$^{[1,2]}$.</p>
+<h2 id="POLY2"><a href="#POLY2" class="headerlink" title="POLY2"></a>POLY2</h2><p>原作者展示了2阶多项式的映射能有效的捕获特征结合的信息.<br>形式如下:</p>
+<script type="math/tex; mode=display">\phi_{Poly2}(w,x)=\sum_{j_1=1}^n\sum_{j_2=j_1+1}^nw_{h(j_1,j_2)}x_{j_1}x_{j_2}</script><p>这里关键是采用了$h(j_1,j_2)$用来考虑将每对特征作为一个新的特征.一般的$h(j_1,j_2)$形式如下：</p>
+<script type="math/tex; mode=display">h(j_1,j_2)=(\frac{1}{2}(j_1+j_2)(j_1+j_2+1)+j_2)mod B</script><p>其中B是用户给定的参数</p>
+<p>可见这里的计算复杂度为:$O(\overline{n}^2)$,其中$\overline{n}$是平均每个实例的非零元素个数.</p>
+<h2 id="Factorization-Machine"><a href="#Factorization-Machine" class="headerlink" title="Factorization Machine"></a>Factorization Machine</h2><p>FM$^{[3]}$被提出用来隐式地学习每个特征的潜向量$w$.<br>每个潜向量包含k个潜因子,其中k是用户给定的参数.那么,特征结合的效果通过潜向量的内积来建模.</p>
+<script type="math/tex; mode=display">\phi_{FM}(w,x)=\sum_{j_1=1}^n\sum_{j_2=j_1+1}^n(w_{j_1}·w_{j_2})x_{j_1}x_{j_2}</script><p>此时,计算复杂度变为了$O(\overline{n}^2k)$,其中k是潜向量的潜因子个数<br>为了降低计算复杂度,原文进行了重写(化简),</p>
+<script type="math/tex; mode=display">\phi_{FM}(w,x)=\frac{1}{2}\sum_{j=1}^n(s-w_jx_j)·w_jx_j</script><p>其中</p>
+<script type="math/tex; mode=display">s=\sum_{j'=1}^nw_{j'}x_{j'}</script><p>化简方法在原文中有<br><img src="/2019/04/15/推荐系统论文阅读（八）/pic3.png" alt="pic3"></p>
+<p>此时的计算复杂度降为了$O(\overline{n}k)$<br>原文解释了为什么FM效果比Poly2好<br>Poly2学习的是两个共现的特征的参数,而FM学习的是各自特征的参数w,并且可以从没有共现过的两个特征也能从其他的对中学习到它们之间的关系.</p>
+<h2 id="FFM"><a href="#FFM" class="headerlink" title="FFM"></a>FFM</h2><p>本文所提出的方法.也是借鉴于PITF$^{[4]}$的方法.<br>这里提出了一个域(field)的概念,[4]中的应用场景是推荐系统涉及到的field仅3个(User,Item和tag).而这里由于是应用于CTR,所以将会考虑更多的field. 所谓的field就是由feature group而成的. 比如特征男、女就是属于field Gender.</p>
+<script type="math/tex; mode=display">\phi(w,x)=\sum_{j_1=1}^n\sum_{j_2=j_1+1}^n(w_{j_1,f_2}·w_{j_2,f_1})x_{j_1}x_{j_2}</script><p>其中$f_1,f_2$分别是$j_1,j_2$所在的field</p>
+<p>如果f是域(field)的个数,那么FFM的变量个数为nfk,其计算复杂度为$O(\overline{n}^2k)$<br>此时的w_{j,f}不仅能反映出自身特征j的效果还能反映出与其一同作用的域的效果。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上述的$\phi_{Poly2},\phi_{FM},\phi_{FFM}$都可以代入到我们一开始提到的目标函数中去,并由此求解该目标函数的问题.这里用到的优化方法是SG方法,具体看原文吧</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li>Training and testing low-degree polynomial data mappings via linear SVM</li>
+<li>Fast mathods for kernel-based text analysis</li>
+<li>Factorization machines</li>
+<li>Pairwise interaction tensor factorization for personalized tag recommendation<h1 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h1>之前提过的FM,FFM都是2阶的特征交互(features interaction),然而有时候二阶的交互可能是不够的,需要更高阶的交互.由此,将特征交互分为低阶特征交互和高阶特征交互.低阶一般就是指二阶交互.而传统的方法,要实现高阶交互比较麻烦,要手工提取要交互的特征.而这里提出的DeepFM则结合了深度学习不需要手动提取,就能实现自动的高阶交互.另外DeepFM共享输入给低阶的FM层和高阶的FM层，将两者结合共同实现CTR的预测.</li>
+</ol>
+<p>深度学习往往能挖掘隐藏的数据,当然在处理高阶特征交互时,也能发掘隐藏的高阶特征交互,这些都是难以用手动实现,所以说深度学习带来了极大的方便.<br>总体模型图:<br><img src="/2019/04/15/推荐系统论文阅读（八）/pic1.png" alt="pic1"><br>预测模型的形式:</p>
+<script type="math/tex; mode=display">\hat{y}=sigmoid(y_{FM}+y_{DNN})</script><p>其中$\hat{y}∈(0,1)$</p>
+<h2 id="FM-Component"><a href="#FM-Component" class="headerlink" title="FM Component"></a>FM Component</h2><p>结构:<br><img src="/2019/04/15/推荐系统论文阅读（八）/pic2.png" alt="pic2"><br>对应于总体模型图的左半部分<br>这里的FM部分不仅用到了2阶的交互,还使用了一阶的交互(黑线).这里使用了一个Addition unit 和一系列Inner Product unit来进行运算。<br>形式为:</p>
+<script type="math/tex; mode=display">y_{FM}=<w,x>+\sum_{j_1=1}^d\sum_{j_2=j_1+1}^d<V_i,V_j>x_{j_1}·x_{j_2}</script><p>我觉得这里$V_i,V_j表达有问题,我觉得它想表达的是V_{j_1},V_{j_2}$,这里w∈$R^d$,$V_i∈R^k$<br>下图是FM原论文中,关于上述二阶特征交互部分的化简公式.这也就等于前一篇论文中的$\phi_{FM}$的形式.<br><img src="/2019/04/15/推荐系统论文阅读（八）/pic3.png" alt="pic3"></p>
+<h2 id="Deep-Component"><a href="#Deep-Component" class="headerlink" title="Deep Component"></a>Deep Component</h2><p>结构:<br><img src="/2019/04/15/推荐系统论文阅读（八）/pic4.png" alt="pic4"><br>对应于总体模型图的右半部分.<br>实际上就是一个前馈神经网络。</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>另外还要注意的是,在总体模型结构中,可以看到,FM Component和Deep Component是共享embeding的输出的.<br>一般把embedding层前的数据长度叫field size,而embeding后的叫feture size.</p>
+<h1 id="xDeepFM"><a href="#xDeepFM" class="headerlink" title="xDeepFM"></a>xDeepFM</h1><p>这篇论文的主要的贡献是结合了显式的特征整合和隐式的特征合.<br>xDeepFM一方面能显式地学习到某个有界阶内的特征交互,另一方面能隐式地学习任意的低阶或高阶的特征交互.</p>
+<p>本文定义了一个概念——位(bits),比如向量$V_i=[v_{i1},v_{i2},…,v_{in}]$,这里$v_{i1}$就是一个位(bit).而在我们使用DNN模型来进行高阶的特征交互的时候,是进行位层面上的特征交互.而传统的FM进行的是向量层面上的特征交互.<br>本文提出的显式地学习向量层面上的高阶特征交互.<br>本文将上述提到的显式的高阶特征交互模块与隐式的特征交互模块以及传统的FM模块结合得到全新的模型xDeepFM.</p>
+<h2 id="embedding层"><a href="#embedding层" class="headerlink" title="embedding层"></a>embedding层</h2><p>一直记得李沐的话,模型是使用离散特征还是连续特征，其实是一个“海量离散特征+简单模型” 同 “少量连续特征+复杂模型”的权衡.这里要用的DNN,显然是复杂模型,而我们的raw_input往往是离散的,所以需要经过一层embedding来稠密化.</p>
+<p>embedding层的作用就是将对应的域里的离散数据映射到一个稠密的低维实值向量中去.而域往往分为univalent和multivalent，两种形式,前者就是一般的特征embedding,而后者还要进行一步sum embedding.</p>
+<h2 id="隐式的高阶特征交互"><a href="#隐式的高阶特征交互" class="headerlink" title="隐式的高阶特征交互"></a>隐式的高阶特征交互</h2><p>这也就是我们前面在DeepFM中提到的DNN component,这一部分就是简单的前馈神经网络.像前面提到的那样,这种形式的特征整合是高阶的且仅仅是在bit层面上的整合(交互).</p>
+<h2 id="显式的高阶特征交互"><a href="#显式的高阶特征交互" class="headerlink" title="显式的高阶特征交互"></a>显式的高阶特征交互</h2><p><img src="/2019/04/15/推荐系统论文阅读（八）/pic5.png" alt="pic5"><br>在文献[1]中提出了一种Cross Network(CrossNet)其结构如上图所示.它旨在显式地建模高阶的特征交互.与经典的全连接不同的是,这里的隐层是通过下式来计算的:</p>
+<script type="math/tex; mode=display">x_k=x_0x_{k-1}^Tw_k+b_k+x_{k-1}</script><p>其中$w_k,b_k,x_k∈R^{mD}$是权重,偏置和k层的输出.这里认为CrossNet学习的是特定的高阶特征交互,其中CrossNet中的每个隐层$x_0$的标量乘积.<br>推导:<br><img src="/2019/04/15/推荐系统论文阅读（八）/pic6.png" alt="pic6"><br>其中标量$α^1=x_0^Tw_1+1$是$x_0$的线性回归.$x_1$是$x_0$的标量乘积.<br><img src="/2019/04/15/推荐系统论文阅读（八）/pic7.png" alt="pic7"><br>CrossNet的问题是:(1)输出的形式受限,每层都是$x_0$的标量倍.(2)交互是以位的方式出现.</p>
+<h2 id="本文提出的方法——Compressed-Interaction-Network-CIN"><a href="#本文提出的方法——Compressed-Interaction-Network-CIN" class="headerlink" title="本文提出的方法——Compressed Interaction Network(CIN)"></a>本文提出的方法——Compressed Interaction Network(CIN)</h2><p>设计考虑了以下几点:</p>
+<ol>
+<li>特征交互发生在向量层面上</li>
+<li>高阶特征交互能被显式地计算.</li>
+<li>随着交互地阶数增加网络复杂度不会呈指数增加.</li>
+</ol>
+<p>考虑embedding vector为一个单位来实现向量层面上的交互.构造从embedding layer 输出的矩阵$X^0∈R^{m×D}$,其中$X^0$的第i行是第i个域的embedding 向量$e_i$.考虑CIN的第k层的输出是矩阵$X^k∈R^{H_k×D}$,其中$H_k$表示(embedding) feature vectors 在第k层的数量,并且令$H_0=m$.<br>每层有以下计算形式:</p>
+<script type="math/tex; mode=display">X_{h,* }^k=\sum_{i=1}^{H_{k-1}}\sum_{j=1}^mW_{ij}^{k,h}(X_{l,* }^{k-1}\circ X_{j,* }^0 )</script><p>其中1≤h≤H_k,$W^{k,h}∈R^{H_{k-1}×m}$是第h层的特征向量的参数矩阵,$\circ$表示Hadamard product,举个例子就是$<a_1,a_2,a_3>\circ <b_1,b_2,b_3>=<a_1b_1,a_2b_2,a_3b_3>$.<br>可以看出$X^k来源于X^{k-1}和X^0$</a_1b_1,a_2b_2,a_3b_3></b_1,b_2,b_3></a_1,a_2,a_3></p>
+<p><img src="/2019/04/15/推荐系统论文阅读（八）/pic8.png" alt="pic8"><br>可以看上图.(a)描述了Hadamard product(outer product).可以看到$X^k$与$X^0$ outer product之后,变成了一个$H_k×m×d$的形式,这被视为中间结果$Z^{k+1}$对应于公式中括号里那一步.<br>(b)描述了如何获得$X^{k+1}$,是通过将$Z^{k+1}$压缩回$X^k$的形状,也就是对应于W的乘积求和计算.将原来的$H_{k-1}$压缩成$X^k$的$H_{k}$<br>(c)是对整个CIN的整体图.<br>最后的操作是作用一个sum pooling在每个隐层的特征图上</p>
+<script type="math/tex; mode=display">p_i^k=\sum_{j=1}^DX_{i,j}^k</script><p>得到一个pooling vector $p^k=[p_1^k,p_2^k,…,p_{H_k}^k]$,长度为$H_k$.<br>在CIN的输出前,往往会考虑来自各个层pooling vector的拼接,表示成:</p>
+<script type="math/tex; mode=display">p^+=[p^1,p^2,..p^T]∈R^{\sum_{i=1}^TH_i}$$.这样就综合考虑了各个层的特征交互.
+如果此时要将CIN的输出直接用于二值分类,则有
+$$y=\frac{1}{1+exp(p^{+^T}w^o)}</script><p>其中$w^o$是回归参数.</p>
+<h2 id="结合成xDeepFM"><a href="#结合成xDeepFM" class="headerlink" title="结合成xDeepFM"></a>结合成xDeepFM</h2><script type="math/tex; mode=display">\hat{y}=\sigma(w_{linear}^Ta+w_{dnn}^Tx_{dnn}^k+w_{CIN}^Tp^++b)</script><p>loss函数可以用cross entropy.<br><img src="/2019/04/15/推荐系统论文阅读（八）/pic9.png" alt="pic9"></p>
+<h2 id="参考文献-1"><a href="#参考文献-1" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li>Deep&amp;Cross network for Ad Click Predictions</li>
+</ol>
+<h1 id="Neural-Factorization-Machines-NFM"><a href="#Neural-Factorization-Machines-NFM" class="headerlink" title="Neural Factorization Machines(NFM)"></a>Neural Factorization Machines(NFM)</h1><p>这篇论文是2017年的早于上一篇论文(2018年).比较简单的思想,就是在原来的FM的基础上引入非线性.<br>原来FM的预测公式为:</p>
+<script type="math/tex; mode=display">\hat{y}_{FM}(x)=w_0+\sum_{i=1}^nw_ix_i+\sum_{i=1}^n\sum_{j=i+1}^nv_i^Tv_j·x_ix_j</script><p>本文引入非线性以后的预测公式为:</p>
+<script type="math/tex; mode=display">\hat{y}_{NFM}(x)=w_0+\sum_{i=1}^nw_ix_i+f(x)</script><p>前面的一阶特征交互形式与FM相同不同的是这里用DNN来代替FM的二阶特征交互部分.</p>
+<p>模型结构：<br><img src="/2019/04/15/推荐系统论文阅读（八）/pic10.png" alt="pic10"><br>与之前的模型一样,要先通过一个embedding层.但这里不同的是这里的embedding vector构造成:$V=\{x_1v_1,…,x_nv_n\}$来表达输入特征向量x.也就是说,这里只要那些非零的特征才能映射到embedding vector。事实上这个过程就是FM的分解嵌入过程.</p>
+<p>然后将其输入到Bi-Interaction Layer中.这一层说白了就是在实现FM的二阶特征交互的过程.<br>公式:</p>
+<script type="math/tex; mode=display">f_{BI}(V)=\sum_{i=1}^n\sum_{j=i+1}^nx_iv_i\odot x_jv_j</script><p>这里的$\odot$表示的对应元素相乘.<br>可以看到这里输入是有n个向量的,最终变成了一个向量.所以作者也称之为Bi-Interaction pooling.<br>这里为了化简上述公式,还是引用了FM中的化简方法得到：</p>
+<script type="math/tex; mode=display">f_{BI}=\frac{1}{2}[(\sum_{i=1}^nx_iv_i)^2-\sum_{i=1}^n(x_iv_i)^2]</script><p>其中这里的$v^2$表示$v\odot v$.所以说说白了还是FM的那一套.<br>不同的是,这里并没有直接拿来二分类.而是经过了多层的hidden layer.并且这里的hidden layer里的激活函数都是sigmoid.<br><img src="/2019/04/15/推荐系统论文阅读（八）/pic11.png" alt="pic11"><br>隐层之后是一个预测层,这个预测层用来预测的是特征交互的值,而不是目标分类的值.</p>
+<p>总的模型的预测公式为:</p>
+<script type="math/tex; mode=display">\hat{y}_{NFM}=w_0+\sum_i^nw_ix_i+h^T\sigma(W_L(...\sigma(W_1f_{BI}(V)+b_1)...)+b_L)</script><p>作者认为NFM是一种FM的泛化表达.</p>
+<h1 id="Deep-Interest-Evolution-Network-DIEN"><a href="#Deep-Interest-Evolution-Network-DIEN" class="headerlink" title="Deep Interest Evolution Network(DIEN)"></a>Deep Interest Evolution Network(DIEN)</h1><p>原本的一些CTR模型直接从用户行为(user behavior)中提取潜在的用户兴趣.而本文认为,仅仅提取行为中的兴趣是不够的,应该提取行为序列中的带有时间的兴趣,或者说要获得兴趣轨迹.这里我的理解是,当用户点了一个商品之后,他可能会联想到一些其他要求或者其他物品,兴趣发生了转变,而转向其他广告.</p>
+<p>DIEN中包含了两个关键的模块:</p>
+<ol>
+<li>从显式的行为中提取潜在的时间化的兴趣</li>
+<li>建模兴趣演化过程.</li>
+</ol>
+<p>数据具有的特征:</p>
+<ol>
+<li>User Profile</li>
+<li>User behavior</li>
+<li>Ad</li>
+<li>Context</li>
+</ol>
+<p>整体模型<br><img src="/2019/04/15/推荐系统论文阅读（八）/pic12.png" alt="pic12"><br>带颜色的部分是该模型的重点.<br>首先是行为层,主要就是通过embedding layer提取行为数据的低维稠密特征.<br>然后是一个特征提取层,主要就是用GRU来学习行为数据中潜在的行为关系<br>最后是兴趣演化层,根据从GRU中提取得到的潜在行为特征状态来结合target Ad来得到它的行为特征.<br>我的理解:第二层相当于行为上下文的影响.第三层是在引入了广告特征之后,对行为的影响也包括上下文的影响.因为最后是否点击并不是仅仅跟行为有关,还跟你的上下文有关.</p>
+<p>此外注意这边左侧的虚线框框,Auxiliary Loss,是应该是用来纠正仅依靠上下文的行为特征.这里h(t)为此时的隐行为状态,而e(t+1)是下一时刻的行为特征.而$\hat{e}(t+1)$是下一时刻负采样得到的不会响应点击的行为.</p>
+<p>文中还提到兴趣进化层(Interest Evolution layer)中interest在变化中遵循的规律:</p>
+<ol>
+<li>interest drift：用户在某一段时间的interest会有一定的集中性。比如用户可能在一段时间内不断买书，在另一段时间内不断买衣服。</li>
+<li>interest individual：一种interest有自己的发展趋势，不同种类的interest之间很少相互影响，例如买书和买衣服的interest基本互不相关。</li>
+</ol>
+<h1 id="GBDT与LR融合提升广告点击率预估模型"><a href="#GBDT与LR融合提升广告点击率预估模型" class="headerlink" title="GBDT与LR融合提升广告点击率预估模型"></a>GBDT与LR融合提升广告点击率预估模型</h1><h1 id="CTR评估中的穿越问题"><a href="#CTR评估中的穿越问题" class="headerlink" title="CTR评估中的穿越问题"></a>CTR评估中的穿越问题</h1><h2 id="什么是评估穿越"><a href="#什么是评估穿越" class="headerlink" title="什么是评估穿越?"></a>什么是评估穿越?</h2><p>在拿到样本数据之后，做了必要的清洗和采样之后，我们会将样本分为训练集（train）和测试集（test）（有时还会再分一份作为validation），我们会在训练集上训练出模型，然后在测试集上对模型的效果进行评估，具体来说，我们会计算各种指标出来，例如准确率、召回率、AUC，MAP等等。我们之所以要将样本划分为训练集和测试集，主要目的就是希望在测试集上做评估，而不是在训练集上做评估，防止发生过拟合，进而使得评估结果更加准确。</p>
+<p>评估穿越，指的就是由于样本划分不当，导致测试集中的信息“穿越”到了训练集中，导致评估结果会更偏爱过拟合的模型，从而导致评估结果不够准确。这么说比较抽象，下面我们以最常见的两种穿越为例，认识一下穿越究竟是怎么发生的。</p>
+<h3 id="时间穿越"><a href="#时间穿越" class="headerlink" title="时间穿越"></a>时间穿越</h3><p>拿到数据集后，需要将其按照一定比例分割为训练集和测试集，训练集用来训练模型，而测试集用来评测效果。要实现这个目的，最简单的实现方法，就是对于每条样本做一次随机选择，来判断将其放到训练集还是测试集。</p>
+<p>但是这种实现方法，会导致一个问题，就是我们称之为“时间穿越”的问题。假设我们的样本数据包含了七月份和八月份的用户行为，按照上面的方法进行划分的话，划分的结果就是训练集和测试集中都可能含有七月和八月的数据，这样的数据在训练时没有问题，但是在预测评估时，会导致数据指标优于实际情况，例如，真的的AUC应该是0.7的话，那么在这样的数据集上评估出的结果就会大于0.7。</p>
+<p>为什么呢？大家都知道训练集上训练出来的模型是不能在训练集上进行评估的，因为训练集上的评估结果会更偏好过拟合的模型，导致我们错误评估了模型的泛化能力。这就好比用来练习的试卷不能用来考试，因为这样会导致死记硬背的学生分数更高，而不是学习能力强的学生。类似的，在上面的例子中，由于训练集和测试集中都包含了七月和八月的数据，这就好像考试卷子中虽然没有包含练习试卷的题目，但是包含了非常相似的题目，也会导致我们错误判断一个学生的学习能力。究其根本原因，是因为在实际场景中，数据行为都是在快速变化的，相近时间内的行为存在一定的相似性，时间相差越远行为差异越大。这一点和一个稳定数据分布场景是完全不同的，如果数据分布在时间维度上是相对稳定的，那么时间因素就不是一个那么重要的因素，相互穿越带来的问题就会比较小。</p>
+<h3 id="会话穿越"><a href="#会话穿越" class="headerlink" title="会话穿越"></a>会话穿越</h3><p>以电商网站的推荐为例，用户在浏览一个商品时，某个推荐模块会为他推荐多个商品进行展现，用户可能会点击其中的某几个，其他的则不会点击。为了描述方便，我们将这些一次展现中产生的点击和未点击数据合起来称为一次会话（不同于计算机网络中会话的概念）。</p>
+<p>在上面描述的样本划分方法中，一次会话中样本可能有部分被划分到训练集，另外部分会划分到测试集。这样的行为，我们称之为会话穿越。会话穿越的问题在于，由于一个会话对应的是一个用户在一次展现中的行为，所以是存在较高相关性的，穿越会带来类似上面提到的用练习题考试的问题；此外，会话本身是不可分割的，也就是说，在线上使用模型时，不可能让你先看到一次会话的一部分，然后让你预测剩余的部分，因为会话的展现结果是一次性产生的，一旦产生后，模型已经无法干预展现结果。这就好比说模拟考试时老师告诉你说是开卷的，于是你很开心地考了90分，但是到了真实考场上时，考试却是闭卷的，那么你可能只能得到70分。原因就在于你在模拟考试时利用了你在真实考试时无法利用到的信息。</p>
+<h3 id="穿越的本质"><a href="#穿越的本质" class="headerlink" title="穿越的本质"></a>穿越的本质</h3><p>上面我们用两种类型的穿越，向大家介绍了穿越问题，但是这两种穿越，以及我们没有介绍到的其他类型的穿越，里面的核心问题是什么呢？</p>
+<p>首先是一个信息泄露的问题。无论是时间穿越，还是会话穿越，其核心问题都在于在训练数据中的信息以不同方式、不同程度泄漏到了测试数据中。我在其他文章中也简单介绍过，机器学习本质上就是信息的游戏，信息的泄露必然会导致评估结果发生偏差。</p>
+<p>其次是场景真实性的问题。上面的两种穿越问题中，线下训练测试的场景，都和线上真正预测未知数据的场景有着偏差，从而导致了评估结果的偏差。举个极端的例子，就好比慈溪在颐和园风平浪静的昆明湖训练水兵，然后去波涛汹涌的大海上和敌人打仗，焉有不败之理。</p>
+<p>所以大家无论是在处理样本时，还是在处理特征时，需要对信息泄露和场景真实性问题加以注意，这两个问题可能会以各种形态出现在机器学习系统中，稍不留神可能就会被捉弄。</p>
+<h1 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h1><p><img src="/2019/04/15/推荐系统论文阅读（八）/pic13.png" alt="pic13"></p>
+<h1 id="优秀文献"><a href="#优秀文献" class="headerlink" title="优秀文献:"></a>优秀文献:</h1><ol>
+<li><a href="https://blog.csdn.net/han_xiaoyang/article/details/81031961" target="_blank" rel="noopener">从FM推演各深度学习CTR预估模型（附代码）</a></li>
+<li><a href="https://www.cnblogs.com/xianbin7/p/10661572.html" target="_blank" rel="noopener">CTR预估经典模型总结</a></li>
+<li><a href="https://blog.csdn.net/phrmgb/article/details/79997057" target="_blank" rel="noopener">浅谈机器学习评估中的穿越问题</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/paper/" rel="tag"># paper</a>
+          
+            <a href="/tags/recommendations-systems/" rel="tag"># recommendations systems</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/13/笔试刷题（一）/" rel="next" title="笔试刷题（一）">
+                <i class="fa fa-chevron-left"></i> 笔试刷题（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/15/程序员代码面试指南（一）/" rel="prev" title="程序员代码面试指南（一）">
+                程序员代码面试指南（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算广告中的CTR"><span class="nav-number">1.</span> <span class="nav-text">计算广告中的CTR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FFM-Field-aware-Factorization-Machine-for-CTR-Prediction"><span class="nav-number">2.</span> <span class="nav-text">FFM(Field-aware Factorization Machine for CTR Prediction)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#POLY2"><span class="nav-number">2.1.</span> <span class="nav-text">POLY2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Factorization-Machine"><span class="nav-number">2.2.</span> <span class="nav-text">Factorization Machine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FFM"><span class="nav-number">2.3.</span> <span class="nav-text">FFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">2.4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">2.5.</span> <span class="nav-text">参考文献</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DeepFM"><span class="nav-number">3.</span> <span class="nav-text">DeepFM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FM-Component"><span class="nav-number">3.1.</span> <span class="nav-text">FM Component</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-Component"><span class="nav-number">3.2.</span> <span class="nav-text">Deep Component</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">3.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xDeepFM"><span class="nav-number">4.</span> <span class="nav-text">xDeepFM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#embedding层"><span class="nav-number">4.1.</span> <span class="nav-text">embedding层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式的高阶特征交互"><span class="nav-number">4.2.</span> <span class="nav-text">隐式的高阶特征交互</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显式的高阶特征交互"><span class="nav-number">4.3.</span> <span class="nav-text">显式的高阶特征交互</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文提出的方法——Compressed-Interaction-Network-CIN"><span class="nav-number">4.4.</span> <span class="nav-text">本文提出的方法——Compressed Interaction Network(CIN)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结合成xDeepFM"><span class="nav-number">4.5.</span> <span class="nav-text">结合成xDeepFM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献-1"><span class="nav-number">4.6.</span> <span class="nav-text">参考文献</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Neural-Factorization-Machines-NFM"><span class="nav-number">5.</span> <span class="nav-text">Neural Factorization Machines(NFM)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Interest-Evolution-Network-DIEN"><span class="nav-number">6.</span> <span class="nav-text">Deep Interest Evolution Network(DIEN)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT与LR融合提升广告点击率预估模型"><span class="nav-number">7.</span> <span class="nav-text">GBDT与LR融合提升广告点击率预估模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CTR评估中的穿越问题"><span class="nav-number">8.</span> <span class="nav-text">CTR评估中的穿越问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是评估穿越"><span class="nav-number">8.1.</span> <span class="nav-text">什么是评估穿越?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时间穿越"><span class="nav-number">8.1.1.</span> <span class="nav-text">时间穿越</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#会话穿越"><span class="nav-number">8.1.2.</span> <span class="nav-text">会话穿越</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#穿越的本质"><span class="nav-number">8.1.3.</span> <span class="nav-text">穿越的本质</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结-2"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优秀文献"><span class="nav-number">10.</span> <span class="nav-text">优秀文献:</span></a></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

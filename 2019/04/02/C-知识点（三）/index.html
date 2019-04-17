@@ -109,7 +109,7 @@
 <meta property="og:description" content="KMP算法KMP主要解决的就是部分匹配时,原始串上的下标不回溯.只移动模式串在上的位置.主要就是挖掘模式串上的特点:如果部分匹配已经在模式串上匹配到了j位置,但此时不匹配了,则说明前面j-1个子串是完全匹配上了.此时我们需要找模式串上从后面的第几位开始到串尾,与模式串的开头部分匹配上.给出Next的公式 Next[j]=前j-1个串的对称程度+1看图2的那个表格,这里模式串的首个下标为1,所以当j">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552853606276&di=8de94ba4b105afeb460e87cdc116711f&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fb151f8198618367a56013c5c25738bd4b21ce5a3.jpg">
-<meta property="og:updated_time" content="2019-04-05T17:16:48.690Z">
+<meta property="og:updated_time" content="2019-04-13T06:24:37.559Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++知识点（三）">
 <meta name="twitter:description" content="KMP算法KMP主要解决的就是部分匹配时,原始串上的下标不回溯.只移动模式串在上的位置.主要就是挖掘模式串上的特点:如果部分匹配已经在模式串上匹配到了j位置,但此时不匹配了,则说明前面j-1个子串是完全匹配上了.此时我们需要找模式串上从后面的第几位开始到串尾,与模式串的开头部分匹配上.给出Next的公式 Next[j]=前j-1个串的对称程度+1看图2的那个表格,这里模式串的首个下标为1,所以当j">
@@ -384,7 +384,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4.9k 字
+                  5.2k 字
                 </span>
               
 
@@ -400,7 +400,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  22 分钟
+                  23 分钟
                 </span>
               
             </div>
@@ -423,7 +423,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552853606276&di=8de94ba4b105afeb460e87cdc116711f&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fb151f8198618367a56013c5c25738bd4b21ce5a3.jpg" rel="gallery_cjuct1r1y00godkwargt2srn7" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552853606276&di=8de94ba4b105afeb460e87cdc116711f&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fb151f8198618367a56013c5c25738bd4b21ce5a3.jpg" rel="gallery_cjuldznfw00gb58wa0x1i4wz8" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552853606276&di=8de94ba4b105afeb460e87cdc116711f&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fb151f8198618367a56013c5c25738bd4b21ce5a3.jpg" itemprop="contentUrl">
               </a>
             
@@ -449,6 +449,7 @@ max{m} \ \ \ \ P[0,..,m]=P[j-m,...,j],0≤m≤j\\
 <h2 id="循环节问题"><a href="#循环节问题" class="headerlink" title="循环节问题"></a>循环节问题</h2><p>经典问题 : 给出一个由某个循环节构成的字符串，要你找出最小的循环节，例如 abababab 最小循环节当是 ab ，而类似 abab 也可以成为它的循环节，但并非最短。</p>
 <p>在KMP算法的使用中,首要任务就是获取一个字符串的next数组,我们得明白next数组得含义(最好得方法是自己弄个例子),在这里通俗一点讲,next[k]表示,在模式串的k个字符失配了,然后下一次匹配从next[k]开始(next[k]中保存的是该失配字符的前一个字符在前面出现过的最近一次失配的字符后面的一个字符的位置)</p>
 <p>next数组为什么可以用来求重复前缀?且求出的重复前缀是最小的呢?<br><strong>个人认为，next数组在求解的过程中，用到了KMP的思想，当前失配了，就回溯到上一个next，请见 j=next[j] ，先说个结论，如果到位置 i ，如果有 i%(i-next(i))==0 , 那说明字符串开始循环了，并且循环到 i-1 结束，为什么这样呢？</strong></p>
+<p>代码<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; getNext(<span class="built_in">string</span> p) &#123;</span><br><span class="line"><span class="comment">//优化版本</span></span><br><span class="line">	<span class="keyword">int</span> n = p.size(), k = <span class="number">-1</span>, j = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; next(n, <span class="number">0</span>);</span><br><span class="line">	next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span> (j &lt; n - <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> (k == <span class="number">-1</span> || p[j] == p[k]) &#123;</span><br><span class="line">			++k; ++j;</span><br><span class="line">			next[j] = (p[j] != p[k]) ? k : next[k];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			k = next[k];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> next;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; getNext(<span class="built_in">string</span> p) &#123;</span><br><span class="line"><span class="comment">//未优化版本</span></span><br><span class="line">	<span class="keyword">int</span> n = p.size(), k = <span class="number">-1</span>, j = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; next(n, <span class="number">0</span>);</span><br><span class="line">	next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (j &lt; n - <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> (k == <span class="number">-1</span> || p[j] == p[k]) &#123;</span><br><span class="line">			++k; ++j;</span><br><span class="line">			next[j] = k;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			k = next[k];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> next;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kmp</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m = s.size(), n = p.size(), i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; next = getNext(p);</span><br><span class="line">	<span class="keyword">while</span> (i &lt; m &amp;&amp; j &lt; n) &#123;</span><br><span class="line">		<span class="keyword">if</span> (j == <span class="number">-1</span> || s[i] == p[j]) &#123;</span><br><span class="line">			++i; ++j;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			j = next[j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> (j == n) ? i - j : <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; kmp(<span class="string">"BBC_ABCDAB_ABCDABCDABDE"</span>, <span class="string">"ABCDABD"</span>) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// Output: 15</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>参考文献:</p>
 <ol>
 <li><a href="https://blog.csdn.net/hao_zong_yin/article/details/77455285" target="_blank" rel="noopener">https://blog.csdn.net/hao_zong_yin/article/details/77455285</a></li>
@@ -659,7 +660,7 @@ max{m} \ \ \ \ P[0,..,m]=P[j-m,...,j],0≤m≤j\\
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-count">141</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -670,7 +671,7 @@ max{m} \ \ \ \ P[0,..,m]=P[j-m,...,j],0≤m≤j\\
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -681,7 +682,7 @@ max{m} \ \ \ \ P[0,..,m]=P[j-m,...,j],0≤m≤j\\
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">108</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
