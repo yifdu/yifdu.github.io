@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据挖掘,Kaggle比赛,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="比赛数据处理流程Step 1:检视源数据集一般都用pandas导入数据,所以掌握pandas很重要一般导入数据之后，我们检视源数据的方式：df.head(),df.info(),df.describe()等 Step 2:合并数据这里说的合并数据指的是将训练数据与测试数据合并，这样我们就可以同时处理训练集和测试集了，为的就是希望训练数据什么样，测试数据也什么样。all_df=pd.concat((">
+<meta name="keywords" content="数据挖掘,Kaggle比赛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据挖掘比赛入坑（一）">
+<meta property="og:url" content="http://yifdu.github.io/2019/05/23/数据挖掘比赛入坑（一）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="比赛数据处理流程Step 1:检视源数据集一般都用pandas导入数据,所以掌握pandas很重要一般导入数据之后，我们检视源数据的方式：df.head(),df.info(),df.describe()等 Step 2:合并数据这里说的合并数据指的是将训练数据与测试数据合并，这样我们就可以同时处理训练集和测试集了，为的就是希望训练数据什么样，测试数据也什么样。all_df=pd.concat((">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559240406&di=93aeed4d2a242e846d43141f72ba1c1b&imgtype=jpg&er=1&src=http%3A%2F%2Fwanjuimg.5054399.com%2Fallimg%2Fhjz%2F0002018%2F07%2F0702balialatrocious%2F1.jpg">
+<meta property="og:updated_time" content="2019-05-23T18:20:14.389Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据挖掘比赛入坑（一）">
+<meta name="twitter:description" content="比赛数据处理流程Step 1:检视源数据集一般都用pandas导入数据,所以掌握pandas很重要一般导入数据之后，我们检视源数据的方式：df.head(),df.info(),df.describe()等 Step 2:合并数据这里说的合并数据指的是将训练数据与测试数据合并，这样我们就可以同时处理训练集和测试集了，为的就是希望训练数据什么样，测试数据也什么样。all_df=pd.concat((">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559240406&di=93aeed4d2a242e846d43141f72ba1c1b&imgtype=jpg&er=1&src=http%3A%2F%2Fwanjuimg.5054399.com%2Fallimg%2Fhjz%2F0002018%2F07%2F0702balialatrocious%2F1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/05/23/数据挖掘比赛入坑（一）/">
+
+
+
+
+
+  <title>数据挖掘比赛入坑（一） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/05/23/数据挖掘比赛入坑（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据挖掘比赛入坑（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-23T01:36:52+08:00">
+                2019-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据挖掘比赛/" itemprop="url" rel="index">
+                    <span itemprop="name">数据挖掘比赛</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  15.4k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  56 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559240406&di=93aeed4d2a242e846d43141f72ba1c1b&imgtype=jpg&er=1&src=http%3A%2F%2Fwanjuimg.5054399.com%2Fallimg%2Fhjz%2F0002018%2F07%2F0702balialatrocious%2F1.jpg" rel="gallery_cjw0zfcts00leh8wax55bu23n" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559240406&di=93aeed4d2a242e846d43141f72ba1c1b&imgtype=jpg&er=1&src=http%3A%2F%2Fwanjuimg.5054399.com%2Fallimg%2Fhjz%2F0002018%2F07%2F0702balialatrocious%2F1.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="比赛数据处理流程"><a href="#比赛数据处理流程" class="headerlink" title="比赛数据处理流程"></a>比赛数据处理流程</h1><h2 id="Step-1-检视源数据集"><a href="#Step-1-检视源数据集" class="headerlink" title="Step 1:检视源数据集"></a>Step 1:检视源数据集</h2><p>一般都用pandas导入数据,所以掌握pandas很重要<br>一般导入数据之后，我们检视源数据的方式：df.head(),df.info(),df.describe()等</p>
+<h2 id="Step-2-合并数据"><a href="#Step-2-合并数据" class="headerlink" title="Step 2:合并数据"></a>Step 2:合并数据</h2><p>这里说的合并数据指的是将训练数据与测试数据合并，这样我们就可以同时处理训练集和测试集了，为的就是希望训练数据什么样，测试数据也什么样。<br>all_df=pd.concat((train_df,test_df),axis=0)</p>
+<p>这里中间可能还需要穿插着数据平滑的操作。<br>如下图所示<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic1.png" alt="pic1"><br>price是我们原始数据,而log(price+1)是我们平滑后的。之所以要进行平滑,是因为我们希望最终的分布形状满足正态分布的形状。</p>
+<h2 id="变量转换"><a href="#变量转换" class="headerlink" title="变量转换"></a>变量转换</h2><p>类似“特征工程”。就是把不方便处理或者不unify的数据给统一了<br>比如一个类别特征（category）,他在数值上没有意义的,因此把他作为数值不太好，需要把它变成string<br>all_df[‘category’]=all_df[‘category’].astype(str)</p>
+<p>然后把category的变量转变成numerical表达形式<br>当我们用numerical来表达categorical的时候,要注意,数字本身有大小的含义,所以乱用数字会给之后学习带来麻烦。于是我们可以用One-hot的方法来表示category<br>pandas自带的get_dummies方法,可以帮你一键做到One-Hot。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.get_dummies(all_df[<span class="string">'category'</span>], prefix=<span class="string">'category'</span>).head()</span><br></pre></td></tr></table></figure></p>
+<p>同理，我们把所有的category数据，都给One-Hot了<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">all_dummy_df = pd.get_dummies(all_df)</span><br><span class="line">all_dummy_df.head()</span><br></pre></td></tr></table></figure></p>
+<p>处理numerical变量<br>就算是numerical的变量，也还会有一些小问题。<br>比如，有一些数据是缺失的：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">all_dummy_df.isnull().sum().sort_values(ascending=<span class="keyword">False</span>).head(<span class="number">10</span>)</span><br></pre></td></tr></table></figure></p>
+<p>统计缺失值的数目</p>
+<p>处理这些缺失的信息，得靠好好审题。一般来说，数据集的描述里会写的很清楚，这些缺失都代表着什么。当然，如果实在没有的话，也只能靠自己的『想当然』。</p>
+<p>在这里，我们用平均值来填满这些空缺。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mean_cols = all_dummy_df.mean()</span><br><span class="line">mean_cols.head(<span class="number">10</span>)</span><br><span class="line">all_dummy_df = all_dummy_df.fillna(mean_cols)</span><br></pre></td></tr></table></figure></p>
+<p>查看是不是没有空缺了<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">all_dummy_df.isnull().sum().sum()</span><br></pre></td></tr></table></figure></p>
+<p>标准化numerical数据<br>这一步并不是必要，但是得看你想要用的分类器是什么。一般来说，regression的分类器都比较傲娇，最好是把源数据给放在一个标准分布内。不要让数据间的差距太大。<br>这里，我们当然不需要把One-Hot的那些0/1数据给标准化。我们的目标应该是那些本来就是numerical的数据：<br>先来看看 哪些是numerical的：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numeric_cols = all_df.columns[all_df.dtypes != <span class="string">'object'</span>]</span><br><span class="line">numeric_cols</span><br></pre></td></tr></table></figure></p>
+<p>计算标准分布：(X-X’)/s<br>让我们的数据点更平滑，更便于计算。<br>注意：我们这里也是可以继续使用Log的，我只是给大家展示一下多种“使数据平滑”的办法。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">numeric_col_means = all_dummy_df.loc[:, numeric_cols].mean()</span><br><span class="line">numeric_col_std = all_dummy_df.loc[:, numeric_cols].std()</span><br><span class="line">all_dummy_df.loc[:, numeric_cols] = (all_dummy_df.loc[:, numeric_cols] - numeric_col_means) / numeric_col_std</span><br></pre></td></tr></table></figure></p>
+<h2 id="Step-4-建立模型"><a href="#Step-4-建立模型" class="headerlink" title="Step 4:建立模型"></a>Step 4:建立模型</h2><p>把数据集分回 训练/测试集<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dummy_train_df = all_dummy_df.loc[train_df.index]</span><br><span class="line">dummy_test_df = all_dummy_df.loc[test_df.index]</span><br></pre></td></tr></table></figure></p>
+<p>考虑把df转换成Numpy Array<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X_train = dummy_train_df.values</span><br><span class="line">X_test = dummy_test_df.values</span><br></pre></td></tr></table></figure></p>
+<p>用sklearn中自带的cross validation方法来测试评估模型</p>
+<h2 id="Step-5-Ensemble"><a href="#Step-5-Ensemble" class="headerlink" title="Step 5:Ensemble"></a>Step 5:Ensemble</h2><p>融合多个模型得到结果。<br>最后提交结果</p>
+<h1 id="常见的数据预处理方法"><a href="#常见的数据预处理方法" class="headerlink" title="常见的数据预处理方法"></a>常见的数据预处理方法</h1><h2 id="去除唯一属性"><a href="#去除唯一属性" class="headerlink" title="去除唯一属性"></a>去除唯一属性</h2><p>唯一属性通常是一些id属性，这些属性并不能刻画样本自身的分布规律,可以简单地删除这些属性即可。</p>
+<h2 id="处理缺失值"><a href="#处理缺失值" class="headerlink" title="处理缺失值"></a>处理缺失值</h2><p>缺失值处理的三种方法：直接使用含有缺失值的特征；删除含有缺失值的特征（该方法在包含缺失值的属性含有大量缺失值而仅仅包含极少量有效值时是有效的）；缺失值补全。</p>
+<p>常见的缺失值补全方法：均值插补、同类均值插补、建模预测、高维映射、多重插补、极大似然估计、压缩感知和矩阵补全。</p>
+<ol>
+<li>均值插补<br>如果样本属性的距离是可度量的，则使用该属性有效值的平均值来插补缺失的值；<br>如果的距离是不可度量的，则使用该属性有效值的众数来插补缺失的值。如果使用众数插补，出现数据倾斜会造成什么影响？</li>
+<li>同类均值插补<br>首先将样本进行分类，然后以该类中样本的均值来插补缺失值。</li>
+<li>建模预测<br>将缺失的属性作为预测目标来预测，将数据集按照是否含有特定属性的缺失值分为两类，利用现有的机器学习算法对待预测数据集的缺失值进行预测。<br>该方法的根本的缺陷是如果其他属性和缺失属性无关，则预测的结果毫无意义；但是若预测结果相当准确，则说明这个缺失属性是没必要纳入数据集中的；一般的情况是介于两者之间。</li>
+<li><p>高维映射<br>将属性映射到高维空间，采用独热码编码（one-hot）技术。将包含K个离散取值范围的属性值扩展为K+1个属性值，若该属性值缺失，则扩展后的第K+1个属性值置为1。<br>这种做法是最精确的做法，保留了所有的信息，也未添加任何额外信息，若预处理时把所有的变量都这样处理，会大大增加数据的维度。这样做的好处是完整保留了原始数据的全部信息、不用考虑缺失值；缺点是计算量大大提升，且只有在样本量非常大的时候效果才好。</p>
+</li>
+<li><p>多重插补（MultipleImputation，MI）<br>多重插补认为待插补的值是随机的，实践上通常是估计出待插补的值，再加上不同的噪声，形成多组可选插补值，根据某种选择依据，选取最合适的插补值。</p>
+</li>
+<li>压缩感知和矩阵补全</li>
+<li>手动插补<br>插补处理只是将未知值补以我们的主观估计值，不一定完全符合客观事实。在许多情况下，根据对所在领域的理解，手动对缺失值进行插补的效果会更好。</li>
+</ol>
+<h2 id="特征编码"><a href="#特征编码" class="headerlink" title="特征编码"></a>特征编码</h2><ol>
+<li><p>特征二元化<br>特征二元化的过程是将数值型的属性转换为布尔值的属性，设定一个阈值作为划分属性值为0和1的分隔点。</p>
+</li>
+<li><p>独热编码(One-HotEncoding)<br>独热编码采用N位状态寄存器来对N个可能的取值进行编码，每个状态都由独立的寄存器来表示，并且在任意时刻只有其中一位有效。<br>独热编码的优点：能够处理非数值属性；在一定程度上扩充了特征；编码后的属性是稀疏的，存在大量的零元分量</p>
+<h2 id="数据标准化、正则化"><a href="#数据标准化、正则化" class="headerlink" title="数据标准化、正则化"></a>数据标准化、正则化</h2></li>
+<li>标准化<br>某些算法要求样本具有零均值和单位方差；</li>
+</ol>
+<p>需要消除样本不同属性具有不同量级时的影响：①数量级的差异将导致量级较大的属性占据主导地位；②数量级的差异将导致迭代收敛速度减慢；③依赖于样本距离的算法对于数据的数量级非常敏感。</p>
+<p>min-max标准化（归一化）：对于每个属性，设minA和maxA分别为属性A的最小值和最大值，将A的一个原始值x通过min-max标准化映射成在区间[0,1]中的值x’，其公式为：新数据=（原数据 - 最小值）/（最大值 - 最小值）</p>
+<p>z-score标准化（规范化）：基于原始数据的均值（mean）和标准差（standarddeviation）进行数据的标准化。将A的原始值x使用z-score标准化到x’。z-score标准化方法适用于属性A的最大值和最小值未知的情况，或有超出取值范围的离群数据的情况。新数据=（原数据- 均值）/ 标准差</p>
+<p>均值和标准差都是在样本集上定义的，而不是在单个样本上定义的。标准化是针对某个属性的，需要用到所有样本在该属性上的值。</p>
+<ol>
+<li>正则化<br>数据正则化是将样本的某个范数（如L1范数）缩放到到位，正则化的过程是针对单个样本的，对于每个样本将样本缩放到单位范数。</li>
+</ol>
+<h2 id="特征选择-降维"><a href="#特征选择-降维" class="headerlink" title="特征选择(降维)"></a>特征选择(降维)</h2><p>从给定的特征集合中选出相关特征子集的过程称为特征选择。<br>进行特征选择的两个主要原因是：</p>
+<ol>
+<li>减轻维数灾难问题；</li>
+<li>降低学习任务的难度。</li>
+</ol>
+<p>进行特征选择必须确保不丢失重要特征。</p>
+<p>常见的特征选择类型分为三类：过滤式（filter）、包裹式（wrapper）、嵌入式（embedding）。</p>
+<ol>
+<li>过滤式选择：该方法先对数据集进行特征选择,然后再训练学习器.特征选择过程与后续学习器无关.Relief是一种著名的过滤式特征选择方法。</li>
+<li>包裹式选择:该方法直接把最终将要使用的学习器的性能作为特征子集的评价原则。其优点是直接针对特定学习器进行优化,因此通常包裹式特征选择比过滤式特征选择更好,缺点就是由于特征选择过程需要多次训练学习器,故计算开销要比过滤式特征选择要大得多</li>
+<li>嵌入式选择。常见的降维方法：SVD、PCA、LDA</li>
+</ol>
+<h2 id="稀疏表示和字典学习"><a href="#稀疏表示和字典学习" class="headerlink" title="稀疏表示和字典学习"></a>稀疏表示和字典学习</h2><p>字典学习：学习一个字典，通过该字典将样本转化为合适的稀疏表示形式。<br>稀疏编码：获取样本的稀疏表达。</p>
+<h1 id="大神领进门"><a href="#大神领进门" class="headerlink" title="大神领进门"></a>大神领进门</h1><p>强烈推荐知乎鱼佬得这个live:<a href="https://www.zhihu.com/lives/1101583435449151488" target="_blank" rel="noopener">如何进行一场数据挖掘算法竞赛</a></p>
+<h2 id="TIANCHI-全球城市计算挑战赛-完整方案及关键代码分享（季军）"><a href="#TIANCHI-全球城市计算挑战赛-完整方案及关键代码分享（季军）" class="headerlink" title="TIANCHI-全球城市计算挑战赛-完整方案及关键代码分享（季军）"></a>TIANCHI-全球城市计算挑战赛-完整方案及关键代码分享（季军）</h2><p><a href="https://zhuanlan.zhihu.com/p/62257700" target="_blank" rel="noopener">鱼佬的天池比赛</a></p>
+<h3 id="赛题分析"><a href="#赛题分析" class="headerlink" title="赛题分析"></a>赛题分析</h3><p>通过分析地铁站的历史刷卡数据，预测站点未来的每十分钟出入客流量。<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic2.png" alt="pic2"></p>
+<h3 id="EDA-Exploratory-Data-Analysis"><a href="#EDA-Exploratory-Data-Analysis" class="headerlink" title="EDA(Exploratory Data Analysis)"></a>EDA(Exploratory Data Analysis)</h3><ol>
+<li>模型框架<br>模型采用滑窗滚动（天）的方式进行构建，这样可以防止因为某一天存在奇异值而导致模型训练走偏。最后将所有滚动滑窗的标签以及特征进行拼接形成最终的训练集。<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic3.png" alt="pic3"></li>
+</ol>
+<p>鱼佬说对于常见得时序问题时，都可以采样这种方式来提取特征，构建训练集。</p>
+<ol>
+<li>模型细节<br>上面滑窗滚动需要选择分布于测试集类似的进行label的构建才能取得较好的结果，所以在此之前需要对分布差异大的数据进行删除。<br>进行了简单得EDA来分析label的分布情况。（好的EDA能够帮助你理解数据，挖掘更多细节，在比赛中必不可少）<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic4.png" alt="pic4"><br>从三幅图中可以看出周末与周内分布有很大差异，所以将测试集为周末和测试集为周内进行区别对待，保证训练集分布的稳定。<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic5.png" alt="pic5"><br>从图中可以看出相同时间段流量突然相差巨大。可以考虑是因为突发性活动，特别事件等因素影响<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic6.png" alt="pic6"><br>由节假日流量分布，我们发现，节假日的信息和非节假日的分布差异非常大,所以我们也选择将其删除。<h3 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h3>有了模型的框架，下面就是如何对每个站点不同时刻的流量信息进行刻画，此处需要切身地去思考影响地铁站点流量的因素，并从能使用的数据中思考如何构造相关特征来表示该因素。最终通过大量的EDA以及分析,我们通过以下几个模块来对地铁流量的特征进行构建。(这就是大神与我们菜鸡的不同,很有条理的做EDA的分析)<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic7.png" alt="pic7"></li>
+<li>强相关性<br>强相关性信息主要发生在每天对应时刻，所以我们分别构造了小时粒度和10分钟粒度的出入站流量特征。考虑到前后时间段流量的波动因素，所以又添加上个时段和下个时段，或者上两个和下两个时段的流量特征。同时还构造了前N天对应时段的流量。更进一步，考虑到相邻站点的强相关性，添加相邻两站对应时段的流量。<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic8.png" alt="pic8"></li>
+<li>趋势性<br>挖掘趋势性也是提取特征的关键，主要构造特征定义如下：<script type="math/tex; mode=display">A_{diff}(n+1)=A(n+1)-A(n),A=in|out</script>即表示前后时段的差值，这里可以是入站流量也可以是出战流量。同样，我们考虑了每天对应当前时段，每天对应上个时段等。当然我们也可以考虑差比：<script type="math/tex; mode=display">A_{ratio}(n+1)=A(n+1)/A(n),A=in|out</script><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic9.png" alt="pic9"></li>
+<li>周期性<br>由于周末分布类似，工作日分布类似。所以我们选择对应日期对应时间段的信息进行特征的构建,具体地:<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic10.png" alt="pic10"></li>
+<li>stationID相关特征<br>主要来挖掘不同站点及站点与其它特征组合的热度，</li>
+</ol>
+<h3 id="模型训练-amp-融合"><a href="#模型训练-amp-融合" class="headerlink" title="模型训练&amp;融合"></a>模型训练&amp;融合</h3><p>模型训练方面我们主要有三个方案，分别是传统方案、平滑趋势和时序stacking。最后将这三个方案预测的结果根据线下验证集的分数进行加权融合。</p>
+<ol>
+<li>传统方案<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic11.png" alt="pic11"><br>由于C榜测试集为周内数据，所以移除了周末数据，保证分布基本一致，为了保持训练集的周期性，移除了周一和周二。这也作为最基本的方案进行建模。</li>
+<li>平滑趋势<br>设计了一种处理奇异值的方法，也就是第二个方案平滑趋势。方案思想是，对于周内分布大体相同的日期，如果相同时刻流量出现异常波动，那么将其定义为奇异值。然后选取与测试集有强相关性的日期作为基准，比如C榜测试集为31号，那么选择24号作为基准，对比24号与其它日期的相对应时刻的站点流量情况。这里构造其它日期对应24号时刻流量的趋势比，根据这个趋势比去修改对应时刻中每个10分钟的流量。因为小时的流量更具稳定，所以根据小时确定趋势比，再修改小时内10分钟的流量。对流量进行修改后再进行传统方案的建模，这里会保留周一和周二的数据。</li>
+</ol>
+<p><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic12.png" alt="pic12"><br>具体步骤：</p>
+<ul>
+<li>删除周六周日</li>
+<li>平滑24号之前日期对应24号的时刻流量趋势</li>
+<li>常规训练</li>
+</ul>
+<ol>
+<li>时序Stacking<br>因为历史数据中存在一些未知的奇异值,例如某些大型活动会导致某些站点在某些时刻流量增加,这些数据的影响很大,为了减小此类数据的影响,这里用了时序stacking的方式进行解决,如果模型预测结果和真实结果相差较大,那么此类数据就是异常的,方案的可视化如下,通过下面的操作,线下和线上都能得到稳定的提升。<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic13.png" alt="pic13"></li>
+<li>模型融合<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic14.png" alt="pic14"><br>三个方案各具优势，线下的表现的相关性也较低，经过过融合后线下的结果更加稳定，最终我们依线下CV的表现对其进行加权融合。</li>
+</ol>
+<h1 id="数据挖掘中的特征工程应该怎么做？"><a href="#数据挖掘中的特征工程应该怎么做？" class="headerlink" title="数据挖掘中的特征工程应该怎么做？"></a>数据挖掘中的特征工程应该怎么做？</h1><p><a href="https://www.zhihu.com/question/279331486/answer/442879546" target="_blank" rel="noopener">来自知乎问题</a></p>
+<h2 id="派生特征-derived-features"><a href="#派生特征-derived-features" class="headerlink" title="派生特征(derived features)"></a>派生特征(derived features)</h2><p>数据清洗是数据挖掘中的一个重要步骤,从各种日志中，清洗出一些初级特征，将非结构化数据转成结构化数据的，便于后续训练模型和做预测。但有些时候，把一些初级特征直接用到模型中效果未必好，根据这些初级特征生成派生特征能更好的提高模型效果。</p>
+<p>生成派生特征是数据挖掘领域最有创造性的步骤之一。派生特征使建模过程融入更多人工经验，并充分利用用户，商品，市场的特性。构造合适的特征集合是优秀算法工程师必备技能。</p>
+<p>派生特征对模型效果指标，比如均方误差，准确率，召回率等提升明显。更为重要的是，好的派生特征能提升模型的可解释性。但是，没有“放之四海而皆准”的特征，一个特征可能在一个场景效果良好，换个场景效果就大打折扣。算法工程师不能有“懒人”心态，认为某个特征包治百病。下面一个案例说明派生特征的优点和局限：<br><strong>变化的场景会影响一个特征的效果<br>在一个场景中效果良好的特征，换个场景未必好使</strong></p>
+<p>本文会首先会介绍如何利用单个特征生成派生特征，之后会介绍多个特征的联合如何生成派生特征。最后会总结生成派生特征的一些原则，还会介绍一些和时间和位置相关的派生特征。</p>
+<h3 id="手机型号与转化率"><a href="#手机型号与转化率" class="headerlink" title="手机型号与转化率"></a>手机型号与转化率</h3><p>手机型号是服务商做业务建模的时候常用的一个特征。用户转化率分析是一个常见的业务场景。但在模型中直接使用手机型号作为特征有很多问题：手机型号更新换代很快，旧型号的淘汰周期越来越短，因此直接基于手机型号的算法模型的效果衰减很快，因为几乎每个月都有一些旧的型号被淘汰，被归入“其他”类（可以理解成category value）。今天很酷的手机，很快可能变得无人问津。手机并非只是一个通讯设备，它越来越具有时尚属性，而时尚是易变（fickle）的。</p>
+<p>在某次使用手机型号作为特征的场景中，建模者以为手机型号可能只有5到10种，但所有用户使用的手机型号却超过200多种，让一个category 的feature有200多个category value，显得太多。假如使用逻辑回归模型中，就需要为每个value建一个示性因子，这会使模型变复杂。</p>
+<p>只有最新或者比较popular的型号才有大量的活跃用户，所以一个可行的方案是把那些流行的型号的机型才归入“其他”类。一个更好的解决方案是直接利用目标函数对值做分类。比如把那些高转化率的机型归入“高”类，把那些低转化率的机型归入“低”类，其他的机型归入“中”类。决策树类的算法中，我们常常这么干。要这么干就需要计算各个机型对应的转化率，那为什么不直接利用这些转化率呢？这里“手机型号对应的转化率”就是一个派生特征。</p>
+<p>这个派生特征用到了下文将会讲到的两个生成派生特征的技巧：</p>
+<ol>
+<li>用数值特征替换category value</li>
+<li>用目标变量的历史值作为特征</li>
+</ol>
+<p>同样是这个特征，但在分析两家运营商的业务的时候，效果差别很大。第一家运营商会给新用户更大的折扣力度，给老用户没有啥折扣（很像中国联通呀）；而另一家运营商给新老用户一样的折扣。“手机型号对应的转化率” 这个特征在第一家运营商的场景中效果良好；在第二家运营商的业务场景中收效甚微。(所以说一些特征只适用于特定的场景)</p>
+<p>大家想想手机型号还可以派生出哪些数值特征？重量，价格等等，估计大家能想出不少。</p>
+<h3 id="单特征派生"><a href="#单特征派生" class="headerlink" title="单特征派生"></a>单特征派生</h3><h4 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h4><p>正则化是常用的数据预处理方法，其目的是把不同维度的数据映射到一个共同的scale，以方便后续的距离等度量计算。下面是正则化的两个步骤：</p>
+<ol>
+<li>中心化</li>
+<li>中心化后的值除以标准差。<br>中心化</li>
+</ol>
+<p>每个特征值都减去均值。如果原始特征值代表钱数，则中心化后的值代表原始值是否高于均值或者低于均值。比如用户的订单价格被中心化之后，就代表订单价格时候高于平均客单价。</p>
+<p>缩放</p>
+<p>除以标准差把特征值映射到-1至1的区间，</p>
+<h4 id="将数值转成百分位（标准化）"><a href="#将数值转成百分位（标准化）" class="headerlink" title="将数值转成百分位（标准化）"></a>将数值转成百分位（标准化）</h4><p>父母们谈论自己孩子身高，体重等身体参数时，直接说绝对值，比如“身高60cm”，不如说“身高处于同龄孩子身高的95分位”更能体现自己孩子的生理优势，因为孩子 比95%的同龄儿童都高。而且正则化基于正态假设，而转成分位数的方式与数值的分布无关。</p>
+<h4 id="将数值转成比率"><a href="#将数值转成比率" class="headerlink" title="将数值转成比率"></a>将数值转成比率</h4><p>数据库中往往有大量的数值：订单数，呼叫数目，在线时长等。而这些数值往往和用户的注册时长和生命周期等有关：一个已经注册6个月的用户的订单数和一个刚注册一个月用户的当担数的绝对值比较意义不大。往往是将订单数除以用户生命周期（在线时长）等得到的比率更有意义。</p>
+<h4 id="类别特征（category-feature）的数值化"><a href="#类别特征（category-feature）的数值化" class="headerlink" title="类别特征（category feature）的数值化"></a>类别特征（category feature）的数值化</h4><p>最常见的处理办法是one hot representation,但one hot representation可能引起“维度爆炸”，大大增加模型的复杂度，当然，这可以用降维的方法来处理，不过如何降维不是本文的主题，后续会单独介绍。将category value数值化，要抓取类别特征的重要的数值特征，但什么样的数值特征是重要的呢？答案是和我们的目标关联性强的数值。在手机的转化率模型中，由手机型号派生出的重要的数值特征：手机的价格，重量，上市时间，受欢迎程度（销量），APP数量或者电池寿命等；而地理信息，或者国家可以派生出下列重要的数值特征：人口，人口密度，经纬度，海拔，收入中位数，年降雨量等。</p>
+<h4 id="分箱"><a href="#分箱" class="headerlink" title="分箱"></a>分箱</h4><p>在某些场景，却需要根据数值特征生成类别特征，比如朴素bayes模型只支持类别特征（离散特征）。分桶，又叫离散化，就是把数值映射到一组区间，而用区间号代替数值。</p>
+<p>假设12个销售价格记录组已经排序如下：5, 10, 11, 13, 15,35, 50, 55, 72, 92, 204, 215。分箱的方法，大概分位下面三种</p>
+<h5 id="等距（等宽）分箱"><a href="#等距（等宽）分箱" class="headerlink" title="等距（等宽）分箱"></a>等距（等宽）分箱</h5><p>将变量的取值范围分为k个等宽的区间，每个区间当作一个分箱。 在本问题中变量的取值范围为5–215，k为4.（215-5）/4=52.5划分点为57.5，110，162.5，4个箱中数据为<br>A箱：5, 10, 11, 13,15,35, 50, 55<br>B箱：72, 92<br>C箱：空<br>D箱：204, 215</p>
+<h5 id="等频（等权重）分箱"><a href="#等频（等权重）分箱" class="headerlink" title="等频（等权重）分箱"></a>等频（等权重）分箱</h5><p>把观测值按照从小到大的顺序排列，根据观测的个数等分为k部分，每部分当作一个分箱，例如，数值最小的1/k比例的观测形成第一个分箱，等等。<br>在本问题中观测个数为12.k=4.每箱里有3个数据。<br>A箱：5, 10, 11,<br>B箱：13, 15,35<br>C箱： 50, 55，72<br>D箱：92，204, 215</p>
+<h4 id="有监督分箱"><a href="#有监督分箱" class="headerlink" title="有监督分箱"></a>有监督分箱</h4><p>有监督分箱主要有best-ks分箱和卡方分箱。大家可以参考下面这篇博客<br><a href="https://blog.csdn.net/hxcaifly/article/details/80203663" target="_blank" rel="noopener">卡方分箱</a><br>此外，还有基于聚类的分箱</p>
+<p>等距分箱有一个弊端，某个箱子有可能为空，或者每个箱子中的数据容易非常少，各个箱子的数据分布不均，比如我们的例子中，等距分箱C箱的数据为空。而等频区间也有类似的问题，比如我们的例子中，所有大于90的值，都被划分到了一个区间</p>
+<h3 id="组合特征"><a href="#组合特征" class="headerlink" title="组合特征"></a>组合特征</h3><p>把两个特征组合在一起生成一个新的特征，表达原有特征无法表达的信息，是一种常用的派生特征的方法。比如市盈率，下面再介绍几个经典的组合特征。</p>
+<h4 id="体重指数（Body-Mass-Index）"><a href="#体重指数（Body-Mass-Index）" class="headerlink" title="体重指数（Body Mass Index）"></a>体重指数（Body Mass Index）</h4><p>体重指数是减肥或者健康相关的书籍上常常提到一个词。19世纪，著名的比利时通才，统计学家，天文学家，数学家博朗.阿道夫.雅克.凯特勒发明了体重指数。博朗喜欢把天文学领域的知识方法应用到社会学领域，这就是现在常说的社会物理学。1844年，博朗在研究5000名苏格兰士兵的身体健康状况时发明了BMI，用体重除以身高的平方就得到一个人的BMI（千克/平方米)。一个体重86KG，身高1.8米的人，体重指数是26.5.一般情况下，体重指数超过25就属于超重。图1是摘自NCBI网站的一张图，是美国两个地区的糖尿病和BMI指数的一个关系图，图中纵坐标表示BMI值的对应人群中，患糖尿病的比例。从图中可以看出二型糖尿病和BMI指数有强关联性。<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic15.png" alt="pic15"><br>下面上我们看看BMI指标为什么是体重除以身高的平方。因为任意身高的人健康的人的BMI值应该相近，但体重和身高却并不是线性关系。比如一个体重45KG，身高1.5米的女性是健康的，她体重身高比为30；但一个体重65KG，身高1.8的女性，身高体重比是36。体重应该和人的体积成比例，如果人类是球状的，我们的体重应该跟身高的立方成比例；如果人类是柱状的，我们的体重应该和身高成比例，但人类的形状是介于球体和柱体之间，所以我们的体重应该和身高的平方成比例。</p>
+<h4 id="风冷指数（Wind-Chill-Index）"><a href="#风冷指数（Wind-Chill-Index）" class="headerlink" title="风冷指数（Wind Chill Index）"></a>风冷指数（Wind Chill Index）</h4><p>冷天如果有风的话，会感觉更冷，这是一个生活常识。但该如何利用这个常识给人们提供出门穿衣的建议呢？科学家们很想找到一个度量，即描述风如何增加热量散失的度量。其中一个风冷指数的度量是每小时每平方米散发的热量，但它并不能准确表达到底天有多冷？</p>
+<p>第一个正式的风冷度量是极地探险家Paul Siple提出的。这个度量是基于一瓶水凝固成冰所耗费的时间给出的。但这种度量并不比上面介绍的高明。2001年，美国国家天气服务中心利用一个新模型，该模型利用脸裸露在速度为3.1迈的风中的热转换率为基线。公式如下：<br>T_{wc}=35.74+0.6215T_{a}-35.75V^{0.16}+0.4275T_{a}V^{0.16}<br>其中35.74指的是华氏温度。V指的是风速，单位是迈。</p>
+<p>上面举了两个组合特征的例子，在市场营销领域也有类似的问题，比如如何度量客户的品牌忠诚度，用户满意度，到目前为止，都没有普遍接受的度量方式。</p>
+<h3 id="组合高关联特征"><a href="#组合高关联特征" class="headerlink" title="组合高关联特征"></a>组合高关联特征</h3><p>市场营销领域，有好多高关联特征，比如本月支付额和上月账单非常的接近，全年预算和全年订单强相关。如果我们选择了一组强关联特征中的一个，是否可以忽略掉其他特征呢？答案是不一定。强关联特征的差异可能非常有意义，特征见的差异可以通过差值，比率，关联系数等度量表示。</p>
+<h4 id="近似特征的差"><a href="#近似特征的差" class="headerlink" title="近似特征的差"></a>近似特征的差</h4><p>电商领域常用的两个几乎相等的特征原始订单价和净订单价，净订单价指的是原始订单价减去用户退货和缺货商品的订单价格。采样了50000个客户的订单，我们计算出原始订单价和净订单价的关联系数为0.993，这是一个相当高的值，在模型中，最好值使用其中一个特征，去掉另一个特征，一般净订单价格会被去掉，因为该特征的获取总有一定的延迟。这50000个用户的原始订单价的平均值是197，而净订单价格的平均值是187。对大多数用户而言，这两个值是相等的。但，那些这两个值不等的一小部分客户，是非常特殊的群体，比如有的用户买的所有商品最终都退货，识别这个群体会非常有意义。因此，我们派生出一个特征，即原始订单价和净订单价的差值。如果两个特征的值几乎总是相等的，那么他们不等的场景就显得非常重要。</p>
+<h4 id="强关联特征的比率"><a href="#强关联特征的比率" class="headerlink" title="强关联特征的比率"></a>强关联特征的比率</h4><p>一个大的大学总比小的大学有更多的学生和教师。学生人数和教师人数，任何一个特征都足以表示学校的规模。但平均每个老师的学生数，确实学校师资力量的一个重要指标，类似的指标还有房屋租售比。</p>
+<h3 id="地理数据的派生特征"><a href="#地理数据的派生特征" class="headerlink" title="地理数据的派生特征"></a>地理数据的派生特征</h3><p>地理数据可以应用在很多场景，关键在于想清楚什么什么信息对某个问题有用，比如经纬度，海拔，温度，人口密度，收入水平，当地工业等。</p>
+<h4 id="GEO编码"><a href="#GEO编码" class="headerlink" title="GEO编码"></a>GEO编码</h4><p>GEO编码值的是把一个地址转成经纬度坐标，好多公司提供这种商业服务。地理坐标，常用来计算距离和时间。比如信用卡消费地距离家庭住址的距离，就是一个非常有用的特征。这可以用来派生出更多特征，比如离家50公里外的用餐消费。相反的，把GEO翻译成POI信息也非常有用。手机，汽车，越来越多的设配上有GPS等定位功能，GEO服务可以把经纬度信息再转换成POI等地址信息</p>
+<h4 id="地理信息派生特征"><a href="#地理信息派生特征" class="headerlink" title="地理信息派生特征"></a>地理信息派生特征</h4><p>一套50平米的房子卖了300万，到底是贵，还是便宜呢？如果这套房子在望京，那300万非常便宜；如果这套房子在顺义，那就非常贵了。收入，温度，降水量，人口中的移民占比等特征都是相对高低才有意义。一个有用的变换，是把上述度量特征转成基于附件区域的均值和标准差的zscore值</p>
+<h4 id="使用因变量的历史值"><a href="#使用因变量的历史值" class="headerlink" title="使用因变量的历史值"></a>使用因变量的历史值</h4><p>当因变量的历史值容易获取时，并且历史值随区域变化而变化时，因变量的历史值是一个很好的派生特征。</p>
+<h1 id="Kaggle项目实战-教程"><a href="#Kaggle项目实战-教程" class="headerlink" title="Kaggle项目实战(教程)"></a>Kaggle项目实战(教程)</h1><p>由ApacheCN组织整理：<a href="https://github.com/apachecn/kaggle" target="_blank" rel="noopener">https://github.com/apachecn/kaggle</a></p>
+<p><strong>train loss 与 test loss 结果分析</strong></p>
+<ul>
+<li>train loss 不断下降，test loss不断下降，说明网络仍在学习;</li>
+<li>train loss 不断下降，test loss趋于不变，说明网络过拟合;</li>
+<li>train loss 趋于不变，test loss不断下降，说明数据集100%有问题;</li>
+<li>train loss 趋于不变，test loss趋于不变，说明学习遇到瓶颈，需要减小学习率或批量数目;</li>
+<li>train loss 不断上升，test loss不断上升，说明网络结构设计不当，训练超参数设置不当，数据集经过清洗等问题。<h2 id="特征工程全过程"><a href="#特征工程全过程" class="headerlink" title="特征工程全过程"></a>特征工程全过程</h2><a href="https://www.cnblogs.com/jasonfreak/p/5448385.html" target="_blank" rel="noopener">很干的干货</a></li>
+</ul>
+<p><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic16.png" alt="pic16"></p>
+<h3 id="特征工程是什么？"><a href="#特征工程是什么？" class="headerlink" title="特征工程是什么？"></a>特征工程是什么？</h3><p><strong>数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。</strong><br>那特征工程到底是什么呢？顾名思义，其本质是一项工程活动，目的是最大限度地从原始数据中提取特征以供算法和模型使用。通过总结和归纳，人们认为特征工程包括以下方面：<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic17.png" alt="pic17"><br>特征处理是特征工程的核心部分，sklearn提供了较为完整的特征处理方法，包括数据预处理，特征选择，降维等。首次接触到sklearn，通常会被其丰富且方便的算法模型库吸引，但是这里介绍的特征处理库也十分强大！</p>
+<p>这里以sklearn中的IRIS数据集来对特征处理功能进行说明。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="comment">#导入IRIS数据集</span></span><br><span class="line">iris = load_iris()</span><br><span class="line"><span class="comment">#特征矩阵</span></span><br><span class="line">iris.data</span><br><span class="line"><span class="comment">#目标向量</span></span><br><span class="line">iris.target</span><br></pre></td></tr></table></figure>
+<h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><p>通过特征提取，我们能得到未经处理的特征，这时的特征可能有以下问题：</p>
+<ul>
+<li>不属于同一量纲：即特征的规格不一样，不能够放在一起比较。无量纲化可以解决这一问题。</li>
+<li>信息冗余：对于某些定量特征，其包含的有效信息为区间划分，例如学习成绩，假若只关心“及格”或不“及格”，那么需要将定量的考分，转换成“1”和“0”表示及格和未及格。二值化可以解决这一问题。<br>定性特征不能直接使用：某些机器学习算法和模型只能接受定量特征的输入，那么需要将定性特征转换为定量特征。最简单的方式是为每一种定性值指定一个定量值，但是这种方式过于灵活，增加了调参的工作。通常使用哑编码的方式将定性特征转换为定量特征：假设有N种定性值，则将这一个特征扩展为N种特征，当原始特征值为第i种定性值时，第i个扩展特征赋值为1，其他扩展特征赋值为0。哑编码的方式相比直接指定的方式，不用增加调参的工作，对于线性模型来说，使用哑编码后的特征可达到非线性的效果。</li>
+<li>存在缺失值：缺失值需要补充。</li>
+<li>信息利用率低：不同的机器学习算法和模型对数据中信息的利用是不同的，之前提到在线性模型中，使用对定性特征哑编码可以达到非线性的效果。类似地，对定量变量多项式化，或者进行其他的转换，都能达到非线性的效果。</li>
+</ul>
+<p>我们使用sklearn中的preproccessing库来进行数据预处理，可以覆盖以上问题的解决方案。</p>
+<h4 id="无量纲化"><a href="#无量纲化" class="headerlink" title="无量纲化"></a>无量纲化</h4><p>无量纲化使不同规格的数据转换到同一规格。常见的无量纲化方法有标准化和区间缩放法。标准化的前提是特征值服从正态分布，标准化后，其转换成标准正态分布。区间缩放法利用了边界值信息，将特征的取值区间缩放到某个特点的范围，例如[0, 1]等。</p>
+<ol>
+<li><p>标准化</p>
+<script type="math/tex; mode=display">x'=\fraac{x-\overline{X}}{S}</script><p>使用preproccessing库的StandardScaler类对数据进行标准化的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="comment">#标准化，返回值为标准化后的数据</span></span><br><span class="line">StandardScaler().fit_transform(iris.data)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>区间缩放法<br>前提要知道边界信息。</p>
+<script type="math/tex; mode=display">x'=\frac{x-Min}{Max-Min}</script><p>使用preproccessing库的MinMaxScaler类对数据进行区间缩放的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line"><span class="comment">#区间缩放，返回值为缩放到[0, 1]区间的数据</span></span><br><span class="line">MinMaxScaler().fit_transform(iris.data)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>标准化与归一化的区别<br>简单来说，标准化是依照特征矩阵的列处理数据，其通过求z-score的方法，将样本的特征值转换到同一量纲下。归一化是依照特征矩阵的行处理数据，其目的在于样本向量在点乘运算或其他核函数计算相似性时，拥有统一的标准，也就是说都转化为“单位向量”。规则为l2的归一化公式如下：</p>
+<script type="math/tex; mode=display">x'=\frac{x}{\sqrt{\sum_j^mx[j]^2}}</script><p>简单来说就是一个要平移到均值为0,然后单位化，一个直接单位化.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> Normalizer</span><br><span class="line"><span class="comment">#归一化，返回值为归一化后的数据</span></span><br><span class="line">Normalizer().fit_transform(iris.data)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="对定量特征二值化"><a href="#对定量特征二值化" class="headerlink" title="对定量特征二值化"></a>对定量特征二值化</h4><p>定量特征二值化的核心在于设定一个阈值，大于阈值的赋值为1，小于等于阈值的赋值为0.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> Binarizer</span><br><span class="line"><span class="comment">#二值化，阈值设置为3，返回值为二值化后的数据</span></span><br><span class="line">Binarizer(threshold=<span class="number">3</span>).fit_transform(iris.data)</span><br></pre></td></tr></table></figure></p>
+<h4 id="对定性特征哑编码"><a href="#对定性特征哑编码" class="headerlink" title="对定性特征哑编码"></a>对定性特征哑编码</h4><p>由于IRIS数据集的特征皆为定量特征，故使用其目标值进行哑编码（实际上是不需要的）。使用preproccessing库的OneHotEncoder类对数据进行哑编码(Onehot)的代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> OneHotEncoder</span><br><span class="line"></span><br><span class="line"><span class="comment">#哑编码，对IRIS数据集的目标值，返回值为哑编码后的数据</span></span><br><span class="line">OneHotEncoder().fit_transform(iris.target.reshape((<span class="number">-1</span>,<span class="number">1</span>)))</span><br></pre></td></tr></table></figure></p>
+<h4 id="缺失值计算"><a href="#缺失值计算" class="headerlink" title="缺失值计算"></a>缺失值计算</h4><p>由于IRIS数据集没有缺失值，故对数据集新增一个样本，4个特征均赋值为NaN，表示数据缺失。使用preproccessing库的Imputer类对数据进行缺失值计算的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> vstack, array, nan</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> Imputer</span><br><span class="line"></span><br><span class="line"><span class="comment">#缺失值计算，返回值为计算缺失值后的数据</span></span><br><span class="line"><span class="comment">#参数missing_value为缺失值的表示形式，默认为NaN</span></span><br><span class="line"><span class="comment">#参数strategy为缺失值填充方式，默认为mean（均值）</span></span><br><span class="line">Imputer().fit_transform(vstack((array([nan, nan, nan, nan]), iris.data)))</span><br></pre></td></tr></table></figure>
+<h4 id="数据变换"><a href="#数据变换" class="headerlink" title="数据变换"></a>数据变换</h4><p>常见的数据变换有基于多项式的、基于指数函数的、基于对数函数的。4个特征，度为2的多项式转换公式如下：<br>$(x_1’,x_2’,x_3’,x_4’,x_5’,x_6’,x_7’,x_8’,x_9’,x_{10}’,x_{11}’,x_{12}’,x_{13}’,x_{14}’,x_{15}’)=(1,x_1,x_2,x_3,x_4,x_1^2,x_1<em>x_2,x_1</em>x_3,x_1<em>x_4,x_2^2,x_2</em>x_3,x_2<em>x_4,x_3^2,x_3</em>x_4,x_4^2)$</p>
+<p>使用preproccessing库的PolynomialFeatures类对数据进行多项式转换的代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> PolynomialFeatures</span><br><span class="line"></span><br><span class="line"><span class="comment">#多项式转换</span></span><br><span class="line"><span class="comment">#参数degree为度，默认值为2</span></span><br><span class="line">PolynomialFeatures().fit_transform(iris.data)</span><br></pre></td></tr></table></figure></p>
+<p>基于单变元函数的数据变换可以使用一个统一的方式完成，使用preproccessing库的FunctionTransformer对数据进行对数函数转换的代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> log1p</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> FunctionTransformer</span><br><span class="line"></span><br><span class="line"><span class="comment">#自定义转换函数为对数函数的数据变换</span></span><br><span class="line"><span class="comment">#第一个参数是单变元函数</span></span><br><span class="line">FunctionTransformer(log1p).fit_transform(iris.data)</span><br></pre></td></tr></table></figure></p>
+<h4 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h4><p><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic18.png" alt="pic18"></p>
+<h3 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h3><p>当数据预处理完成后，我们需要选择有意义的特征输入机器学习的算法和模型进行训练。通常来说，从两个方面考虑来选择特征：</p>
+<p><strong>特征是否发散：如果一个特征不发散，例如方差接近于0，也就是说样本在这个特征上基本上没有差异，这个特征对于样本的区分并没有什么用。</strong></p>
+<p>特征与目标的相关性：这点比较显见，<strong>与目标相关性高的特征，应当优选选择。</strong> 除方差法外，本文介绍的其他方法均从相关性考虑。<br>根据特征选择的形式又可以将特征选择方法分为3种：</p>
+<ol>
+<li>Filter：过滤法，按照发散性或者相关性对各个特征进行评分，设定阈值或者待选择阈值的个数，选择特征。</li>
+<li>Wrapper：包装法，根据目标函数（通常是预测效果评分），每次选择若干特征，或者排除若干特征。</li>
+<li>Embedded：嵌入法，先使用某些机器学习的算法和模型进行训练，得到各个特征的权值系数，根据系数从大到小选择特征。类似于Filter方法，但是是通过训练来确定特征的优劣。</li>
+</ol>
+<p>我们使用sklearn中的feature_selection库来进行特征选择。</p>
+<h4 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h4><ol>
+<li>方差选择法<br>使用方差选择法，先要计算各个特征的方差，然后根据阈值，选择方差大于阈值的特征。使用feature_selection库的VarianceThreshold类来选择特征的代码如下：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> VarianceThreshold</span><br><span class="line"></span><br><span class="line"><span class="comment">#方差选择法，返回值为特征选择后的数据</span></span><br><span class="line"><span class="comment">#参数threshold为方差的阈值</span></span><br><span class="line">VarianceThreshold(threshold=<span class="number">3</span>).fit_transform(iris.data)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>相关系数法<br>使用相关系数法，先要计算各个特征对目标值的相关系数以及相关系数的P值。用feature_selection库的SelectKBest类结合相关系数来选择特征的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectKBest</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> pearsonr</span><br><span class="line"></span><br><span class="line"><span class="comment">#选择K个最好的特征，返回选择特征后的数据</span></span><br><span class="line"><span class="comment">#第一个参数为计算评估特征是否好的函数，该函数输入特征矩阵和目标向量，输出二元组（评分，P值）的数组，数组第i项为第i个特征的评分和P值。在此定义为计算相关系数</span></span><br><span class="line"><span class="comment">#参数k为选择的特征个数</span></span><br><span class="line">SelectKBest(<span class="keyword">lambda</span> X, Y: array(map(<span class="keyword">lambda</span> x:pearsonr(x, Y), X.T)).T, k=<span class="number">2</span>).fit_transform(iris.data, iris.target)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卡方检验<br>经典的卡方检验是检验定性自变量对定性因变量的相关性。假设自变量有N种取值，因变量有M种取值，考虑自变量等于i且因变量等于j的样本频数的观察值与期望的差距，构建统计量：</p>
+<script type="math/tex; mode=display">X^2=\sum{\frac{(A-E)^2}{E}}</script></li>
+</ol>
+<p>这个统计量的含义简而言之就是自变量对因变量的相关性。用feature_selection库的SelectKBest类结合卡方检验来选择特征的代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectKBest</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> chi2</span><br><span class="line"></span><br><span class="line"><span class="comment">#选择K个最好的特征，返回选择特征后的数据</span></span><br><span class="line">SelectKBest(chi2, k=<span class="number">2</span>).fit_transform(iris.data, iris.target)</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>互信息法<br>经典的互信息也是评价定性自变量对定性因变量的相关性的，互信息计算公式如下：<script type="math/tex; mode=display">I(X;Y)=\sum_{x∈X}\sum_{y∈Y}p(x,y)log\frac{p(x,y)}{p(x)p(y)}</script>为了处理定量数据，最大信息系数法被提出，使用feature_selection库的SelectKBest类结合最大信息系数法来选择特征的代码如下：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectKBest</span><br><span class="line"><span class="keyword">from</span> minepy <span class="keyword">import</span> MINE</span><br><span class="line"></span><br><span class="line"><span class="comment">#由于MINE的设计不是函数式的，定义mic方法将其为函数式的，返回一个二元组，二元组的第2项设置成固定的P值0.5</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mic</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    m = MINE()</span><br><span class="line">    m.compute_score(x, y)</span><br><span class="line">    <span class="keyword">return</span> (m.mic(), <span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#选择K个最好的特征，返回特征选择后的数据</span></span><br><span class="line">SelectKBest(<span class="keyword">lambda</span> X, Y: array(map(<span class="keyword">lambda</span> x:mic(x, Y), X.T)).T, k=<span class="number">2</span>).fit_transform(iris.data, iris.target)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Wrapper"><a href="#Wrapper" class="headerlink" title="Wrapper"></a>Wrapper</h4><ol>
+<li>递归特征消除法<br>归消除特征法使用一个基模型来进行多轮训练，每轮训练后，消除若干权值系数的特征，再基于新的特征集进行下一轮训练。使用feature_selection库的RFE类来选择特征的代码如下：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> RFE</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line"><span class="comment">#递归特征消除法，返回特征选择后的数据</span></span><br><span class="line"><span class="comment">#参数estimator为基模型</span></span><br><span class="line"><span class="comment">#参数n_features_to_select为选择的特征个数</span></span><br><span class="line">RFE(estimator=LogisticRegression(), n_features_to_select=<span class="number">2</span>).fit_transform(iris.data, iris.target)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Embedded"><a href="#Embedded" class="headerlink" title="Embedded"></a>Embedded</h4><ol>
+<li>基于惩罚项的特征选择法<br>使用带惩罚项的基模型，除了筛选出特征外，同时也进行了降维。使用feature_selection库的SelectFromModel类结合带L1惩罚项的逻辑回归模型，来选择特征的代码如下：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectFromModel</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line"><span class="comment">#带L1惩罚项的逻辑回归作为基模型的特征选择</span></span><br><span class="line">SelectFromModel(LogisticRegression(penalty=<span class="string">"l1"</span>, C=<span class="number">0.1</span>)).fit_transform(iris.data, iris.target)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>L1惩罚项降维的原理在于保留多个对目标值具有同等相关性的特征中的一个，所以没选到的特征不代表不重要。故，可结合L2惩罚项来优化。具体操作为：若一个特征在L1中的权值为1，选择在L2中权值差别不大且在L1中权值为0的特征构成同类集合，将这一集合中的特征平分L1中的权值，故需要构建一个新的逻辑回归模型：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LR</span><span class="params">(LogisticRegression)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, threshold=<span class="number">0.01</span>, dual=False, tol=<span class="number">1e-4</span>, C=<span class="number">1.0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 fit_intercept=True, intercept_scaling=<span class="number">1</span>, class_weight=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 random_state=None, solver=<span class="string">'liblinear'</span>, max_iter=<span class="number">100</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 multi_class=<span class="string">'ovr'</span>, verbose=<span class="number">0</span>, warm_start=False, n_jobs=<span class="number">1</span>)</span>:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#权值相近的阈值</span></span><br><span class="line">        self.threshold = threshold</span><br><span class="line">        LogisticRegression.__init__(self, penalty=<span class="string">'l1'</span>, dual=dual, tol=tol, C=C,</span><br><span class="line">                 fit_intercept=fit_intercept, intercept_scaling=intercept_scaling, class_weight=class_weight,</span><br><span class="line">                 random_state=random_state, solver=solver, max_iter=max_iter,</span><br><span class="line">                 multi_class=multi_class, verbose=verbose, warm_start=warm_start, n_jobs=n_jobs)</span><br><span class="line">        <span class="comment">#使用同样的参数创建L2逻辑回归</span></span><br><span class="line">        self.l2 = LogisticRegression(penalty=<span class="string">'l2'</span>, dual=dual, tol=tol, C=C, fit_intercept=fit_intercept, intercept_scaling=intercept_scaling, class_weight = class_weight, random_state=random_state, solver=solver, max_iter=max_iter, multi_class=multi_class, verbose=verbose, warm_start=warm_start, n_jobs=n_jobs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, X, y, sample_weight=None)</span>:</span></span><br><span class="line">        <span class="comment">#训练L1逻辑回归</span></span><br><span class="line">        super(LR, self).fit(X, y, sample_weight=sample_weight)</span><br><span class="line">        self.coef_old_ = self.coef_.copy()</span><br><span class="line">        <span class="comment">#训练L2逻辑回归</span></span><br><span class="line">        self.l2.fit(X, y, sample_weight=sample_weight)</span><br><span class="line"></span><br><span class="line">        cntOfRow, cntOfCol = self.coef_.shape</span><br><span class="line">        <span class="comment">#权值系数矩阵的行数对应目标值的种类数目</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(cntOfRow):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(cntOfCol):</span><br><span class="line">                coef = self.coef_[i][j]</span><br><span class="line">                <span class="comment">#L1逻辑回归的权值系数不为0</span></span><br><span class="line">                <span class="keyword">if</span> coef != <span class="number">0</span>:</span><br><span class="line">                    idx = [j]</span><br><span class="line">                    <span class="comment">#对应在L2逻辑回归中的权值系数</span></span><br><span class="line">                    coef1 = self.l2.coef_[i][j]</span><br><span class="line">                    <span class="keyword">for</span> k <span class="keyword">in</span> range(cntOfCol):</span><br><span class="line">                        coef2 = self.l2.coef_[i][k]</span><br><span class="line">                        <span class="comment">#在L2逻辑回归中，权值系数之差小于设定的阈值，且在L1中对应的权值为0</span></span><br><span class="line">                        <span class="keyword">if</span> abs(coef1-coef2) &lt; self.threshold <span class="keyword">and</span> j != k <span class="keyword">and</span> self.coef_[i][k] == <span class="number">0</span>:</span><br><span class="line">                            idx.append(k)</span><br><span class="line">                    <span class="comment">#计算这一类特征的权值系数均值</span></span><br><span class="line">                    mean = coef / len(idx)</span><br><span class="line">                    self.coef_[i][idx] = mean</span><br><span class="line">        <span class="keyword">return</span> self</span><br></pre></td></tr></table></figure></p>
+<p>使用feature_selection库的SelectFromModel类结合带L1以及L2惩罚项的逻辑回归模型，来选择特征的代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectFromModel</span><br><span class="line"></span><br><span class="line"><span class="comment">#带L1和L2惩罚项的逻辑回归作为基模型的特征选择</span></span><br><span class="line"><span class="comment">#参数threshold为权值系数之差的阈值</span></span><br><span class="line">SelectFromModel(LR(threshold=<span class="number">0.5</span>, C=<span class="number">0.1</span>)).fit_transform(iris.data, iris.target)</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>基于树模型的特征选择法<br>树模型中GBDT也可用来作为基模型进行特征选择，使用feature_selection库的SelectFromModel类结合GBDT模型，来选择特征的代码如下：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectFromModel</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier</span><br><span class="line"></span><br><span class="line"> <span class="comment">#GBDT作为基模型的特征选择</span></span><br><span class="line">SelectFromModel(GradientBoostingClassifier()).fit_transform(iris.data, iris.target)</span><br></pre></td></tr></table></figure>
+<h4 id="回顾-1"><a href="#回顾-1" class="headerlink" title="回顾"></a>回顾</h4><p><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic19.png" alt="pic19"></p>
+<h3 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h3><p>征选择完成后，可以直接训练模型了，但是可能由于特征矩阵过大，导致计算量大，训练时间长的问题，因此降低特征矩阵维度也是必不可少的。常见的降维方法除了以上提到的基于L1惩罚项的模型以外，另外还有主成分分析法（PCA）和线性判别分析（LDA），线性判别分析本身也是一个分类模型。PCA和LDA有很多的相似点，其本质是要将原始的样本映射到维度更低的样本空间中，但是PCA和LDA的映射目标不一样：PCA是为了让映射后的样本具有最大的发散性；而LDA是为了让映射后的样本有最好的分类性能。所以说PCA是一种无监督的降维方法，而LDA是一种有监督的降维方法。(另外其实AutoEncoder也是一种思路)</p>
+<ol>
+<li><p>主成分分析法(PCA)<br>使用decomposition库的PCA类选择特征的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line"></span><br><span class="line"><span class="comment">#主成分分析法，返回降维后的数据</span></span><br><span class="line"><span class="comment">#参数n_components为主成分数目</span></span><br><span class="line">PCA(n_components=<span class="number">2</span>).fit_transform(iris.data)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>线性判别分析法(LDA)<br>使用lda库的LDA类选择特征的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.lda <span class="keyword">import</span> LDA</span><br><span class="line"></span><br><span class="line"><span class="comment">#线性判别分析法，返回降维后的数据</span></span><br><span class="line"><span class="comment">#参数n_components为降维后的维数</span></span><br><span class="line">LDA(n_components=<span class="number">2</span>).fit_transform(iris.data, iris.target)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回顾<br><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic20.png" alt="pic20"></p>
+<h2 id="使用Sklearn进行数据挖掘"><a href="#使用Sklearn进行数据挖掘" class="headerlink" title="使用Sklearn进行数据挖掘"></a>使用Sklearn进行数据挖掘</h2><h3 id="数据挖掘的步骤"><a href="#数据挖掘的步骤" class="headerlink" title="数据挖掘的步骤"></a>数据挖掘的步骤</h3><p>数据挖掘通常包括数据采集，数据分析，特征工程，训练模型，模型评估等步骤。使用sklearn工具可以方便地进行特征工程和模型训练工作，在《使用sklearn做单机特征工程》中，我们最后留下了一些疑问：特征处理类都有三个方法fit、transform和fit_transform，fit方法居然和模型训练方法fit同名（不光同名，参数列表都一样），这难道都是巧合？</p>
+</li>
+</ol>
+<p>显然，这不是巧合，这正是sklearn的设计风格。我们能够更加优雅地使用sklearn进行特征工程和模型训练工作。此时，不妨从一个基本的数据挖掘场景入手：</p>
+<p><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic21.png" alt="pic21"><br>我们使用sklearn进行虚线框内的工作（sklearn也可以进行文本特征提取）。通过分析sklearn源码，我们可以看到除训练，预测和评估以外，处理其他工作的类都实现了3个方法：fit、transform和fit_transform。从命名中可以看到，fit_transform方法是先调用fit然后调用transform，我们只需要关注fit方法和transform方法即可。</p>
+<p>transform方法主要用来对特征进行转换。从可利用信息的角度来说，转换分为无信息转换和有信息转换。无信息转换是指不利用任何其他信息进行转换，比如指数、对数函数转换等。有信息转换从是否利用目标值向量又可分为无监督转换和有监督转换。无监督转换指只利用特征的统计信息的转换，统计信息包括均值、标准差、边界等等，比如标准化、PCA法降维等。有监督转换指既利用了特征信息又利用了目标值信息的转换，比如通过模型选择特征、LDA法降维等。通过总结常用的转换类，我们得到下表：</p>
+<p><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic22.png" alt="pic22"><br>不难看到，只有有信息的转换类的fit方法才实际有用，显然fit方法的主要工作是获取特征信息和目标值信息，在这点上，fit方法和模型训练时的fit方法就能够联系在一起了：都是通过分析特征和目标值，提取有价值的信息，对于转换类来说是某些统计量，对于模型来说可能是特征的权值系数等。另外，只有有监督的转换类的fit和transform方法才需要特征和目标值两个参数。fit方法无用不代表其没实现，而是除合法性校验以外，其并没有对特征和目标值进行任何处理，Normalizer的fit方法实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, X, y=None)</span>:</span></span><br><span class="line">        <span class="string">"""Do nothing and return the estimator unchanged</span></span><br><span class="line"><span class="string">        This method is just there to implement the usual API and hence</span></span><br><span class="line"><span class="string">        work in pipelines.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        X = check_array(X, accept_sparse=<span class="string">'csr'</span>)</span><br><span class="line">        <span class="keyword">return</span> self</span><br></pre></td></tr></table></figure></p>
+<p>基于这些特征处理工作都有共同的方法，那么试想可不可以将他们组合在一起？在本文假设的场景中，我们可以看到这些工作的组合形式有两种：流水线式和并行式。基于流水线组合的工作需要依次进行，前一个工作的输出是后一个工作的输入；基于并行式的工作可以同时进行，其使用同样的输入，所有工作完成后将各自的输出合并之后输出。sklearn提供了包pipeline来完成流水线式和并行式的工作。</p>
+<h4 id="数据初貌"><a href="#数据初貌" class="headerlink" title="数据初貌"></a>数据初貌</h4><p>在此，我们仍然使用IRIS数据集来进行说明。为了适应提出的场景，对原数据集需要稍微加工：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> hstack, vstack, array, median, nan</span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> choice</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"></span><br><span class="line"><span class="comment">#特征矩阵加工</span></span><br><span class="line"><span class="comment">#使用vstack增加一行含缺失值的样本(nan, nan, nan, nan)</span></span><br><span class="line"><span class="comment">#使用hstack增加一列表示花的颜色（0-白、1-黄、2-红），花的颜色是随机的，意味着颜色并不影响花的分类</span></span><br><span class="line">iris.data = hstack((choice([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>], size=iris.data.shape[<span class="number">0</span>]+<span class="number">1</span>).reshape(<span class="number">-1</span>,<span class="number">1</span>), vstack((iris.data, array([nan, nan, nan, nan]).reshape(<span class="number">1</span>,<span class="number">-1</span>)))))</span><br><span class="line"><span class="comment">#目标值向量加工</span></span><br><span class="line"><span class="comment">#增加一个目标值，对应含缺失值的样本，值为众数</span></span><br><span class="line">iris.target = hstack((iris.target, array([median(iris.target)])))</span><br></pre></td></tr></table></figure></p>
+<h4 id="关键技术"><a href="#关键技术" class="headerlink" title="关键技术"></a>关键技术</h4><p>并行处理，流水线处理，自动化调参，持久化是使用sklearn优雅地进行数据挖掘的核心。并行处理和流水线处理将多个特征处理工作，甚至包括模型训练工作组合成一个工作（从代码的角度来说，即将多个对象组合成了一个对象）。在组合的前提下，自动化调参技术帮我们省去了人工调参的反锁。训练好的模型是贮存在内存中的数据，持久化能够将这些数据保存在文件系统中，之后使用时无需再进行训练，直接从文件系统中加载即可。</p>
+<h3 id="并行处理"><a href="#并行处理" class="headerlink" title="并行处理"></a>并行处理</h3><p>并行处理使得多个特征处理工作能够并行地进行。根据对特征矩阵的读取方式不同，可分为整体并行处理和部分并行处理。整体并行处理，即并行处理的每个工作的输入都是特征矩阵的整体；部分并行处理，即可定义每个工作需要输入的特征矩阵的列。</p>
+<h4 id="整体并行处理"><a href="#整体并行处理" class="headerlink" title="整体并行处理"></a>整体并行处理</h4><p>pipeline包提供了FeatureUnion类来进行整体并行处理：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> log1p</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> FunctionTransformer</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> Binarizer</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> FeatureUnion</span><br><span class="line"></span><br><span class="line"><span class="comment">#新建将整体特征矩阵进行对数函数转换的对象</span></span><br><span class="line">step2_1 = (<span class="string">'ToLog'</span>, FunctionTransformer(log1p))</span><br><span class="line"><span class="comment">#新建将整体特征矩阵进行二值化类的对象</span></span><br><span class="line">step2_2 = (<span class="string">'ToBinary'</span>, Binarizer())</span><br><span class="line"><span class="comment">#新建整体并行处理对象</span></span><br><span class="line"><span class="comment">#该对象也有fit和transform方法，fit和transform方法均是并行地调用需要并行处理的对象的fit和transform方法</span></span><br><span class="line"><span class="comment">#参数transformer_list为需要并行处理的对象列表，该列表为二元组列表，第一元为对象的名称，第二元为对象</span></span><br><span class="line">step2 = (<span class="string">'FeatureUnion'</span>, FeatureUnion(transformer_list=[step2_1, step2_2, step2_3]))</span><br></pre></td></tr></table></figure>
+<h4 id="部分并行处理"><a href="#部分并行处理" class="headerlink" title="部分并行处理"></a>部分并行处理</h4><p>整体并行处理有其缺陷，在一些场景下，我们只需要对特征矩阵的某些列进行转换，而不是所有列。pipeline并没有提供相应的类（仅OneHotEncoder类实现了该功能），需要我们在FeatureUnion的基础上进行优化：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> FeatureUnion, _fit_one_transformer, _fit_transform_one, _transform_one</span><br><span class="line"><span class="keyword">from</span> sklearn.externals.joblib <span class="keyword">import</span> Parallel, delayed</span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> sparse</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment">#部分并行处理，继承FeatureUnion</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeatureUnionExt</span><span class="params">(FeatureUnion)</span>:</span></span><br><span class="line">    <span class="comment">#相比FeatureUnion，多了idx_list参数，其表示每个并行工作需要读取的特征矩阵的列</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, transformer_list, idx_list, n_jobs=<span class="number">1</span>, transformer_weights=None)</span>:</span></span><br><span class="line">        self.idx_list = idx_list</span><br><span class="line">        FeatureUnion.__init__(self, transformer_list=map(<span class="keyword">lambda</span> trans:(trans[<span class="number">0</span>], trans[<span class="number">1</span>]), transformer_list), n_jobs=n_jobs, transformer_weights=transformer_weights)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#由于只部分读取特征矩阵，方法fit需要重构</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, X, y=None)</span>:</span></span><br><span class="line">        transformer_idx_list = map(<span class="keyword">lambda</span> trans, idx:(trans[<span class="number">0</span>], trans[<span class="number">1</span>], idx), self.transformer_list, self.idx_list)</span><br><span class="line">        transformers = Parallel(n_jobs=self.n_jobs)(</span><br><span class="line">            <span class="comment">#从特征矩阵中提取部分输入fit方法</span></span><br><span class="line">            delayed(_fit_one_transformer)(trans, X[:,idx], y)</span><br><span class="line">            <span class="keyword">for</span> name, trans, idx <span class="keyword">in</span> transformer_idx_list)</span><br><span class="line">        self._update_transformer_list(transformers)</span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="comment">#由于只部分读取特征矩阵，方法fit_transform需要重构</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit_transform</span><span class="params">(self, X, y=None, **fit_params)</span>:</span></span><br><span class="line">        transformer_idx_list = map(<span class="keyword">lambda</span> trans, idx:(trans[<span class="number">0</span>], trans[<span class="number">1</span>], idx), self.transformer_list, self.idx_list)</span><br><span class="line">        result = Parallel(n_jobs=self.n_jobs)(</span><br><span class="line">            <span class="comment">#从特征矩阵中提取部分输入fit_transform方法</span></span><br><span class="line">            delayed(_fit_transform_one)(trans, name, X[:,idx], y,</span><br><span class="line">                                        self.transformer_weights, **fit_params)</span><br><span class="line">            <span class="keyword">for</span> name, trans, idx <span class="keyword">in</span> transformer_idx_list)</span><br><span class="line"></span><br><span class="line">        Xs, transformers = zip(*result)</span><br><span class="line">        self._update_transformer_list(transformers)</span><br><span class="line">        <span class="keyword">if</span> any(sparse.issparse(f) <span class="keyword">for</span> f <span class="keyword">in</span> Xs):</span><br><span class="line">            Xs = sparse.hstack(Xs).tocsr()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            Xs = np.hstack(Xs)</span><br><span class="line">        <span class="keyword">return</span> Xs</span><br><span class="line"></span><br><span class="line">    <span class="comment">#由于只部分读取特征矩阵，方法transform需要重构</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">transform</span><span class="params">(self, X)</span>:</span></span><br><span class="line">        transformer_idx_list = map(<span class="keyword">lambda</span> trans, idx:(trans[<span class="number">0</span>], trans[<span class="number">1</span>], idx), self.transformer_list, self.idx_list)</span><br><span class="line">        Xs = Parallel(n_jobs=self.n_jobs)(</span><br><span class="line">            <span class="comment">#从特征矩阵中提取部分输入transform方法</span></span><br><span class="line">            delayed(_transform_one)(trans, name, X[:,idx], self.transformer_weights)</span><br><span class="line">            <span class="keyword">for</span> name, trans, idx <span class="keyword">in</span> transformer_idx_list)</span><br><span class="line">        <span class="keyword">if</span> any(sparse.issparse(f) <span class="keyword">for</span> f <span class="keyword">in</span> Xs):</span><br><span class="line">            Xs = sparse.hstack(Xs).tocsr()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            Xs = np.hstack(Xs)</span><br><span class="line">        <span class="keyword">return</span> Xs</span><br></pre></td></tr></table></figure></p>
+<p>在本文提出的场景中，我们对特征矩阵的第1列（花的颜色）进行定性特征编码，对第2、3、4列进行对数函数转换，对第5列进行定量特征二值化处理。使用FeatureUnionExt类进行部分并行处理的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> log1p</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> OneHotEncoder</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> FunctionTransformer</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> Binarizer</span><br><span class="line"></span><br><span class="line"><span class="comment">#新建将部分特征矩阵进行定性特征编码的对象</span></span><br><span class="line">step2_1 = (<span class="string">'OneHotEncoder'</span>, OneHotEncoder(sparse=<span class="keyword">False</span>))</span><br><span class="line"><span class="comment">#新建将部分特征矩阵进行对数函数转换的对象</span></span><br><span class="line">step2_2 = (<span class="string">'ToLog'</span>, FunctionTransformer(log1p))</span><br><span class="line"><span class="comment">#新建将部分特征矩阵进行二值化类的对象</span></span><br><span class="line">step2_3 = (<span class="string">'ToBinary'</span>, Binarizer())</span><br><span class="line"><span class="comment">#新建部分并行处理对象</span></span><br><span class="line"><span class="comment">#参数transformer_list为需要并行处理的对象列表，该列表为二元组列表，第一元为对象的名称，第二元为对象</span></span><br><span class="line"><span class="comment">#参数idx_list为相应的需要读取的特征矩阵的列</span></span><br><span class="line">step2 = (<span class="string">'FeatureUnionExt'</span>, FeatureUnionExt(transformer_list=[step2_1, step2_2, step2_3], idx_list=[[<span class="number">0</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>]]))</span><br></pre></td></tr></table></figure>
+<h3 id="流水线处理"><a href="#流水线处理" class="headerlink" title="流水线处理"></a>流水线处理</h3><p>pipeline包提供了Pipeline类来进行流水线处理。流水线上除最后一个工作以外，其他都要执行fit_transform方法，且上一个工作输出作为下一个工作的输入。最后一个工作必须实现fit方法，输入为上一个工作的输出；但是不限定一定有transform方法，因为流水线的最后一个工作可能是训练！</p>
+<p>根据本文提出的场景，结合并行处理，构建完整的流水线的代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> log1p</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> Imputer</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> OneHotEncoder</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> FunctionTransformer</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> Binarizer</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectKBest</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> chi2</span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"></span><br><span class="line"><span class="comment">#新建计算缺失值的对象</span></span><br><span class="line">step1 = (<span class="string">'Imputer'</span>, Imputer())</span><br><span class="line"><span class="comment">#新建将部分特征矩阵进行定性特征编码的对象</span></span><br><span class="line">step2_1 = (<span class="string">'OneHotEncoder'</span>, OneHotEncoder(sparse=<span class="keyword">False</span>))</span><br><span class="line"><span class="comment">#新建将部分特征矩阵进行对数函数转换的对象</span></span><br><span class="line">step2_2 = (<span class="string">'ToLog'</span>, FunctionTransformer(log1p))</span><br><span class="line"><span class="comment">#新建将部分特征矩阵进行二值化类的对象</span></span><br><span class="line">step2_3 = (<span class="string">'ToBinary'</span>, Binarizer())</span><br><span class="line"><span class="comment">#新建部分并行处理对象，返回值为每个并行工作的输出的合并</span></span><br><span class="line">step2 = (<span class="string">'FeatureUnionExt'</span>, FeatureUnionExt(transformer_list=[step2_1, step2_2, step2_3], idx_list=[[<span class="number">0</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>]]))</span><br><span class="line"><span class="comment">#新建无量纲化对象</span></span><br><span class="line">step3 = (<span class="string">'MinMaxScaler'</span>, MinMaxScaler())</span><br><span class="line"><span class="comment">#新建卡方校验选择特征的对象</span></span><br><span class="line">step4 = (<span class="string">'SelectKBest'</span>, SelectKBest(chi2, k=<span class="number">3</span>))</span><br><span class="line"><span class="comment">#新建PCA降维的对象</span></span><br><span class="line">step5 = (<span class="string">'PCA'</span>, PCA(n_components=<span class="number">2</span>))</span><br><span class="line"><span class="comment">#新建逻辑回归的对象，其为待训练的模型作为流水线的最后一步</span></span><br><span class="line">step6 = (<span class="string">'LogisticRegression'</span>, LogisticRegression(penalty=<span class="string">'l2'</span>))</span><br><span class="line"><span class="comment">#新建流水线处理对象</span></span><br><span class="line"><span class="comment">#参数steps为需要流水线处理的对象列表，该列表为二元组列表，第一元为对象的名称，第二元为对象</span></span><br><span class="line">pipeline = Pipeline(steps=[step1, step2, step3, step4, step5, step6])</span><br></pre></td></tr></table></figure></p>
+<h3 id="自动化调参"><a href="#自动化调参" class="headerlink" title="自动化调参"></a>自动化调参</h3><p>网格搜索为自动化调参的常见技术之一，grid_search包提供了自动化调参的工具，包括GridSearchCV类。对组合好的对象进行训练以及调参的代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.grid_search <span class="keyword">import</span> GridSearchCV</span><br><span class="line"></span><br><span class="line"><span class="comment">#新建网格搜索对象</span></span><br><span class="line"><span class="comment">#第一参数为待训练的模型</span></span><br><span class="line"> <span class="comment">#param_grid为待调参数组成的网格，字典格式，键为参数名称（格式“对象名称__子对象名称__参数名称”），值为可取的参数值列表</span></span><br><span class="line"> grid_search = GridSearchCV(pipeline, param_grid=&#123;<span class="string">'FeatureUnionExt__ToBinary__threshold'</span>:[<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>], <span class="string">'LogisticRegression__C'</span>:[<span class="number">0.1</span>, <span class="number">0.2</span>, <span class="number">0.4</span>, <span class="number">0.8</span>]&#125;)</span><br><span class="line"><span class="comment">#训练以及调参</span></span><br><span class="line">grid_search.fit(iris.data, iris.target)</span><br></pre></td></tr></table></figure></p>
+<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><p>externals.joblib包提供了dump和load方法来持久化和加载内存数据：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#持久化数据</span></span><br><span class="line"><span class="comment">#第一个参数为内存中的对象</span></span><br><span class="line"><span class="comment">#第二个参数为保存在文件系统中的名称</span></span><br><span class="line"><span class="comment">#第三个参数为压缩级别，0为不压缩，3为合适的压缩级别</span></span><br><span class="line">dump(grid_search, <span class="string">'grid_search.dmp'</span>, compress=<span class="number">3</span>)</span><br><span class="line"><span class="comment">#从文件系统中加载数据到内存中</span></span><br><span class="line">grid_search = load(<span class="string">'grid_search.dmp'</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="回顾-2"><a href="#回顾-2" class="headerlink" title="回顾"></a>回顾</h3><p><img src="/2019/05/23/数据挖掘比赛入坑（一）/pic23.png" alt="pic23"><br>注意：组合和持久化都会涉及pickle技术，在sklearn的技术文档中有说明，将lambda定义的函数作为FunctionTransformer的自定义转换函数将不能pickle化。</p>
+<h2 id="解决问题的流程"><a href="#解决问题的流程" class="headerlink" title="解决问题的流程"></a>解决问题的流程</h2><ol>
+<li>链接场景和目标</li>
+<li>链接评估准则</li>
+<li>认识数据</li>
+<li>数据预处理（清洗、调权）</li>
+<li>特征工程</li>
+<li>模型调参</li>
+<li>模型状态分析</li>
+<li>模型融合<h3 id="数据预处理-1"><a href="#数据预处理-1" class="headerlink" title="数据预处理"></a>数据预处理</h3></li>
+<li>数据清洗</li>
+</ol>
+<ul>
+<li>去掉样本数据的异常数据。（比如连续型数据中的离群点）</li>
+<li>去除缺失大量特征的数据</li>
+</ul>
+<ol>
+<li>数据采样</li>
+</ol>
+<ul>
+<li>下采样/上采样(假设正负样本比例1:100，把正样本的数量重复100次，这就叫上采样，也就是把比例小的样本放大。下采样同理，把比例大的数据抽取一部分，从而使比例变得接近于1；1)</li>
+<li>工具Sql、pandas</li>
+</ul>
+<ol>
+<li>上面提到的特征工程</li>
+<li>特征处理(特征工程的核心部分)</li>
+</ol>
+<ul>
+<li>数值型：连续型数据离散化或者归一化、数据变化（log、指数、box-cox）</li>
+<li>类别型：做编码，eg：one-hot编码，如果类别数据有缺失，把缺失也作为一个类别即可。</li>
+<li>时间类：间隔化（距离某个节日多少天）、与其他特征（eg：次数）融合，变成一周登陆几次、离散化（eg：外卖，把时间分为【饭店、非饭店】）</li>
+<li>文本类：N-gram、Bag-of-words、TF-IDF</li>
+<li>统计型：与业务强关联</li>
+<li>组合特征</li>
+</ul>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li>七月在线</li>
+<li><a href="https://www.cnblogs.com/sherial/archive/2018/03/07/8522405.html" target="_blank" rel="noopener">https://www.cnblogs.com/sherial/archive/2018/03/07/8522405.html</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/38431080" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/38431080</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据挖掘/" rel="tag"># 数据挖掘</a>
+          
+            <a href="/tags/Kaggle比赛/" rel="tag"># Kaggle比赛</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/22/Hadoop（一）/" rel="next" title="Hadoop（一）">
+                <i class="fa fa-chevron-left"></i> Hadoop（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">145</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">115</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#比赛数据处理流程"><span class="nav-number">1.</span> <span class="nav-text">比赛数据处理流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-1-检视源数据集"><span class="nav-number">1.1.</span> <span class="nav-text">Step 1:检视源数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-2-合并数据"><span class="nav-number">1.2.</span> <span class="nav-text">Step 2:合并数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量转换"><span class="nav-number">1.3.</span> <span class="nav-text">变量转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-4-建立模型"><span class="nav-number">1.4.</span> <span class="nav-text">Step 4:建立模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-5-Ensemble"><span class="nav-number">1.5.</span> <span class="nav-text">Step 5:Ensemble</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的数据预处理方法"><span class="nav-number">2.</span> <span class="nav-text">常见的数据预处理方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#去除唯一属性"><span class="nav-number">2.1.</span> <span class="nav-text">去除唯一属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理缺失值"><span class="nav-number">2.2.</span> <span class="nav-text">处理缺失值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征编码"><span class="nav-number">2.3.</span> <span class="nav-text">特征编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据标准化、正则化"><span class="nav-number">2.4.</span> <span class="nav-text">数据标准化、正则化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征选择-降维"><span class="nav-number">2.5.</span> <span class="nav-text">特征选择(降维)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#稀疏表示和字典学习"><span class="nav-number">2.6.</span> <span class="nav-text">稀疏表示和字典学习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大神领进门"><span class="nav-number">3.</span> <span class="nav-text">大神领进门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TIANCHI-全球城市计算挑战赛-完整方案及关键代码分享（季军）"><span class="nav-number">3.1.</span> <span class="nav-text">TIANCHI-全球城市计算挑战赛-完整方案及关键代码分享（季军）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#赛题分析"><span class="nav-number">3.1.1.</span> <span class="nav-text">赛题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EDA-Exploratory-Data-Analysis"><span class="nav-number">3.1.2.</span> <span class="nav-text">EDA(Exploratory Data Analysis)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征工程"><span class="nav-number">3.1.3.</span> <span class="nav-text">特征工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型训练-amp-融合"><span class="nav-number">3.1.4.</span> <span class="nav-text">模型训练&amp;融合</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据挖掘中的特征工程应该怎么做？"><span class="nav-number">4.</span> <span class="nav-text">数据挖掘中的特征工程应该怎么做？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#派生特征-derived-features"><span class="nav-number">4.1.</span> <span class="nav-text">派生特征(derived features)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#手机型号与转化率"><span class="nav-number">4.1.1.</span> <span class="nav-text">手机型号与转化率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单特征派生"><span class="nav-number">4.1.2.</span> <span class="nav-text">单特征派生</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正则化"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将数值转成百分位（标准化）"><span class="nav-number">4.1.2.2.</span> <span class="nav-text">将数值转成百分位（标准化）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将数值转成比率"><span class="nav-number">4.1.2.3.</span> <span class="nav-text">将数值转成比率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类别特征（category-feature）的数值化"><span class="nav-number">4.1.2.4.</span> <span class="nav-text">类别特征（category feature）的数值化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分箱"><span class="nav-number">4.1.2.5.</span> <span class="nav-text">分箱</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#等距（等宽）分箱"><span class="nav-number">4.1.2.5.1.</span> <span class="nav-text">等距（等宽）分箱</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#等频（等权重）分箱"><span class="nav-number">4.1.2.5.2.</span> <span class="nav-text">等频（等权重）分箱</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有监督分箱"><span class="nav-number">4.1.2.6.</span> <span class="nav-text">有监督分箱</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合特征"><span class="nav-number">4.1.3.</span> <span class="nav-text">组合特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#体重指数（Body-Mass-Index）"><span class="nav-number">4.1.3.1.</span> <span class="nav-text">体重指数（Body Mass Index）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#风冷指数（Wind-Chill-Index）"><span class="nav-number">4.1.3.2.</span> <span class="nav-text">风冷指数（Wind Chill Index）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合高关联特征"><span class="nav-number">4.1.4.</span> <span class="nav-text">组合高关联特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#近似特征的差"><span class="nav-number">4.1.4.1.</span> <span class="nav-text">近似特征的差</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强关联特征的比率"><span class="nav-number">4.1.4.2.</span> <span class="nav-text">强关联特征的比率</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地理数据的派生特征"><span class="nav-number">4.1.5.</span> <span class="nav-text">地理数据的派生特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GEO编码"><span class="nav-number">4.1.5.1.</span> <span class="nav-text">GEO编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#地理信息派生特征"><span class="nav-number">4.1.5.2.</span> <span class="nav-text">地理信息派生特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用因变量的历史值"><span class="nav-number">4.1.5.3.</span> <span class="nav-text">使用因变量的历史值</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kaggle项目实战-教程"><span class="nav-number">5.</span> <span class="nav-text">Kaggle项目实战(教程)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特征工程全过程"><span class="nav-number">5.1.</span> <span class="nav-text">特征工程全过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征工程是什么？"><span class="nav-number">5.1.1.</span> <span class="nav-text">特征工程是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据预处理"><span class="nav-number">5.1.2.</span> <span class="nav-text">数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无量纲化"><span class="nav-number">5.1.2.1.</span> <span class="nav-text">无量纲化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对定量特征二值化"><span class="nav-number">5.1.2.2.</span> <span class="nav-text">对定量特征二值化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对定性特征哑编码"><span class="nav-number">5.1.2.3.</span> <span class="nav-text">对定性特征哑编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺失值计算"><span class="nav-number">5.1.2.4.</span> <span class="nav-text">缺失值计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据变换"><span class="nav-number">5.1.2.5.</span> <span class="nav-text">数据变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回顾"><span class="nav-number">5.1.2.6.</span> <span class="nav-text">回顾</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征选择"><span class="nav-number">5.1.3.</span> <span class="nav-text">特征选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Filter"><span class="nav-number">5.1.3.1.</span> <span class="nav-text">Filter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Wrapper"><span class="nav-number">5.1.3.2.</span> <span class="nav-text">Wrapper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Embedded"><span class="nav-number">5.1.3.3.</span> <span class="nav-text">Embedded</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回顾-1"><span class="nav-number">5.1.3.4.</span> <span class="nav-text">回顾</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#降维"><span class="nav-number">5.1.4.</span> <span class="nav-text">降维</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Sklearn进行数据挖掘"><span class="nav-number">5.2.</span> <span class="nav-text">使用Sklearn进行数据挖掘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据挖掘的步骤"><span class="nav-number">5.2.1.</span> <span class="nav-text">数据挖掘的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据初貌"><span class="nav-number">5.2.1.1.</span> <span class="nav-text">数据初貌</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关键技术"><span class="nav-number">5.2.1.2.</span> <span class="nav-text">关键技术</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并行处理"><span class="nav-number">5.2.2.</span> <span class="nav-text">并行处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#整体并行处理"><span class="nav-number">5.2.2.1.</span> <span class="nav-text">整体并行处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部分并行处理"><span class="nav-number">5.2.2.2.</span> <span class="nav-text">部分并行处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流水线处理"><span class="nav-number">5.2.3.</span> <span class="nav-text">流水线处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动化调参"><span class="nav-number">5.2.4.</span> <span class="nav-text">自动化调参</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#持久化"><span class="nav-number">5.2.5.</span> <span class="nav-text">持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回顾-2"><span class="nav-number">5.2.6.</span> <span class="nav-text">回顾</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决问题的流程"><span class="nav-number">5.3.</span> <span class="nav-text">解决问题的流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据预处理-1"><span class="nav-number">5.3.1.</span> <span class="nav-text">数据预处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
