@@ -109,7 +109,7 @@
 <meta property="og:description" content="前言这是机器学习的第一篇，之所以在研究深度学习的时候还选择学习机器学习，是因为8个字“不忘初心，方得始终”。尽管近几年机器学习已被深度学习的光环给笼罩，但我们还是要理智地思考，深度学习终究是数据驱动的，失去了数据，再精密的深度网络结构也是画饼充饥，无的放矢。在很多的实际问题中，我们很难得到海量且带有精确标注的数据，这时深度学习也就没有大显身手的余地，反而是许多传统方法可以灵活巧妙地处理。另外，在研">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg">
-<meta property="og:updated_time" content="2019-04-02T06:38:32.288Z">
+<meta property="og:updated_time" content="2019-05-23T19:49:37.490Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习（一）——SVM">
 <meta name="twitter:description" content="前言这是机器学习的第一篇，之所以在研究深度学习的时候还选择学习机器学习，是因为8个字“不忘初心，方得始终”。尽管近几年机器学习已被深度学习的光环给笼罩，但我们还是要理智地思考，深度学习终究是数据驱动的，失去了数据，再精密的深度网络结构也是画饼充饥，无的放矢。在很多的实际问题中，我们很难得到海量且带有精确标注的数据，这时深度学习也就没有大显身手的余地，反而是许多传统方法可以灵活巧妙地处理。另外，在研">
@@ -445,7 +445,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" rel="gallery_cjw0zfamx00iah8wah16ho8wh" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" rel="gallery_cjw2e8ha100igpgwa3pt9c6jb" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542809156329&di=ecc9985303b97dd6ff4a1e7483b8bd34&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140425%2F20140425154302-770288725.jpg" itemprop="contentUrl">
               </a>
             
@@ -484,7 +484,7 @@
 </ul>
 <h3 id="拉格朗日对偶性"><a href="#拉格朗日对偶性" class="headerlink" title="拉格朗日对偶性"></a>拉格朗日对偶性</h3><p>1.原始问题：假设$f(x),c_i(x),h_j(x)$是定义在$R^n$上的连续可微函数</p>
 <script type="math/tex; mode=display">min_{x∈R^n}f(x)</script><script type="math/tex; mode=display">s.t. \ \ \ \ \ c_i(x)≤0 \ \ \ \ \ \ \ i=1,...,k</script><script type="math/tex; mode=display">\ \ \ \ \ \ \ \ \ \ \ h_j(x)=0 \ \ \ \ \ \ \ \ j=1,...,l</script><p>得到拉格朗日函数：</p>
-<script type="math/tex; mode=display">L(x,α，β)=f(x)+\sum_{i=1}{k}α_ic_i(x)+\sum_{j=1}^{l}β_jh_j(x)</script><p>$其中α_i,β_j是拉格朗日乘子，α_i≥0$</p>
+<script type="math/tex; mode=display">L(x,α，β)=f(x)+\sum_{i=1}^{k}α_ic_i(x)+\sum_{j=1}^{l}β_jh_j(x)</script><p>$其中α_i,β_j是拉格朗日乘子，α_i≥0$</p>
 <p>考虑x的函数</p>
 <script type="math/tex; mode=display">\theta_p(x)=max_{α，β：α_i≥0}\ \ \ L(x,α,β)</script><p>上述下标p表示的是原始问题。</p>
 <p>假设给定某个x,如果x违反原始问题的约束条件，则存在i使得$c_i(w)＞0或者存在j使得某个j使h_j(x)≠0$<br>那么就有$\theta_p(x)=max_{α,β;α_i≥0}[f(x)+\sum_{i=1}^kα_ic_i(x)+\sum_{j=1}^lβ_jh_j(x)]=+∞$<br>上述公式的意思是给定x的情况下如果不满足前面的约束条件，则存在α和β会使上述公式为+∞</p>
@@ -638,7 +638,7 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
   <p><span>本文标题:</span><a href="/2018/11/21/机器机器学习（一）——SVM/">机器学习（一）——SVM</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2018年11月21日 - 00:11</p>
-  <p><span>最后更新:</span>2019年04月02日 - 14:04</p>
+  <p><span>最后更新:</span>2019年05月24日 - 03:05</p>
   <p><span>原始链接:</span><a href="/2018/11/21/机器机器学习（一）——SVM/" title="机器学习（一）——SVM">http://yifdu.github.io/2018/11/21/机器机器学习（一）——SVM/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2018/11/21/机器机器学习（一）——SVM/" aria-label="复制成功！"></i></span>
   </p>
@@ -778,7 +778,7 @@ k(x_m,x_1)...k(x_m,x_j)...k(x_m,x_m)\\
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">145</span>
+                  <span class="site-state-item-count">146</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
