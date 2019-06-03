@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,笔试,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="KMP实战旋转词问题‘34512’就是‘12345’的一种旋转词,因此给定一个序列可以有多个旋转词,为了判断我们手上的一个序列A是否是序列B的旋转词.可以考虑‘1234512345’中找’34512’这个字串.采用KMP方法 斐波那契数列(矩阵乘法)复杂度log(n)当任何问题是递推式形式(固定递推),都存在log(n)的解。 因为递推系数固定,所以可以写成固定系数的矩阵相乘的形式.由此变成了矩阵">
+<meta name="keywords" content="python,笔试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔试刷题（三）">
+<meta property="og:url" content="http://yifdu.github.io/2019/05/28/笔试刷题（三）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="KMP实战旋转词问题‘34512’就是‘12345’的一种旋转词,因此给定一个序列可以有多个旋转词,为了判断我们手上的一个序列A是否是序列B的旋转词.可以考虑‘1234512345’中找’34512’这个字串.采用KMP方法 斐波那契数列(矩阵乘法)复杂度log(n)当任何问题是递推式形式(固定递推),都存在log(n)的解。 因为递推系数固定,所以可以写成固定系数的矩阵相乘的形式.由此变成了矩阵">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-30T05:45:39.782Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笔试刷题（三）">
+<meta name="twitter:description" content="KMP实战旋转词问题‘34512’就是‘12345’的一种旋转词,因此给定一个序列可以有多个旋转词,为了判断我们手上的一个序列A是否是序列B的旋转词.可以考虑‘1234512345’中找’34512’这个字串.采用KMP方法 斐波那契数列(矩阵乘法)复杂度log(n)当任何问题是递推式形式(固定递推),都存在log(n)的解。 因为递推系数固定,所以可以写成固定系数的矩阵相乘的形式.由此变成了矩阵">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/05/28/笔试刷题（三）/">
+
+
+
+
+
+  <title>笔试刷题（三） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/05/28/笔试刷题（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">笔试刷题（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-28T12:25:21+08:00">
+                2019-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔试/" itemprop="url" rel="index">
+                    <span itemprop="name">笔试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="KMP实战"><a href="#KMP实战" class="headerlink" title="KMP实战"></a>KMP实战</h1><h2 id="旋转词问题"><a href="#旋转词问题" class="headerlink" title="旋转词问题"></a>旋转词问题</h2><p>‘34512’就是‘12345’的一种旋转词,因此给定一个序列可以有多个旋转词,为了判断我们手上的一个序列A是否是<br>序列B的旋转词.可以考虑<br>‘1234512345’中找’34512’这个字串.采用KMP方法</p>
+<h1 id="斐波那契数列-矩阵乘法"><a href="#斐波那契数列-矩阵乘法" class="headerlink" title="斐波那契数列(矩阵乘法)"></a>斐波那契数列(矩阵乘法)</h1><p>复杂度log(n)<br>当任何问题是递推式形式(固定递推),都存在log(n)的解。</p>
+<p>因为递推系数固定,所以可以写成固定系数的矩阵相乘的形式.<br>由此变成了矩阵幂的问题</p>
+<h2 id="矩阵幂"><a href="#矩阵幂" class="headerlink" title="矩阵幂"></a>矩阵幂</h2><h2 id="打表法"><a href="#打表法" class="headerlink" title="打表法"></a>打表法</h2><p>斐波那契的另一种解题方法<br>何为打表法？<br>有时候与其重复运行同样的算法得出答案，还不如直接用算法把这组数据所有可能的答案都枚举出来存到一个足够大的容器中去-例如数组(打表)，然后再输入数据的时候，直接遍历容器，检索这个数据是否有题意要求的结果。<br>比如最常见的素数打表.<br>在此之前，我们判断素数的方法多是用暴力枚举法，即若要判断一个数n是否是素数，就需要从i=2开始，一直到n/2为止，判断是否有数能整除n，若没有的话，则n为素数。 这样判断素数的方法有一个致命的弱点，就是容易超时，因为每判断一次都要从2开始一个一个作整除判断，一旦要判断的这个n稍大一点的话，这种方法就无能为力了。因此，这里引入一种新的判断素数的方法—打表判断法。<br> 思路：先确定要判断的数大概在哪个范围之内，以便于开一个合适的数组prime[]，首先要将prime数组初始化为0，i从2开始，如果对应的prime[i]为0 的话，即从j=i*i开始，到最大的范围，将这些位置的prime的值都变为1，表示这些数都不是素数，这里注意j在加的时候加的不是1，而是i，这样一直下去，一张素数表就完成了，当需要判断某个数是否是素数的时候只要判断prime[i]的值是多少就可以了，如果是0，表示这个i是素数，如果是1，表示这个i不是素数。<br>下面是该函数 的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void dabiao()</span><br><span class="line">&#123;</span><br><span class="line">  memset(biao,0,sizeof(biao));  </span><br><span class="line">  for(int i=2;i&lt;=31623;++i)</span><br><span class="line"> &#123;  </span><br><span class="line">   if(biao[i])   continue;</span><br><span class="line">   for(int j=i*i;j&lt;MAXSIZE;j+=i)</span><br><span class="line">     &#123;</span><br><span class="line">       biao[j]=1;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dabiao</span><span class="params">(biao)</span>:</span></span><br><span class="line">  A=[<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(biao)]</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>,<span class="number">31623</span>):</span><br><span class="line">    <span class="keyword">if</span>(A[i]==<span class="number">1</span>):</span><br><span class="line">      <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(i*i,MAXSIZE,i):</span><br><span class="line">      A[j]=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>经典的斐波那契打表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/* JSK-4 简单斐波那契 */</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">#define N 50</span><br><span class="line">int f[N + 1];</span><br><span class="line"></span><br><span class="line">int fib_init(int n)</span><br><span class="line">&#123;</span><br><span class="line">    f[0] = 0;</span><br><span class="line">    f[1] = 1;</span><br><span class="line">    int i;</span><br><span class="line">    for(i = 2; i &lt;= n; i++)</span><br><span class="line">        f[i] = f[i - 1] + f[i - 2];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    fib_init(N);</span><br><span class="line"></span><br><span class="line">    int n;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">    printf(&quot;%d\n&quot;, f[n]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>与传统的记忆递归方法相比的好处是,减少了重复计算.</p>
+<h2 id="M×N的砖块填充"><a href="#M×N的砖块填充" class="headerlink" title="M×N的砖块填充"></a>M×N的砖块填充</h2><p>剑指offer里的例题</p>
+<h3 id="状态压缩dp"><a href="#状态压缩dp" class="headerlink" title="状态压缩dp"></a>状态压缩dp</h3><p>动态规划的状态有时候比较恶心，不容易表示出来，需要用一些编码技术，把状态压缩的用简单的方式表示出来。<br>典型方式：当需要表示一个集合有哪些元素时，往往利用2进制用一个整数表示。<br>动态规划本来就很抽象，状态的设定和状态的转移都不好把握，而状态压缩的动态规划解决的就是那种状态很多，不容易用一般的方法表示的动态规划问题，这个就更加的难于把握了。难点在于以下几个方面：状态怎么压缩？压缩后怎么表示？怎么转移？是否具有最优子结构？是否满足后效性？涉及到一些位运算的操作，虽然比较抽象，但本质还是动态规划。找准动态规划几个方面的问题，深刻理解动态规划的原理，开动脑筋思考问题。这才是掌握动态规划的关键。</p>
+<h4 id="例题1"><a href="#例题1" class="headerlink" title="例题1"></a>例题1</h4><p>经典问题:TSP<br>一个n个点的带权的有向图,求一条路径,使得这条路经过每个点恰好一次,并且,路径上边的权值和最小(n&lt;=16)<br>如何表示一个点集:<br>优于只有16个点,所以我们用一个整数表示一个点集:<br>5=0000000000000101(二进制表示)<br>它的第0位和第二位是,1表示这个点集里有2个点<br>所以一个整数i就表示了一个点集;<br>整数i可以表示一个点集也可以表示第i个点<br>状态表示:dp[i][j]表示经过点集i中的点恰好一次,不经过其他的点,并且以j点为终点,权值和的最小值,如果这个状态不存在,就是无穷大</p>
+<p>状态转移:<br>单点集:状态存在dp[i][j]=0;否则无穷大.<br>非单点集:<br>状态存在dp[i][j]=min(dp[k][s]+w[s][j])<br>k表示i集合中去掉了j点的集合,s遍历集合k中的点,并且dp[k][s]状态存在,点s到点j有边存在,w[s][j]表示边的权值.状态不存在dp[i][j]为无穷大.</p>
+<p>最后的结果是:<br>min(dp[(1&lt;&lt;n)-1][j])(0≤j＜n)<br>技巧:利用2进制,使得一个整数表示一个点集,这样集合的操作可以用位运算来实现.例如从集合中去掉点j:<br>k=i&amp;(~(1&lt;&lt;j))或者<br>k=i-(1&lt;&lt;j)</p>
+<p>遍历点集i中都包含哪些点:<br>for(j=0;(1&lt;&lt;j)&lt;=i;j++){<br>  if(((1&lt;&lt;j)&amp;i)!=0):<br>    点集i就包含点j<br>}<br>把点j加入点集i<br>i=(i|(i&lt;&lt;j));</p>
+<h4 id="例题2"><a href="#例题2" class="headerlink" title="例题2"></a>例题2</h4><p>[POJ3254]Corn Fields<br>题目大意<br>一个矩阵里有很多格子，每个格子有两种状态，可以放牧和不可以放牧，可以放牧用1表示，否则用0表示，在这块牧场放牛，要求两个相邻的方格不能同时放牛（不包括斜着的），即牛与牛不能相邻。问有多少种放牛方案(一头牛都不放也是一种方案)<br>输入<br>1&lt;=n&lt;=12，1&lt;=m&lt;=12<br>输出<br>一个mod100000000的整数<br>样例输入<br>2 3<br>1 1 1<br>0 1 0<br>样例输出<br>9<br>分析:<br>从题意我们可以知道牛与牛之间不能相邻，我们可以很容易的想到可以一行一行的递推，因为每只牛能不能放只与上一行和当前这一行有关。<br>所以dp中有一个维度是用来表示第几行的，还有一个维度就是用来表示哪一行的状态的。<br>假设有m列，则状态最多只有（1&lt;&lt;m-1）种，这是显然的。因为他每一列只有放和不放这两种决策。<br>那么怎么表示状态是个关键问题，这就要用到状态压缩了，用二进制来表示某个状态，比如<br>0101代表的就是1、3列不放牛，2、4列放牛。这样不仅省空间省代码还省时间。<br>要用位运算是必须的。</p>
+<p>参考代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;  </span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">13</span>;  </span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">1</span>&lt;&lt;N;  </span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">100000000</span>;  </span><br><span class="line"><span class="keyword">int</span> st[M],<span class="built_in">map</span>[M];  <span class="comment">///分别存每一行的状态和给出地的状态  </span></span><br><span class="line"><span class="keyword">int</span> dp[N][M];  <span class="comment">//表示在第i行状态为j时候可以放牛的种数  </span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge1</span><span class="params">(<span class="keyword">int</span> x)</span>  <span class="comment">//判断二进制有没有相邻的1  </span></span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> (x&amp;(x&lt;&lt;<span class="number">1</span>));  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge2</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> x)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">map</span>[i]&amp;st[x]);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">int</span> n,m,x;  </span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m))  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="built_in">memset</span>(st,<span class="number">0</span>,<span class="keyword">sizeof</span>(st));   <span class="comment">//初始化</span></span><br><span class="line">        <span class="built_in">memset</span>(<span class="built_in">map</span>,<span class="number">0</span>,<span class="keyword">sizeof</span>(<span class="built_in">map</span>));  <span class="comment">//初始化</span></span><br><span class="line">        <span class="built_in">memset</span>(dp,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp));  <span class="comment">//初始化</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m;j++)&#123;  </span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);  </span><br><span class="line">                <span class="keyword">if</span>(x==<span class="number">0</span>)  </span><br><span class="line">                    <span class="built_in">map</span>[i]+=(<span class="number">1</span>&lt;&lt;(j<span class="number">-1</span>));  <span class="comment">//获得每行的值(十进制)</span></span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">int</span> k=<span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;(<span class="number">1</span>&lt;&lt;m);i++)&#123;  <span class="comment">//遍历所有的行情况,选出可行的行情况的状态</span></span><br><span class="line">            <span class="keyword">if</span>(!judge1(i))  </span><br><span class="line">                st[k++]=i;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">if</span>(!judge2(<span class="number">1</span>,i))  <span class="comment">//所有可行的行情况中，与第一行的值求交</span></span><br><span class="line">                dp[<span class="number">1</span>][i]=<span class="number">1</span>;  <span class="comment">//表示第1行第i种行情况的可能性</span></span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)  <span class="comment">//表示行</span></span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;k;j++)  <span class="comment">//表示记录的可行</span></span><br><span class="line">            &#123;  </span><br><span class="line">                <span class="keyword">if</span>(judge2(i,j))  <span class="comment">//判断第i行 假如按状态j放牛的话行不行。  </span></span><br><span class="line">                    <span class="keyword">continue</span>;  </span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> f=<span class="number">0</span>;f&lt;k;f++)  </span><br><span class="line">                &#123;  </span><br><span class="line">                    <span class="keyword">if</span>(judge2(i<span class="number">-1</span>,f))   <span class="comment">//剪枝 判断上一行与其状态是否满足  </span></span><br><span class="line">                        <span class="keyword">continue</span>;  </span><br><span class="line">                    <span class="keyword">if</span>(!(st[j]&amp;st[f]))  </span><br><span class="line">                        dp[i][j]+=dp[i<span class="number">-1</span>][f];  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">int</span> ans=<span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;  </span><br><span class="line">            ans+=dp[n][i];  </span><br><span class="line">            ans%=mod;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="1…n个树枝拿掉几个树枝使不能形成三角形"><a href="#1…n个树枝拿掉几个树枝使不能形成三角形" class="headerlink" title="1…n个树枝拿掉几个树枝使不能形成三角形"></a>1…n个树枝拿掉几个树枝使不能形成三角形</h2><h1 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h1><h2 id="动态规划表"><a href="#动态规划表" class="headerlink" title="动态规划表"></a>动态规划表</h2><h1 id="前缀树"><a href="#前缀树" class="headerlink" title="前缀树"></a>前缀树</h1><h1 id="有序表"><a href="#有序表" class="headerlink" title="有序表"></a>有序表</h1><h1 id="DP"><a href="#DP" class="headerlink" title="DP"></a>DP</h1><p>尝试-&gt;dp(高度结构化的表)</p>
+<p>如果结构化数据难以实现,考虑用一个缓存记忆,已经出现过的状况。</p>
+<p>例题StickersToSpellWord<br>动态规划核心是减少重复计算</p>
+<h1 id="二叉树递归套路"><a href="#二叉树递归套路" class="headerlink" title="二叉树递归套路"></a>二叉树递归套路</h1><p>第六课讲义题二、题三</p>
+<h2 id="根据中序遍历和先序遍历直接写出后序遍历"><a href="#根据中序遍历和先序遍历直接写出后序遍历" class="headerlink" title="根据中序遍历和先序遍历直接写出后序遍历"></a>根据中序遍历和先序遍历直接写出后序遍历</h2><h1 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h1><p>用来简化转移方程.</p>
+<h1 id="子数组最大累加和"><a href="#子数组最大累加和" class="headerlink" title="子数组最大累加和"></a>子数组最大累加和</h1><h2 id="假设答案法"><a href="#假设答案法" class="headerlink" title="假设答案法"></a>假设答案法</h2><h1 id="LeetCode-754-Reach-a-Number"><a href="#LeetCode-754-Reach-a-Number" class="headerlink" title="LeetCode 754. Reach a Number"></a>LeetCode 754. Reach a Number</h1><p>Problem:</p>
+<p>You are standing at position 0 on an infinite number line. There is a goal at position target.</p>
+<p>On each move, you can either go left or right. During the n-th move (starting from 1), you take n steps.</p>
+<p>Return the minimum number of steps required to reach the destination.</p>
+<p>Example 1:<br>Input: target = 3<br>Output: 2<br>Explanation:<br>On the first move we step from 0 to 1.<br>On the second step we step from 1 to 3.<br>Example 2:<br>Input: target = 2<br>Output: 3<br>Explanation:<br>On the first move we step from 0 to 1.<br>On the second move we step  from 1 to -1.<br>On the third move we step from -1 to 2.</p>
+<p>分析：<br>要考虑最短的步数,显然,+的越多,步数最少.<br>考虑一直加,直到到达某一步k时超过了target,此时的pos离target的距离为d.想办法修正这个d为0.如果我们更改已知的步长,会使总长度减少2倍的该步长,所以对任意d为偶数时,该方法不需要新增步数.如果d是奇数时,肯定不能用当前步数到达,也不可能减少1步数到达,因此需要增加1步数,这个步数加上后d也会发生变化,如果d还是奇数则继续加步数,毕竟不能连续两个数都是偶数,如果d是偶数则停止增加步数.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">reachNumber</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        target = <span class="built_in">std</span>::<span class="built_in">abs</span>(target);</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (sum &lt; target) sum += (++k);</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> d = sum - target;</span><br><span class="line">        <span class="keyword">if</span> (d % <span class="number">2</span> == <span class="number">0</span>) <span class="keyword">return</span> k;</span><br><span class="line">        <span class="keyword">return</span> k + <span class="number">1</span> + (k % <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/笔试/" rel="tag"># 笔试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/27/数据挖掘比赛入坑（四）/" rel="next" title="数据挖掘比赛入坑（四）">
+                <i class="fa fa-chevron-left"></i> 数据挖掘比赛入坑（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/28/Spark（二）/" rel="prev" title="Spark（二）">
+                Spark（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">158</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KMP实战"><span class="nav-number">1.</span> <span class="nav-text">KMP实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#旋转词问题"><span class="nav-number">1.1.</span> <span class="nav-text">旋转词问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#斐波那契数列-矩阵乘法"><span class="nav-number">2.</span> <span class="nav-text">斐波那契数列(矩阵乘法)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵幂"><span class="nav-number">2.1.</span> <span class="nav-text">矩阵幂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打表法"><span class="nav-number">2.2.</span> <span class="nav-text">打表法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#M×N的砖块填充"><span class="nav-number">2.3.</span> <span class="nav-text">M×N的砖块填充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态压缩dp"><span class="nav-number">2.3.1.</span> <span class="nav-text">状态压缩dp</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例题1"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">例题1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例题2"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">例题2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1…n个树枝拿掉几个树枝使不能形成三角形"><span class="nav-number">2.4.</span> <span class="nav-text">1…n个树枝拿掉几个树枝使不能形成三角形</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#背包问题"><span class="nav-number">3.</span> <span class="nav-text">背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态规划表"><span class="nav-number">3.1.</span> <span class="nav-text">动态规划表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前缀树"><span class="nav-number">4.</span> <span class="nav-text">前缀树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#有序表"><span class="nav-number">5.</span> <span class="nav-text">有序表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DP"><span class="nav-number">6.</span> <span class="nav-text">DP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树递归套路"><span class="nav-number">7.</span> <span class="nav-text">二叉树递归套路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#根据中序遍历和先序遍历直接写出后序遍历"><span class="nav-number">7.1.</span> <span class="nav-text">根据中序遍历和先序遍历直接写出后序遍历</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贪心法"><span class="nav-number">8.</span> <span class="nav-text">贪心法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#子数组最大累加和"><span class="nav-number">9.</span> <span class="nav-text">子数组最大累加和</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#假设答案法"><span class="nav-number">9.1.</span> <span class="nav-text">假设答案法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-754-Reach-a-Number"><span class="nav-number">10.</span> <span class="nav-text">LeetCode 754. Reach a Number</span></a></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

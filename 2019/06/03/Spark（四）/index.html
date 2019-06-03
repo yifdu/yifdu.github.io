@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spark,API高级编程,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Spark核心API高级编程Spark中的共享变量Spark API提供了两种在Spark集群中创建和使用共享变量(就是Spark集群中不同的工作节点都可以访问或者修改的变量)的机制.这两种机制是广播变量和累加器 广播变量广播变量是由Spark驱动器程序设置的只读变量,可供Spark集群内的工作节点访问,也就是说工作节点上的执行器内运行的所有任务都可以访问这些变量.广播变量是由驱动器设置后,就只能">
+<meta name="keywords" content="Spark,API高级编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark（四）">
+<meta property="og:url" content="http://yifdu.github.io/2019/06/03/Spark（四）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="Spark核心API高级编程Spark中的共享变量Spark API提供了两种在Spark集群中创建和使用共享变量(就是Spark集群中不同的工作节点都可以访问或者修改的变量)的机制.这两种机制是广播变量和累加器 广播变量广播变量是由Spark驱动器程序设置的只读变量,可供Spark集群内的工作节点访问,也就是说工作节点上的执行器内运行的所有任务都可以访问这些变量.广播变量是由驱动器设置后,就只能">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-03T16:16:00.265Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark（四）">
+<meta name="twitter:description" content="Spark核心API高级编程Spark中的共享变量Spark API提供了两种在Spark集群中创建和使用共享变量(就是Spark集群中不同的工作节点都可以访问或者修改的变量)的机制.这两种机制是广播变量和累加器 广播变量广播变量是由Spark驱动器程序设置的只读变量,可供Spark集群内的工作节点访问,也就是说工作节点上的执行器内运行的所有任务都可以访问这些变量.广播变量是由驱动器设置后,就只能">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/06/03/Spark（四）/">
+
+
+
+
+
+  <title>Spark（四） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/06/03/Spark（四）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spark（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-03T01:11:53+08:00">
+                2019-06-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  21 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Spark核心API高级编程"><a href="#Spark核心API高级编程" class="headerlink" title="Spark核心API高级编程"></a>Spark核心API高级编程</h1><h2 id="Spark中的共享变量"><a href="#Spark中的共享变量" class="headerlink" title="Spark中的共享变量"></a>Spark中的共享变量</h2><p>Spark API提供了两种在Spark集群中创建和使用共享变量(就是Spark集群中不同的工作节点都可以访问或者修改的变量)的机制.这两种机制是广播变量和累加器</p>
+<h3 id="广播变量"><a href="#广播变量" class="headerlink" title="广播变量"></a>广播变量</h3><p>广播变量是由Spark驱动器程序设置的只读变量,可供Spark集群内的工作节点访问,也就是说工作节点上的执行器内运行的所有任务都可以访问这些变量.广播变量是由驱动器设置后,就只能读了.广播变量通过一种高效的点到点(P2P)共享协议在工作节点间共享,这种协议来自BitTorrent.相比简单地从Spark驱动器直接向所有执行器进程推送这些变量,P2P的方式具有更好的伸缩性.</p>
+<p>广播变量在SparkContext内创建,然后再该Spark应用的环境中可以作为对象进行访问</p>
+<ol>
+<li>broadcast()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc.broadcast(value)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>broadcast()方法会在指定的SparkContext内创建出一个Broadcast对象实例.value参数可以是任意的Python对象,他会把序列化并封装到Broadcast对象中.在创建完成后,这些变量可以被应用内所有运行的任务访问.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stations=sc.broadcast(&#123;<span class="string">'83'</span>:<span class="string">'Mezes Park'</span>,<span class="string">'84'</span>:<span class="string">'Ryland Park'</span>&#125;)</span><br><span class="line">stations</span><br></pre></td></tr></table></figure></p>
+<p>也可以基于文件内容创建广播变量,不论文件在本地、网络,还是在分布式文件系统上.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stationsfile=<span class="string">'/opt/spark/data/stations.csv'</span></span><br><span class="line">stationsdata=dict(map(<span class="keyword">lambda</span> x:(x[<span class="number">0</span>],x[<span class="number">1</span>]),map(<span class="keyword">lambda</span> x:x.split(<span class="string">','</span>),open(stationsfile))))</span><br><span class="line">stations=sc.broadcast(stationsdata)</span><br><span class="line">stations.value[<span class="string">'83'</span>]</span><br></pre></td></tr></table></figure></p>
+<p>上面展示了如何从csv文件(stations.csv)创建广播变量,这个文件包含由站点ID和站点名称组成的键值对字典.有了广播变量,你就可以在任何map()或者filter()这样的RDD操作中访问该字典了.</p>
+<ol>
+<li>unpersist()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Broadcast.unpersist(blocking=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Broadcast对象的unpersist()方法用来把广播变量从集群中所有保存该广播变量的工作节点的内存中移除.<br>布尔类型的blocking参数指定该操作是堵塞直至变量已经从所有节点删除,还是作为异步非堵塞操作执行.如果你希望立刻释放内存,应该把这个参数设置为True<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stations=sc.broadcast(&#123;<span class="string">'83'</span>:<span class="string">'Mezes Park'</span>,<span class="string">'84'</span>:<span class="string">'Ryland Park'</span>&#125;)</span><br><span class="line">stations.value[<span class="string">'84'</span>]</span><br><span class="line">stations.unpersist()</span><br></pre></td></tr></table></figure></p>
+<p>还有几个Spark配置项和广播变量有关<br>spark.broadcast.compress:指定在向工作节点传送广播变量时是否先进行压缩,默认为True<br>spark.broadcast.factory:指定使用何种广播实现<br>spark.broadcast.blockSize:指定广播变量每个数据块的大小<br>spark.broadcast.port:指定驱动器的HTTP广播服务器要监听的端口</p>
+<p>广播的优点是：有时我们要把两个数据集组合起来获取结果数据集。<br>记住广播变量的下列要点:</p>
+<ul>
+<li>使用广播变量避免数据混洗操作</li>
+<li>广播变量使用了一种高效而伸缩性强的点到点分发机制</li>
+<li>每个工作节点只会复制一次数据,而不是每个任务复制一次.一个Spark应用的任务可能数以千计,所以每个任务复制一次的代价不容小觑.</li>
+<li>广播变量可以被多个任务多次重用</li>
+<li>广播变量是序列化过的对象,因此可以高效读取</li>
+</ul>
+<h3 id="累加器"><a href="#累加器" class="headerlink" title="累加器"></a>累加器</h3><p>Spark中另一种共享变量是累加器.和广播变量不同的是,你可以更新累加器。具体地说,累加器是可以增长的数值.<br>可以把累加器看作Spark编程中的通用型计数器.累加器让开发者可以在程序运行时聚合各种值.<br>累加器由驱动器程序设置,可以由相应的SparkContext中运行任务的执行器更新.驱动器程序可以读回累加器的最终结果,而这通常发生在程序结束时.</p>
+<p>在Spark应用中,每成功完成一个任务只能更新一次累加器.工作节点把对累加器的更新量发送回驱动器程序,而只有驱动器程序可以读取累加器的值.累加器可以使用整型或浮点型的数值.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">addone</span><span class="params">(x)</span>:</span></span><br><span class="line">  <span class="keyword">global</span> acc</span><br><span class="line">  acc+=<span class="number">1</span></span><br><span class="line">  <span class="keyword">return</span> x+<span class="number">1</span></span><br><span class="line">myrdd=sc.parallelize([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">myrdd.map(<span class="keyword">lambda</span> x:addone(x)).collect()</span><br><span class="line">print(<span class="string">"records processed: "</span>+str(acc.value))</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>accumulator()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc.accumulator(value,accum_param=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>accumulator()方法在指定的SparkContext中创建出Accumulator对象的一个实例,并把它根据value参数给定的初始值初始化。accum_param参数可以用来定义自定义累加器</p>
+<ol>
+<li>value()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accumulator.value()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>value()方法用来获取累加器的值.</p>
+<ol>
+<li><p>自定义累加器<br>在SparkContext中创建的标准累加器支持原生数值类型,例如int和float.而自定义累加器可以对标量数值以外的数据类型执行聚合操作.自定义累加器需要通过Accumulatorparam辅助对象创建.唯一的要求是执行的操作需满足交换律和结合律,也就是说改变操作顺序或改变前后次序都不会影响结果.<br>要使用自定义累加器,需要扩展AccumulatorParam类为一个自定义类。这个类需要包含两个特殊的成员函数:一个是addInPlace(),定义如何操作自定义累加器对应数据类型的两个对象获得新的结果;另一个是zero(),提供对应类型的”零值”,比如map类型的”零值”是空的map</p>
+</li>
+<li><p>累加器的用处<br>累加器一般用于运维场景,比如统计所处理的记录总数,或者跟踪错误记录的条数.你也可以用它们对记录的类型进行大致的计数,比如在映射处理日志事件时,统计发现的各种响应码的数量.</p>
+<h2 id="Spark中的数据分区"><a href="#Spark中的数据分区" class="headerlink" title="Spark中的数据分区"></a>Spark中的数据分区</h2><p>大多数情况下,分区对Spark处理不可或缺。高效的分区可以把应用性能提高几个数量级.反过来,低效的分区会导致程序无法跑完,过大的分区会引起执行器内存不足的错误等问题</p>
+</li>
+</ol>
+<h3 id="分区概述"><a href="#分区概述" class="headerlink" title="分区概述"></a>分区概述</h3><p>RDD的转化操作创建的分区数一般是可以配置的。不过Spark还有一些默认行为需要我们了解。<br>在使用HDFS时,Spark会把每个数据块(HDFS中一个数据块一般是128MB)作为一个RDD分区<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myrdd=sc.textFile(<span class="string">"hdfs:///dir/filescontaining10blocks"</span>)</span><br><span class="line">myrdd.getNumPartitions()</span><br></pre></td></tr></table></figure></p>
+<p>groupByKey()、reduceByKey()等一系列操作都会导致数据混洗,而且没有指定num-Partitions值,这些操作产生的分区数等于配置项spark.default.parallelism对应的值.<br>如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">配置spark.default.parallelism=<span class="number">4</span></span><br><span class="line">myrdd=sc.textFile(<span class="string">"hdfs:///dir/filescontaining10blocks"</span>)</span><br><span class="line">mynewrdd=myrdd.flatMap(<span class="keyword">lambda</span> x:x.split()).map(<span class="keyword">lambda</span> x:(x,<span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> x,y:x+y)</span><br><span class="line">mynewrdd.getNumPartitions()</span><br></pre></td></tr></table></figure></p>
+<p>如果spark.default.parallelism配置参数没有设置,那么转化操作产生的分区数与当前RDD谱系中的上游RDD的最大分区数相等.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#不配置spark.default.parallelism的值</span></span><br><span class="line">myrdd=sc.textFile(<span class="string">"hdfs:///dir/filescontaining10blocks"</span>)</span><br><span class="line">mynewrdd=myrdd.flatMap(<span class="keyword">lambda</span> x:x.split()).map(<span class="keyword">lambda</span> x:(x,<span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> x,y:x+y)</span><br><span class="line">mynewrdd.getNumPartitions()</span><br></pre></td></tr></table></figure></p>
+<p>Spark使用的默认分区方式类是HashPartitioner,它把所有的键以确定性的哈希方法求哈希值,然后使用键的哈希值创建出一组大致均衡的桶.目的是根据键把数据均匀地分到制定数量的分区中.</p>
+<p>filter()等一些Spark转化操作不允许用户改变所产生的RDD的分区行为.比如,如果你对一个有4个分区的RDD使用filter()函数,所产生的过滤后的新RDD仍然为4个分区,分区方式也和原RDD一样(也就是哈希分区)</p>
+<h3 id="掌控分区"><a href="#掌控分区" class="headerlink" title="掌控分区"></a>掌控分区</h3><p>一个RDD应该有多少分区?对于这个问题来说,分区过多或过少都会导致问题,如果分区过少,则单个分区过大,可能导致执行器内存不足.而小分区过多也不好,因为输入集即使规模很小,也会生成多任务.大小分区混合会在打开了预测执行的情况下导致发生不必要的预测执行.预测执行是集群调度器对于执行较慢的进程的抢占机制.如果Spark应用中少数进程慢的根本原因是低效的分区,那么预测执行在这种情况下也无济于事.</p>
+<p>filter()操作对每个输入分区一对一地创建一个新分区,把满足过滤条件地记录写入对应地新分区里.这会导致一些分区中的数据明显少于其他分区,造成不好地结果,比如数据倾斜,这可能在后续阶段中引起预测执行和性能表现欠佳.</p>
+<p>在这种场景下,你可以使用Spark API中提供的重分区方法,包括partitionBy()、coalesce()、repartition()以及repartitionAndSortWithinPartitions()<br>这些函数接收已分区的输入RDD,创建分区数为n的新RDD,这里的n可以比原始的分区数更多,也可以更少.</p>
+<h3 id="重分区函数"><a href="#重分区函数" class="headerlink" title="重分区函数"></a>重分区函数</h3><ol>
+<li>partitionBy()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.partitionBy(numPartitions,partitionFunc=portable_hash)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>partitionBy()方法返回的RDD包含的数据与输入RDD相同,但是分区数变成了numPartitions</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kvrdd=sc.parallelize([(<span class="number">1</span>,<span class="string">'A'</span>),(<span class="number">2</span>,<span class="string">'B'</span>),(<span class="number">3</span>,<span class="string">'C'</span>),(<span class="number">4</span>,<span class="string">'D'</span>)],<span class="number">4</span>)</span><br><span class="line">kvrdd.getNumPartitions()</span><br><span class="line">kvrdd.partitionBy(<span class="number">2</span>).getNumPartitions()</span><br><span class="line"><span class="comment">#返回2</span></span><br></pre></td></tr></table></figure>
+<p>partitionBy()函数也会被其他函数调用,比如sortByKey()就会使用rangePartitioner函数而不是portable_hash函数来调用partitionBy().rangePartitioner把记录根据键排序,分入大小均匀的范围分区.这是哈希分区的一种替代方法.</p>
+<ol>
+<li>repartition()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.repartition(numPartitions)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>repartition()方法返回的RDD包含的数据与输入RDD相同,分区数与numPartitions指定的完全一样.repartition()方法会引起数据混洗,并且它不像partitionBy()可以改变分区函数,也就是无法改变分区依据.repartition()方法也允许创建比输入RDD更多的分区数.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kvrdd=sc.parallelize([(<span class="number">1</span>,<span class="string">'A'</span>),(<span class="number">2</span>,<span class="string">'B'</span>),(<span class="number">3</span>,<span class="string">'C'</span>),(<span class="number">4</span>,<span class="string">'D'</span>)],<span class="number">4</span>)</span><br><span class="line">kvrdd.repartition(<span class="number">2</span>).getNumPartitions()</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>coalesce()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.coalesce(numPartitions,shuffle=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>coalesce()方法返回的RDD的分区数由numPartitions参数指定.coalesce()方法也允许用户用布尔类型的shuffle参数控制是否触发数据混洗.coalesce(n,shuffle=True)操作等价于repartition(n)<br>coalesce()方法是对repartition()优化的实现.不过,与repartition()不同的是,coalesce()让用户能更多地控制混洗行为,同时在很多情况下允许避免数据移动.另外,coalesce()只允许使用比输入RDD更少的目标分区数,这也和repartition()不同.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kvrdd=sc.parallelize([(<span class="number">1</span>,<span class="string">'A'</span>),(<span class="number">2</span>,<span class="string">'B'</span>),(<span class="number">3</span>,<span class="string">'C'</span>),(<span class="number">4</span>,<span class="string">'D'</span>)],<span class="number">4</span>)</span><br><span class="line">kvrdd.coalesce(<span class="number">2</span>,shuffle=<span class="keyword">False</span>).getNumPartitions()</span><br><span class="line"><span class="comment">#返回2</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>repartitionAndSortWithinPartitions</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.repartitionAndSortWithinPartitions(numPartitions=None,partitionFunc=portable_hash,ascending=True,keyfunc=&lt;lambda function&gt;)</span><br></pre></td></tr></table></figure>
+<p>repartitionAndSortWithinPartitions()方法把输入RDD根据partitionFunc参数指定的函数,重新分区为numPartitions参数指定的分区数.在生成的每个分区中,记录根据键按照keyfunc参数定义的函数和ascending参数定义的顺序排序.</p>
+<h3 id="针对分区的API方法"><a href="#针对分区的API方法" class="headerlink" title="针对分区的API方法"></a>针对分区的API方法</h3><p>Spark中的许多方法都是把分区作为原子单位进行交互的,这些方法中既有行动操作,也有转化操作.</p>
+<ol>
+<li><p>foreachPartition()<br>RDD.foreachPartition(func)<br>foreachPartition()方法是一个行动操作,它类似于行动操作foreach(),会把func参数指定的函数应用到RDD的每个分区.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">   <span class="keyword">for</span> rec <span class="keyword">in</span> x:</span><br><span class="line">     print(rec)</span><br><span class="line">kvrdd=sc.parallelize([((<span class="number">1</span>,<span class="number">99</span>),<span class="string">'A'</span>),((<span class="number">1</span>,<span class="number">101</span>),<span class="string">'B'</span>),((<span class="number">2</span>,<span class="number">99</span>),<span class="string">'C'</span>),((<span class="number">2</span>,<span class="number">101</span>),<span class="string">'D'</span>)],<span class="number">2</span>)</span><br><span class="line">kvrdd.foreachPartition(f)</span><br></pre></td></tr></table></figure>
+<p>牢记foreachPartition()是行动操作，而不是转化操作,因此它会触发对输入RDD及其整个谱系的计算.另外,这个函数还会导致数据传输到驱动器端,因此在运行这个函数时需要注意最终RDD的数据量。</p>
+</li>
+<li><p>glom()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.glom()</span><br></pre></td></tr></table></figure>
+<p>glom()方法把RDD的每个分区中的元素合并为一个列表,以新的RDD返回.这个方法可以用于以列表的形式查看RDD分区</p>
+</li>
+<li><p>lookup()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.lookup(key)</span><br></pre></td></tr></table></figure>
+<p>lookup()方法返回RDD中与key参数指定的键相匹配的数据的列表.如果操作的RDD的分区方式是已知的,那么lookup()会利用它来收紧对键所属的分区的搜索.</p>
+</li>
+<li><p>mapPartitions()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.mapPartitions(func,preservesPartitioning=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
+<p>mapPartitions()方法将func参数指定的方法用于输入RDD的每个分区,返回一个新的RDD.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kvrdd=sc.parallelize([(<span class="number">1</span>,<span class="string">'A'</span>),(<span class="number">1</span>,<span class="string">'B'</span>),(<span class="number">2</span>,<span class="string">'C'</span>),(<span class="number">2</span>,<span class="string">'D'</span>)],<span class="number">2</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(iterator)</span>:</span> <span class="keyword">yield</span> [(b,a) <span class="keyword">for</span> (a,b) <span class="keyword">in</span> iterator]</span><br><span class="line">kvrdd.mapPartitions(f).collect()</span><br><span class="line"><span class="comment">#返回[[('A',1),('B',1)],[('C',2),('D',2)]]</span></span><br></pre></td></tr></table></figure>
+<p>mapPartitions()方法的一大优势在于它只对每个分区使用一次指定函数,而不是每个元素一次.如果创建这个函数有很大的额外开销,那么使用这种方式就好得多.</p>
+</li>
+</ol>
+<h2 id="RDD的存储选项"><a href="#RDD的存储选项" class="headerlink" title="RDD的存储选项"></a>RDD的存储选项</h2><h3 id="回顾RDD谱系"><a href="#回顾RDD谱系" class="headerlink" title="回顾RDD谱系"></a>回顾RDD谱系</h3><p> Spark会把程序的执行过程以DAG(有向无环图)的形式进行规划,DAG把参数按阶段和阶段依赖进行了划分.像map()这样的一些操作可以完全地并发执行,而像reduceByKey()这样的一些操作则需要数据混洗.这样自然而然就引入了阶段依赖.<br> Spark驱动器记录着每个RDD的谱系,也就是为生成一个RDD或其分区所需的一系列转化操作。这使得每个RDD的每个姐u但都可以在发生故障时进行重算,提供了弹性分布式数据集的所谓弹性.</p>
+<h3 id="RDD存储选项"><a href="#RDD存储选项" class="headerlink" title="RDD存储选项"></a>RDD存储选项</h3><p>不论Spark集群部署在YARN、独立集群还是Mesos上,RDD都以分区的形式存储在集群中不同的工作节点上.<br>RDD存储级别<br>(1)MEMORY_ONLY:仅把RDD分区存储在内存中.这是存储级别的缺省值<br>(2)MEMORY_AND_DISK:把内存里存不下的RDD分区存储在硬盘上<br>(3)MEMORY_ONLY_SER<em>:把RDD分区以序列化的对象的形式存储在内存中.使用这个选项可以节省内存,因为序列化的对象会比未序列化的对象占用更少的空间<br>(4)MEMORY_AND_DISK_SER</em>:把RDD分区以序列化的对象的形式存储在内存里.内存中放不下的对象溢写到硬盘上.<br>(5)DISK_ONLY:仅把RDD分区存储在硬盘上<br>(6)OFF_HEAP:把RDD分区以序列化的对象的形式存储在内存里.该选项要求使用堆外内存.注意这个存储选项仅供试验性目的使用.</p>
+<ol>
+<li><p>存储级别标记值<br>存储级别是由一组控制RDD存储的标记值实现的.这些标记值决定是否使用内存、是否在内存放不下时溢写到硬盘、是否以序列化的形式存储对象,还有是否把RDD分区复制到多个节点上.这些标记值在StorageLevel的构造函数中实现.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StorageLevel(useDisk,useMemory,useOffHeap,deserialized,replication=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>getStorageLevel()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.getStorageLevel()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Spark API包含一个名为getStorageLevel()的函数,你可以用它查看RDD的存储级别</p>
+<ol>
+<li>选择存储级别<br>RDD存储级别让用户可以调优Spark作业,并且可以容纳集群所有内存都放不下的大规模操作.此外,可用存储级别的复制选项可以减少任务或节点发生故障时的恢复时间。<br>一般来说,如果RDD能保存在集群的可用内存中,那么使用默认的仅使用内存的存储级别就足够了,所提供的性能也是最好的.</li>
+</ol>
+<h3 id="RDD缓存"><a href="#RDD缓存" class="headerlink" title="RDD缓存"></a>RDD缓存</h3><p>Spark里的RDD及其所有父RDD会在同一个会话或应用中每次调用行动操作时重新计算.缓存RDD会把数据持久化到内存中.当后续调用行动操作时,其他要用到这个RDD的计算就可以多次重用缓存,而无需重新计算.<br>缓存不会触发执行或计算.实际上,缓存更像是一种建议.如果没有足够的内存可以缓存RDD,RDD还会再每次有行动操作触发时计算整个谱系.缓存不会溢写到硬盘,因为缓存只使用内存.缓存的RDD使用存储级别MEMORY_ONLY持久化.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">doc=sc.textFile(<span class="string">"file:///opt/spark/data/shakespeare.txt"</span>)</span><br><span class="line">words=doc.flatMap(<span class="keyword">lambda</span> x:x.split()).map(<span class="keyword">lambda</span> x:(x,<span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> x,y:x+y)</span><br><span class="line">words.cache()</span><br><span class="line">words.count()</span><br><span class="line">words.take(<span class="number">3</span>)</span><br><span class="line">words.count()</span><br></pre></td></tr></table></figure></p>
+<h3 id="持久化RDD"><a href="#持久化RDD" class="headerlink" title="持久化RDD"></a>持久化RDD</h3><p>缓存的分区,也就是调用了cache()方法的RDD的分区,存储在Spark工作节点上的执行器的JVM中.如果有一个工作节点要宕机或变为不可用状态,Spark需要从对应RDD的谱系重新计算缓存的分区<br>persist()方法提供了其他的存储选项,包括MEMORY_AND_DISK、DISK_ONLY、MEMORY_ONLY_SER、MEMORY_AND_DISK_SER,还有与cache()方法一样的MEMORY_ONLY.在使用任意一种需要硬盘的存储选项时,持久化的分区会以本地文件的形式,存储在运行对应应用的Spark执行器的工作节点上.你可以使用持久化在硬盘上的数据,重建出因执行器或内存出故障而丢弃的分区.</p>
+<p>另外,persist()可以使用备份,把同一个分区持久化到多个节点.备份可以进一步减少重新计算的发生,因为重新计算的触发需要不止一个节点发生故障或进入不可用状态.<br>持久化在提供了比缓存更高的耐用性的同时,依旧提供了性能提升.不论Spark中的RDD是否持久化,它们都是容错的,总是可以在发生故障时重建.持久化只是加快了重建的过程.<br>持久化和缓存一样只是一个建议,只会在有行动操作触发该RDD计算时才真正发生.如果没有足够的资源,持久化就不会发生,比如在内存不足时.</p>
+<ol>
+<li>persist()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.persist(storageLevel=StorageLevel.MEMORY_ONLY_SER)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>persist()方法指定了RDD所需的存储级别和存储属性.在RDD第一次被计算时,所需的存储选项才真正达成.如果无法实现这样的存储级别,比如如果要把RDD持久化在内存中而恰好内存不足,那么Spark会回到没有持久化时的那种仅仅在内存中保留所需分区的行为.</p>
+<ol>
+<li>unpersist()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.unpersist()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>unpersist()方法”解除持久化”RDD.当某个RDD不再需要持久化时调用这个方法.还有,如果你想要改变一个已经持久化的RDD的存储选项,你必须先解除这个RDD的持久化.如果尝试改变已经标记为持久化的RDD的存储级别,则会遇到异常提示.</p>
+<h3 id="选择合适持久化或缓存RDD"><a href="#选择合适持久化或缓存RDD" class="headerlink" title="选择合适持久化或缓存RDD"></a>选择合适持久化或缓存RDD</h3><p>缓存可以提高性能,减少恢复时间。如果一个RDD可能重复使用,并且集群的工作节点上有充足的内存,缓存这些RDD一般会有不错的效果.机器学习中经常使用迭代算法,这种算法就很适合缓存.<br>缓存减少了发生故障的恢复时间,因为需要重算的RDD可以从缓存住的RDD开始计算.然而,如果想获得更高一级的耐用性,可以考虑使用一种基于硬盘的持久化选项,或是更高的备份级别,这都可以提高RDD在Spark集群上的某处存在持久化的备份的可能性.</p>
+<h3 id="保存RDD检查点"><a href="#保存RDD检查点" class="headerlink" title="保存RDD检查点"></a>保存RDD检查点</h3><p>保存检查点会把数据保存到文件里.和刚刚介绍的基于硬盘的持久化选项的不同之处在于,这种持久化会在Spark驱动器程序完成时删除持久化的RDD数据,而检查点保存的数据在应用结束后依然保存着.<br>检查点机制让Spark可以不再维护RDD谱系,因为谱系过长时会导致很多问题,例如在流式处理或迭代处理应用中就可能发生.长长的谱系一般会导致很长的恢复时间,并且可能导致栈溢出.<br>把数据的检查点保存到HDFS这样的分布式文件系统上,也可以让我们获得更好的存储容错性.保存检查点的代价较大,因此在要保存RDD检查点时,三思而后行.<br>与缓存和持久化选项一样,检查点也只会在有例如count()这样的行动操作触发了该RDD的计算时真正保存.</p>
+<ol>
+<li>setCheckpointDir()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc.setCheckpointDir(dirName)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>setCheckpointDir()方法设置把RDD的检查点存到哪个目录内.如果在Hadoop集群上运行Spark,dirName参数指定的目录需要是一个HDFS路径</p>
+<ol>
+<li>checkpoint()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.checkpoint()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>checkpoint()方法把RDD标记为需要保存检查点.在执行第一个用到该RDD的行动操作时,它的检查点就会保存下来,而文件保存的目录是通过setCheckpointDir()方法设置的.<br>当检查点保存完毕时,包括所有引用该RDD和父RDD的完整的RDD谱系都会被删除.</p>
+<ol>
+<li>isCheckpointed()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.isCheckpointed()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>isCheckpointed()函数返回一个布尔值,表示该RDD是否被设置了检查点.</p>
+<ol>
+<li>getCheckpointFile()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.getCheckpointFile()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>getCheckpointFile()函数返回RDD检查点所保存的文件的文件名.</p>
+<h2 id="使用外部程序处理RDD"><a href="#使用外部程序处理RDD" class="headerlink" title="使用外部程序处理RDD"></a>使用外部程序处理RDD</h2><p>Spark提供了一种使用Spark原生支持的语言(Scala、Python以及Java)之外的其他语言运行函数(转化操作)的机制.你可以使用Ruby、Perl或Bash,还有其他语言.也不一定需要使用脚本,如果要在Spark里使用C或者FORTRAN也是可以的.<br>Spark程序中使用已有的而Python、Scala或Java中不存在的代码库,而不是使用Spark原生语言重新实现一遍.<br>可以通过pipe()函数实现在Spark中使用外部程序.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.pipe(command,env=<span class="keyword">None</span>,checkCode=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure></p>
+<p>pipe()方法返回一个RDD,它通过把输入RDD的元素通过“管道”传给command参数指定的外部进程,获取新RDD的对应元素.参数env是一个由环境变量组成的字典对象,默认值为None.checkCode参数指定是否检查shell命令的返回值.</p>
+<h2 id="使用Spark进行数据采样"><a href="#使用Spark进行数据采样" class="headerlink" title="使用Spark进行数据采样"></a>使用Spark进行数据采样</h2><p>在使用Spark进行开发和探索时,你可能想要在对整个输入数据集执行处理之前,对RDD中的数据先进行采样.Spark的API提供了几个可以用于采样RDD,生成包含采样数据的新RDD的函数。这些采样函数包括返回新RDD的转换操作和返回数据到Spark驱动器程序的行动操作.</p>
+<ol>
+<li>sample()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.sample(withReplacement,fraction,seed=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>转化操作sample()根据原RDD整体数据集的百分比,创建出由采样数据子集组成的新RDD.<br>参数withReplacement是布尔型的值,有放回还是无放回采样<br>参数fraction是一个在0和1之间的双精度浮点数,代表一个元素被选中的概率</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">doc=sc.textFile(<span class="string">"file:///opt/spark/data/shakespeare.txt"</span>)</span><br><span class="line">doc.count()</span><br><span class="line">sampled_doc=doc.sample(<span class="keyword">False</span>,<span class="number">0.1</span>,seed=<span class="keyword">None</span>)</span><br><span class="line">sampled_doc.count()</span><br></pre></td></tr></table></figure>
+<ol>
+<li>takeSample()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RDD.takeSample(withReplacement,num,seed=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>行动操作takeSample()从被采样的RDD中返回一个随机的值列表.<br>参数num是随机选择的返回记录的条数<br>参数withReplacement和seed的行为与刚才介绍的sample()函数中的类似</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
+          
+            <a href="/tags/API高级编程/" rel="tag"># API高级编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/02/机器学习（七）——聚类总结/" rel="next" title="机器学习（七）——聚类总结">
+                <i class="fa fa-chevron-left"></i> 机器学习（七）——聚类总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">158</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark核心API高级编程"><span class="nav-number">1.</span> <span class="nav-text">Spark核心API高级编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark中的共享变量"><span class="nav-number">1.1.</span> <span class="nav-text">Spark中的共享变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#广播变量"><span class="nav-number">1.1.1.</span> <span class="nav-text">广播变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#累加器"><span class="nav-number">1.1.2.</span> <span class="nav-text">累加器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark中的数据分区"><span class="nav-number">1.2.</span> <span class="nav-text">Spark中的数据分区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分区概述"><span class="nav-number">1.2.1.</span> <span class="nav-text">分区概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#掌控分区"><span class="nav-number">1.2.2.</span> <span class="nav-text">掌控分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重分区函数"><span class="nav-number">1.2.3.</span> <span class="nav-text">重分区函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#针对分区的API方法"><span class="nav-number">1.2.4.</span> <span class="nav-text">针对分区的API方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDD的存储选项"><span class="nav-number">1.3.</span> <span class="nav-text">RDD的存储选项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回顾RDD谱系"><span class="nav-number">1.3.1.</span> <span class="nav-text">回顾RDD谱系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDD存储选项"><span class="nav-number">1.3.2.</span> <span class="nav-text">RDD存储选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDD缓存"><span class="nav-number">1.3.3.</span> <span class="nav-text">RDD缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#持久化RDD"><span class="nav-number">1.3.4.</span> <span class="nav-text">持久化RDD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择合适持久化或缓存RDD"><span class="nav-number">1.3.5.</span> <span class="nav-text">选择合适持久化或缓存RDD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保存RDD检查点"><span class="nav-number">1.3.6.</span> <span class="nav-text">保存RDD检查点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用外部程序处理RDD"><span class="nav-number">1.4.</span> <span class="nav-text">使用外部程序处理RDD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Spark进行数据采样"><span class="nav-number">1.5.</span> <span class="nav-text">使用Spark进行数据采样</span></a></li></ol></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
