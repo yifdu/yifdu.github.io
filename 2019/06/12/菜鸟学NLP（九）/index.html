@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP,NER,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="命名实体识别（Named-entity recognition,NER）什么是命名实体识别命名实体识别（Named Entity Recognition，简称NER），又称作“专名识别”，是指识别文本中具有特定意义的实体，主要包括人名、地名、机构名、专有名词等。实体是一个抽象的对象，并不指定描述它的方式。命名实体一般指的是对象的文本形式/名称。(实体与命名实体的区别) 一些文献中会提到mentio">
+<meta name="keywords" content="NLP,NER">
+<meta property="og:type" content="article">
+<meta property="og:title" content="菜鸟学NLP（九）">
+<meta property="og:url" content="http://yifdu.github.io/2019/06/12/菜鸟学NLP（九）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="命名实体识别（Named-entity recognition,NER）什么是命名实体识别命名实体识别（Named Entity Recognition，简称NER），又称作“专名识别”，是指识别文本中具有特定意义的实体，主要包括人名、地名、机构名、专有名词等。实体是一个抽象的对象，并不指定描述它的方式。命名实体一般指的是对象的文本形式/名称。(实体与命名实体的区别) 一些文献中会提到mentio">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/12/菜鸟学NLP（九）/pic2.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/12/菜鸟学NLP（九）/pic4.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/12/菜鸟学NLP（九）/pic1.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/12/菜鸟学NLP（九）/pic3.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/12/菜鸟学NLP（九）/pic5.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/12/菜鸟学NLP（九）/pic6.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/12/菜鸟学NLP（九）/pic7.png">
+<meta property="og:updated_time" content="2019-06-13T12:04:01.776Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="菜鸟学NLP（九）">
+<meta name="twitter:description" content="命名实体识别（Named-entity recognition,NER）什么是命名实体识别命名实体识别（Named Entity Recognition，简称NER），又称作“专名识别”，是指识别文本中具有特定意义的实体，主要包括人名、地名、机构名、专有名词等。实体是一个抽象的对象，并不指定描述它的方式。命名实体一般指的是对象的文本形式/名称。(实体与命名实体的区别) 一些文献中会提到mentio">
+<meta name="twitter:image" content="http://yifdu.github.io/2019/06/12/菜鸟学NLP（九）/pic2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/06/12/菜鸟学NLP（九）/">
+
+
+
+
+
+  <title>菜鸟学NLP（九） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/06/12/菜鸟学NLP（九）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">菜鸟学NLP（九）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-12T13:28:06+08:00">
+                2019-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="命名实体识别（Named-entity-recognition-NER）"><a href="#命名实体识别（Named-entity-recognition-NER）" class="headerlink" title="命名实体识别（Named-entity recognition,NER）"></a>命名实体识别（Named-entity recognition,NER）</h1><h2 id="什么是命名实体识别"><a href="#什么是命名实体识别" class="headerlink" title="什么是命名实体识别"></a>什么是命名实体识别</h2><p>命名实体识别（Named Entity Recognition，简称NER），又称作“专名识别”，是指识别文本中具有特定意义的实体，主要包括人名、地名、机构名、专有名词等。<br>实体是一个抽象的对象，并不指定描述它的方式。命名实体一般指的是对象的文本形式/名称。(<a href="https://www.zhihu.com/question/24200220/answer/27004064" target="_blank" rel="noopener">实体与命名实体的区别</a>)</p>
+<p>一些文献中会提到mention</p>
+<p>简单的讲，就是识别自然文本中的实体指称的边界和类别。命名实体识别不仅仅是独立的信息抽取任务，它在许多大型nlp应用系统如信息检索、自动文本摘要、问答系统、机器翻译以及知识建库（知识图谱）中也扮演了关键的角色。</p>
+<h3 id="细粒度实体识别和粗粒度实体识别"><a href="#细粒度实体识别和粗粒度实体识别" class="headerlink" title="细粒度实体识别和粗粒度实体识别"></a>细粒度实体识别和粗粒度实体识别</h3><p>细粒度命名实体识别<br>特点：</p>
+<ul>
+<li>类型更多</li>
+<li>类别具有层次结构<br>难点：</li>
+<li>类别指定</li>
+<li>预料的标注</li>
+<li>实体识别的方法<br>粗粒度命名实体识别<br>特点：</li>
+<li>类别少</li>
+</ul>
+<p>从粗粒度任务发展到细粒度任务与标注数据集从小发展到大有关</p>
+<h2 id="NER的关键"><a href="#NER的关键" class="headerlink" title="NER的关键"></a>NER的关键</h2><p>进行实体识别的过程中,有两个问题是关键的：</p>
+<ol>
+<li>实体边界的确定（定位）</li>
+<li>实体类别的判断（定类）</li>
+</ol>
+<h2 id="NER的发展史"><a href="#NER的发展史" class="headerlink" title="NER的发展史"></a>NER的发展史</h2><p><img src="/2019/06/12/菜鸟学NLP（九）/pic2.png" alt="pic2"><br>在基于机器学习的方法中,NER被当作是序列标注问题。与分类问题相比，序列标注问题中当前的预测标签不仅与当前特征相关还与之前的预测标签相关，即预测标签序列之间是有强相互依赖关系的。条件随机场(CRF)是NER目前的主流模型。</p>
+<h2 id="NER数据集"><a href="#NER数据集" class="headerlink" title="NER数据集"></a>NER数据集</h2><p><img src="/2019/06/12/菜鸟学NLP（九）/pic4.png" alt="pic4"><br>最常见的数据集为CoNLLo3和OneNotes,分别常见于粗粒度的NER任务和细粒度的NER任务。</p>
+<h2 id="NER数据标注体系"><a href="#NER数据标注体系" class="headerlink" title="NER数据标注体系"></a>NER数据标注体系</h2><p>主要的数据标注体系是：IO,BIO,BMEWO和BMEWO+<br><img src="/2019/06/12/菜鸟学NLP（九）/pic1.png" alt="pic1"><br>[转自<a href="https://blog.csdn.net/qq280929090/article/details/79011660" target="_blank" rel="noopener">https://blog.csdn.net/qq280929090/article/details/79011660</a>]</p>
+<h2 id="NER工具"><a href="#NER工具" class="headerlink" title="NER工具"></a>NER工具</h2><p><img src="/2019/06/12/菜鸟学NLP（九）/pic3.png" alt="pic3"></p>
+<h2 id="NER实现方法"><a href="#NER实现方法" class="headerlink" title="NER实现方法"></a>NER实现方法</h2><p>宏观：</p>
+<ol>
+<li>监督学习方法：目前常用的模型或方法包括隐马尔可夫模型、语言模型、最大熵模型、支持向量机(分类)、决策树和条件随机场等。值得一提的是，基于条件随机场的方法是命名实体识别中最成功的方法。<br>(语言模型：也可以称为概率语言模型,简单的说就是求P(Sentence),通过分数告诉机器怎么学说话,用处：输入法、语音识别、机器翻译)</li>
+</ol>
+<ol>
+<li>半监督学习方法：这一类方法利用标注的小数据集（种子数据）自举学习。</li>
+<li>无监督学习方法：这一类方法利用词汇资源（如WordNet）等进行上下文聚类。</li>
+<li>混合方法：几种模型相结合或利用统计方法和人工总结的知识库。</li>
+</ol>
+<p>基于方式的分类：</p>
+<ol>
+<li>基于规则和词典的方法:缺点是依赖词典的完备性,无法抽取词典中未包含的实体指称（即未登录词,OOV）</li>
+<li>基于统计的方法</li>
+<li>基于深度学习的方法<h3 id="基于规则"><a href="#基于规则" class="headerlink" title="基于规则"></a>基于规则</h3>步骤：</li>
+<li>分词</li>
+<li>收集特征词词典(比如实体的结尾词是网吧、网咖就可以作为特征词)</li>
+<li>标注序列(对分词后的词语进行标注,打标签)</li>
+<li>正则匹配,识别实体(如果发现实体的组成规则是:若干地名+若干其他成分+若干特征词,则只要对标注后的序列做一个正则表达式的匹配即可)</li>
+</ol>
+<p>还有一些其他规则是建立在文法、句法和单词拼写上的特征。</p>
+<p>优点：在小数据集上可达到很高的准确率和召回率，简单，快速<br>缺点：规则必须手工制定,面向不同类别或者不同语言的文档时通常不能够得到很好的效果需重新制定规则(移植性不好)。代价太大,系统建设周期长(需要构建大量的规则集)。</p>
+<h3 id="基于统计的方法"><a href="#基于统计的方法" class="headerlink" title="基于统计的方法"></a>基于统计的方法</h3><h4 id="HMM"><a href="#HMM" class="headerlink" title="HMM"></a>HMM</h4><p>目标是求观察序列的背后可能的标注序列。<br>马尔可夫假设：每个状态只依赖于前一个状态<br>状态表示：标注的概率<br>观测表示：在某个标注下,生成某个词的概率<br>目标是求最佳的状态序列(Viterbi算法)</p>
+<p>状态初始化概率矩阵:<br>状态转移概率矩阵：<br>观测概率矩阵:<br>案例：<br><a href="http://www.hankcs.com/nlp/ner/place-names-to-identify-actual-hmm-viterbi-role-labeling.html" target="_blank" rel="noopener">实战HMM-Viterbi角色标注地名识别</a></p>
+<h4 id="CRF"><a href="#CRF" class="headerlink" title="CRF"></a>CRF</h4><p><img src="/2019/06/12/菜鸟学NLP（九）/pic5.png" alt="pic5"><br>工具有CRF++<br>CRF的两个假设：</p>
+<ol>
+<li>该分布是指数族分布<br>存在函数$f(y_1,y_2,…,y_n;x)$使得<script type="math/tex; mode=display">P(y_1,y_2,...,y_n|x)=\frac{1}{Z(x)}exp(f(y_1,...,y_n;x))</script>其中Z(x)是归一化因子,因为这个是条件分布,所以归一化因子与x有关</li>
+<li>输出之间的关联仅发生在相邻位置,并且关联是指数加性的。</li>
+</ol>
+<p>这里$f(y_1,..,y_n;x)=h(y_1;x)+g(y_1,y_2;x)+h(y_2;x)+…+g(y_{n-1},y_n;x)+h(y_n;x)#</p>
+<p>(随机场是由若干个位置组成的整体，当按照某种分布给每一个位置随机赋予一个值之后，其全体就叫做随机场。)</p>
+<p>较为简单的条件随机场是定义在线性链上的条件随机场，称为线性链条件随机场（linear chain conditional random field）. 线性链条件随机场可以用于序列标注等问题，而本文需要解决的命名实体识别(NER)任务正好可通过序列标注方法解决。这时，在条件概率模型P(Y|X)中，Y是输出变量，表示标记序列（或状态序列），X是输入变量，表示需要标注的观测序列。学习时，利用训练数据 集通过极大似然估计或正则化的极大似然估计得到条件概率模型p(Y|X)；预测时，对于给定的输入序列x，求出条件概率p(y|x)最大的输出序列y0.</p>
+<p>要用到特征模板：一般采用当前位置的前后n个位置的字及其标记表示，即以当前位置的前后n个位置范围内的子串及其标记作为观察窗口（一般n取2~3）[自己设计的]</p>
+<p>CRF要比HMM更加强大，原因主要有两点：</p>
+<ol>
+<li>CRF可以定义数量更多，种类更丰富的特征函数。<br>HMM模型具有天然具有局部性，就是说，在HMM模型中，当前的单词只依赖于当前的标签，当前的标签只依赖于前一个标签。这样的局部性限制了HMM只能定义相应类型的特征函数，我们在上面也看到了。</li>
+<li>CRF可以使用任意的权重 将对数HMM模型看做CRF时，特征函数的权重由于是log形式的概率，所以都是小于等于0的，而且概率还要满足相应的限制，</li>
+</ol>
+<p><a href="https://www.jianshu.com/p/55755fc649b1" target="_blank" rel="noopener">如何轻松愉快地理解条件随机场（CRF）？</a></p>
+<h5 id="从HMM到CRF"><a href="#从HMM到CRF" class="headerlink" title="从HMM到CRF"></a>从HMM到CRF</h5><p>对于词性标注问题,HMM模型也可以解决.HMM的思路是用生成办法,也就说,在已知要标注的句子s的情况下,去判断生成标注序列I的概率,如下所示:</p>
+<script type="math/tex; mode=display">P(l,s)=P(l_1)\prod_iP(l_i|l_{i-1})P(w_i|l_i)</script><p>这里$P(l_i|l_{i-1})$是转移概率,$P(w_i|l_i)$表示发射概率.</p>
+<p>HMM和CRF怎么比较呢?<br>答案是:CRF比HMM要强大的多,他可以解决所有HMM能够解决的问题,并且还可以解决许多HMM解决不了的问题.事实上,我们可以对上面的HMM模型取对数,就变成下面这样:</p>
+<script type="math/tex; mode=display">logP(l,s)=logP(l_0)+\sum_ilogP(l_i|l_{i-1})+\sum_ilogP(w_i|l_i)</script><p>把这个式子与CRF的式子进行比较:</p>
+<script type="math/tex; mode=display">score(l|s)=\sum_{j=1}^m\sum_{i=1}^n\lambda_jf_j(s,i,l_i,l_{i-1})</script><p><strong>换句话说,我们可以构造一个CRF,使他与HMM的对数形式相同。(每一个HMM模型都等价于某个CRF)</strong></p>
+<p>与HMM区别<br>1）HMM是假定满足HMM独立假设。CRF没有，所以CRF能容纳更多上下文信息。<br>2）CRF计算的是全局最优解，不是局部最优值。<br>3）CRF是给定观察序列的条件下，计算整个标记序列的联合概率。而HMM是给定当前状态，计算下一个状态。<br>4）CRF比较依赖特征的选择和特征函数的格式，并且训练计算量大</p>
+<h4 id="最大熵"><a href="#最大熵" class="headerlink" title="最大熵"></a>最大熵</h4><p>基本思想：利用给定训练数据选择适当统计模型，使其满足所有已知事实(约束),而对未知事实不做任何假设(熵最大)——最优化问题。</p>
+<p>最大熵与其他模型的不同之处：一般说的“特征”都是指输入的特征,而最大熵模型中的“特征”指的是输入和输出共同的特征(共现时对应的特征)——特征函数。</p>
+<script type="math/tex; mode=display">max\ \ H(P)=\sum_{x,y}\overline{P}(x)P(y|x)logP(y|x)</script><p>约束条件：</p>
+<script type="math/tex; mode=display">
+E_{\overline{P}}(f_i)=E_{P}(f_i)(i=1,2,..,M)</script><script type="math/tex; mode=display">
+\sum_{y}P(y|x)=1</script><h3 id="基于深度学习的方法"><a href="#基于深度学习的方法" class="headerlink" title="基于深度学习的方法"></a>基于深度学习的方法</h3><h4 id="LSTM-CRF"><a href="#LSTM-CRF" class="headerlink" title="LSTM+CRF"></a>LSTM+CRF</h4><p>传统的CRF的优点就是能对隐含状态建模,学习状态序列的特点,但它的缺点是需要手动提取序列特征.所以一般做法是,在LSTM后加一层CRF,以获得两者的优点</p>
+<p>单向LSTM与双向LSTM的区别:<br>像最大正向匹配和最大反向匹配,是从两个方向来提取特征.正向的LSTM提取的的是过去的特征对当前点的影响,而反向的LSTM提取的是未来的特征对当前点的影响.</p>
+<h5 id="如何理解LSTM后接CRF"><a href="#如何理解LSTM后接CRF" class="headerlink" title="如何理解LSTM后接CRF"></a>如何理解LSTM后接CRF</h5><p>简单说就是条件随机场可以把label的上下文学出来。lstm加softmax分类的时候只能把特征的上下文关系学出来，label的没学出来。<br><img src="/2019/06/12/菜鸟学NLP（九）/pic6.png" alt="pic6"></p>
+<h4 id="IDCNN-CRF"><a href="#IDCNN-CRF" class="headerlink" title="IDCNN-CRF"></a>IDCNN-CRF</h4><p>对于序列标注来讲，普通CNN有一个不足，就是卷积之后，末层神经元可能只是得到了原始输入数据中一小块的信息。<strong>而对NER来讲，整个输入句子中每个字都有可能对当前位置的标注产生影响，即所谓的长距离依赖问题。</strong><br>为了覆盖到全部的输入信息就需要加入更多的卷积层，导致层数越来越深，参数越来越多。而为了防止过拟合又要加入更多的Dropout之类的正则化，带来更多的超参数，整个模型变得庞大且难以训练。因为CNN这样的劣势，对于大部分序列标注问题人们还是选择biLSTM之类的网络结构，尽可能利用网络的记忆力记住全句的信息来对当前字做标注。</p>
+<p>Fisher Yu and Vladlen Koltun 2015 提出了dilated CNN模型，意思是“膨胀的”CNN。其想法并不复杂：正常CNN的filter，都是作用在输入矩阵一片连续的区域上，不断sliding做卷积。dilated CNN为这个filter增加了一个dilation width，作用在输入矩阵的时候，会skip所有dilation width中间的输入数据；而filter本身的大小保持不变，这样filter获取到了更广阔的输入矩阵上的数据，看上去就像是“膨胀”了一般。</p>
+<p><img src="/2019/06/12/菜鸟学NLP（九）/pic7.png" alt="pic7"><br>上图可见感受域是以指数速率扩大的。原始感受域是位于中心点的1x1区域：<br>（a）图中经由原始感受域按步长为1向外扩散，得到8个1x1的区域构成新的感受域，大小为3x3；<br>（b）图中经过步长为2的扩散，上一步3x3的感受域扩展为为7x7；<br>（c）图中经步长为4的扩散，原7x7的感受域扩大为15x15的感受域。每一层的参数数量是相互独立的。感受域呈指数扩大，但参数数量呈线性增加。</p>
+<h3 id="NER的问题——命名实体消歧（Named-Entity-Disambiguation）"><a href="#NER的问题——命名实体消歧（Named-Entity-Disambiguation）" class="headerlink" title="NER的问题——命名实体消歧（Named Entity Disambiguation）"></a>NER的问题——命名实体消歧（Named Entity Disambiguation）</h3><h4 id="基于聚类的实体消歧"><a href="#基于聚类的实体消歧" class="headerlink" title="基于聚类的实体消歧"></a>基于聚类的实体消歧</h4><h4 id="实体链接"><a href="#实体链接" class="headerlink" title="实体链接"></a>实体链接</h4><h3 id="NER的问题命名实体统一"><a href="#NER的问题命名实体统一" class="headerlink" title="NER的问题命名实体统一"></a>NER的问题命名实体统一</h3><h3 id="Reference-Disambiguation"><a href="#Reference-Disambiguation" class="headerlink" title="Reference Disambiguation"></a>Reference Disambiguation</h3><h2 id="NER评价指标"><a href="#NER评价指标" class="headerlink" title="NER评价指标"></a>NER评价指标</h2><p>Acc、Precision、Recall和F1值。<br>绝大多数的NER任务需要识别多种实体类别,需要对所有的实体类别评估NER的效果。基于这个思路，有两类评估指标：</p>
+<ol>
+<li>宏平均F-score: 分别对每种实体类别分别计算对应类别的F-score,再求整体平均</li>
+<li>微平均F-score:对整体数据求F-score(每个实体视为平等)</li>
+</ol>
+<h2 id="NER的难点"><a href="#NER的难点" class="headerlink" title="NER的难点"></a>NER的难点</h2><ol>
+<li>汉语文本没有类似英文文本中空格之类的显式标示词的边界标示符，命名实体识别的第一步就是确定词的边界，即分词；</li>
+<li>汉语分词和命名实体识别互相影响；</li>
+<li>除了英语中定义的实体，外国人名译名和地名译名是存在于汉语中的两类特殊实体类型；</li>
+<li>现代汉语文本，尤其是网络汉语文本，常出现中英文交替使用，这时汉语命名实体识别的任务还包括识别其中的英文命名实体；</li>
+<li>不同的命名实体具有不同的内部特征，不可能用一个统一的模型来刻画所有的实体内部特征。</li>
+</ol>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="https://easyai.tech/ai-definition/ner/" target="_blank" rel="noopener">https://easyai.tech/ai-definition/ner/</a></li>
+<li><a href="https://bainingchao.github.io/2019/02/13/%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB%E6%8A%80%E6%9C%AF/" target="_blank" rel="noopener">https://bainingchao.github.io/2019/02/13/%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB%E6%8A%80%E6%9C%AF/</a></li>
+<li><a href="https://zekizz.github.io/NER_survey_zeki.pdf" target="_blank" rel="noopener">https://zekizz.github.io/NER_survey_zeki.pdf</a></li>
+<li><a href="http://ir.hit.edu.cn/~taozi/HMM_paper.pdf" target="_blank" rel="noopener">http://ir.hit.edu.cn/~taozi/HMM_paper.pdf</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzA4MTk3ODI2OA==&amp;mid=2650343402&amp;idx=1&amp;sn=6777c3ab75c92d810d2dc06cd7cfe943&amp;chksm=87811119b0f6980fad3d42222c22da1e5fd96cfabad154505e0e32a10e0415f83fc4b95c34c1&amp;scene=27#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzA4MTk3ODI2OA==&amp;mid=2650343402&amp;idx=1&amp;sn=6777c3ab75c92d810d2dc06cd7cfe943&amp;chksm=87811119b0f6980fad3d42222c22da1e5fd96cfabad154505e0e32a10e0415f83fc4b95c34c1&amp;scene=27#wechat_redirect</a></li>
+<li>论文：A Survey on Deep Learning for Named Entity Recognition</li>
+<li><a href="https://www.paperweekly.site/papers/notes/146" target="_blank" rel="noopener">https://www.paperweekly.site/papers/notes/146</a></li>
+<li><a href="https://blog.csdn.net/ANNILingMo/article/details/80398473" target="_blank" rel="noopener">https://blog.csdn.net/ANNILingMo/article/details/80398473</a></li>
+<li>NER评估：<a href="https://www.jianshu.com/p/e473737356ea" target="_blank" rel="noopener">https://www.jianshu.com/p/e473737356ea</a></li>
+<li><a href="https://www.lookfor404.com/category/note/%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/" target="_blank" rel="noopener">https://www.lookfor404.com/category/note/%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/</a></li>
+<li><a href="https://blog.csdn.net/SunJW_2017/article/details/82460284" target="_blank" rel="noopener">https://blog.csdn.net/SunJW_2017/article/details/82460284</a></li>
+<li><a href="https://www.cnblogs.com/bep-feijin/articles/9650898.html" target="_blank" rel="noopener">https://www.cnblogs.com/bep-feijin/articles/9650898.html</a></li>
+<li><a href="https://www.cnblogs.com/nxf-rabbit75/archive/2019/04/18/10727769.html" target="_blank" rel="noopener">https://www.cnblogs.com/nxf-rabbit75/archive/2019/04/18/10727769.html</a></li>
+<li>CRF++:<a href="https://www.jianshu.com/p/50ba94f2b9f2" target="_blank" rel="noopener">https://www.jianshu.com/p/50ba94f2b9f2</a></li>
+<li><a href="https://blog.csdn.net/qq_41853758/article/details/82933080" target="_blank" rel="noopener">https://blog.csdn.net/qq_41853758/article/details/82933080</a></li>
+<li>实战：<a href="https://blog.csdn.net/m0_37306360/article/details/84592596" target="_blank" rel="noopener">https://blog.csdn.net/m0_37306360/article/details/84592596</a></li>
+<li><a href="https://baijiahao.baidu.com/s?id=1604258143855523066&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">针对特定领域命名实体识别 的神经网络归纳学习框架</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1346779" target="_blank" rel="noopener">使用Scikit-Learn进行命名实体识别和分类（NERC）
+</a></li>
+<li><a href="https://blog.csdn.net/Sakura55/article/details/87875553" target="_blank" rel="noopener">深度学习——命名实体识别与关系抽取总结</a></li>
+<li><a href="https://blog.csdn.net/qq_36426650/article/details/84346754" target="_blank" rel="noopener">基于深度学习的知识图谱综述</a></li>
+<li><a href="https://blog.csdn.net/iot_victor/article/details/87878264" target="_blank" rel="noopener">NLP基础笔记2——词性标注与命名实体识别，关键词提取技术</a></li>
+<li>pdf:<a href="https://www.aclweb.org/anthology/N16-1030" target="_blank" rel="noopener">https://www.aclweb.org/anthology/N16-1030</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/46864074" target="_blank" rel="noopener">命名实体识别前沿总结</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/54043342" target="_blank" rel="noopener">命名实体识别领域文献调研</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/67613067" target="_blank" rel="noopener">信息抽取(Information Extraction:NER(命名实体识别),关系抽取)</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/27597790" target="_blank" rel="noopener">达观数据如何打造一个中文NER系统</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/67816733" target="_blank" rel="noopener">《Neural Cross-Lingual Entity Linking》阅读笔记</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/44025001" target="_blank" rel="noopener">BiLSTM+CRF、CRF++比较实验与思考</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/59436589" target="_blank" rel="noopener">中文任务全面超越BERT：百度正式发布NLP预训练模型ERNIE</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/68258963" target="_blank" rel="noopener">NER using Positive-Unlabeled Learning</a></li>
+<li><a href="https://yq.aliyun.com/articles/174781" target="_blank" rel="noopener">PaperWeekly 第十七期 —- 无监督/半监督 NER</a></li>
+<li><a href="https://lanzhuzhu.github.io/2017/07/16/IE/NER/%E4%B8%8ENER%E7%9B%B8%E5%85%B3%E7%9A%84%E8%81%94%E5%90%88%E6%8A%BD%E5%8F%96%E6%A8%A1%E5%9E%8B/" target="_blank" rel="noopener">与NER相关的联合抽取模型</a></li>
+<li><a href="https://lanzhuzhu.github.io/2017/07/20/IE/NER/paper%20list/" target="_blank" rel="noopener">NER Paper list</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/56085975" target="_blank" rel="noopener">命名实体识别（NER）综述</a></li>
+<li><a href="http://www.yuanshihui.cn/detail/a8ac056fd06a52508a4aa411" target="_blank" rel="noopener">信息抽取:命名实体识别与关系抽取</a></li>
+<li><a href="https://nlp.stanford.edu/pubs/chang2016entity.pdf" target="_blank" rel="noopener">A comparison of Named-Entity Disambiguation and Word Sense Disambiguation</a></li>
+<li><a href="https://www.zhihu.com/question/30402861/answer/52583037" target="_blank" rel="noopener">自然语言处理 多义词消歧？</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/63123685" target="_blank" rel="noopener">这里有一份实体链接综述，请查收</a></li>
+<li><a href="https://www.zhihu.com/question/21030556/answer/136868212" target="_blank" rel="noopener">中文的同义词近义词词典或网站有哪些值得推荐？</a></li>
+<li><a href="http://www.doc88.com/p-9095639873444.html" target="_blank" rel="noopener">面向领域的命名实体消歧方法改进研究</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/NER/" rel="tag"># NER</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/11/菜鸟学docker（三）/" rel="next" title="菜鸟学docker（三）">
+                <i class="fa fa-chevron-left"></i> 菜鸟学docker（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/13/菜鸟学git（一）/" rel="prev" title="菜鸟学git（一）">
+                菜鸟学git（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">167</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">132</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#命名实体识别（Named-entity-recognition-NER）"><span class="nav-number">1.</span> <span class="nav-text">命名实体识别（Named-entity recognition,NER）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是命名实体识别"><span class="nav-number">1.1.</span> <span class="nav-text">什么是命名实体识别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#细粒度实体识别和粗粒度实体识别"><span class="nav-number">1.1.1.</span> <span class="nav-text">细粒度实体识别和粗粒度实体识别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NER的关键"><span class="nav-number">1.2.</span> <span class="nav-text">NER的关键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NER的发展史"><span class="nav-number">1.3.</span> <span class="nav-text">NER的发展史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NER数据集"><span class="nav-number">1.4.</span> <span class="nav-text">NER数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NER数据标注体系"><span class="nav-number">1.5.</span> <span class="nav-text">NER数据标注体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NER工具"><span class="nav-number">1.6.</span> <span class="nav-text">NER工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NER实现方法"><span class="nav-number">1.7.</span> <span class="nav-text">NER实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于规则"><span class="nav-number">1.7.1.</span> <span class="nav-text">基于规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于统计的方法"><span class="nav-number">1.7.2.</span> <span class="nav-text">基于统计的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HMM"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">HMM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CRF"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">CRF</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#从HMM到CRF"><span class="nav-number">1.7.2.2.1.</span> <span class="nav-text">从HMM到CRF</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最大熵"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">最大熵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于深度学习的方法"><span class="nav-number">1.7.3.</span> <span class="nav-text">基于深度学习的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LSTM-CRF"><span class="nav-number">1.7.3.1.</span> <span class="nav-text">LSTM+CRF</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如何理解LSTM后接CRF"><span class="nav-number">1.7.3.1.1.</span> <span class="nav-text">如何理解LSTM后接CRF</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDCNN-CRF"><span class="nav-number">1.7.3.2.</span> <span class="nav-text">IDCNN-CRF</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NER的问题——命名实体消歧（Named-Entity-Disambiguation）"><span class="nav-number">1.7.4.</span> <span class="nav-text">NER的问题——命名实体消歧（Named Entity Disambiguation）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于聚类的实体消歧"><span class="nav-number">1.7.4.1.</span> <span class="nav-text">基于聚类的实体消歧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实体链接"><span class="nav-number">1.7.4.2.</span> <span class="nav-text">实体链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NER的问题命名实体统一"><span class="nav-number">1.7.5.</span> <span class="nav-text">NER的问题命名实体统一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference-Disambiguation"><span class="nav-number">1.7.6.</span> <span class="nav-text">Reference Disambiguation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NER评价指标"><span class="nav-number">1.8.</span> <span class="nav-text">NER评价指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NER的难点"><span class="nav-number">1.9.</span> <span class="nav-text">NER的难点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">2.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spark,SQL,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="使用Spark进行SQL与NoSQL编程Spark SQL简介结构化查询语言(SQL)是最常用的定义和表达数据问题的语言.许多数据分析师拥有把复杂问题解构为一系列SQL数据操作语言(Data Manipulation Language,DML),也就是SELECT语句的能力. Hive简介大数据处理平台上很多SQL抽象都基于Hive,Spark就是其中之一.对于Spark SQL这样的项目来说,H">
+<meta name="keywords" content="Spark,SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark（五）">
+<meta property="og:url" content="http://yifdu.github.io/2019/06/05/Spark（五）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="使用Spark进行SQL与NoSQL编程Spark SQL简介结构化查询语言(SQL)是最常用的定义和表达数据问题的语言.许多数据分析师拥有把复杂问题解构为一系列SQL数据操作语言(Data Manipulation Language,DML),也就是SELECT语句的能力. Hive简介大数据处理平台上很多SQL抽象都基于Hive,Spark就是其中之一.对于Spark SQL这样的项目来说,H">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560269973&di=2592bfa3b706514ed81ac9869f16009f&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.005.tv%2Fuploads%2Fallimg%2F170930%2F32-1F930100130F8.jpg">
+<meta property="og:updated_time" content="2019-06-05T17:39:32.427Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark（五）">
+<meta name="twitter:description" content="使用Spark进行SQL与NoSQL编程Spark SQL简介结构化查询语言(SQL)是最常用的定义和表达数据问题的语言.许多数据分析师拥有把复杂问题解构为一系列SQL数据操作语言(Data Manipulation Language,DML),也就是SELECT语句的能力. Hive简介大数据处理平台上很多SQL抽象都基于Hive,Spark就是其中之一.对于Spark SQL这样的项目来说,H">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560269973&di=2592bfa3b706514ed81ac9869f16009f&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.005.tv%2Fuploads%2Fallimg%2F170930%2F32-1F930100130F8.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/06/05/Spark（五）/">
+
+
+
+
+
+  <title>Spark（五） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/06/05/Spark（五）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spark（五）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-05T00:18:45+08:00">
+                2019-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  24 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560269973&di=2592bfa3b706514ed81ac9869f16009f&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.005.tv%2Fuploads%2Fallimg%2F170930%2F32-1F930100130F8.jpg" rel="gallery_cjwuru0ir00luukwahhje7wxw" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560269973&di=2592bfa3b706514ed81ac9869f16009f&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.005.tv%2Fuploads%2Fallimg%2F170930%2F32-1F930100130F8.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="使用Spark进行SQL与NoSQL编程"><a href="#使用Spark进行SQL与NoSQL编程" class="headerlink" title="使用Spark进行SQL与NoSQL编程"></a>使用Spark进行SQL与NoSQL编程</h1><h2 id="Spark-SQL简介"><a href="#Spark-SQL简介" class="headerlink" title="Spark SQL简介"></a>Spark SQL简介</h2><p>结构化查询语言(SQL)是最常用的定义和表达数据问题的语言.许多数据分析师拥有把复杂问题解构为一系列SQL数据操作语言(Data Manipulation Language,DML),也就是SELECT语句的能力.</p>
+<h3 id="Hive简介"><a href="#Hive简介" class="headerlink" title="Hive简介"></a>Hive简介</h3><p>大数据处理平台上很多SQL抽象都基于Hive,Spark就是其中之一.对于Spark SQL这样的项目来说,Hive和Hive元数据库是不可或缺的组件</p>
+<p>Apache Hive项目是2010年由Facebook发起,在Hadoop的MapReduce之上提供高层的类SQL抽象.Hive引入了一种新的语言,称为Hive查询语言.</p>
+<ol>
+<li>Hive对象和Hive元数据库<br>Hive实现了HDFS上对象的表格抽象,在编程模型中把目录和其中所有的文件当作数据表对待.和传统的关系型数据库一样,数据表中的各列都预先定义,并指定了数据类型.HDFS上的数据可以像传统的数据库管理系统一样通过SQL的DML语句访问.然而,Hive与传统数据库系统的相似之处也就仅止于此,毕竟Hive平台是读时系统,且下层存储HDFS是不可变的文件系统.因为Hive只是对HDFS上的原始文件实现了SQL表格抽象,所以和传统的关系型数据库平台有下列几点关键区别:</li>
+</ol>
+<ul>
+<li>并不真正支持UPDATE操作.尽管HiveQL中有UPDATE语句,但HDFS是不可变的文件系统,因此UPDATE会是一个粗粒度操作,而在传统关系型数据库中真正的UPDATE操作是只会修改一条记录的细粒度操作.</li>
+<li>没有事务、日志、回滚和真正的事务隔离级别。</li>
+<li>没有声明引用完整性(DRI),也就是没有主键和外键的概念.</li>
+<li>格式错误的数据,比如输入错误或数据错误,只是作为空值传给客户端</li>
+</ul>
+<p>数据表与HDFS目录位置的对应关系,以及表中所包含的列和列的定义,都由Hive元数据库维护.元数据库是供Hive客户端读写的数据库.对象定义中还包含文件的输入、输出格式,由表对象和序列化-反序列化方式表示,它们告诉Hive如何从文件中获取记录和其中的字段.<br>元数据库可以是内嵌的Derby数据库(默认情况),也可以是本地或远程的数据库,比如MySQL或者Postgres.大多数情况下,用户会选择共享的数据库,这可以让开发人员和分析师共享对象定义.</p>
+<ol>
+<li><p>访问Hive<br>Hive提供了命令行界面(CLI)客户端,可以接收并解析所输入的HiveQL命令.这是执行即席查询的常见方式.<br>当Hive客户端或驱动器应用以及元数据库连接都部署于本地机器时,会使用Hive CLI.对于大规模部署来说,客户端/服务器的方式更合适,因为这样只要有一台服务器端的机器维护元数据库的连接细节,元数据库的访问权限也可以限定到集群内.这种方式要使用Hive的服务器组件HiveServer2.</p>
+</li>
+<li><p>Hive数据类型与数据定义语言(DDL)<br>和大多数数据库系统类似,Hive支持大多数常见的原生数据类型,以及几种复杂数据类型.<br>TINYINT:原生类型,占1字节的有符号整数<br>SMALLINT:原生类型,占2字节的有符号整数<br>INT:原生类型,占4字节的有符号整数<br>BIGINT:原生类型,占8字节的有符号整数<br>FLOAT:原生类型,占4字节的单精度浮点数<br>DOUBLE:原生类型,占8字节的双精度浮点数<br>BOOLEAN:原生类型,真/假<br>STRING：原生类型,字符串<br>BINARY:原生类型,字节数组<br>TIMESTAMP:原生类型,纳秒精度的时间戳<br>DATE:原生类型,年/月/日,格式为YYYYMMDD<br>ARRAY:复杂类型,由同类型字段组成的有序集合<br>MAP：复杂类型,由键值对组成的无序集合<br>STRUCT:复杂类型,由不同类型的具名字段组成的集合</p>
+</li>
+</ol>
+<p>比较Hive中的内部表与外部表<br>在Hive中建表时,默认创建的是Hive内部表.Hive管理内部表的目录,对内部表运行DROP TABLE语句会从HDFS上删除对应文件.推荐在CREATE TABLE语句中指定EXTERNAL 关键字创建外部表.这种建表语句需要提供表结构和HDFS上对应对象的路径.此时,DROP TABLE操作不会删除相应目录和文件.</p>
+<h3 id="Spark-SQL架构"><a href="#Spark-SQL架构" class="headerlink" title="Spark SQL架构"></a>Spark SQL架构</h3><p>Spark SQL针对其基于RDD的存储、调度、执行模型,提供了基本兼容HiveQL的SQL抽象.Spark SQL包含Spark项目核心的很多关键特性,包括惰性执行和中间查询容错.另外,Spark SQL可以在一个应用中与Spark核心API一起使用.<br>Spark SQL为了优化关系型数据的典型访问模式,对核心API添加了一些关键扩展.具体包括如下所列:</p>
+<ul>
+<li>DAG部分执行(PDE):PDE让我们可以在执行时根据处理过程中发现的一些数据,动态修改和优化DAG.DAG修改包括优化表连接操作、处理数据倾斜、调整Spark使用的并行度.</li>
+<li>分区统计信息:Spark SQL维护各数据分区的统计信息,这些统计信息可以在PDE中使用,也可以用于裁剪映射任务(根据分区内各列的统计信息,过滤或裁剪要加载的分区)和优化通常代价较大的连接操作.</li>
+<li>DataFrame API</li>
+<li>列式存储:Spark SQL在内存中存储数据时使用列式存储,也就是把数据按列存储,而不是按行存储.这对不同SQL访问模式有显著的性能影响.</li>
+</ul>
+<p>SparkSession入口<br>使用Spark核心API的应用以SparkContext对象作为程序主入口,而Spark SQL应用则以SparkSession对象作为程序主入口.</p>
+<p>SparkSession与SQLContext<br>你可能还是会在各种示例程序中发现对SQLContext对象的引用,它的实例通常名为sqlContext.该对象可以在交互式Spark shell中使用,并且可以与spark对象互换使用.一般来说,使用SparkSession的对象实例更好,因为SQLContext可能会在将来的版本中被废弃.</p>
+<h3 id="DataFrame-入门"><a href="#DataFrame-入门" class="headerlink" title="DataFrame 入门"></a>DataFrame 入门</h3><p>Spark SQL的DataFrame表示记录的分布式集合,有着同样的预定义结构,在概念上类似于关系型数据库中的共享表.Spark SQL中的DataFrame前身为SchemaRDD对象,采纳了R语言中数据框结构和Pandas(Python中用于数据操作与分析的库)的一些设计思想.<br>DataFrame是Spark RDD的抽象.然而,DataFrame有别于原生RDD,区别于DataFrame维护表结构,并且对许多常见的SQL函数和关系型操作符提供了原生支持.而DataFrame和RDD的相似之处包括它们都是作为DAG求值,都是用惰性求值,并且都提供了谱系和容错性.</p>
+<p>Dataframe可以由很多不同方式创建,包括如下所列几种:</p>
+<ul>
+<li>已有的RDD</li>
+<li>JSON文件</li>
+<li>文本文件、Parquet文件，或ORC文件</li>
+<li>Hive表</li>
+<li>外部数据库中的表</li>
+<li>Spark临时表</li>
+</ul>
+<p>接下来会介绍使用已有的SparkSession对象构建DataFrame的一些常见方法</p>
+<ol>
+<li>从已有RDD创建DataFrame<br>createDataFrame()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SparkSession.createDataFrame(data,schema=<span class="keyword">None</span>,samplingRatio=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>createDataFrame()方法从已有RDD创建DataFrame对象.参数data接收由元组或列表元素组成的RDD对象.参数schema表示要对DataFrame对象投影的表结构.如果需要推断表结构,参数samplingRatio用于设置数据采样率。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myrdd=sc.parallelize([(<span class="string">'Jeff'</span>,<span class="number">48</span>),(<span class="string">'Kellie'</span>,<span class="number">45</span>)])</span><br><span class="line">spark.createDataFrame(myrdd).collect()</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>从Hive表创建DataFrame<br>要从Hive表加载数据到Spark SQL的DataFrame中,需要先创建HiveContext实例.<br>HiveContext会读取Hive客户端配置来获取Hive元数据库的连接信息.这使得Spark应用可以无缝访问Hive表.从Hive表创建DataFrame的方法有好几种,包括使用sql()方法或table()方法<br>(1)sql()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SparkSession.sql(sqlQuery)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>sql()方法根据提供的sqlQuery参数,从Hive表或对Hive表执行的DML操作创建DataFrame对象.如果要操作的表在Hive当前所使用的数据库之外,则需要使用<databasename>.<tablename>这样的格式引用该表.sqlQuery参数可以接收任意有效的HiveQL语句,包括带有WHERE子句或JOIN谓词的SELECT*或SELECT语句.</tablename></databasename></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sql_cmd=<span class="string">"""SELECT name,lat,long FROM stations WHERE landmark='San Jose'"""</span></span><br><span class="line">df=spark.sql(sql_cmd)</span><br><span class="line">df.count()</span><br><span class="line">df.show(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>(2)table()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SparkSession.table(tableName)</span><br></pre></td></tr></table></figure></p>
+<p>table()方法从Hive表创建DataFrame对象.与sql方法的区别是,table()方法不允许对原始表的列进行裁剪,也不允许使用WHERE子句过滤部分行.整张表都会加载到DataFrame中<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df=spark.table(<span class="string">'stations'</span>)</span><br><span class="line">df.columns</span><br><span class="line">df.count()</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>从JSON对象创建DataFrame<br>JSON是在网络服务响应中经常使用的一种常见的、标准的、人类可读的序列化方式或数据传输格式.<br>因为JSON是一种包含结构信息的半结构化数据源,Spark SQL内建支持JSON格式.<br>read.json()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">DataFrameReader.read.json(path</span><br><span class="line">                          schema=<span class="keyword">None</span>,</span><br><span class="line">                          primitivesAsString=<span class="keyword">None</span>,</span><br><span class="line">                          prefersDecimal=<span class="keyword">None</span>,</span><br><span class="line">                          allowComments=<span class="keyword">None</span>,</span><br><span class="line">                          allowUnquotedFieldNames=<span class="keyword">None</span>,</span><br><span class="line">                          allowSingleQuotes=<span class="keyword">None</span>,</span><br><span class="line">                          allowNumericLeadingZero=<span class="keyword">None</span>,</span><br><span class="line">                          allowBackslashEscapingAnyCharacter=<span class="keyword">None</span>,</span><br><span class="line">                          mode=<span class="keyword">None</span>,</span><br><span class="line">                          columnNameOfCorruptRecord=<span class="keyword">None</span>,</span><br><span class="line">                          dateFormat=<span class="keyword">None</span>,</span><br><span class="line">                          timestampFormat=<span class="keyword">None</span>,</span><br><span class="line">                          multiLine=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>DataFrameReader的json()方法从JSON文件创建DataFrame对象.</p>
+<p>4.从普通文件创建DataFrame<br>DataFrameReader也可以用于从其他类型的文件读取DataFrame,比如CSV文件,或者外部的SQL和NoSQL数据源.下面分别介绍了从纯文本文件以及Parquet、ORC等一些列式存储格式的文件,创建DataFrame的示例<br>(1)text()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrameReader.read.text(path)</span><br></pre></td></tr></table></figure></p>
+<p>DataFrameReader的text()方法用于从外部文件系统(本地文件系统、NFS、HDFS、S3等)上的文本文件读取DataFrame.该方法的行为类似于RDD中等价的sc.textFile()方法.参数path指代的路径可以是一个文件,也可以是目录,或是文件通配符。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df=spark.read.text(<span class="string">'file:///opt/spark/data/bike-share/stations/stations.csv'</span>)</span><br><span class="line">df.take(<span class="number">1</span>)</span><br><span class="line">df=spark.read.text(<span class="string">'file:///opt/spark/data/bike-share/stations/'</span>)</span><br><span class="line">df.count()</span><br></pre></td></tr></table></figure></p>
+<p>注意文本文件中的每一行会返回一个对应的Row对象,该对象包含一个字符串,即文件中对应的整行数据.</p>
+<p>(2)parquet()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrameReader.read.parquet(paths)</span><br></pre></td></tr></table></figure></p>
+<p>DataFrameReader的parquet()方法用于读取以Parquet列式存储格式存储的文件.这些文件通常来自其他进程的输出,比如前一个Spark进程的输出.参数paths指向单个或多个Parquet文件,或是Parquet文件组成的目录.<br>Parquet格式将表的结构信息与数据封装在一个结构中,因此DataFrame可以使用文件中的表结构.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df=spark.read.parquet(<span class="string">'hdfs:///user/hadoop/stations.parquet'</span>)</span><br><span class="line">df.printSchema()</span><br><span class="line">df.take(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>(3)orc()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrameReader.read.orc(path)</span><br></pre></td></tr></table></figure></p>
+<p>DataFrameReader的orc()方法用于从单个ORC格式文件或由多个ORC格式文件组成的目录读取DataFrame.ORC是一种来自Hive项目的格式.参数path指向一个包含ORC文件的目录,一般与Hive仓库中以ORC格式存储的一张表相关联.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df=spark.read.orc(<span class="string">'hdfs:///user/hadoop/stations_orc/'</span>)</span><br><span class="line">df.printSchema()</span><br><span class="line">df.take(<span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用DataFrameReader和spark.read.jdbc()方法从MySQL、Oracle之类的外部数据源读取数据.</p>
+<ol>
+<li><p>把DataFrame转为RDD<br>可以使用rdd()方法轻松地把DataFrame转化原生的RDD</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stationsdf=spark.read.parquet(<span class="string">'hdfs:///user/hadoop/stations.parquet'</span>)</span><br><span class="line">stationsrdd=stationsdf.rdd</span><br><span class="line">stationsrdd</span><br><span class="line">stationsrdd.take(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DataFrame数据模型:原生类型<br>DataFrame API的数据模型是基于Hive的数据模型设置的 .DataFrame中使用的数据类型与Hive中的等价类型直接对应.这些类型包括所有常见的原生类型,以及等价于列表、字典和元组的复杂嵌套类型</p>
+</li>
+<li><p>DataFrame数据模型:复杂类型<br>Spark SQL可以原生使用基于HiveQL的操作符访问复杂嵌套类型</p>
+</li>
+</ol>
+<p>ArrayType:等价于Hive类型ARRAY,等价于Python list,tuple或array<br>MapType:等价于Hive类型的MAP,等价于Python dict<br>StructType:等价于Hive类型的STRUCT,等价于Python的list或tuple</p>
+<ol>
+<li>推断DataFrame表结构<br>在Spark SQL中,DataFrame的表结构可以显式定义,也可以隐式推断.<br>Spark SQL使用反射来推断DataFrame对象的表结构.反射会检查对象来判断其组成结构,可以在把RDD转为DataFrame时生成相应的表结构.在这种情况下,RDD的每条记录都会生成一个对应的Row对象,并且每个字段都会分配一个数据类型.各字段的数据类型是从第一条记录推断而来的,因此第一条记录必须要具有代表性,而且所有的字段都不能为空.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rdd=sc.textFile(<span class="string">'file:///home/hadoop/stations.csv'</span>).map(<span class="keyword">lambda</span> x:x.split(<span class="string">','</span>)).map(<span class="keyword">lambda</span> x:(int(x[<span class="number">0</span>]),str(x[<span class="number">1</span>]),float(x[<span class="number">2</span>]),float(x[<span class="number">3</span>]),int(x[<span class="number">4</span>]),str(x[<span class="number">5</span>]),str(x[<span class="number">6</span>])))</span><br><span class="line">rdd.take(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注意字段的命名使用了_<fieldnumber>的惯例,而nullable属性都被设置为True,这意味着这些值都可以为空.还要注意到推断时使用的都是范围更大的类型.</fieldnumber></p>
+<p>9.定义DataFrame表结构<br>在代码中显式定义DataFrame的表结构,比隐式推断更好.你需要创建一个包含一组StructField对象的StructType对象,以创建表结构.然后就可以在创建DataFrame时使用该表结构.</p>
+<h3 id="使用DataFrame"><a href="#使用DataFrame" class="headerlink" title="使用DataFrame"></a>使用DataFrame</h3><p>DataFrame API是目前Spark项目中发展最快的部分之一.每个小版本发布都会包含明显的新特性与函数.Spark SQL的DataFrame模型还有一些扩展,比如Datasets API.这些扩展也以同样的速度告诉发展.事实上,Spark SQL及其核心组件 DataFrame API就足以单独撑起一整本书.</p>
+<ol>
+<li>DataFrame元数据操作<br>DataFrame API提供了几个元数据函数.这些函数返回的是关于数据结构的信息,而不是数据本身.<br>(1)columns()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.columns()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>columns()方法返回由给定DataFrame的列名组成的列表.<br>(2)dtypes()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.dtypes()</span><br></pre></td></tr></table></figure></p>
+<p>dtypes()方法返回由二元组组成的列表.其中每个二元组包含给定DataFrame对象的一个列名和该列的数据类型.</p>
+<ol>
+<li>DataFrame基本操作<br>因为DataFrame是RDD的列式抽象,所以它们有很多相似的函数,比如一些转化操作和行动操作都是直接来自RDD的方法.DataFrame还有一些额外的关系型方法,比如select()、drop()和where().像count()、collect()、take()和foreach()这样的核心函数,与RDD API中的同名函数,无论是功能上还是句法上都保持一致.与RDD API一样,有些方法中的行动操作会触发DataFrame及其谱系的求值<br>与行动操作collect()和take()一样,之前的例子中,我们使用了一个替代方法show().show()是行动操作,如果DataFrame在缓存中不存在,他会触发DataFrame的求值<br>(1)show()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.show(n=<span class="number">20</span>,truncate=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>show()方法将DataFrame的前n行打印到控制台上.与collect()或take(n)不同,show()并不把结果返回到变量.<br>(2)select()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.select(*cols)</span><br></pre></td></tr></table></figure></p>
+<p>select()方法根据cols参数指定的列返回一个新的DataFrame对象.你可以使用星号(* )选出DataFrame中所有的列而不进行任何操作<br>(3)drop()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.drop(col)</span><br></pre></td></tr></table></figure></p>
+<p>drop()方法返回一个删去了col参数指定的列的新DataFrame.<br>(4)filter()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.filter(condition)</span><br></pre></td></tr></table></figure></p>
+<p>filter()方法返回仅包含满足给定条件的行的新DataFrame,筛选条件由condition参数提供,求值结果为True或False.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df=spark.read.parquet(<span class="string">'hdfs:///user/hadoop/stations.parquet'</span>)</span><br><span class="line">df.filter(df.name==<span class="string">'St James Park'</span>).select(df.name,df.lat,df.long).show()</span><br></pre></td></tr></table></figure></p>
+<p>(5)distinct()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.distinct()</span><br></pre></td></tr></table></figure></p>
+<p>distinct()方法返回包含输入DataFrame中不重复的行的新的DataFrame,本质就是过滤掉重复的行.当同一个DataFrame中一行数据的所有列的值都与另一行相同,我们就把它看作重复的行.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rdd=sc.parallelize([(<span class="string">'Jeff'</span>,<span class="number">48</span>),(<span class="string">'Kellie'</span>,<span class="number">45</span>),(<span class="string">'Jeff'</span>,<span class="number">48</span>)])</span><br><span class="line">df=spark.createDataFrame(rdd)</span><br><span class="line">df.show()</span><br></pre></td></tr></table></figure></p>
+<p>注意drop_duplicates()方法具有类似功能,还可以让用户选择仅过滤选定列的重复数据.<br>另外,map()和flatMap()可以分别通过DataFrame.rdd.map()和DataFrame.rdd.flatMap()使用.</p>
+<p>从概念上来说,这些方法和他们在RDD API中同名的方法功能类似.不过,在处理各列有名字的DataFrame时,lambda函数稍有不同.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df=spark.read.parquet(<span class="string">'hdfs:///user/hadoop/stations.parquet'</span>)</span><br><span class="line">rdd=df.rdd.map(<span class="keyword">lambda</span> r:r.name)</span><br><span class="line">rdd</span><br><span class="line">rdd.take(<span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Spark SQL的DataFrame API中还有其他一些操作值得介绍.sample()方法he sampleBy()方法与RDD API中的等价操作效果类似,而limit()函数则会创建一个包含原始DataFrame中指定数量的任意行的新DataFrame。<br>explain()也是一个在开发时有帮助的函数.它返回查询计划,包含对DataFrame进行求值时使用的逻辑计划和物理计划.在排查问题或优化Spark SQL程序时,会用到这个函数.</p>
+<p>探索文档可以对DataFrame API中提供的所有函数有更多了解.值得注意的是,Python语言的Spark SQL API的所有函数都包含docstring.你可以使用它们探索Spark SQL中任意函数的语法和用法,也可以探索Spark 的Python语言API提供的其他函数.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> DataFrame</span><br><span class="line">print(DataFrame.sample.__doc__)</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p>DataFrame内建函数<br>Spark SQL中有大量可供使用的函数,包含其他常见的数据库管理系统的SQL中所有支持的大多数函数。<br>字符串函数:startswith、substr、concat、lower、upper、regexp_extract、regexp_replace<br>数学函数:abs、ceil、floor、log、round、sqrt<br>统计函数:avg、max、min、mean、stddev<br>日期函数:date_add、datediff、from_utc_timestamp<br>哈希函数:md5、sha1、sha2<br>算法函数:soundex、levenshtein<br>窗口函数:over、rank、dense_rank、lead、lag、ntile</p>
+</li>
+<li><p>在DataFrame API中实现用户自定义函数<br>如果现成的函数中找不到能满足需求的,你可以在Spark SQL中创建用户自定义函数(user-defined function,即UDF).你可以通过使用udf()方法,创建列级别的UDF,把所需操作整合到Spark程序中.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyspark.sql.function.udf(func,returnType=StringType)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>udf()方法创建表示用户自定义函数的列表达式.func参数可以是具名函数或使用lambda语法的匿名函数,它对DataFrame中单行内的一列进行操作.returnType参数制定函数返回对象的数据类型.</p>
+<ol>
+<li>多DataFrame操作<br>join()、union()等集合操作是DataFrame的常见需求,因为它们都是关系型SQL编程中不可或缺的操作.<br>DataFrame的连接操作支持RDD API和HiveQL所支持的所有连接操作,包括内连接、外连接以及左半连接.<br>(1)join()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.join(other,on=<span class="keyword">None</span>,how=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>(2)orderBy()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.orderBy(cols,ascending)</span><br></pre></td></tr></table></figure></p>
+<p>orderBy()方法根据cols参数指定的列对DataFrame进行排序,生成新的DataFrame。<br>ascending是布尔型的参数,默认为True.</p>
+<p>(3)groupBy()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.groupBy(cols)</span><br></pre></td></tr></table></figure></p>
+<p>groupBy()方法将输入的DataFrame按照cols参数指定的列进行分组,使用分组结果创建新的DataFrame.</p>
+<h3 id="DataFrame缓存、持久化与重新分区"><a href="#DataFrame缓存、持久化与重新分区" class="headerlink" title="DataFrame缓存、持久化与重新分区"></a>DataFrame缓存、持久化与重新分区</h3><p>DataFrame API支持缓存、持久化与重新分区,所用方法类似于Spark RDD API中的对应操作.<br>缓存与持久化DataFrame的方法包括cache()、persist()和unpersist(),它们与用于RDD的同名函数作用类似.此外,Spark SQL还添加了cacheTable()方法,用于在内存中缓存Spark SQL或Hive中的表.clearCache()方法可以从内存中删除缓存的表。DataFrame也支持使用coalesce()和repartition()方法进行重新分区.</p>
+<h3 id="保存DataFrame输出"><a href="#保存DataFrame输出" class="headerlink" title="保存DataFrame输出"></a>保存DataFrame输出</h3><p>DataFrameWriter是用来把DataFrame写到文件系统或数据库等外部存储系统的接口.DataFrameWriter可以通过DataFrame.write()访问.</p>
+<ol>
+<li><p>数据写入Hive表<br>saveAsTable()函数实现此功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.write.saveAsTable(name,format=<span class="keyword">None</span>,mode=<span class="keyword">None</span>,patitionBy=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数据写入文件<br>DataFrame中的数据写入的文件可以位于所支持的任意文件系统:本地文件系统、网络文件系统或分布式文件系统.输出会作为目录写出,每个分区对应生成一个文件,这和前面的RDD输出示例颇为相似.<br>逗号分割值(CSV)是一种常见的文件导出格式.DataFrame可以通过使用DataFrameWriter.write.csv()方法导出到CSV文件</p>
+</li>
+</ol>
+<p>Parquet是一种流行的列式存储格式,并且转为Spark SQL进行了优化.通过使用DataFrameWriter.write.parquet()方法,你可以把DataFrame以Parquet格式写出去<br>(1) write.csv()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">DataFrameWriter.write.csv(path,</span><br><span class="line">                          mode=<span class="keyword">None</span>,</span><br><span class="line">                          compression=<span class="keyword">None</span>,</span><br><span class="line">                          sep=<span class="keyword">None</span>,</span><br><span class="line">                          quote=<span class="keyword">None</span>,</span><br><span class="line">                          escape=<span class="keyword">None</span>,</span><br><span class="line">                          header=<span class="keyword">None</span>,</span><br><span class="line">                          nullValue=<span class="keyword">None</span>,</span><br><span class="line">                          escapeQuotes=<span class="keyword">None</span>,</span><br><span class="line">                          quoteAll=<span class="keyword">None</span>,</span><br><span class="line">                          dataFormat=<span class="keyword">None</span>,</span><br><span class="line">                          timestampFormat=<span class="keyword">None</span>,</span><br><span class="line">                          ignoreLeadingWhiteSpace=<span class="keyword">None</span>,</span><br><span class="line">                          ignoreTrailingWhiteSpace=<span class="keyword">None</span></span><br><span class="line">                          )</span><br></pre></td></tr></table></figure></p>
+<p>DataFrameWriter类的write.csv()方法可以通过DataFrame.write.csv()接口访问,把DataFrame的内容以CSV文件的形式写入path参数所指定的路径。mode参数定义了如果目标目录在操作时已经存在的行为,其有效值为append(追加写)、overwrite(覆盖)、ignore(忽略)和error(报错,为默认值).mode参数在所有的DataFrame.write()方法中都适用.</p>
+<p>(2)parquet()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrameWriter.write.parquet(path,mode=<span class="keyword">None</span>,partitionBy=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure></p>
+<p>write.parquet()方法把DataFrame中的数据以Parquet格式写入指定目录.文件压缩的设置来自当前SparkContext中压缩相关的配置属性.mode参数指定当目录或文件不存在时的行为,其有效值为append(追加写),overwrite(覆盖),ignore(忽略)和error(报错,为默认值)。PartitionBy参数指定了作为输出文件的分区依据的列的名字(使用哈希分区)<br>保存DataFrame为Parquet文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spark=SparkSession.builder.config(<span class="string">"spark.sql.parquet.compression.codec."</span>,<span class="string">"snappy"</span>).getOrCreate()</span><br><span class="line">stations=spark.table(<span class="string">"stations"</span>)</span><br><span class="line">stations.select([stations.station_id,stations.name]).write.parquet(<span class="string">"file:///home/hadoop/stations.parquet"</span>,mode=<span class="string">'overwrite'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>ORC文件可以使用orc方法写出,该方法的用法与parquet()类似.JSON文件也可以使用json()方法写出.</p>
+<h2 id="在Spark中使用NoSQL系统"><a href="#在Spark中使用NoSQL系统" class="headerlink" title="在Spark中使用NoSQL系统"></a>在Spark中使用NoSQL系统</h2><p>NoSQL是一种新的数据范式,允许用户以单元格的形式查看数据,而不是智能使用表格、行、列这种关系型范式.</p>
+<h3 id="NoSQL简介"><a href="#NoSQL简介" class="headerlink" title="NoSQL简介"></a>NoSQL简介</h3><ol>
+<li>NoSQL系统特点<br>NoSQL系统有具体的定义特征<br>所有类型的NoSQL系统共有的属性如下所列:</li>
+</ol>
+<ul>
+<li>NoSQL系统中没有静态表结构,是运行时才有表结构的读时系统:这意味着NoSQL系统中没有预定义的列,列是在每次PUT或INSERT操作时创建的。每条记录、每个文档、每个数据都可以有不同于其他实例的结构.</li>
+<li>数据与其他对象之间不存在预定义的关联:这意味着NoSQL系统中没有外键和参照完整性的概念.不论是在声明中还是其他地方.数据对象或实例之间可以存在关联,但是这些关联只能在运行时发现和使用,而不可以在设计表时定义.</li>
+<li>一般避免表连接操作:在大多数NoSQL实现中,表连接功能很弱,甚至完全不支持.这一般需要通过对数据进行非正则化实现,通常要以存储重复数据为代价.不过,大多数NoSQL实现都使用了高性价比的硬件或云端基础设施,由于在访问数据时不需要执行多余的表连接操作,节省出来的计算开销可以弥补存储多花费的开销.</li>
+</ul>
+<p>另外,NoSQL系统一般都是分布式的,并且支持快速查找.写操作比起传统的关系型数据库系统,一般也更快和更具伸缩性,因为免去了传统的关系型数据库系统中一些导致额外开销的过程,比如数据类型检查或域检查、原子/阻塞性事务,以及对事务隔离级别的管理.</p>
+<ol>
+<li>NoSQL系统的类别<br>NoSQL系统出现了一些变种.它们可以分为如下几类：键值对存储、文档存储、图数据存储。</li>
+</ol>
+<h3 id="Spark中使用HBase"><a href="#Spark中使用HBase" class="headerlink" title="Spark中使用HBase"></a>Spark中使用HBase</h3><p>HBase是Hadopp生态系统的项目,用于提供基于HDFS的分布式大规模可伸缩的键值对存储.</p>
+<ol>
+<li>HBase简介<br>HBase把数据存储为稀疏的多维有序映射表.映射表根据键(行键)进行索引,值则存储在单元格中,每个单元格由列键和列值组成.行键和列键是字符串,而列值是未解释的字节数组,可以表示任何基本数据类型或复杂数据类型.HBase是多维的,也就是说每个单元格都带有时间戳的版本号.<br>在设计表时会定义一个或多个列族.在列数据的物理存储中,数据按所属列族分组存储.不同的列族可以使用不同的物理存储属性,比如区块大小、压缩设置,还有要留存的单元格版本数量.<br>虽然有些项目(比如Hive和Phoenix)可以用类SQL的方式访问HBase上的数据,但访问和更新HBase数据的自然方法本质上可以归结为get(查)、put(增)、scan(扫描)和delete(删除)这几种.HBase包含了一个shell程序,以及支持多种语言的编程接口.</li>
+</ol>
+<p>HBase支持稀疏数据.也就是说,并非所有列都要在表内的每一行存在,而且不存储空值.<br>虽然HBase的数据存储在HDFS这个不可变的文件系统上,HBase依然支持对HBase表中的单元格进行原地更新.当列键已经存在时,HBase会创建带有新时间戳的新版本的单元格,然后后台的合并进程会将多个文件合并为数量更少、占空间更大的文件.</p>
+<p>HBase数据以HFile对象的形式存储在HDFS上.HFile对象是列族(存储分组)和行键顺序范围的交集.行键的范围被称为分区,在其他实现中也别称为分片.HBase把分区数据放到分区服务器上.分区可以提供快速的行键查询,因为给定行键属于哪个分区是HBase已知的.HBase按需拆分或合并分区,作为其常规操作的一部分.无关行键的查询速度较慢,比如查询满足某种标准的列键和值.不过,HBase会使用布隆过滤器来加快搜索速度.</p>
+<ol>
+<li>HBase与Spark<br>使用Python API 从Spark读写HBase最可靠的方法是使用Python软件包HappyBase.HappyBase是为访问和操作HBase集群上的数据而构建的Python库.要使用HappyBase,必须先使用pip或easy_install安装对应的Python软件包.</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
+          
+            <a href="/tags/SQL/" rel="tag"># SQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/04/笔试刷题（四）/" rel="next" title="笔试刷题（四）">
+                <i class="fa fa-chevron-left"></i> 笔试刷题（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/06/数据挖掘比赛入坑（五）/" rel="prev" title="数据挖掘比赛入坑（五）">
+                数据挖掘比赛入坑（五） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">167</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">132</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Spark进行SQL与NoSQL编程"><span class="nav-number">1.</span> <span class="nav-text">使用Spark进行SQL与NoSQL编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark-SQL简介"><span class="nav-number">1.1.</span> <span class="nav-text">Spark SQL简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive简介"><span class="nav-number">1.1.1.</span> <span class="nav-text">Hive简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark-SQL架构"><span class="nav-number">1.1.2.</span> <span class="nav-text">Spark SQL架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFrame-入门"><span class="nav-number">1.1.3.</span> <span class="nav-text">DataFrame 入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用DataFrame"><span class="nav-number">1.1.4.</span> <span class="nav-text">使用DataFrame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFrame缓存、持久化与重新分区"><span class="nav-number">1.1.5.</span> <span class="nav-text">DataFrame缓存、持久化与重新分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保存DataFrame输出"><span class="nav-number">1.1.6.</span> <span class="nav-text">保存DataFrame输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Spark中使用NoSQL系统"><span class="nav-number">1.2.</span> <span class="nav-text">在Spark中使用NoSQL系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NoSQL简介"><span class="nav-number">1.2.1.</span> <span class="nav-text">NoSQL简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark中使用HBase"><span class="nav-number">1.2.2.</span> <span class="nav-text">Spark中使用HBase</span></a></li></ol></li></ol></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

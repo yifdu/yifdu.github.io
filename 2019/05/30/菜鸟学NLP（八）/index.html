@@ -109,7 +109,7 @@
 <meta property="og:description" content="自然语言常识自然语言种的数据平滑算法Laplace smoothing(Add-one)于是对于n-gram的模型而言，假设V是所有可能的不同的N-gram的类型个数，那么根据贝叶斯公式有: P(w_i|w_{i-n+1},...,w_{i-1})=\frac{C(w_{i-n+1},..,w_i)+1}{C(w_{i-n+1},..,w_{i-1})+|V|}Add-k smoothing由Ad">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yifdu.github.io/2019/05/30/菜鸟学NLP（八）/pic1.png">
-<meta property="og:updated_time" content="2019-05-29T22:07:38.270Z">
+<meta property="og:updated_time" content="2019-06-10T15:17:22.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="菜鸟学NLP（八）">
 <meta name="twitter:description" content="自然语言常识自然语言种的数据平滑算法Laplace smoothing(Add-one)于是对于n-gram的模型而言，假设V是所有可能的不同的N-gram的类型个数，那么根据贝叶斯公式有: P(w_i|w_{i-n+1},...,w_{i-1})=\frac{C(w_{i-n+1},..,w_i)+1}{C(w_{i-n+1},..,w_{i-1})+|V|}Add-k smoothing由Ad">
@@ -452,7 +452,7 @@
 d_{w_{i-n+1}...w_i}\frac{C(w_{i-n+1}...w_i)}{C(w_{i-n+1}...w_{i-1})}\ \ \ if\ \ C(w_{i-n+1}..w_i)>k\\
 α_{w_{i-n+1}...w_{i-1}}P_{bo}(w_i|w_{i-n+2}...w_{i-1})\ \ \ otherwise\\
 \end{cases}</script><p>其中d，a和k分别为参数。k一般选择为0，但是也可以选其它的值。</p>
-<h3 id="Interpolation插值法"><a href="#Interpolation插值法" class="headerlink" title="Interpolation插值法"></a>Interpolation插值法</h3><p>插值法和回退法的思想非常相似，设想对于一个trigram的模型，我们要统计语料库中“”“I like chinese food”出现的次数，结果发现它没有出现，则计数为0，在回退策略中们将会试着用低阶的gram来进行替代，也就是用“like chinese food”出现的次数来替代。在使用插值的时候，我们把不同阶层的n-gram的模型线性叠加组合起来之后再使用，简单的如trigram的模型，按照如下的方式进行叠加：</p>
+<h3 id="Interpolation插值法"><a href="#Interpolation插值法" class="headerlink" title="Interpolation插值法"></a>Interpolation插值法</h3><p>插值法和回退法的思想非常相似，设想对于一个trigram的模型，我们要统计语料库中“I like chinese food”出现的次数，结果发现它没有出现，则计数为0，在回退策略中们将会试着用低阶的gram来进行替代，也就是用“like chinese food”出现的次数来替代。在使用插值的时候，我们把不同阶层的n-gram的模型线性叠加组合起来之后再使用，简单的如trigram的模型，按照如下的方式进行叠加：</p>
 <script type="math/tex; mode=display">P_{int}(w_i|w_{i-1},w_{i-2})=\lambda_3P_{ML}(w_i|w_{i-1},w_{i-2})+\lambda_2P_{ML}(w_i|w_{i-1})+\lambda_1P_{ML}(w_i)</script><script type="math/tex; mode=display">\lambda_3+\lambda_2+\lambda_1=1</script><h1 id="NLP面试题"><a href="#NLP面试题" class="headerlink" title="NLP面试题"></a>NLP面试题</h1><ol>
 <li>有哪些文本表示模型?<br>所谓的文本表示模型就是能提取文本特征来表征文本</li>
 </ol>
@@ -676,7 +676,7 @@ d_{w_{i-n+1}...w_i}\frac{C(w_{i-n+1}...w_i)}{C(w_{i-n+1}...w_{i-1})}\ \ \ if\ \ 
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">158</span>
+                  <span class="site-state-item-count">167</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -687,7 +687,7 @@ d_{w_{i-n+1}...w_i}\frac{C(w_{i-n+1}...w_i)}{C(w_{i-n+1}...w_{i-1})}\ \ \ if\ \ 
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -698,7 +698,7 @@ d_{w_{i-n+1}...w_i}\frac{C(w_{i-n+1}...w_i)}{C(w_{i-n+1}...w_{i-1})}\ \ \ if\ \ 
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-count">132</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

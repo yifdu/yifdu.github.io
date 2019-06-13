@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！请问博主爸爸');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "258f1ebb"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据挖掘,EDA,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="EDA(Exploratory Data Analysis)（探索性分析数据）  目的:   理解每个特征的意义; 知道哪些特征是有用的,这些特征哪些是直接可以用的,哪些需要经过变换才能用,为之后的特征工程做准备  1)每个特征的意义、特征类型:12df.describe()df[&apos;Category&apos;].unique() 2)看是否存在missing value(特征数据是否缺失)1df.loc[">
+<meta name="keywords" content="数据挖掘,EDA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据挖掘比赛入坑（五）">
+<meta property="og:url" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/index.html">
+<meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="EDA(Exploratory Data Analysis)（探索性分析数据）  目的:   理解每个特征的意义; 知道哪些特征是有用的,这些特征哪些是直接可以用的,哪些需要经过变换才能用,为之后的特征工程做准备  1)每个特征的意义、特征类型:12df.describe()df[&apos;Category&apos;].unique() 2)看是否存在missing value(特征数据是否缺失)1df.loc[">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic1.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic2.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic3.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic4.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic5.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic6.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic7.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic8.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic9.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic10.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic11.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic12.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic13.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic14.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic15.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic16.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic17.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic18.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic19.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic20.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic21.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic22.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic23.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic24.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic25.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic26.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic27.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic28.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic29.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic30.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic31.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic32.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic33.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic34.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic35.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic36.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic37.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic38.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic39.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic40.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic41.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic42.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic43.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic44.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic45.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic46.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic47.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic48.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic49.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic50.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic51.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic52.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic53.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic54.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic55.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic56.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic57.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic58.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic59.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic60.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic61.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic62.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic63.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic64.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic65.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic66.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic67.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic68.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic69.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic70.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic71.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic72.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic73.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic74.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic75.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic76.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic77.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic78.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic79.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic80.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic81.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic82.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic83.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic84.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic85.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic86.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic87.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic88.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic89.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic90.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic91.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic92.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic93.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic94.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic95.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic96.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic97.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic98.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic99.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic100.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic101.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic102.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic103.png">
+<meta property="og:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic104.png">
+<meta property="og:updated_time" content="2019-06-06T05:24:24.555Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据挖掘比赛入坑（五）">
+<meta name="twitter:description" content="EDA(Exploratory Data Analysis)（探索性分析数据）  目的:   理解每个特征的意义; 知道哪些特征是有用的,这些特征哪些是直接可以用的,哪些需要经过变换才能用,为之后的特征工程做准备  1)每个特征的意义、特征类型:12df.describe()df[&apos;Category&apos;].unique() 2)看是否存在missing value(特征数据是否缺失)1df.loc[">
+<meta name="twitter:image" content="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/pic1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/">
+
+
+
+
+
+  <title>数据挖掘比赛入坑（五） | 深度菜鸟</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">深度菜鸟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yifdu.github.io/2019/06/06/数据挖掘比赛入坑（五）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yif Du">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xuanyi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度菜鸟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据挖掘比赛入坑（五）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-06T02:21:39+08:00">
+                2019-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据挖掘比赛/" itemprop="url" rel="index">
+                    <span itemprop="name">数据挖掘比赛</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  12.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  50 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="EDA-Exploratory-Data-Analysis"><a href="#EDA-Exploratory-Data-Analysis" class="headerlink" title="EDA(Exploratory Data Analysis)"></a>EDA(Exploratory Data Analysis)</h1><p>（探索性分析数据）</p>
+<ul>
+<li>目的:</li>
+</ul>
+<ol>
+<li>理解每个特征的意义;</li>
+<li>知道哪些特征是有用的,这些特征哪些是直接可以用的,哪些需要经过变换才能用,为之后的特征工程做准备</li>
+</ol>
+<p>1)每个特征的意义、特征类型:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.describe()</span><br><span class="line">df[<span class="string">'Category'</span>].unique()</span><br></pre></td></tr></table></figure></p>
+<p>2)看是否存在missing value(特征数据是否缺失)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.loc[df.Dates.isnull(),<span class="string">'Dates'</span>]</span><br></pre></td></tr></table></figure></p>
+<p>3)看每个特征下的数据分布,用boxplot或者hist<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">df.boxplot(column=<span class="string">'Fare'</span>, by = <span class="string">'Pclass'</span>)</span><br><span class="line">plt.hist(df[<span class="string">'Fare'</span>], bins = <span class="number">10</span>, range =(df[<span class="string">'Fare'</span>].min(),df[<span class="string">'Fare'</span>].max()))</span><br><span class="line">plt.title(<span class="string">'Fare &gt;distribution'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Fare'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Count of Passengers'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>4)看一些特征之间的联立情况,用pandas的groupby<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">temp = pd.crosstab([df.Pclass, df.Sex], df.Survived.astype(bool))</span><br><span class="line">temp.plot(kind=<span class="string">'bar'</span>, stacked=<span class="keyword">True</span>, color=[<span class="string">'red'</span>,<span class="string">'blue'</span>], grid=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure></p>
+<h1 id="Seaborn-sns-官方文档学习笔记"><a href="#Seaborn-sns-官方文档学习笔记" class="headerlink" title="Seaborn(sns)官方文档学习笔记"></a>Seaborn(sns)官方文档学习笔记</h1><h2 id="艺术化的图表控制"><a href="#艺术化的图表控制" class="headerlink" title="艺术化的图表控制"></a>艺术化的图表控制</h2><p>Matplotlib无疑是高度可定制的，但快速实施出吸引人的细节就变得有些复杂。Seaborn作为一个带着定制主题和高级界面控制的Matplotlib扩展包，能让绘图变得更轻松，本部分主要介绍seaborn是如何对matplotlib输出的外观进行控制的。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="comment">#jupyter notebook 中的魔法函数，如果不是使用该软件请使用plt.show()用于显示图像</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">np.random.seed(sum(map(ord,<span class="string">"aesthetics"</span>)))  <span class="comment"># 定义种子</span></span><br></pre></td></tr></table></figure></p>
+<p>定义一个含偏移的正弦图像，来比较传统的matplotlib和seaborn的不同：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sinplot</span><span class="params">(flip=<span class="number">1</span>)</span>:</span></span><br><span class="line">    x = np.linspace(<span class="number">0</span>,<span class="number">14</span>,<span class="number">100</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">7</span>):</span><br><span class="line">        plt.plot(x,np.sin(x+i*<span class="number">.5</span>)*(<span class="number">7</span>-i)*flip)</span><br></pre></td></tr></table></figure>
+<p>使用matplotlib默认设置的图形效果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sinplot()</span><br></pre></td></tr></table></figure></p>
+<p>要切换到seaborn默认值，只需调用set（）函数。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.set()</span><br><span class="line">sinplot()</span><br></pre></td></tr></table></figure></p>
+<p>seaborn默认的灰色网格底色灵感来源于matplotlib却更加柔和。大多数情况下，图应优于表。seaborn的默认灰色网格底色避免了刺目的干扰，对于多个方面的图形尤其有用，是一些更复杂的工具的核心。</p>
+<p>Seaborn将matplotlib参数分成两个独立的组。第一组设定了美学风格，第二组则是不同的度量元素，这样就可以很容易地添加到代码当中了。</p>
+<p>操作这些参数的接口是两对函数。为了控制样式，使用axes_style()和set_style()函数。为了扩展绘图，请使用plotting_context()和set_context()函数。在这两种情况下，第一个函数返回一个参数字典，第二个函数则设置matplotlib默认属性。</p>
+<p>样式控制：axes_style() and set_style()<br>有5个seaborn的主题，适用于不同的应用和人群偏好：</p>
+<ul>
+<li>darkgrid 黑色网格（默认）</li>
+<li>whitegrid 白色网格</li>
+<li>dark 黑色背景</li>
+<li>white 白色背景</li>
+<li>ticks 应该是四周都有刻度线的白背景？</li>
+</ul>
+<p>网格能够帮助我们查找图表中的定量信息，而灰色网格主题中的白线能避免影响数据的表现，白色网格主题则类似的，当然更适合表达“重数据元素”（heavy data elements不理解）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sns.set_style(<span class="string">"whitegrid"</span>)</span><br><span class="line">data = np.random.normal(size=(<span class="number">20</span>, <span class="number">6</span>)) + np.arange(<span class="number">6</span>) / <span class="number">2</span></span><br><span class="line">sns.boxplot(data=data);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic1.png" alt="pic1"><br>对于许多场景，(特别是对于像对话这样的设置，您主要想使用图形来提供数据模式的印象)，网格就不那么必要了<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.set_style(<span class="string">"dark"</span>)</span><br><span class="line">sinplot()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic2.png" alt="pic2"><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.set_style(<span class="string">"white"</span>)</span><br><span class="line">sinplot()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic3.png" alt="pic3"><br>有时你可能想要给情节增加一点额外的结构，这就是ticks参数的用途:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sns.set_style(<span class="string">"ticks"</span>)</span><br><span class="line">sinplot()</span><br><span class="line"><span class="comment"># 官方的例子在上方/右方也拥有刻度线，而验证时却没有（是jupyter notebook的原因？）</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic4.png" alt="pic4"><br>特别的可以通过sns.axes_style(style=None, rc=None) 返回一个sns.set_style()可传的参数的字典</p>
+<p>通过类似sns.set_style(“ticks”, {“xtick.major.size”: 8, “ytick.major.size”: 8})的方式写入更具体的配置样式。</p>
+<p>关于sns.axes_style()下面会有说明和运行结果</p>
+<p>用despine()进行边框控制<br>white和ticks参数的样式，都可以删除上方和右方坐标轴上不需要的边框，这在matplotlib中是无法通过参数实现的，却可以在seaborn中通过despine()函数轻松移除他们。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sns.set_style(<span class="string">"white"</span>)</span><br><span class="line">sinplot() <span class="comment"># 默认无参数状态，就是删除上方和右方的边框</span></span><br><span class="line">sns.despine()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic5.png" alt="pic5"><br>一些图的边框可以通过数据移位，当然调用despine()也能做同样的事。当边框没有覆盖整个数据轴的范围的时候，trim参数会限制留存的边框范围。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f, ax = plt.subplots()</span><br><span class="line">sns.violinplot(data=data)</span><br><span class="line">sns.despine(offset=<span class="number">10</span>, trim=<span class="keyword">True</span>); <span class="comment"># offset 两坐标轴离开距离；</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic6.png" alt="pic6"><br>你也可以通过往despine()中添加参数去控制边框<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sns.set_style(<span class="string">"whitegrid"</span>)</span><br><span class="line">sns.boxplot(data=data, palette=<span class="string">"deep"</span>)</span><br><span class="line">sns.despine(left=<span class="keyword">True</span>) <span class="comment"># 删除左边边框</span></span><br><span class="line">st = sns.axes_style(<span class="string">"darkgrid"</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic7.png" alt="pic7"><br>despine(fig=None, ax=None, top=True, right=True, left=False, bottom=False, offset=None, trim=False)<br>从plot()函数中移除顶部或右边的边框</p>
+<p>临时设定图形样式<br>虽然来回切换非常容易，但sns也允许用with语句中套用axes_style()达到临时设置参数的效果（仅对with块内的绘图函数起作用）。这也允许创建不同风格的坐标轴。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> sns.axes_style(<span class="string">"darkgrid"</span>):</span><br><span class="line">    plt.subplot(<span class="number">211</span>)</span><br><span class="line">    sinplot()</span><br><span class="line">plt.subplot(<span class="number">212</span>)</span><br><span class="line">sinplot(<span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic8.png" alt="pic8"><br>seaborn样式中最重要的元素<br>如果您想要定制seanborn的样式，可以将参数字典传递给axes_style()和set_style()的rc参数。注意，只能通过该方法覆盖样式定义的一部分参数。(然而，更高层次的set()函数接受任何matplotlib参数的字典)。</p>
+<p>如果您想要查看包含哪些参数，您可以只调用该函数而不带参数，这将返回当前设置的字典:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">sns.axes_style()</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">'axes.axisbelow'</span>: <span class="keyword">True</span>,</span><br><span class="line"> <span class="string">'axes.edgecolor'</span>: <span class="string">'white'</span>,</span><br><span class="line"> <span class="string">'axes.facecolor'</span>: <span class="string">'#EAEAF2'</span>,</span><br><span class="line"> <span class="string">'axes.grid'</span>: <span class="keyword">True</span>,</span><br><span class="line"> <span class="string">'axes.labelcolor'</span>: <span class="string">'.15'</span>,</span><br><span class="line"> <span class="string">'axes.linewidth'</span>: <span class="number">0.0</span>,</span><br><span class="line"> <span class="string">'figure.facecolor'</span>: <span class="string">'white'</span>,</span><br><span class="line"> <span class="string">'font.family'</span>: [<span class="string">'sans-serif'</span>],</span><br><span class="line"> <span class="string">'font.sans-serif'</span>: [<span class="string">'Arial'</span>,</span><br><span class="line">  <span class="string">'Liberation Sans'</span>,</span><br><span class="line">  <span class="string">'Bitstream Vera Sans'</span>,</span><br><span class="line">  <span class="string">'sans-serif'</span>],</span><br><span class="line"> <span class="string">'grid.color'</span>: <span class="string">'white'</span>,</span><br><span class="line"> <span class="string">'grid.linestyle'</span>: <span class="string">'-'</span>,</span><br><span class="line"> <span class="string">'image.cmap'</span>: <span class="string">'Greys'</span>,</span><br><span class="line"> <span class="string">'legend.frameon'</span>: <span class="keyword">False</span>,</span><br><span class="line"> <span class="string">'legend.numpoints'</span>: <span class="number">1</span>,</span><br><span class="line"> <span class="string">'legend.scatterpoints'</span>: <span class="number">1</span>,</span><br><span class="line"> <span class="string">'lines.solid_capstyle'</span>: <span class="string">'round'</span>,</span><br><span class="line"> <span class="string">'text.color'</span>: <span class="string">'.15'</span>,</span><br><span class="line"> <span class="string">'xtick.color'</span>: <span class="string">'.15'</span>,</span><br><span class="line"> <span class="string">'xtick.direction'</span>: <span class="string">'out'</span>,</span><br><span class="line"> <span class="string">'xtick.major.size'</span>: <span class="number">0.0</span>,</span><br><span class="line"> <span class="string">'xtick.minor.size'</span>: <span class="number">0.0</span>,</span><br><span class="line"> <span class="string">'ytick.color'</span>: <span class="string">'.15'</span>,</span><br><span class="line"> <span class="string">'ytick.direction'</span>: <span class="string">'out'</span>,</span><br><span class="line"> <span class="string">'ytick.major.size'</span>: <span class="number">0.0</span>,</span><br><span class="line"> <span class="string">'ytick.minor.size'</span>: <span class="number">0.0</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或许，你可以试试不同种类的参数效果<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.set_style(<span class="string">"darkgrid"</span>, &#123;<span class="string">"axes.facecolor"</span>: <span class="string">".9"</span>&#125;)</span><br><span class="line">sinplot()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic9.png" alt="pic9"><br>通过 plotting_context() 和 set_context() 调整绘图元素<br>另一组参数控制绘图元素的规模，这应该让您使用相同的代码来制作适合在较大或较小的情节适当的场景中使用的情节。</p>
+<p>首先，可以通过sns.set()重置参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.set()</span><br></pre></td></tr></table></figure>
+<p>四种预设，按相对尺寸的顺序(线条越来越粗)，分别是paper，notebook, talk, and poster。notebook的样式是默认的，上面的绘图都是使用默认的notebook预设。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sns.set_context(<span class="string">"paper"</span>)</span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>,<span class="number">6</span>))</span><br><span class="line">sinplot()</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># default 默认设置</span></span><br><span class="line">sns.set_context(<span class="string">"notebook"</span>)</span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>,<span class="number">6</span>))</span><br><span class="line">sinplot()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sns.set_context(<span class="string">"talk"</span>)</span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>,<span class="number">6</span>))</span><br><span class="line">sinplot()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sns.set_context(<span class="string">"poster"</span>)</span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>,<span class="number">6</span>))</span><br><span class="line">sinplot()</span><br></pre></td></tr></table></figure>
+<p>通过观察各种样式的结果，你应当可以了解context函数</p>
+<p>类似的，还可以使用其中一个名称来调用set_context()来设置参数，您可以通过提供参数值的字典来覆盖参数。<br>通过更改context还可以独立地扩展字体元素的大小。(这个选项也可以通过顶级set()函数获得）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.set_context(<span class="string">"notebook"</span>, font_scale=<span class="number">1.5</span>, rc=&#123;<span class="string">"lines.linewidth"</span>: <span class="number">2.5</span>&#125;)</span><br><span class="line">sinplot()</span><br></pre></td></tr></table></figure>
+<p>类似地(尽管它可能用处不大)，也可以使用with嵌套语句进行临时的设置。<br>样式和上下文都可以用set()函数快速地进行配置。这个函数还设置了默认的颜色选项，在下一节将详细介绍这一功能。</p>
+<h2 id="斑驳陆离的调色板"><a href="#斑驳陆离的调色板" class="headerlink" title="斑驳陆离的调色板"></a>斑驳陆离的调色板</h2><p>颜色显然比图形风格的其他方面都更加重要，因为颜色使用得当就可以有效显示或隐藏数据中的特征。有许多的好资源都可以了解关于在可视化中使用颜色的技巧，推荐Rob Simmon的《series of blog posts》和这篇进阶的技术文章,matplotlib文档现在也有一个很好的教程，说明了如何在内置色彩映射中构建的一些感知特性。</p>
+<p>Seaborn让你更容易选择和使用那些适合你数据和视觉的颜色。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">sns.set(rc=&#123;<span class="string">"figure.figsize"</span>: (<span class="number">6</span>, <span class="number">6</span>)&#125;)</span><br><span class="line">np.random.seed(sum(map(ord, <span class="string">"palettes"</span>)))</span><br></pre></td></tr></table></figure></p>
+<p>通过color_palette()创建调色板<br>最重要的直接设置调色板的函数就是color_palette()。这个函数提供了许多（并非所有）在seaborn内生成颜色的方式。并且它可以用于任何函数内部的palette参数设置（在某些情况下当需要多种颜色时也可以传入到color参数）</p>
+<p>color_palette()允许任意的seaborn调色板或matplotlib的颜色映射（除了jet，你应该完全不使用它）。它还可以使用任何有效的matplotlib格式指定的颜色列表(RGB元组、十六进制颜色代码或HTML颜色名称)。返回值总是一个RGB元组的列表。</p>
+<p>最后，直接调用没有传入参数的color_palette()将返回默认的颜色循环。</p>
+<p>对应的函数set_palette()接受相同的参数，并为所有图设置默认的颜色循环。你也可以在with块中使用color_palette()来实现临时的更改调色板配置（下面有详细例子）。</p>
+<p>通常在不知道数据的具体特征的情况下不可能知道什么类型的调色板或颜色映射对于一组数据来说是最好的。因此，我们将用三种不同类型的调色板：分类色板、连续色板和离散色板，来区分和使用color_palette()函数。</p>
+<p>分类色板<br>分类色板（定性）是在区分没有固定顺序的数据时最好的选择。</p>
+<p>在导入seaborn库后，默认的颜色循环被更改为一组六种颜色。虽然这些颜色可能会让你想起matplotlib的标准颜色循环，但他们无疑更赏心悦目一些。</p>
+<h2 id="分布数据集的可视化"><a href="#分布数据集的可视化" class="headerlink" title="分布数据集的可视化"></a>分布数据集的可视化</h2><p>在处理一组数据时，通常首先要做的是了解变量是如何分布的。这一章将简要介绍seborn中用于检查单变量和双变量分布的一些工具。你可能还想看看分类变量的章节，来看看函数的例子，这些函数让我们很容易比较变量的分布。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> stats, integrate</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">sns.set(color_codes=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">np.random.seed(sum(map(ord, <span class="string">"distributions"</span>)))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>单变量分布<br>最方便的方式是快速查看单变量分布无疑是使用distplot()函数。默认情况下，这将绘制一个直方图，并拟合出核密度估计(KDE)。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.random.normal(size=<span class="number">100</span>)</span><br><span class="line">sns.distplot(x);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic10.png" alt="pic10"></p>
+<ul>
+<li>直方图<br>直方图应当是非常熟悉的函数了，在matplotlib中就存在hist函数。直方图通过在数据的范围内切成数据片段，然后绘制每个数据片段中的观察次数，来表示整体数据的分布。<br>为了说明这一点，我们删除密度曲线并添加了地毯图，每个观察点绘制一个小的垂直刻度。您可以使用rugplot()函数来制作地毯图，但它也可以在distplot()中使用：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.distplot(x, kde=<span class="keyword">False</span>, rug=<span class="keyword">True</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic11.png" alt="pic11"><br>绘制直方图时，主要的选择是使用切分数据片段的数量或在何位置切分数据片段。 distplot()使用一个简单的规则来很好地猜测并给予默认的切分数量，但尝试更多或更少的数据片段可能会显示出数据中的其他特征：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.distplot(x, bins=<span class="number">20</span>, kde=<span class="keyword">False</span>, rug=<span class="keyword">True</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic12.png" alt="pic12"></p>
+<ul>
+<li>核密度估计(KDE) Kernel density estimaton<br>或许你对核密度估计可能不像直方图那么熟悉，但它是绘制分布形状的有力工具。如同直方图一样，KDE图会对一个轴上的另一轴的高度的观测密度进行描述：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.distplot(x, hist=<span class="keyword">False</span>, rug=<span class="keyword">True</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic13.png" alt="pic13"><br>绘制KDE比绘制直方图更有计算性。所发生的是，每一个观察都被一个以这个值为中心的正态（ 高斯）曲线所取代。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">x = np.random.normal(<span class="number">0</span>, <span class="number">1</span>, size=<span class="number">30</span>)</span><br><span class="line">bandwidth = <span class="number">1.06</span> * x.std() * x.size ** (<span class="number">-1</span> / <span class="number">5.</span>)</span><br><span class="line">support = np.linspace(<span class="number">-4</span>, <span class="number">4</span>, <span class="number">200</span>)</span><br><span class="line"></span><br><span class="line">kernels = []</span><br><span class="line"><span class="keyword">for</span> x_i <span class="keyword">in</span> x:</span><br><span class="line"></span><br><span class="line">    kernel = stats.norm(x_i, bandwidth).pdf(support)</span><br><span class="line">    kernels.append(kernel)</span><br><span class="line">    plt.plot(support, kernel, color=<span class="string">"r"</span>)</span><br><span class="line"></span><br><span class="line">sns.rugplot(x, color=<span class="string">".2"</span>, linewidth=<span class="number">3</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic14.png" alt="pic14"><br>接下来，这些曲线可以用来计算支持网格中每个点的密度值。得到的曲线再用归一化使得它下面的面积等于1:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">density = np.sum(kernels, axis=<span class="number">0</span>)</span><br><span class="line">density /= integrate.trapz(density, support)</span><br><span class="line">plt.plot(support, density);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic15.png" alt="pic15"><br>我们可以看到，如果我们在seaborn中使用kdeplot()函数，我们得到相同的曲线。 这个函数由distplot()使用，但是当您只想要密度估计时，它提供了一个更直接的界面，更容易访问其他选项：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.kdeplot(x, shade=<span class="keyword">True</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic16.png" alt="pic16"><br>KDE的带宽bandwidth（bw）参数控制估计对数据的拟合程度，与直方图中的bin(数据切分数量参数)大小非常相似。 它对应于我们上面绘制的内核的宽度。 默认中会尝试使用通用引用规则猜测一个适合的值，但尝试更大或更小的值可能会有所帮助：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sns.kdeplot(x)</span><br><span class="line">sns.kdeplot(x, bw=<span class="number">.2</span>, label=<span class="string">"bw: 0.2"</span>)</span><br><span class="line">sns.kdeplot(x, bw=<span class="number">2</span>, label=<span class="string">"bw: 2"</span>)</span><br><span class="line">plt.legend();</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic17.png" alt="pic17"><br>如上所述，高斯KDE过程的性质意味着估计延续了数据集中最大和最小的值。 可以通过cut参数来控制绘制曲线的极值值的距离; 然而，这只影响曲线的绘制方式，而不是曲线如何拟合：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.kdeplot(x, shade=<span class="keyword">True</span>, cut=<span class="number">0</span>)</span><br><span class="line">sns.rugplot(x);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic18.png" alt="pic18"></p>
+<ul>
+<li>拟合参数分布<br>还可以使用distplot()将参数分布拟合到数据集，并可视化地评估其与观察数据的对应关系：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.random.gamma(<span class="number">6</span>, size=<span class="number">200</span>)</span><br><span class="line">sns.distplot(x, kde=<span class="keyword">False</span>, fit=stats.gamma);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic19.png" alt="pic19"></p>
+<ul>
+<li>绘制双变量分布<br>在绘制两个变量的双变量分布也是有用的。在seaborn中这样做的最简单的方法就是在jointplot()函数中创建一个多面板数字，显示两个变量之间的双变量（或联合）关系以及每个变量的单变量（或边际）分布和轴。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mean, cov = [<span class="number">0</span>, <span class="number">1</span>], [(<span class="number">1</span>, <span class="number">.5</span>), (<span class="number">.5</span>, <span class="number">1</span>)]</span><br><span class="line">data = np.random.multivariate_normal(mean, cov, <span class="number">200</span>)</span><br><span class="line">df = pd.DataFrame(data, columns=[<span class="string">"x"</span>, <span class="string">"y"</span>])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic20.png" alt="pic20"></p>
+<ul>
+<li><p>散点图<br>双变量分布的最熟悉的可视化方式无疑是散点图，其中每个观察结果以x和y值表示。这是两个方面的地毯图。可以使用matplotlib中的plt.scatter函数绘制散点图，它也是jointplot()函数显示的默认方式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.jointplot(x=<span class="string">"x"</span>, y=<span class="string">"y"</span>, data=df);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>HexBin图<br>直方图的双变量类似物被称为“hexbin”图，因为它显示了落在六边形仓内的观测数。该图适用于较大的数据集。通过matplotlib plt.hexbin函数和jointplot()中的样式可以实现。 它最好使用白色背景：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x, y = np.random.multivariate_normal(mean, cov, <span class="number">1000</span>).T</span><br><span class="line"><span class="keyword">with</span> sns.axes_style(<span class="string">"white"</span>):</span><br><span class="line">    sns.jointplot(x=x, y=y, kind=<span class="string">"hex"</span>, color=<span class="string">"k"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic21.png" alt="pic21"></p>
+<ul>
+<li>核密度估计<br>使用上述内核密度估计程序可视化双变量分布也是可行的。在seaborn中，这种图用等高线图显示，可以在jointplot()中作为样式传入参数使用：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.jointplot(x=<span class="string">"x"</span>, y=<span class="string">"y"</span>, data=df, kind=<span class="string">"kde"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic22.png" alt="pic22"><br>还可以使用kdeplot()函数绘制二维核密度图。这样可以将这种绘图绘制到一个特定的（可能已经存在的）matplotlib轴上，而jointplot()函数只能管理自己：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">f, ax = plt.subplots(figsize=(<span class="number">6</span>, <span class="number">6</span>))</span><br><span class="line">sns.kdeplot(df.x, df.y, ax=ax)</span><br><span class="line">sns.rugplot(df.x, color=<span class="string">"g"</span>, ax=ax)</span><br><span class="line">sns.rugplot(df.y, vertical=<span class="keyword">True</span>, ax=ax);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic23.png" alt="pic23"><br>如果是希望更连续地显示双变量密度，您可以简单地增加n_levels参数增加轮廓级数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f, ax = plt.subplots(figsize=(<span class="number">6</span>, <span class="number">6</span>))</span><br><span class="line">cmap = sns.cubehelix_palette(as_cmap=<span class="keyword">True</span>, dark=<span class="number">0</span>, light=<span class="number">1</span>, reverse=<span class="keyword">True</span>)</span><br><span class="line">sns.kdeplot(df.x, df.y, cmap=cmap, n_levels=<span class="number">60</span>, shade=<span class="keyword">True</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic24.png" alt="pic24"><br>jointplot()函数使用JointGrid来管理。为了获得更多的灵活性，您可能需要直接使用JointGrid绘制图形。jointplot()在绘制后返回JointGrid对象，您可以使用它来添加更多图层或调整可视化的其他方面：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">g = sns.jointplot(x=<span class="string">"x"</span>, y=<span class="string">"y"</span>, data=df, kind=<span class="string">"kde"</span>, color=<span class="string">"m"</span>)</span><br><span class="line">g.plot_joint(plt.scatter, c=<span class="string">"w"</span>, s=<span class="number">30</span>, linewidth=<span class="number">1</span>, marker=<span class="string">"+"</span>)</span><br><span class="line">g.ax_joint.collections[<span class="number">0</span>].set_alpha(<span class="number">0</span>)</span><br><span class="line">g.set_axis_labels(<span class="string">"$X$"</span>, <span class="string">"$Y$"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic25.png" alt="pic25"></p>
+<ul>
+<li>呈现数据集中成对的关系<br>要在数据集中绘制多个成对双变量分布，可以使用pairplot()函数。这将创建一个轴的矩阵，并显示DataFrame中每对列的关系。默认情况下，它也绘制每个变量在对角轴上的单变量：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iris = sns.load_dataset(<span class="string">"iris"</span>)</span><br><span class="line">sns.pairplot(iris);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic26.png" alt="pic26"><br>对于jointplot()和JointGrid之间的关系，pairplot()函数是建立在一个PairGrid对象上的，可以直接使用它来获得更大的灵活性：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g = sns.PairGrid(iris)</span><br><span class="line">g.map_diag(sns.kdeplot)</span><br><span class="line">g.map_offdiag(sns.kdeplot, cmap=<span class="string">"Blues_d"</span>, n_levels=<span class="number">6</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic27.png" alt="pic27"></p>
+<h2 id="线性关系的可视化"><a href="#线性关系的可视化" class="headerlink" title="线性关系的可视化"></a>线性关系的可视化</h2><p>这章介绍的针对回归类型的散点数据的可视化可能是未来机器学习最直接的助理，这章给我的感悟很多。</p>
+<p>许多数据集包含多个定量变量，分析的目的通常是将这些变量相互关联起来。 我们以前讨论过可以通过显示两个变量的联合分布来实现的功能。 然而，使用统计模型来估计两个噪声观测组之间的简单关系可能是非常有帮助的。 本章讨论的功能将通过线性回归的通用框架进行。</p>
+<p>在Tukey的精神中，Seaborn的回归图主要是为了添加一个视觉指南，有助于在探索性数据分析期间强调数据集中的模式。 也就是说，Seaborn本身并不是统计分析的一揽子计划。 要获得与回归模型拟合相关的量化措施，您应该使用statsmodels。 然而，Seaborn的目标是通过可视化快速，轻松地探索数据集，使之变得与通过统计表格来探索数据集一样重要（如果不是更重要的话）。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">sns.set(color_codes=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">np.random.seed(sum(map(ord, <span class="string">"regression"</span>)))</span><br><span class="line"></span><br><span class="line">tips = sns.load_dataset(<span class="string">"tips"</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>绘制线性回归模型的函数</li>
+</ul>
+<p>使用Seaborn中的两个主要功能可视化通过回归确定的线性关系。这些函数regplot()和lmplot()是密切相关的，并且共享了大部分的核心功能。然而，了解他们不同的方式很重要，以便您可以快速为特定工作选择正确的工具。</p>
+<p>在最简单的调用中，两个函数绘制了两个变量x和y的散点图，然后拟合回归模型y〜x并绘制了该回归线的结果回归线和95％置信区间：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.regplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, data=tips);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic28.png" alt="pic28"><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, data=tips);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic29.png" alt="pic29"></p>
+<p>很显然，所得到的的图的结果是相同的，除了图形形状略有些不同，这里会简短的解释。</p>
+<p>目前，要知道的另一个主要区别是regplot()以各种格式接受x和y变量，包括numpy数组、Pandas的Series列或DataFrame对象的变量引用；不一样的是，lmplot()将数据集作为一个必需的参数，而x和y变量必须指定为字符串。这种数据格式称为“长格式”或“整洁”数据。除了这种输入灵活性，regplot()可以看做是拥有lmplot()特征的子集，所以后面将使用后者进行演示。</p>
+<p>备注：<br>这里官方的例子实际上并不好，比较容易的理解方式是：上面的结果可以在regplot()函数中通过只传入x和y绘出：sns.regplot(x=tips[“total_bill”], y=tips[“tip”])；而相应的sns.lmplot(x=tips[“total_bill”], y=tips[“tip”])这种写法就会报错，因为数据集data是lmplot()的必传参数。</p>
+<p>当其中一个变量取值为离散型的时候，可以拟合一个线性回归。然而，这种数据集生成的简单散点图通常不是最优的：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tips.head()</span><br><span class="line"></span><br><span class="line">  total_bill  tip   sex   smoker  day   time  size  big_tip</span><br><span class="line"><span class="number">0</span>   <span class="number">16.99</span>   <span class="number">1.01</span>  Female  No  Sun   Dinner  <span class="number">2</span>   <span class="keyword">False</span></span><br><span class="line"><span class="number">1</span>   <span class="number">10.34</span>   <span class="number">1.66</span>  Male  No  Sun   Dinner  <span class="number">3</span>   <span class="keyword">True</span></span><br><span class="line"><span class="number">2</span>   <span class="number">21.01</span>   <span class="number">3.50</span>  Male  No  Sun   Dinner  <span class="number">3</span>   <span class="keyword">True</span></span><br><span class="line"><span class="number">3</span>   <span class="number">23.68</span>   <span class="number">3.31</span>  Male  No  Sun   Dinner  <span class="number">2</span>   <span class="keyword">False</span></span><br><span class="line"><span class="number">4</span>   <span class="number">24.59</span>   <span class="number">3.61</span>  Female  No  Sun   Dinner  <span class="number">4</span>   <span class="keyword">False</span></span><br><span class="line">sns.lmplot(data=tips,x=<span class="string">"size"</span>,y=<span class="string">"tip"</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic30.png" alt="pic30"><br>个常用的方法是为离散值添加一些随机噪声的“抖动”(jitter)，使得这些值的分布更加明晰。</p>
+<p>值得注意的是，抖动仅适用于散点图数据，且不会影响拟合的回归线本身<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"size"</span>, y=<span class="string">"tip"</span>, data=tips, x_jitter=<span class="number">.05</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic31.png" alt="pic31"><br>另一种选择是在每个独立的数据分组中对观察结果进行折叠，以绘制中心趋势的估计以及置信区间：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"size"</span>, y=<span class="string">"tip"</span>, data=tips, x_estimator=np.mean);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic32.png" alt="pic32"></p>
+<ul>
+<li>不同类型的模型拟合<br>上面使用的简单线性回归模型非常简单，但是，它不适用于某些种类的数据集。 Anscombe&#x27;s quartet数据集显示了一些简单线性回归提供了简单目视检查清楚显示差异的关系估计的例子。 例如，在第一种情况下，线性回归是一个很好的模型：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">anscombe = sns.load_dataset(<span class="string">"anscombe"</span>)</span><br><span class="line">sns.lmplot(x=<span class="string">"x"</span>, y=<span class="string">"y"</span>, data=anscombe.query(<span class="string">"dataset == 'I'"</span>),</span><br><span class="line">           ci=<span class="keyword">None</span>, scatter_kws=&#123;<span class="string">"s"</span>: <span class="number">80</span>&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic33.png" alt="pic33"><br>第二个数据集中的线性关系是一样的，但是基本清楚地表明这不是一个好的模型：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"x"</span>, y=<span class="string">"y"</span>, data=anscombe.query(<span class="string">"dataset == 'II'"</span>),</span><br><span class="line">           ci=<span class="keyword">None</span>, scatter_kws=&#123;<span class="string">"s"</span>: <span class="number">80</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic34.png" alt="pic34"><br>在存在这些高阶关系的情况下，lmplot()和regplot()可以拟合多项式回归模型来拟合数据集中的简单类型的非线性趋势：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"x"</span>, y=<span class="string">"y"</span>, data=anscombe.query(<span class="string">"dataset == 'II'"</span>),</span><br><span class="line">           order=<span class="number">2</span>, ci=<span class="keyword">None</span>, scatter_kws=&#123;<span class="string">"s"</span>: <span class="number">80</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic35.png" alt="pic35"><br>除了正在研究的主要关系之外，“异常值”观察还有一个不同的问题，它们由于某种原因而偏离了主要关系：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"x"</span>, y=<span class="string">"y"</span>, data=anscombe.query(<span class="string">"dataset == 'III'"</span>),</span><br><span class="line">           ci=<span class="keyword">None</span>, scatter_kws=&#123;<span class="string">"s"</span>: <span class="number">80</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic36.png" alt="pic36"><br>在有异常值的情况下，它可以使用不同的损失函数来减小相对较大的残差，拟合一个健壮的回归模型，传入robust=True：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"x"</span>, y=<span class="string">"y"</span>, data=anscombe.query(<span class="string">"dataset == 'III'"</span>),</span><br><span class="line">           robust=<span class="keyword">True</span>, ci=<span class="keyword">None</span>, scatter_kws=&#123;<span class="string">"s"</span>: <span class="number">80</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic37.png" alt="pic37"><br>当y变量是二进制时，简单的线性回归也“工作”了，但提供了不可信的预测结果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tips[<span class="string">"big_tip"</span>] = (tips.tip / tips.total_bill) &gt; <span class="number">.15</span></span><br><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"big_tip"</span>, data=tips,</span><br><span class="line">           y_jitter=<span class="number">.03</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic38.png" alt="pic38"><br>在这种情况下，解决方案是拟合逻辑(Logistic)回归，使得回归线显示给定值x的y=1的估计概率：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"big_tip"</span>, data=tips,</span><br><span class="line">           logistic=<span class="keyword">True</span>, y_jitter=<span class="number">.03</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic39.png" alt="pic39"><br>请注意，逻辑回归估计比简单回归计算密集程度（Robust回归也是如此），并且由于使用引导程序计算回归线周围的置信区间，您可能希望将其关闭获得更快的迭代速度（使用参数ci=None）。</p>
+<p>一个完全不同的方法是使用一个lowess smoother拟合非参数回归。 这种方法具有最少的假设，尽管它是计算密集型的，因此目前根本不计算置信区间：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, data=tips,</span><br><span class="line">           lowess=<span class="keyword">True</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic40.png" alt="pic40"><br>residplot()是一个有用的工具，用于检查简单的回归模型是否拟合数据集。它拟合并移除一个简单的线性回归，然后绘制每个观察值的残差值。 理想情况下，这些值应随机散布在y = 0附近：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.residplot(x=<span class="string">"x"</span>, y=<span class="string">"y"</span>, data=anscombe.query(<span class="string">"dataset == 'I'"</span>),</span><br><span class="line">              scatter_kws=&#123;<span class="string">"s"</span>: <span class="number">80</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic41.png" alt="pic41"><br>如果残差中有结构，则表明简单的线性回归是不合适的：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.residplot(x=<span class="string">"x"</span>, y=<span class="string">"y"</span>, data=anscombe.query(<span class="string">"dataset == 'II'"</span>),</span><br><span class="line">              scatter_kws=&#123;<span class="string">"s"</span>: <span class="number">80</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic42.png" alt="pic42"></p>
+<ul>
+<li>调节其他变量<br>上面的图表显示了许多方法来探索一对变量之间的关系。然而，通常，一个更有趣的问题是“这两个变量之间的关系如何作为第三个变量的函数而变化？”这是regplot()和lmplot()之间的区别。 虽然regplot()总是显示单个关系，lmplot()将regplot()与FacetGrid结合在一起，提供了一个简单的界面，可以在“faceted”图上显示线性回归，从而允许您探索与多达三个其他类别变量的交互。</li>
+</ul>
+<p>分类关系的最佳方式是绘制相同轴上的两个级别，并使用颜色来区分它们：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, hue=<span class="string">"smoker"</span>, data=tips);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic43.png" alt="pic43"><br>除了颜色之外，还可以使用不同的散点图标记来使黑色和白色的图像更好地绘制。 您还可以完全控制所用的颜色：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, hue=<span class="string">"smoker"</span>, data=tips,</span><br><span class="line">           markers=[<span class="string">"o"</span>, <span class="string">"x"</span>], palette=<span class="string">"Set1"</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic44.png" alt="pic44"><br>要添加另一个变量，您可以绘制多个“facet”，每个级别的变量出现在网格的行或列中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, hue=<span class="string">"smoker"</span>, col=<span class="string">"time"</span>, data=tips);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic45.png" alt="pic45"><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, hue=<span class="string">"smoker"</span>,</span><br><span class="line">           col=<span class="string">"time"</span>, row=<span class="string">"sex"</span>, data=tips);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic46.png" alt="pic46"></p>
+<ul>
+<li>控制绘制的大小和形状<br>在我们注意到由regplot()和lmplot()创建的默认绘图看起来是一样的，但在轴上却具有不同大小和形状。 这是因为func：regplot是一个“轴级”功能绘制到特定的轴上。 这意味着您可以自己制作多面板图形，并精确控制回归图的位置。 如果没有提供轴，它只需使用“当前活动的”轴，这就是为什么默认绘图与大多数其他matplotlib函数具有相同的大小和形状的原因。要控制大小，您需要自己创建一个图形对象。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f, ax = plt.subplots(figsize=(<span class="number">5</span>, <span class="number">6</span>))</span><br><span class="line">sns.regplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, data=tips, ax=ax);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic47.png" alt="pic47"><br>相反，lmplot()图的大小和形状通过FacetGrid界面使用size和aspect参数进行控制，这些参数适用于每个图中的设置，而不是整体图形：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, col=<span class="string">"day"</span>, data=tips,</span><br><span class="line">           col_wrap=<span class="number">2</span>, size=<span class="number">3</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic48.png" alt="pic48"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, col=<span class="string">"day"</span>, data=tips,</span><br><span class="line">           aspect=<span class="number">.5</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic49.png" alt="pic49"></p>
+<ul>
+<li>在其他背景下绘制回归<br>另外一些Seaborn函数在更大，更复杂的绘制中使用regplot()。 第一个是在上一章分布介绍的jointplot()函数。 除了前面讨论的绘图样式之外，jointplot()可以使用regplot()通过传递kind =”reg”来显示关节轴上的线性回归拟合：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.jointplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"tip"</span>, data=tips, kind=<span class="string">"reg"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic50.png" alt="pic50"><br>使用kind=”reg”的pairplot()函数结合了regplot()和PairGrid来显示数据集中变量之间的线性关系。 注意这是不同于lmplot()的。 在下图中，两轴在第三个变量的两个级别上不显示相同的关系; 相反，PairGrid()用于显示数据集中变量的不同配对之间的多个关系：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.pairplot(tips, x_vars=[<span class="string">"total_bill"</span>, <span class="string">"size"</span>], y_vars=[<span class="string">"tip"</span>],</span><br><span class="line">             size=<span class="number">5</span>, aspect=<span class="number">.8</span>, kind=<span class="string">"reg"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic51.png" alt="pic51"><br>类似lmplot()，但不同于jointplot()，使用hue参数在pairplot()中内置了一个附加分类变量的条件：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.pairplot(tips, x_vars=[<span class="string">"total_bill"</span>, <span class="string">"size"</span>], y_vars=[<span class="string">"tip"</span>],</span><br><span class="line">             hue=<span class="string">"smoker"</span>, size=<span class="number">5</span>, aspect=<span class="number">.8</span>, kind=<span class="string">"reg"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic52.png" alt="pic52"></p>
+<h2 id="分类数据的绘制"><a href="#分类数据的绘制" class="headerlink" title="分类数据的绘制"></a>分类数据的绘制</h2><p>我们之前探讨了如何使用散点图和回归模型拟合来可视化两个变量之间的关系，以及如何在其他分类变量的层次之间进行展示。 当然，还有一大类问题就是分类数据的问题了？ 在这种情况下，散点图和回归模型方法将不起作用。当然，有几个观察可视化这种关系的选择，我们将在本章中讨论。</p>
+<p>非常实用的方法是将Seaborn的分类图分为三类，将分类变量每个级别的每个观察结果显示出来，显示每个观察分布的抽象表示，以及应用统计估计显示的权重趋势和置信区间：</p>
+<ul>
+<li>第一个包括函数swarmplot()和stripplot()</li>
+<li>第二个包括函数boxplot()和violinplot()</li>
+<li>第三个包括函数barplot()和pointplt()</li>
+</ul>
+<p>在了解他们如何接受数据传入方面，尽管每个参数都聚有控制应用于该数据可视化细节的特定参数，但这些功能都共享一个基本的API。</p>
+<p>这与之前的regplot()和lmplot()的关系非常相似（备注：在seaborn的构架中很容易分成这样两类用途相似，使用有所差异的替代方案函数）。在Seaborn中，相对低级别和相对高级别的方法用于定制分类数据的绘制图，上面列出的函数都是低级别的，他们绘制在特定的matplotlib轴上。还有更高级别的factorplot()（备注：这是一个非常简明的快速绘制函数，具体用法会在最后有详细介绍），它将这些功能与FacetGrid结合，以便在面板的网格中应用分类图像。</p>
+<p>使用“整洁”格式的DataFrame调用这些函数是最简单和最好的，尽管较低级别的函数也接受宽形式的DataFrames或简单的观察向量。见下面的例子。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">sns.set(style=<span class="string">"whitegrid"</span>, color_codes=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">np.random.seed(sum(map(ord, <span class="string">"categorical"</span>)))</span><br><span class="line">titanic = sns.load_dataset(<span class="string">"titanic"</span>)</span><br><span class="line">tips = sns.load_dataset(<span class="string">"tips"</span>)</span><br><span class="line">iris = sns.load_dataset(<span class="string">"iris"</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>分类散点图<br>显示分类变量级别中某些定量变量的值的一种简单方法使用stripplot()，它会将分散图概括为其中一个变量是分类的：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.stripplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, data=tips);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic53.png" alt="pic53"><br>在条纹图中，散点图通常将重叠。这使得很难看到数据的完整分布。一个简单的解决方案是使用一些随机的“抖动”调整位置（仅沿着分类轴）<br>备注：抖动是平时可视化中的常用的观察“密度”的方法，除了使用参数抖动，特定的抖动需求也可以用numpy在数据上处理实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.stripplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, data=tips, jitter=<span class="keyword">True</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic54.png" alt="pic54"><br>不同的方法是使用函数swarmplot()，它使用避免重叠点的算法将分类轴上的每个散点图点定位：<br>备注：道理上，即使抖动还是会有重叠的可能，所以这种方法可能更好<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.swarmplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, data=tips);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic55.png" alt="pic55"><br>当然也可以传入hue参数添加多个嵌套的分类变量。高于分类轴上的颜色和位置时冗余的，现在每个都提供有两个变量之一的信息：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.swarmplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, hue=<span class="string">"sex"</span>,data=tips);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic56.png" alt="pic56"><br>一般来说，Seaborn分类绘图功能试图从数据中推断类别的顺序。 如果您的数据有一个pandas分类数据类型，那么类别的默认顺序可以在那里设置。 对于其他数据类型，字符串类型的类别将按照它们在DataFrame中显示的顺序进行绘制，但是数组类别将被排序：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.swarmplot(x=<span class="string">"size"</span>, y=<span class="string">"total_bill"</span>, data=tips);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic57.png" alt="pic57"><br>使用这些图，将分类变量放在垂直轴上是非常有用的（当类别名称相对较长或有很多类别时，这一点特别有用）。 您可以使用orient关键字强制定向，但通常可以从传递给x和/或y的变量的数据类型推断绘图方向：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.swarmplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"day"</span>, hue=<span class="string">"time"</span>, data=tips);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic58.png" alt="pic58"></p>
+<ul>
+<li>分类内的观测分布<br>分类散点图固然简单实用，但在某些特定的的情况下，他们可以提供的值的分布信息会变得及其有限（并不明晰）。 有几种方式可以方便的解决这个问题，在类别之间进行简单比较并汇总信息，我们快速讨论并比较一些适合这类数据观测的函数。</li>
+<li>箱线图<br>第一个是熟悉的boxplot()。这种图形显示了分布的三个四分位值与极值。“晶须”延伸到低于和低四分位数的1.5 IQR内的点，然后独立显示落在该范围之外的观测值。 重要的是，这意味着boxplot中的每个值的显示都对应于数据中的实际观察值：</li>
+</ul>
+<p>IQR即统计学概念四分位距，第一四分位与第三四分位之间的距离，具体内容请参考更深入的相关资料</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.boxplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, hue=<span class="string">"time"</span>, data=tips);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic59.png" alt="pic59"></p>
+<ul>
+<li>提琴图<br>不同的方法是一个violinplot()，它结合了箱体图和分布教程中描述的核心密度估计过程：<br>备注：核密度估计，即全文中提到的，或参数内传入的kde，具体概念内容请参考相关文档<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.violinplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"day"</span>, hue=<span class="string">"time"</span>, data=tips);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic60.png" alt="pic60"><br>这种方法使用核密度估计来更好地描述值的分布。此外，小提琴内还显示了箱体四分位数和晶须值。由于小提琴使用KDE，还有一些其他可以调整的参数，相对于简单的boxplot增加了一些复杂性：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.violinplot(x=<span class="string">"total_bill"</span>, y=<span class="string">"day"</span>, hue=<span class="string">"time"</span>, data=tips,</span><br><span class="line">               bw=<span class="number">.1</span>, scale=<span class="string">"count"</span>, scale_hue=<span class="keyword">False</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic61.png" alt="pic61"><br>当色调参数只有两个级别时，也可以传入参数split至violinplot()，这样可以更有效地利用空间：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.violinplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, hue=<span class="string">"sex"</span>, data=tips, split=<span class="keyword">True</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic62.png" alt="pic62"><br>最后，在绘制提琴图的时候有几个选项，包括显示每个人的观察结果而不是总结框图值的方法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.violinplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, hue=<span class="string">"sex"</span>, data=tips,</span><br><span class="line">               split=<span class="keyword">True</span>, inner=<span class="string">"stick"</span>, palette=<span class="string">"Set3"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic63.png" alt="pic63"><br>将swarmplot()或者swarmplot()与violinplot()或boxplot()结合使用可以显示每个观察结果以及分布的摘要：<br>备注：说实话，并不推荐这么做，过多的信息除了炫技没有什么实际用处。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.violinplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, data=tips, inner=<span class="keyword">None</span>)</span><br><span class="line">sns.swarmplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, data=tips, color=<span class="string">"w"</span>, alpha=<span class="number">.5</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic64.png" alt="pic64"></p>
+<ul>
+<li>类别内的统计估计<br>通常，不是显示每个类别中的分布，你可能希望显示值的集中趋势。 Seaborn有两种显示此信息的主要方法，但重要的是，这些功能的基本API与上述相同。</li>
+<li>条形图<br>最熟悉的方式完成这个目标是一个条形图。 在Seaborn中barplot()函数在完整数据集上运行，并显示任意估计，默认情况下使用均值。 当在每个类别中有多个观察值时，它还使用引导来计算估计周围的置信区间，并绘制使用误差条：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.barplot(x=<span class="string">"sex"</span>, y=<span class="string">"survived"</span>, hue=<span class="string">"class"</span>, data=titanic);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic65.png" alt="pic65"><br>条形图的特殊情况是当您想要显示每个类别中的观察次数，而不是计算第二个变量的统计量。这类似于分类而不是定量变量的直方图。在Seaborn中，使用countplot()函数很容易绘制：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.countplot(x=<span class="string">"deck"</span>, data=titanic, palette=<span class="string">"Greens_d"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic66.png" alt="pic66"><br>可以使用上面讨论的所有选项来调用barplot()和countplot()，以及在每个函数的详细文档中的其他选项：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.countplot(y=<span class="string">"deck"</span>, hue=<span class="string">"class"</span>, data=titanic, palette=<span class="string">"Greens_d"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic67.png" alt="pic67"></p>
+<ul>
+<li>点图<br>pointplot()函数提供了可视化相同信息的另一种风格。该函数还对另一轴的高度估计值进行编码，而不是显示一个完整的柱型，它只绘制点估计和置信区间。另外，点图连接相同hue类别的点。这使得很容易看出主要关系如何随着第二个变量的变化而变化，因为你的眼睛很好地收集斜率的差异：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.pointplot(x=<span class="string">"sex"</span>, y=<span class="string">"survived"</span>, hue=<span class="string">"class"</span>, data=titanic);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic68.png" alt="pic68"><br>为了使能够在黑白中重现的图形，可以使用不同的标记和线条样式来展示不同hue类别的层次:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sns.pointplot(x=<span class="string">"class"</span>, y=<span class="string">"survived"</span>, hue=<span class="string">"sex"</span>, data=titanic,</span><br><span class="line">              palette=&#123;<span class="string">"male"</span>: <span class="string">"g"</span>, <span class="string">"female"</span>: <span class="string">"m"</span>&#125;,</span><br><span class="line">              markers=[<span class="string">"^"</span>, <span class="string">"o"</span>], linestyles=[<span class="string">"-"</span>, <span class="string">"--"</span>]);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic69.png" alt="pic69"></p>
+<ul>
+<li>绘制“宽格式”数据</li>
+</ul>
+<p>虽然使用“长格式”或“整洁”数据是优选的，但是这些功能也可以应用于各种格式的“宽格式”数据，包括pandas DataFrame或二维numpy数组阵列。这些对象应该直接传递给数据参数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.boxplot(data=iris,orient=<span class="string">"h"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic70.png" alt="pic70"><br>此外，这些函数接受Pandas或numpy对象的向量，而不是DataFrame中的变量<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.violinplot(x=iris.species, y=iris.sepal_length);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic71.png" alt="pic71"><br>为了控制由上述功能制作的图形的大小和形状，您必须使用matplotlib命令自己设置图形。 当然，这也意味着这些图块可以和其他种类的图块一起在一个多面板的绘制中共存：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f, ax = plt.subplots(figsize=(<span class="number">7</span>, <span class="number">3</span>))</span><br><span class="line">sns.countplot(y=<span class="string">"deck"</span>, data=titanic, color=<span class="string">"c"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic72.png" alt="pic72"></p>
+<ul>
+<li>绘制多层面板分类图<br>正如我们上面提到的，有两种方法可以在Seaborn中绘制分类图。与回归图中的二元性相似，您可以使用上面介绍的函数，也可以使用更高级别的函数factorplot()，将这些函数与FacetGrid()相结合，通过这个图形的更大的结构来增加展示其他类别的能力。 默认情况下，factorplot()产生一个pairplot()：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.factorplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, hue=<span class="string">"smoker"</span>, data=tips);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic73.png" alt="pic73"><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.factorplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, hue=<span class="string">"smoker"</span>, data=tips, kind=<span class="string">"bar"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic74.png" alt="pic74"><br>使用factorplot()的主要优点是很容易调用”facet”展开更多其他分类变量：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.factorplot(x=<span class="string">"day"</span>, y=<span class="string">"total_bill"</span>, hue=<span class="string">"smoker"</span>,</span><br><span class="line">               col=<span class="string">"time"</span>, data=tips, kind=<span class="string">"swarm"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic75.png" alt="pic75"><br>任何一种图形都可以画出来。基于FacetGrid的工作原理，要更改图形的大小和形状，需要指定适用于每个方面的size和aspect参数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.factorplot(x=<span class="string">"time"</span>, y=<span class="string">"total_bill"</span>, hue=<span class="string">"smoker"</span>,</span><br><span class="line">               col=<span class="string">"day"</span>, data=tips, kind=<span class="string">"box"</span>, size=<span class="number">4</span>, aspect=<span class="number">.5</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic76.png" alt="pic76"><br>重要的是要注意，你也可以直接使用boxplot()和FacetGrid来制作这个图。但是，必须特别注意确保分类变量的顺序在每个方面实施，方法是使用具有Categorical数据类型的数据或通过命令和hue_order。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sns.factorplot(x=<span class="string">"time"</span>, y=<span class="string">"total_bill"</span>, hue=<span class="string">"smoker"</span>,hue_order=[<span class="string">"No"</span>,<span class="string">"Yes"</span>]</span><br><span class="line">               ,col=<span class="string">"day"</span>, data=tips, kind=<span class="string">"box"</span>, size=<span class="number">4</span>, aspect=<span class="number">.5</span>,</span><br><span class="line">              palette=<span class="string">"Set3"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic77.png" alt="pic77"><br>由于分类图的广义API，它们应该很容易应用于其他更复杂的上下文。 例如，它们可以轻松地与PairGrid结合，以显示多个不同变量之间的分类关系：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">g = sns.PairGrid(tips,</span><br><span class="line">                 x_vars=[<span class="string">"smoker"</span>, <span class="string">"time"</span>, <span class="string">"sex"</span>],</span><br><span class="line">                 y_vars=[<span class="string">"total_bill"</span>, <span class="string">"tip"</span>],</span><br><span class="line">                 aspect=<span class="number">.75</span>, size=<span class="number">3.5</span>)</span><br><span class="line">g.map(sns.violinplot, palette=<span class="string">"pastel"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic78.png" alt="pic78"></p>
+<h2 id="绘制数据网格"><a href="#绘制数据网格" class="headerlink" title="绘制数据网格"></a>绘制数据网格</h2><p>在探索中等维度数据时，一个有用的方法是在数据集的不同子集上绘制相同绘图的多个实例。这种技术有时被称为“格子”或“格子”绘图，它与“小倍数”的想法有关。 它允许观看者快速提取大量关于复杂数据的信息。 Matplotlib可以很好地支持制作具有多个轴的图形; seaborn建立在此之上，以将结构直接链接到数据集结构上进行绘制。</p>
+<p>要使用这些功能，您的数据必须位于Pandas DataFrame中，并且必须采用Hadley Whickam称为“整洁”数据的形式。 简而言之，这意味着您的数据框架应该被结构化，使得每一列都是一个变量，每一行都是一个观测。</p>
+<p>对于高级使用，您可以直接使用本教程本部分中讨论的对象，这将提供最大的灵活性。一些Seaborn功能（如lmplot()，factorplot()和pairplot()）也在幕后使用。与其他Seaborn功能“Axes级别”不同，并且绘制在特定（可能已经存在的）matplotlib轴上，而无需其他操作的图形，这些较高级别的功能在调用时创建一个数字，并且通常更严格地说明如何设置。在某些情况下，对于这些函数或其依赖的类的构造函数的参数将提供与图形大小不同的接口属性，如lmplot()的情况，您可以在其中设置每个方面的高度和纵横比而不是整体尺寸。使用这些对象之一的任何函数总是在绘制之后返回，而且这些对象中的大多数都具有方便的方法来改变绘制，通常以更抽象和简单的方式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> stats</span><br><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">sns.set(style=<span class="string">"ticks"</span>)</span><br><span class="line">np.random.seed(sum(map(ord, <span class="string">"axis_grids"</span>)))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用FacetGrid子集数据<br>当您想要在数据集的子集内可视化变量的分布或多个变量之间的关系时，FacetGrid类很有用。 FacetGrid可以绘制最多三个维度：row，col和hue。前两者与所得轴数有明显的对应关系;将hue变量视为沿着深度轴的第三维，其中不同的级别用不同的颜色绘制。</li>
+</ul>
+<p>通过使用数据框初始化FacetGrid对象和将形成网格的行，列或色调维度的变量的名称来使用该类。 这些变量应该是分类的或离散的，然后变量的每个级别的数据将用于沿该轴的小平面。 例如，假设我们要检查tips数据集中的午餐和晚餐之间的差异。</p>
+<p>另外，lmplot()和factorplot()在内部使用这个对象，并且当它们被修改时，它们返回该对象，以便可以用于进一步的调整。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tips = sns.load_dataset(<span class="string">"tips"</span>)</span><br><span class="line">tips.head()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, col=<span class="string">"time"</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic79.png" alt="pic79"><br>像这样初始化网格设置了matplotlib图形和轴，但并没有绘制任何东西。</p>
+<p>在此网格上可视化数据的主要方法是使用FacetGrid.map()方法，提供一个绘图功能和数据框中变量的名称来绘制。我们来看一下这些子集中提示的分布，使用直方图。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, col=<span class="string">"time"</span>)</span><br><span class="line">g.map(plt.hist, <span class="string">"tip"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic80.png" alt="pic80"><br>此功能将绘制图形并注释轴，并在一个步骤中生成完成。 要做一个关系图，只需传递多个变量名。可以提供关键字参数，将其传递给绘图功能：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, col=<span class="string">"sex"</span>, hue=<span class="string">"smoker"</span>)</span><br><span class="line">g.map(plt.scatter, <span class="string">"total_bill"</span>, <span class="string">"tip"</span>, alpha=<span class="number">.7</span>)</span><br><span class="line">g.add_legend();</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic81.png" alt="pic81"><br>有几个选项可以控制可以传递给类构造函数的网格的外观。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, row=<span class="string">"smoker"</span>, col=<span class="string">"time"</span>, margin_titles=<span class="keyword">True</span>)</span><br><span class="line">g.map(sns.regplot, <span class="string">"size"</span>, <span class="string">"total_bill"</span>, color=<span class="string">".3"</span>, fit_reg=<span class="keyword">False</span>, x_jitter=<span class="number">.1</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic82.png" alt="pic82"><br>请注意，matplotlib API没有正式支持margin_titles，并且在所有情况下都可能无法正常运行。 特别是，它目前不能用于图形之外的注释框。</p>
+<p>通过提供每个图形的高度以及纵横比来达到设置图形大小的目的<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, col=<span class="string">"day"</span>, size=<span class="number">4</span>, aspect=<span class="number">.5</span>)</span><br><span class="line">g.map(sns.barplot, <span class="string">"sex"</span>, <span class="string">"total_bill"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic83.png" alt="pic83"><br>在matplotlib大于1.4的版本中，可以传递在gridspec模块中的参数，增加其尺寸来吸引注意力。当然，在每个方面可视化不同数量的组的数据集的分布时，这无疑是特别实用的。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">titanic = sns.load_dataset(<span class="string">"titanic"</span>)</span><br><span class="line">titanic = titanic.assign(deck=titanic.deck.astype(object)).sort_values(<span class="string">"deck"</span>)</span><br><span class="line">g = sns.FacetGrid(titanic, col=<span class="string">"class"</span>, sharex=<span class="keyword">False</span>,</span><br><span class="line">                  gridspec_kws=&#123;<span class="string">"width_ratios"</span>: [<span class="number">5</span>, <span class="number">3</span>, <span class="number">3</span>]&#125;)</span><br><span class="line">g.map(sns.boxplot, <span class="string">"deck"</span>, <span class="string">"age"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic84.png" alt="pic84"><br>这里，默认的顺序来自于DataFrame中的书序。如果用于定义facets具有分类变量的类型，则会实用类别的顺序。否则，facets将按照级别的顺序排列。当然，也可以使用适当的*_ order参数来指定任何平面维度的数据顺序。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ordered_days = tips.day.value_counts().index</span><br><span class="line">g = sns.FacetGrid(tips, row=<span class="string">"day"</span>, row_order=ordered_days,</span><br><span class="line">                  size=<span class="number">1.7</span>, aspect=<span class="number">4</span>,)</span><br><span class="line">g.map(sns.distplot, <span class="string">"total_bill"</span>, hist=<span class="keyword">False</span>, rug=<span class="keyword">True</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic85.png" alt="pic85"><br>可以提供任何Seaborn调色板（即可以传递给color_palette()的参数），还可以使用将色调变量中值的名称映射到有效的matplotlib颜色的字典：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pal = dict(Lunch=<span class="string">"seagreen"</span>, Dinner=<span class="string">"gray"</span>)</span><br><span class="line">g = sns.FacetGrid(tips, hue=<span class="string">"time"</span>, palette=pal, size=<span class="number">5</span>)</span><br><span class="line">g.map(plt.scatter, <span class="string">"total_bill"</span>, <span class="string">"tip"</span>, s=<span class="number">50</span>, alpha=<span class="number">.7</span>, linewidth=<span class="number">.5</span>, edgecolor=<span class="string">"white"</span>)</span><br><span class="line">g.add_legend();</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic86.png" alt="pic86"><br>您还可以让色调的其他方面在色相变量的水平上有所不同，这对于绘制黑白打印时将更易于理解的图形将有所帮助。 为此，将字典传递给hue_kws，其中键是绘图函数关键字参数的名称，值是关键字值的列表，每个级别的hue对应一个变量。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, hue=<span class="string">"sex"</span>, palette=<span class="string">"Set1"</span>, size=<span class="number">5</span>, hue_kws=&#123;<span class="string">"marker"</span>: [<span class="string">"^"</span>, <span class="string">"v"</span>]&#125;)</span><br><span class="line">g.map(plt.scatter, <span class="string">"total_bill"</span>, <span class="string">"tip"</span>, s=<span class="number">100</span>, linewidth=<span class="number">.5</span>, edgecolor=<span class="string">"white"</span>)</span><br><span class="line">g.add_legend();</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic87.png" alt="pic87"><br>如果您有多个级别的一个变量，您可以沿着列绘制，但是”wrap”它们，以便跨越多个行。 当这样做时，将不能使用行(row)变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">attend = sns.load_dataset(<span class="string">"attention"</span>).query(<span class="string">"subject &lt;= 12"</span>)</span><br><span class="line">g = sns.FacetGrid(attend, col=<span class="string">"subject"</span>, col_wrap=<span class="number">4</span>, size=<span class="number">2</span>, ylim=(<span class="number">0</span>, <span class="number">10</span>))</span><br><span class="line">g.map(sns.pointplot, <span class="string">"solutions"</span>, <span class="string">"score"</span>, color=<span class="string">".3"</span>, ci=<span class="keyword">None</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic88.png" alt="pic88"><br>使用FacetGrid.map()（可以多次调用）绘制图形之后，您可能需要调整绘图的某些方面。 FacetGrid对象上还有一些方法可以在更高层次的抽象上操作图形。 最通用的是FacetGrid.set()，还有其他更专门的方法，如FacetGrid.set_axis_labels()，它遵循内部方面没有轴标签的效果。 例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> sns.axes_style(<span class="string">"white"</span>):</span><br><span class="line">    g = sns.FacetGrid(tips, row=<span class="string">"sex"</span>, col=<span class="string">"smoker"</span>, margin_titles=<span class="keyword">True</span>, size=<span class="number">2.5</span>)</span><br><span class="line">g.map(plt.scatter, <span class="string">"total_bill"</span>, <span class="string">"tip"</span>, color=<span class="string">"#334488"</span>, edgecolor=<span class="string">"white"</span>, lw=<span class="number">.5</span>);</span><br><span class="line">g.set_axis_labels(<span class="string">"Total bill (US Dollars)"</span>, <span class="string">"Tip"</span>);</span><br><span class="line">g.set(xticks=[<span class="number">10</span>, <span class="number">30</span>, <span class="number">50</span>], yticks=[<span class="number">2</span>, <span class="number">6</span>, <span class="number">10</span>]);</span><br><span class="line">g.fig.subplots_adjust(wspace=<span class="number">.02</span>, hspace=<span class="number">.02</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic89.png" alt="pic89"><br>对于更多的定制，您可以直接使用underling matplotlib图形和Axes对象，它们分别作为图和轴（二维数组）的成员属性存储。 当没有行或列面的图形时，还可以使用ax属性直接访问单个轴。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, col=<span class="string">"smoker"</span>, margin_titles=<span class="keyword">True</span>, size=<span class="number">4</span>)</span><br><span class="line">g.map(plt.scatter, <span class="string">"total_bill"</span>, <span class="string">"tip"</span>, color=<span class="string">"#338844"</span>, edgecolor=<span class="string">"white"</span>, s=<span class="number">50</span>, lw=<span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> ax <span class="keyword">in</span> g.axes.flat:</span><br><span class="line">    ax.plot((<span class="number">0</span>, <span class="number">50</span>), (<span class="number">0</span>, <span class="number">.2</span> * <span class="number">50</span>), c=<span class="string">".2"</span>, ls=<span class="string">"--"</span>)</span><br><span class="line">g.set(xlim=(<span class="number">0</span>, <span class="number">60</span>), ylim=(<span class="number">0</span>, <span class="number">14</span>));</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic90.png" alt="pic90"></p>
+<ul>
+<li>将自定义函数应用在网格上<br>在使用FacetGrid时，并不限于现有的matplotlib和Seaborn功能。但是，要正常工作，使用必须遵循以下规则：</li>
+</ul>
+<ol>
+<li>必须绘制在“当前活动”的matplotlib轴上。 这对matplotlib.pyplot命名空间中的函数是正确的，如果要使用其方法，可以调用plt.gca来获取对当前Axes的直接引用。</li>
+<li>它必须接受它在位置参数中绘制的数据。 在内部，FacetGrid将传递一系列针对传递给FacetGrid.map()的命名位置参数的数据。</li>
+<li>它必须能够接受color和label关键字参数，理想情况下它将非常有用。在大多数情况下，使用一个通用的**kwargs字典是最简单的，并将其传递给底层的绘图函数。</li>
+</ol>
+<p>我们来看一下您可以绘制的功能的最简单的例子。该函数只需要给出每个方向的向量的数据：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quantile_plot</span><span class="params">(x, **kwargs)</span>:</span></span><br><span class="line">    qntls, xr = stats.probplot(x, fit=<span class="keyword">False</span>)</span><br><span class="line">    plt.scatter(xr, qntls, **kwargs)</span><br><span class="line"></span><br><span class="line">g = sns.FacetGrid(tips, col=<span class="string">"sex"</span>, size=<span class="number">4</span>)</span><br><span class="line">g.map(quantile_plot, <span class="string">"total_bill"</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic91.png" alt="pic91"><br>如果我们想做一个双变量图，你应该编写函数，以便它接受x轴为第一个变量和y轴为第二个变量：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">qqplot</span><span class="params">(x, y, **kwargs)</span>:</span></span><br><span class="line">    _, xr = stats.probplot(x, fit=<span class="keyword">False</span>)</span><br><span class="line">    _, yr = stats.probplot(y, fit=<span class="keyword">False</span>)</span><br><span class="line">    plt.scatter(xr, yr, **kwargs)</span><br><span class="line"></span><br><span class="line">g = sns.FacetGrid(tips, col=<span class="string">"smoker"</span>, size=<span class="number">4</span>)</span><br><span class="line">g.map(qqplot, <span class="string">"total_bill"</span>, <span class="string">"tip"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic92.png" alt="pic92"><br>因为plt.scatter接受color和label关键字参数并正确运行，我们可以简单的再添加一个hue参数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, hue=<span class="string">"time"</span>, col=<span class="string">"sex"</span>, size=<span class="number">4</span>)</span><br><span class="line">g.map(qqplot, <span class="string">"total_bill"</span>, <span class="string">"tip"</span>)</span><br><span class="line">g.add_legend();</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic93.png" alt="pic93"><br>这种方法还允许我们使用额外的sns设置来区分hue变量的级别，依赖这些关键字的参数将使得显示摆脱对刻面变量的依赖：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">g = sns.FacetGrid(tips, hue=<span class="string">"time"</span>, col=<span class="string">"sex"</span>, size=<span class="number">4</span>,</span><br><span class="line">                  hue_kws=&#123;<span class="string">"marker"</span>: [<span class="string">"s"</span>, <span class="string">"D"</span>]&#125;)</span><br><span class="line">g.map(qqplot, <span class="string">"total_bill"</span>, <span class="string">"tip"</span>, s=<span class="number">40</span>, edgecolor=<span class="string">"w"</span>)</span><br><span class="line">g.add_legend();</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic94.png" alt="pic94"><br>一些时候，将需要映射一个适合的color和label关键字参数以达到预期的效果。在这种情况下，您将会有明确地把握并熟悉处理自定义函数的逻辑。例如这种方法将允许使用映射plt.hexbin函数和那些类似的不方便使用FacetGrid API的调用：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hexbin</span><span class="params">(x, y, color, **kwargs)</span>:</span></span><br><span class="line">    cmap = sns.light_palette(color, as_cmap=<span class="keyword">True</span>)</span><br><span class="line">    plt.hexbin(x, y, gridsize=<span class="number">15</span>, cmap=cmap, **kwargs)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> sns.axes_style(<span class="string">"dark"</span>):</span><br><span class="line">    g = sns.FacetGrid(tips, hue=<span class="string">"time"</span>, col=<span class="string">"time"</span>, size=<span class="number">4</span>)</span><br><span class="line">g.map(hexbin, <span class="string">"total_bill"</span>, <span class="string">"tip"</span>, extent=[<span class="number">0</span>, <span class="number">50</span>, <span class="number">0</span>, <span class="number">10</span>]);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic95.png" alt="pic95"></p>
+<ul>
+<li>用PairGrid and pairplot()绘制成对的关系<br>PairGrid还允许您使用相同的绘图类型快速绘制小子图的网格，以在每个图形中显示数据。在一个PairGrid中，每个行和列分配给一个不同的变量，所以生成的图显示了数据集中的每个成对关系。这种风格的绘图有时被称为“散点图矩阵”，因为这是显示每个关系的最常见方式，但是PairGrid不仅限于散点图。<br>了解FacetGrid和PairGrid之间的区别很重要。在前者中，每个方面显示出与其他变量的不同级别相同的关系。在后者中，每个图都显示不同的关系（尽管上下三角形将具有镜像图）。使用PairGrid可以为您提供非常快速，非常高级的汇总数据集中有趣的关系。<br>该类的基本用法与FacetGrid非常相似。首先初始化网格，然后将绘图函数传递给map方法，并在每个子图上调用它。还有一个配套功能，pairplot（）交易了一些灵活性更快的绘图。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iris = sns.load_dataset(<span class="string">"iris"</span>)</span><br><span class="line">g = sns.PairGrid(iris)</span><br><span class="line">g.map(plt.scatter);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic96.png" alt="pic96"><br>可以在对角线上绘制不同的函数，以显示每列中变量的单变量分布。 请注意，轴刻度线将不对应于该图的计数或密度轴。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g = sns.PairGrid(iris)</span><br><span class="line">g.map_diag(plt.hist)</span><br><span class="line">g.map_offdiag(plt.scatter);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic97.png" alt="pic97"><br>使用该图的非常常见的方法是通过单独的分类变量来绘制观察值。 例如，虹膜数据集对于三种不同种类的鸢尾花中的每一种进行四次测量，以便您可以看到它们如何不同。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">g = sns.PairGrid(iris, hue=<span class="string">"species"</span>)</span><br><span class="line">g.map_diag(plt.hist)</span><br><span class="line">g.map_offdiag(plt.scatter)</span><br><span class="line">g.add_legend();</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic98.png" alt="pic98"><br>默认情况下，使用数据集中的每个数字列，但如果需要，您可以专注于特定的关系。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g = sns.PairGrid(iris, vars=[<span class="string">"sepal_length"</span>, <span class="string">"sepal_width"</span>], hue=<span class="string">"species"</span>)</span><br><span class="line">g.map(plt.scatter);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic99.png" alt="pic99"><br>也可以在上下三角形中使用不同的功能来强调关系的不同方面。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">g = sns.PairGrid(iris)</span><br><span class="line">g.map_upper(plt.scatter)</span><br><span class="line">g.map_lower(sns.kdeplot, cmap=<span class="string">"Blues_d"</span>)</span><br><span class="line">g.map_diag(sns.kdeplot, lw=<span class="number">3</span>, legend=<span class="keyword">False</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic100.png" alt="pic100"><br>具有对角线上的身份关系的方形网格实际上只是一个特殊情况，您可以在行和列中绘制不同的变量。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g = sns.PairGrid(tips, y_vars=[<span class="string">"tip"</span>], x_vars=[<span class="string">"total_bill"</span>, <span class="string">"size"</span>], size=<span class="number">4</span>)</span><br><span class="line">g.map(sns.regplot, color=<span class="string">".3"</span>)</span><br><span class="line">g.set(ylim=(<span class="number">-1</span>, <span class="number">11</span>), yticks=[<span class="number">0</span>, <span class="number">5</span>, <span class="number">10</span>]);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic101.png" alt="pic101"><br>当然，sns属性是可配置的。 例如，您可以使用不同的调色板（例如，显示色调变量的顺序），并将关键字参数传递到绘图函数中。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g = sns.PairGrid(tips, hue=<span class="string">"size"</span>, palette=<span class="string">"GnBu_d"</span>)</span><br><span class="line">g.map(plt.scatter, s=<span class="number">50</span>, edgecolor=<span class="string">"white"</span>)</span><br><span class="line">g.add_legend();</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic102.png" alt="pic102"><br>PairGrid是灵活的，但是要快速查看一个数据集，可以使用pairplot()更容易。 默认情况下，该功能使用散点图和直方图，但是还可以添加其他几种（目前还可以绘制对角线上的对角线和KDEs的回归图）。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.pairplot(iris, hue=<span class="string">"species"</span>, size=<span class="number">2.5</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic103.png" alt="pic103"><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = sns.pairplot(iris, hue=<span class="string">"species"</span>, palette=<span class="string">"Set2"</span>, diag_kind=<span class="string">"kde"</span>, size=<span class="number">2.5</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/06/06/数据挖掘比赛入坑（五）/pic104.png" alt="pic104"></p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据挖掘/" rel="tag"># 数据挖掘</a>
+          
+            <a href="/tags/EDA/" rel="tag"># EDA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/05/Spark（五）/" rel="next" title="Spark（五）">
+                <i class="fa fa-chevron-left"></i> Spark（五）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/06/Spark（六）/" rel="prev" title="Spark（六）">
+                Spark（六） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xuanyi.jpg" alt="Yif Du">
+            
+              <p class="site-author-name" itemprop="name">Yif Du</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">167</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">132</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yifdu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="17210240004@fudan.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#EDA-Exploratory-Data-Analysis"><span class="nav-number">1.</span> <span class="nav-text">EDA(Exploratory Data Analysis)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Seaborn-sns-官方文档学习笔记"><span class="nav-number">2.</span> <span class="nav-text">Seaborn(sns)官方文档学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#艺术化的图表控制"><span class="nav-number">2.1.</span> <span class="nav-text">艺术化的图表控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#斑驳陆离的调色板"><span class="nav-number">2.2.</span> <span class="nav-text">斑驳陆离的调色板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布数据集的可视化"><span class="nav-number">2.3.</span> <span class="nav-text">分布数据集的可视化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性关系的可视化"><span class="nav-number">2.4.</span> <span class="nav-text">线性关系的可视化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类数据的绘制"><span class="nav-number">2.5.</span> <span class="nav-text">分类数据的绘制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绘制数据网格"><span class="nav-number">2.6.</span> <span class="nav-text">绘制数据网格</span></a></li></ol></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	 
+
+    </div>
+		  
+	  
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yif Du</span>
+
+  
+</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7428ad62daef314bef06',
+          clientSecret: '93cd3f4cd41cfc00c4760f65f8d895a66088ea5a',
+          repo: 'Comments',
+          owner: 'yifdu',
+          admin: ['yifdu'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <style>
+#selectionCopyright {
+    position: absolute;
+    display: none;
+    background: rgba(244,67,54,.7);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+}
+#selectionCopyright a{
+    color:#fff;
+    border-color: #fff;
+}
+#selectionCopyright::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent rgba(244,67,54,.7) transparent transparent;
+    position: absolute;
+    left: -8px;
+    top:50%;
+    transform:translateY(-50%);
+}
+</style>
+
+<button id="selectionCopyright" disabled="disabled">本文发表于[<a href="http://yifdu.github.io">yifdu.github.io</a>]分享请注明来源！</button>
+
+<script>
+window.onload = function() {
+    function selectText() {
+        if (document.selection) { //IE浏览器下
+            return document.selection.createRange().text; //返回选中的文字
+        } else { //非IE浏览器下
+            return window.getSelection().toString(); //返回选中的文字
+        }
+    }
+    var content = document.getElementsByTagName("body")[0];
+    var scTip = document.getElementById('selectionCopyright');
+
+    content.onmouseup = function(ev) { //设定一个onmouseup事件
+        var ev = ev || window.event;
+        var left = ev.clientX;//获取鼠标相对浏览器可视区域左上角水平距离距离
+        var top = ev.clientY;//获取鼠标相对浏览器可视区域左上角垂直距离距离
+        var xScroll = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft);//获取文档水平滚动距离
+        var yScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);//获取文档垂直滚动距离
+        if (selectText().length > 0) {
+            setTimeout(function() { //设定一个定时器
+                scTip.style.display = 'inline-block';
+                scTip.style.left = left + xScroll + 15 + 'px';//鼠标当前x值
+                scTip.style.top = top + yScroll - 15 + 'px';//鼠标当前y值
+            }, 100);
+        } else {
+            scTip.style.display = 'none';
+        }
+    };
+
+    content.onclick = function(ev) {
+        var ev = ev || window.event;
+        ev.cancelBubble = true;
+    };
+    document.onclick = function() {
+        scTip.style.display = 'none';
+    };
+};
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-miku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
