@@ -109,7 +109,7 @@
 <meta property="og:description" content="Deep Contextualized word representationsDistributed Representations of Words and Phrases and their Compositionality目标：通过新提出的模型结构从大数据集中提取出单词的连续向量表示。特点：1.更低的计算消耗。2.从模型中得到的向量能得到非常好的单词句法和语义的相似度。先前相关工作：  L">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561036175178&di=f387133db33b0a76bebb3a6750ddc3e6&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F29%2F20150629183244_HLv5Z.jpeg">
-<meta property="og:updated_time" content="2019-06-22T11:32:02.827Z">
+<meta property="og:updated_time" content="2019-06-22T11:49:50.537Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="菜鸟学NLP（十）">
 <meta name="twitter:description" content="Deep Contextualized word representationsDistributed Representations of Words and Phrases and their Compositionality目标：通过新提出的模型结构从大数据集中提取出单词的连续向量表示。特点：1.更低的计算消耗。2.从模型中得到的向量能得到非常好的单词句法和语义的相似度。先前相关工作：  L">
@@ -488,7 +488,7 @@
 <li>表达还不够精确<br>本文改进了上文得到的向量质量和模型的训练速度。<br>目标：提高词向量质量和模型的训练速度.学习到文本中短语的意思.文中举例:”Canada”和”Air”不能通过简单的结合来表示短语”Air Canada”的意义。</li>
 </ol>
 <h3 id="Skip-gram-model"><a href="#Skip-gram-model" class="headerlink" title="Skip-gram model"></a>Skip-gram model</h3><script type="math/tex; mode=display">\frac{1}{T}\sum_{t=1}^T\sum_{-c≤j≤c,j≠0}logp(w_{t+j}|w_t)</script><p>其中c是训练上下文的大小。c越大往往更多训练例因此能导致更高的正确率,但是训练时间开销大.</p>
-<script type="math/tex; mode=display">P(w_O|w_I)=\frac{exp(v'_ {w_O}^Tv_{w_I})}{\sum_{w=1}^Wexp(v'_ w^Tv_{w_I})}</script><h4 id="Hierarchical-Softmax"><a href="#Hierarchical-Softmax" class="headerlink" title="Hierarchical Softmax"></a>Hierarchical Softmax</h4><p>对完整的softmax的计算效率估计的方法有Hierarchical Softmax(分层Softmax).</p>
+<script type="math/tex; mode=display">P(w_O|w_I)=\frac{exp(v'^T_ {w_O}v_{w_I})}{\sum_{w=1}^Wexp(v'^T_ wv_{w_I})}</script><h4 id="Hierarchical-Softmax"><a href="#Hierarchical-Softmax" class="headerlink" title="Hierarchical Softmax"></a>Hierarchical Softmax</h4><p>对完整的softmax的计算效率估计的方法有Hierarchical Softmax(分层Softmax).</p>
 <p>该方法不用为了获得概率分布而评估神经网络中的W个输出结点，而只需要评估大约log2(W)个结点。层次Softmax使用一种二叉树结构来表示词典里的所有词，V个词都是二叉树的叶子结点，而这棵树一共有V−1个非叶子结点。</p>
 <p><strong>基本原理</strong></p>
 <ul>
@@ -504,7 +504,7 @@
 <p><img src="/2019/06/20/菜鸟学NLP（十）/pic3.png" alt="pic3"></p>
 <p>然后作用一个极大似然估计。</p>
 <h4 id="Negative-Sampling"><a href="#Negative-Sampling" class="headerlink" title="Negative Sampling"></a>Negative Sampling</h4><p>一种替代分层Softmax的方法是Noise Contrastive Estimation(NCE).<br>然而NCE能展现Softmax估计最大log概率,Skip-gram只关注学习高质量的向量表示.所以作者就简化NCE使其只要维持其质量就好.作者定义Negative sampling(NEG) 通过目标函数:</p>
-<script type="math/tex; mode=display">log\sigma(v'_ {w_O}^Tv_{w_I})+\sum_{i=1}^kE_{w_i~P_n(w)}[log\sigma(-v'_ {w_i}^Tv_{w_I})]</script><p>样本生成：</p>
+<script type="math/tex; mode=display">log\sigma(v'^T_ {w_O}v_ {w_I})+\sum_{i=1}^kE_{w_i~P_n(w)}[log\sigma(-v'^T_ {w_i}v_ {w_I})]</script><p>样本生成：</p>
 <ol>
 <li>例句： I want a glass of orange juice to go along with my cereal 构造一个新的监督学习问题，给定一对单词 orange 和 juice ,预测这是否是一对 上下文词-目标词 (context-target) ,在这个样本中，orange 和 juice 就是一个正样本。 然而对于 orange 和 king 就是一个负样本。</li>
 </ol>
