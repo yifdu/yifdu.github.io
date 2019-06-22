@@ -100,16 +100,19 @@
 
 
 
+<meta name="description" content="Deep Contextualized word representationsDistributed Representations of Words and Phrases and their Compositionality目标：通过新提出的模型结构从大数据集中提取出单词的连续向量表示。特点：1.更低的计算消耗。2.从模型中得到的向量能得到非常好的单词句法和语义的相似度。先前相关工作：  L">
 <meta name="keywords" content="NLP,DL,NER">
 <meta property="og:type" content="article">
 <meta property="og:title" content="菜鸟学NLP（十）">
 <meta property="og:url" content="http://yifdu.github.io/2019/06/20/菜鸟学NLP（十）/index.html">
 <meta property="og:site_name" content="深度菜鸟">
+<meta property="og:description" content="Deep Contextualized word representationsDistributed Representations of Words and Phrases and their Compositionality目标：通过新提出的模型结构从大数据集中提取出单词的连续向量表示。特点：1.更低的计算消耗。2.从模型中得到的向量能得到非常好的单词句法和语义的相似度。先前相关工作：  L">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561036175178&di=f387133db33b0a76bebb3a6750ddc3e6&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F29%2F20150629183244_HLv5Z.jpeg">
-<meta property="og:updated_time" content="2019-06-20T10:26:17.688Z">
+<meta property="og:updated_time" content="2019-06-22T11:32:02.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="菜鸟学NLP（十）">
+<meta name="twitter:description" content="Deep Contextualized word representationsDistributed Representations of Words and Phrases and their Compositionality目标：通过新提出的模型结构从大数据集中提取出单词的连续向量表示。特点：1.更低的计算消耗。2.从模型中得到的向量能得到非常好的单词句法和语义的相似度。先前相关工作：  L">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561036175178&di=f387133db33b0a76bebb3a6750ddc3e6&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F29%2F20150629183244_HLv5Z.jpeg">
 
 
@@ -403,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0 字
+                  4.4k 字
                 </span>
               
 
@@ -419,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  16 分钟
                 </span>
               
             </div>
@@ -454,7 +457,132 @@
       
 
       
-        
+        <h1 id="Deep-Contextualized-word-representations"><a href="#Deep-Contextualized-word-representations" class="headerlink" title="Deep Contextualized word representations"></a>Deep Contextualized word representations</h1><h2 id="Distributed-Representations-of-Words-and-Phrases-and-their-Compositionality"><a href="#Distributed-Representations-of-Words-and-Phrases-and-their-Compositionality" class="headerlink" title="Distributed Representations of Words and Phrases and their Compositionality"></a>Distributed Representations of Words and Phrases and their Compositionality</h2><p>目标：通过新提出的模型结构从大数据集中提取出单词的连续向量表示。<br>特点：1.更低的计算消耗。2.从模型中得到的向量能得到非常好的单词句法和语义的相似度。<br>先前相关工作：</p>
+<ol>
+<li>Latent Semantic Analysis(LSA) 和Latent Dirichlet Allocation(LDA)</li>
+<li>neural network language model<br>(<a href="https://www.researchgate.net/publication/221618573_A_Neural_Probabilistic_Language_Model" target="_blank" rel="noopener">NNLM</a>)</li>
+<li>Language Modeling for Speech Recognition in Czech</li>
+<li>Neural network based language models for higly inflective languages</li>
+</ol>
+<h3 id="模型复杂度比较"><a href="#模型复杂度比较" class="headerlink" title="模型复杂度比较"></a>模型复杂度比较</h3><p>定义复杂度为模型的参数量<br>对于模型的要求,最大化正确率，最小化计算复杂度。</p>
+<p>而训练的复杂度定义为正比于：</p>
+<script type="math/tex; mode=display">O=E×T×Q</script><p>其中E表示训练的epoch,T表示单词的数目,Q是模型的结构(参数量)</p>
+<ol>
+<li><p>Feedforward Neural Net Language Model(NNLM)<br>Q=N×D+N×D×H+H×V<br>其中H是隐层大小，V是输出层的维度(词个数)，投影层(P)的维度是N×D</p>
+</li>
+<li><p>Recurrent Neural Net Language Model(RNNLM)<br>Q=H×H+H×V<br>其中H是隐层大小,V也是表示词总数</p>
+</li>
+</ol>
+<h3 id="新模型"><a href="#新模型" class="headerlink" title="新模型"></a>新模型</h3><p><img src="/2019/06/20/菜鸟学NLP（十）/pic1.png" alt="pic1"></p>
+<h4 id="CBOW"><a href="#CBOW" class="headerlink" title="CBOW"></a>CBOW</h4><p>CBOW类似于NNLM,它移除了NNLM的非线性隐层,并将投影层共享到所有词上,所有的单词都投影到相同位置(这些词还要被平均一下)。然后构建一个log-linear分类器。这就是CBOW.</p>
+<p>其复杂度为:</p>
+<script type="math/tex; mode=display">Q=N×D+D×log_2(V)</script><p>其中N×D表示INPUT到PROJECTION的矩阵,D×log_2(V)为PROJECTION映射到OUTPUT的矩阵</p>
+<h4 id="Skip-gram"><a href="#Skip-gram" class="headerlink" title="Skip-gram"></a>Skip-gram</h4><p>用当前词作为输入到log-linear分类器通过一个continuous projection layer,然后来预测该输入词的前后词(上下文).</p>
+<p>复杂度为:</p>
+<script type="math/tex; mode=display">Q=C×(D+D×log_2(V))</script><p>其中C是上下文的词数<br><img src="/2019/06/20/菜鸟学NLP（十）/pic2.png" alt="pic2"></p>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p>能通过简单的代数运算能得到词与词之间的关系（语义关系）。<br>可以在向量空间中找到与X在余弦距离上最接近的单词.<br>有这种语义关系的词向量可以用来提高现在的许多NLP应用，例如机器翻译，信息提取和问答系统，还有可能促使一些应用被发明。</p>
+<h2 id="Distributed-Representation-of-Words-and-Phrases-and-their-Compositionality"><a href="#Distributed-Representation-of-Words-and-Phrases-and-their-Compositionality" class="headerlink" title="Distributed Representation of Words and Phrases and their Compositionality"></a>Distributed Representation of Words and Phrases and their Compositionality</h2><p>上文的缺陷:</p>
+<ol>
+<li>Word representation被限制于他不能表达符合语言习惯的短语</li>
+<li>速度慢</li>
+<li>表达还不够精确<br>本文改进了上文得到的向量质量和模型的训练速度。<br>目标：提高词向量质量和模型的训练速度.学习到文本中短语的意思.文中举例:”Canada”和”Air”不能通过简单的结合来表示短语”Air Canada”的意义。</li>
+</ol>
+<h3 id="Skip-gram-model"><a href="#Skip-gram-model" class="headerlink" title="Skip-gram model"></a>Skip-gram model</h3><script type="math/tex; mode=display">\frac{1}{T}\sum_{t=1}^T\sum_{-c≤j≤c,j≠0}logp(w_{t+j}|w_t)</script><p>其中c是训练上下文的大小。c越大往往更多训练例因此能导致更高的正确率,但是训练时间开销大.</p>
+<script type="math/tex; mode=display">P(w_O|w_I)=\frac{exp(v'_ {w_O}^Tv_{w_I})}{\sum_{w=1}^Wexp(v'_ w^Tv_{w_I})}</script><h4 id="Hierarchical-Softmax"><a href="#Hierarchical-Softmax" class="headerlink" title="Hierarchical Softmax"></a>Hierarchical Softmax</h4><p>对完整的softmax的计算效率估计的方法有Hierarchical Softmax(分层Softmax).</p>
+<p>该方法不用为了获得概率分布而评估神经网络中的W个输出结点，而只需要评估大约log2(W)个结点。层次Softmax使用一种二叉树结构来表示词典里的所有词，V个词都是二叉树的叶子结点，而这棵树一共有V−1个非叶子结点。</p>
+<p><strong>基本原理</strong></p>
+<ul>
+<li>根据标签和频率建立霍夫曼树(label出现的频率越高,Huffman树的路径越短)</li>
+<li>Huffman中的每个叶子节点代表一个label</li>
+</ul>
+<ol>
+<li>层次之间的映射<br>将输入层中的词和词组构成特征向量，再将特征向量通过线性变换映射到隐藏层，隐藏层通过求解最大似然函数，然后根据每个类别的权重和模型参数构建Huffman树，将Huffman树作为输出。</li>
+</ol>
+<ol>
+<li>模型的训练<br>Huffman树中每一叶子结点代表一个label，在每一个非叶子节点处都需要作一次二分类，走左边的概率和走右边的概率，这里用逻辑回归的公式表示</li>
+</ol>
+<p><img src="/2019/06/20/菜鸟学NLP（十）/pic3.png" alt="pic3"></p>
+<p>然后作用一个极大似然估计。</p>
+<h4 id="Negative-Sampling"><a href="#Negative-Sampling" class="headerlink" title="Negative Sampling"></a>Negative Sampling</h4><p>一种替代分层Softmax的方法是Noise Contrastive Estimation(NCE).<br>然而NCE能展现Softmax估计最大log概率,Skip-gram只关注学习高质量的向量表示.所以作者就简化NCE使其只要维持其质量就好.作者定义Negative sampling(NEG) 通过目标函数:</p>
+<script type="math/tex; mode=display">log\sigma(v'_ {w_O}^Tv_{w_I})+\sum_{i=1}^kE_{w_i~P_n(w)}[log\sigma(-v'_ {w_i}^Tv_{w_I})]</script><p>样本生成：</p>
+<ol>
+<li>例句： I want a glass of orange juice to go along with my cereal 构造一个新的监督学习问题，给定一对单词 orange 和 juice ,预测这是否是一对 上下文词-目标词 (context-target) ,在这个样本中，orange 和 juice 就是一个正样本。 然而对于 orange 和 king 就是一个负样本。</li>
+</ol>
+<ul>
+<li>正样本 的生成是采样得到一个上下文词和一个目标词。其中先在句中随机均匀的选取一个单词作为上下文词。然后在其左右两边一定词距内随机选择一个单词作为目标词。 并且将 标签 设置为1.</li>
+<li>负样本 的生成是使用和正样本一样的上下文词，然后从字典中随机选取一个单词构成一个组合。并且将 标签 设置为0. 其中同一 上下文词 生成 K个 负样本</li>
+</ul>
+<ol>
+<li><p>注意：正负样本 的区别仅取决于单词对的来源，即是 of 也在 orange 的设定词距之内，但是作为随机从字典中选取的单词， of - orange 单词对仍然被标记为负样本。</p>
+</li>
+<li><p>在本次提出的算法中 输入数据x 将被设定为 context-word 的单词对，预测结果y 将被设置为 target 算法的目的即是区分 样本采样的来源</p>
+</li>
+</ol>
+<p><strong>神经网络算法流程</strong></p>
+<ol>
+<li>如果输入词是 orange ，即词典中的第6257个词，将其使用one-hot向量表示 $o_{6257}$</li>
+<li>再传递给E(词嵌入向量矩阵)，通过两者相乘得到 orange 的嵌入向量 $e_{6357}$</li>
+<li>$e_{6357}$是一个1W维(字典中总单词数量)的向量，可以看成是1W个可能的logistic回归分类问题，其中一个是用来判断目标词是否是 juice 的分类器，当然也有用来判断 king,book,the… 等词汇是否是目标词的分类器。但是每次迭代不都是训练所有的样本， 每次迭代只会训练一个正样本和随机选取的 K 个负样本</li>
+</ol>
+<ul>
+<li>此算法将需要计算10000个维度的softmax问题转化为10000个二分类问题，每一个都易于计算，每次迭代要做的只是训练其中的 K+1 个样本，其中一个正样本和随机选取的同一个Context的 K 个负样本</li>
+<li>此算法被称为 负采样 ， 因为在挑选一个 正样本 的同时，随机生成 K个负样本</li>
+</ul>
+<h5 id="负样本采样方法"><a href="#负样本采样方法" class="headerlink" title="负样本采样方法"></a>负样本采样方法</h5><ol>
+<li>仅考虑单词在 语料库 中出现的频率，会导致负样本中 the, of, and … 等介词出现的频率过高</li>
+<li>仅考虑单词在 词汇表 中出现的频率，即在 词汇表 中随机采样，分母是词汇表中的总词数，这样采样十分没有代表性。</li>
+<li>论文提出采样公式为:<script type="math/tex; mode=display">P(w_i)=\frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=1}^{10000}f(w_j)^{3/4}}</script>其中$f(w_i)$表示单词在语料库中的词频</li>
+</ol>
+<h4 id="Learning-Phrases"><a href="#Learning-Phrases" class="headerlink" title="Learning Phrases"></a>Learning Phrases</h4><p>采用一种简答的数据驱动的方法,其中短语形成基于unigram和bigrams数目,通过使用</p>
+<script type="math/tex; mode=display">score(w_i,w_j)=\frac{count(w_iw_j)-\delta}{count(w_i)×count(w_j)}</script><p>其中delta被用作为低估系数并且用来阻止许多短语包含很不频繁的形成单词(通俗讲就是阻止很低频的词汇也赋予较高的score).用上述score的bigram当超过了给定的阈值,可以视为可以作为短语.<br>在处理的时候会多次处理训练集，并将score的阈值不断调小，这样可以使得模型能够将多词组成的phrase通过多次的扫描数据集不断拼接出来。</p>
+<h4 id="Additive-Compositionality"><a href="#Additive-Compositionality" class="headerlink" title="Additive Compositionality"></a>Additive Compositionality</h4><p>在模型中训练的词向量存在着如下的关系：vec(Russian)+vec(river) = vec(Volga River).这种可能可以理解成词向量其实是包含了它的分布特性在向量表示中，因为词向量就是通过用目标词的词向量预测它的上下文中的词来训练词向量的。所以它会在向量中包含它的上下文信息。Volga River很频繁的与Russian以及River出现在相同的语境中。而向量加法操作可以看成是两个词语的上下文分布的并操作，因为只有两个向量都很大的维度，才会在结果向量中比较突出，代表这个语义更明显。所以在Russian与river的并操作上下文中，Volga River的上下文也与其类似，所以它们的词向量也很接近。</p>
+<h2 id="Distributed-Representations-of-Sentences-and-Documents"><a href="#Distributed-Representations-of-Sentences-and-Documents" class="headerlink" title="Distributed Representations of Sentences and Documents"></a>Distributed Representations of Sentences and Documents</h2><p>Bag-of-words有两个缺点:</p>
+<ol>
+<li>丢了单词的顺序</li>
+<li>忽视了单词的语义</li>
+</ol>
+<p>本文提出了一个Paragraph Vector(非监督模型)从变化长度的文本中学习到固定长度的特征<br>目标:克服了Bagofwords模型的两个缺点.在文本分类和情感分析任务中实现了state-of-the-art result.</p>
+<p>特点：</p>
+<ol>
+<li>能为不同长度的段落训练出相同长度的向量</li>
+<li>不同段落的词向量不共享,说白了就是,每出现一个新段落,就要训练一个新的向量与之对应。其实也很好理解,不同段落的主题不同,其段向量自然不一样</li>
+<li>词向量共享.根据训练集训练出来的词向量在任何地方都是通用的,不同段落的同一词语的意思应该是一致的,所以词向量不变.</li>
+</ol>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><h4 id="学习单词表示向量"><a href="#学习单词表示向量" class="headerlink" title="学习单词表示向量"></a>学习单词表示向量</h4><p>即前面文章提到的word2vec<br><img src="/2019/06/20/菜鸟学NLP（十）/pic4.png" alt="pic4"></p>
+<h4 id="Paragraph-Vector-A-distriuted-memory-model"><a href="#Paragraph-Vector-A-distriuted-memory-model" class="headerlink" title="Paragraph Vector: A distriuted memory model"></a>Paragraph Vector: A distriuted memory model</h4><p><img src="/2019/06/20/菜鸟学NLP（十）/pic5.png" alt="pic5"><br>这里与上图的唯一改变是增加了一个额外的paragraph标志,通过一个矩阵D映射到向量.</p>
+<p>注意点：</p>
+<p>1、测试时，会出现不同的段落。例如，我们要测试the dog sat 的下一个单词，这个句子出现在段落P中，但段落P在之前并未出现过，也就是我们尚不知道段落P的向量（”the”、“dog”，“ sat”的词向量都是知道的，已经训练出来了）。此时的做法是固定词向量，只将段向量当作变量来进行BP算法，直到收敛，得到最终的段向量。再根据这个新训练的段向量去进行预测。</p>
+<p>2、论文中提到，将CBOW和Skip_gram模型结合起来一起来训练段向量效果更佳。</p>
+<p>3、主要的算法流程如上，具体实施时会进行很多优化，例如霍夫曼树的使用。</p>
+<h4 id="Paragraph-Vector-without-word-ordering-Distributed-bag-of-words"><a href="#Paragraph-Vector-without-word-ordering-Distributed-bag-of-words" class="headerlink" title="Paragraph Vector without word ordering: Distributed bag of words"></a>Paragraph Vector without word ordering: Distributed bag of words</h4><p><img src="/2019/06/20/菜鸟学NLP（十）/pic6.png" alt="pic6"><br>输入一个paragraph vector迫使模型在输出端预测该段落经随机采样的单词.</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>论文中提到的段向量的算法只是众多段向量算法的一种。而这个算法又是由word2vec演化而来的，所以理解了word2vec之后，再来了解这个算法就会很容易。但是至今为止，词向量乃至神经网络都缺少现实的理论基础（现实意义？），例如我们得到的词向量或者段向量的每一维到底代表什么，都无从得知。所以，词向量还有很长的路要走！！再说点题外话，BP算法类似于现实中的负反馈调节，根据结果不断调整参数，让参数去适应结果。词向量的训练亦是如此。但是，我们是否可以从另一个角度出发：我们能否为语言设计一个数据结构（类似向量这种），使得这种数据结构在数学上的意义和在现实中的意义一致，然后我们用这种数据去预测或者翻译就简单多了（因为计算机能够理解其数学意义，而数学意义又对应着现实意义）。当然这是一种猜测（用word2vec训练出的词向量在数学意义上确实达到了某种一致，例如同义的词语其欧式距离会很接近）。</p>
+<h1 id="Deep-Contextualized-word-representations-1"><a href="#Deep-Contextualized-word-representations-1" class="headerlink" title="Deep Contextualized word representations"></a>Deep Contextualized word representations</h1><p>本文直接受启发于2017年的同一作者在序列标注的半监督模型上的发现(Semi-supervised sequence tagging with bidirectional language models.),通过增加一个预训练模型来增加模型的效果.<br>目标：挖掘一种更好的词表示:它们能更好地表达复杂的语义和语法的特征.能准确的对不同上下文进行反应.<br>改进:与Semi-supervised sequence tagging with bidirectional language models.一样,这里也是通过LM预训练一个词向量。不同的是,ELMO的表示更深,并且它是用双向LM的所有中间层的函数来表示.(结合了内部状态来表达)<br>特点:</p>
+<ol>
+<li>理论上:原先的词向量是固定的,不同句子里的词向量是相同的.但本模型会考虑对不同句子中的相同词赋予不同的词向量(通过BiLM预训练).</li>
+<li>结构上：发现BiLM的较低层次的隐藏单元的向量能很好的抓住词汇的语法信息,可以在POS的任务上发挥其作用。而BiLM的较高层次的隐藏单元的向量很好地抓住词汇地意义表示(上下文相关的表示),即使不经过微调词向量也能得到一个很好的结果</li>
+</ol>
+<p>结果:将ELMo与已有的模型结合后会发现在效果上会有改进</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="双向language-model"><a href="#双向language-model" class="headerlink" title="双向language model"></a>双向language model</h3><p>给定一个长度为N的token序列,$(t_1,t_2,…,t_N)$<br>BiLM基本公式如下：</p>
+<script type="math/tex; mode=display">\sum_{k=1}^N(logp(t_k|t_1,..,t_{k-1}))+logp(t_k|t_{k+1},...,t_N)</script><p>这里利用了两个LSTM,分别向左向右<br><img src="/2019/06/20/菜鸟学NLP（十）/pic7.png" alt="pic7"></p>
+<p>由于ELMo更深了,又要充分利用每一层的信息,所以考虑将每一层的输出作为词的表示(这里每一层表示一个biLSTM)<br><img src="/2019/06/20/菜鸟学NLP（十）/pic8.png" alt="pic8"><br>其中$x_k^{LM}$是输入的embedding表示,$h_{k,j}^{LM}$是第j层第k个单词的BiLSTM的两个方向的拼接结果.</p>
+<p>得到上述表示后,还不能直接将其作为对应各种NLP任务的词向量,还要因地制宜地对其进行一些微调,公式如下:</p>
+<script type="math/tex; mode=display">ELMo_k^{task}=E(R_k;\theta^{task})=\lambda^{task}\sum_{j=0}^Ls_j^{task}h_{k,j}^{LM}</script><p>其中$\lambda$ 和s分别起着控制缩放和权重地作用,它们地取值需要根据具体任务来进行调整.<br>(注意: biLM 不同层的激活值可能会有不同的分布, 可采用 Layer Normlaition.)</p>
+<h3 id="如何应用到后续任务中"><a href="#如何应用到后续任务中" class="headerlink" title="如何应用到后续任务中?"></a>如何应用到后续任务中?</h3><p>直接在 biLM 的基础之上连接自己的神经网络，并且将 biLM 的参数固定 (根据实际情况, 如果只是轻微的 fine-tune 应该也没问题)，将biLM的输出当作自己网络的输入，根据任务的不同，可以调整为$[x_k;ELMo_k^{task}]$或$[h_k;ELMo_k^{task}]$</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>ELMo相当惊艳,其能相当大程度地提高训练效率: 在其中一项实验中, 不使用 ELMo 的模型在 486 个 epochs 后取得达到最大 F1 值; 使用 ELMo 只用了 10 个 epochs。</p>
+<p>由于 ELMo 的词向量是不同层状态向量的函数, 对 attention-based model, 相当于后续层可以接触到 biLM 的内部表示; 综合了不同层的表示, ELMo 的词向量还具有消除歧义的作用。</p>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><ol>
+<li>ELMo动机:</li>
+<li>ELMo相对于word2vec、glove的优点：word embedding往往是在与当前上下文无关,之前预训练后得到的词向量往往是固定的。而ELMo能更好挖掘词在当前语境下的意义.ELMo是与当前语境相关的词表示.比如“风头”,在不同语境下褒贬不同,”他这人太爱出风头”和”这次比赛他出尽了风头”。ELMo能帮助我们明确当前语境下的词含义。</li>
+<li>ELMo采用的模型：BiLMs,或者说是用多层的BiLSTM来作为LM.</li>
+<li>ELMo属于Feature-Based.</li>
+<li>ELMo如何进行拼接?通过将多层LSTM的中间层的输出$h_{k,j}^{LM}$通过函数$\lambda^{task}\sum_{j=0}^Ls_j^{task}h_{k,j}^{LM}$拼接起来。</li>
+<li>ELMo解决了什么问题:解决了原来词向量一成不变的问题,赋予词向量动态性能.并且能更好地表达复杂的语义和语法.</li>
+<li>用一句话介绍ELMo:动态词向量</li>
+<li>ELMo怎么应用到下游模型:根据任务的不同，可以调整为$[x_k;ELMo_k^{task}]$或$[h_k;ELMo_k^{task}]$，然后将这个作为自己网络的输入.</li>
+<li>ELMo存在问题？1. 空间和时间复杂度高. 2. BiLSTM中的双向只是简单的两个单向的拼接,并不算真正的双向.(欢迎补充)</li>
+<li>如何评价ELMo?不敢评价大佬的贡献,可能是预训练模型的开端吧,为后续Bert的提出有很大帮助.</li>
+</ol>
+
       
     </div>
     
@@ -468,6 +596,35 @@
         <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
     
 </div>
+
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/06/20/菜鸟学NLP（十）/">菜鸟学NLP（十）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
+  <p><span>发布时间:</span>2019年06月20日 - 18:06</p>
+  <p><span>最后更新:</span>2019年06月22日 - 19:06</p>
+  <p><span>原始链接:</span><a href="/2019/06/20/菜鸟学NLP（十）/" title="菜鸟学NLP（十）">http://yifdu.github.io/2019/06/20/菜鸟学NLP（十）/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/06/20/菜鸟学NLP（十）/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
 
       
     </div>
@@ -560,8 +717,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -639,6 +805,23 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Contextualized-word-representations"><span class="nav-number">1.</span> <span class="nav-text">Deep Contextualized word representations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-Representations-of-Words-and-Phrases-and-their-Compositionality"><span class="nav-number">1.1.</span> <span class="nav-text">Distributed Representations of Words and Phrases and their Compositionality</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型复杂度比较"><span class="nav-number">1.1.1.</span> <span class="nav-text">模型复杂度比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新模型"><span class="nav-number">1.1.2.</span> <span class="nav-text">新模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CBOW"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">CBOW</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Skip-gram"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Skip-gram</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果"><span class="nav-number">1.1.3.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-Representation-of-Words-and-Phrases-and-their-Compositionality"><span class="nav-number">1.2.</span> <span class="nav-text">Distributed Representation of Words and Phrases and their Compositionality</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram-model"><span class="nav-number">1.2.1.</span> <span class="nav-text">Skip-gram model</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hierarchical-Softmax"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Hierarchical Softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Negative-Sampling"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#负样本采样方法"><span class="nav-number">1.2.1.2.1.</span> <span class="nav-text">负样本采样方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Learning-Phrases"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">Learning Phrases</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Additive-Compositionality"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">Additive Compositionality</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-Representations-of-Sentences-and-Documents"><span class="nav-number">1.3.</span> <span class="nav-text">Distributed Representations of Sentences and Documents</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法"><span class="nav-number">1.3.1.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习单词表示向量"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">学习单词表示向量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Paragraph-Vector-A-distriuted-memory-model"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">Paragraph Vector: A distriuted memory model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Paragraph-Vector-without-word-ordering-Distributed-bag-of-words"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">Paragraph Vector without word ordering: Distributed bag of words</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.3.2.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Contextualized-word-representations-1"><span class="nav-number">2.</span> <span class="nav-text">Deep Contextualized word representations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型"><span class="nav-number">2.1.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#双向language-model"><span class="nav-number">2.1.1.</span> <span class="nav-text">双向language model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何应用到后续任务中"><span class="nav-number">2.1.2.</span> <span class="nav-text">如何应用到后续任务中?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">2.2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#疑问"><span class="nav-number">2.3.</span> <span class="nav-text">疑问</span></a></li></ol></li></ol></div>
+            
+
+			
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
