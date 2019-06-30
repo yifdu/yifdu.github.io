@@ -109,7 +109,7 @@
 <meta property="og:description" content="Deep Contextualized word representations前奏Distributed Representations of Words and Phrases and their Compositionality目标：通过新提出的模型结构从大数据集中提取出单词的连续向量表示。特点：1.更低的计算消耗。2.从模型中得到的向量能得到非常好的单词句法和语义的相似度。先前相关工作：">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561036175178&di=f387133db33b0a76bebb3a6750ddc3e6&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F29%2F20150629183244_HLv5Z.jpeg">
-<meta property="og:updated_time" content="2019-06-22T11:54:06.034Z">
+<meta property="og:updated_time" content="2019-06-27T05:17:44.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="菜鸟学NLP（十）">
 <meta name="twitter:description" content="Deep Contextualized word representations前奏Distributed Representations of Words and Phrases and their Compositionality目标：通过新提出的模型结构从大数据集中提取出单词的连续向量表示。特点：1.更低的计算消耗。2.从模型中得到的向量能得到非常好的单词句法和语义的相似度。先前相关工作：">
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4.4k 字
+                  5.1k 字
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  16 分钟
+                  18 分钟
                 </span>
               
             </div>
@@ -445,7 +445,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561036175178&di=f387133db33b0a76bebb3a6750ddc3e6&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F29%2F20150629183244_HLv5Z.jpeg" rel="gallery_cjx4iuy89003jb8waqv4po67l" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561036175178&di=f387133db33b0a76bebb3a6750ddc3e6&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F29%2F20150629183244_HLv5Z.jpeg" rel="gallery_cjxj6ta4900k8u4wau1i892dz" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561036175178&di=f387133db33b0a76bebb3a6750ddc3e6&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F29%2F20150629183244_HLv5Z.jpeg" itemprop="contentUrl">
               </a>
             
@@ -564,10 +564,10 @@
 <p>结果:将ELMo与已有的模型结合后会发现在效果上会有改进</p>
 <h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="双向language-model"><a href="#双向language-model" class="headerlink" title="双向language model"></a>双向language model</h3><p>给定一个长度为N的token序列,$(t_1,t_2,…,t_N)$<br>BiLM基本公式如下：</p>
 <script type="math/tex; mode=display">\sum_{k=1}^N(logp(t_k|t_1,..,t_{k-1}))+logp(t_k|t_{k+1},...,t_N)</script><p>这里利用了两个LSTM,分别向左向右<br><img src="/2019/06/20/菜鸟学NLP（十）/pic7.png" alt="pic7"></p>
-<p>由于ELMo更深了,又要充分利用每一层的信息,所以考虑将每一层的输出作为词的表示(这里每一层表示一个biLSTM)<br><img src="/2019/06/20/菜鸟学NLP（十）/pic8.png" alt="pic8"><br>其中$x_k^{LM}$是输入的embedding表示,$h_{k,j}^{LM}$是第j层第k个单词的BiLSTM的两个方向的拼接结果.</p>
+<p>由于ELMo更深了,又要充分利用每一层的信息,所以考虑将每一层的输出作为词的表示(这里每一层表示一个biLSTM)<br><img src="/2019/06/20/菜鸟学NLP（十）/pic8.png" alt="pic8"><br>其中$x_k^{LM}$是输入的embedding表示,$h_{k,j}^{LM}$是第j层第k个单词的BiLSTM的两个方向的拼接结果.<br><img src="/2019/06/20/菜鸟学NLP（十）/pic9.png" alt="pic9"></p>
 <p>得到上述表示后,还不能直接将其作为对应各种NLP任务的词向量,还要因地制宜地对其进行一些微调,公式如下:</p>
 <script type="math/tex; mode=display">ELMo_k^{task}=E(R_k;\theta^{task})=\lambda^{task}\sum_{j=0}^Ls_j^{task}h_{k,j}^{LM}</script><p>其中$\lambda$ 和s分别起着控制缩放和权重地作用,它们地取值需要根据具体任务来进行调整.<br>(注意: biLM 不同层的激活值可能会有不同的分布, 可采用 Layer Normlaition.)</p>
-<h3 id="如何应用到后续任务中"><a href="#如何应用到后续任务中" class="headerlink" title="如何应用到后续任务中?"></a>如何应用到后续任务中?</h3><p>直接在 biLM 的基础之上连接自己的神经网络，并且将 biLM 的参数固定 (根据实际情况, 如果只是轻微的 fine-tune 应该也没问题)，将biLM的输出当作自己网络的输入，根据任务的不同，可以调整为$[x_k;ELMo_k^{task}]$或$[h_k;ELMo_k^{task}]$</p>
+<h3 id="如何应用到后续任务中"><a href="#如何应用到后续任务中" class="headerlink" title="如何应用到后续任务中?"></a>如何应用到后续任务中?</h3><p>直接在 biLM 的基础之上连接自己的神经网络，并且将 biLM 的参数固定 (根据实际情况, 如果只是轻微的 fine-tune 应该也没问题)，将biLM的输出当作自己网络的输入，根据任务的不同，可以调整为$[x_k;ELMo_k^{task}]$或$[h_k;ELMo_k^{task}]$<br><img src="/2019/06/20/菜鸟学NLP（十）/pic10.png" alt="pic10"></p>
 <h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>ELMo相当惊艳,其能相当大程度地提高训练效率: 在其中一项实验中, 不使用 ELMo 的模型在 486 个 epochs 后取得达到最大 F1 值; 使用 ELMo 只用了 10 个 epochs。</p>
 <p>由于 ELMo 的词向量是不同层状态向量的函数, 对 attention-based model, 相当于后续层可以接触到 biLM 的内部表示; 综合了不同层的表示, ELMo 的词向量还具有消除歧义的作用。</p>
 <h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><ol>
@@ -580,8 +580,13 @@
 <li>用一句话介绍ELMo:动态词向量</li>
 <li>ELMo怎么应用到下游模型:根据任务的不同，可以调整为$[x_k;ELMo_k^{task}]$或$[h_k;ELMo_k^{task}]$，然后将这个作为自己网络的输入.</li>
 <li>ELMo存在问题？1. 空间和时间复杂度高. 2. BiLSTM中的双向只是简单的两个单向的拼接,并不算真正的双向.(欢迎补充)</li>
-<li>如何评价ELMo?不敢评价大佬的贡献,可能是预训练模型的开端吧,为后续Bert的提出有很大帮助.</li>
+<li>如何评价ELMo?不敢评价大佬的贡献,可能是预训练模型的开端吧,为后续Bert的提出有很大帮助.<h1 id="讨论中的问题"><a href="#讨论中的问题" class="headerlink" title="讨论中的问题"></a>讨论中的问题</h1>首先遇到的就是概念不清的问题：<br>迁移学习与增量学习概念不清：<h2 id="增量学习与迁移学习"><a href="#增量学习与迁移学习" class="headerlink" title="增量学习与迁移学习"></a>增量学习与迁移学习</h2></li>
+<li>迁移学习是指用已存有的知识对不同但相关领域问题进行求解的一种机器学习方法。这里迁移学习放宽了上面的两个基本假设，我们可以迁移已有的知识来解决目标领域中仅有少量有标签样本数据甚至没有学习样本的问题。（当然了，目标领域样本量肯定是越多越好的）。当不同元素共享的因素越多，迁移学习就越容易，就好像你学会了骑自行车，可能就很容易学会骑摩托车，但是学会骑自行车再去骑三轮车，可能就会很不适应。<br>fine-tune是迁移学习中的一种常见的方法。</li>
+<li>增量学习是指一个学习系统能不断地从新样本中学习新的知识，并能保存大部分已经学习到的知识。其非常类似于人类自身的学习模式。所以增量学习主要关注的是灾难性遗忘（Catastrophic forgetting），平衡新知识与旧知识之间的关系，即如何在学习新知识的情况下不忘记旧知识。<br>一个增量学习算法应同时具有以下特点:<br>1） 可以从新数据中学习新知识<br>2） 以前已经处理过的数据不需要重复处理<br>3） 每次只有一个训练观测样本被看到和学习<br>4） 学习新知识的同时能保持以前学习到的大部分知识<br>5） 一旦学习完成后训练观测样本被丢弃<br>6） 学习系统没有关于整个训练样本的先验知识</li>
 </ol>
+<p>在概念上，增量学习与迁移学习最大的区别就是对待旧知识的处理，增量学习在学习新知识的同时需要尽可能保持旧知识，不管它们类别相关还是不相关的，而迁移学习则只是借助旧知识来学习新知识，学习完成后只关注在新知识上的性能，不再考虑在旧知识上的性能。</p>
+<p>这里ELMo更像是训练得到的一种Word Embedding用于下游任务。可以像之前的word embedding<br>一样固定，也可以进行类似增量学习的方式。</p>
+<h2 id="从后期的论文看ELMo的不足"><a href="#从后期的论文看ELMo的不足" class="headerlink" title="从后期的论文看ELMo的不足"></a>从后期的论文看ELMo的不足</h2><p>首先就是BiLSTM的设置，ELMo想要通过双向的拼接来达到当前词利用上下文信息的作用。但这样的表达充分么？通过Bert我们知道，这种方式可能融合上下文的能力可能比较弱。<br>此外，LSTM的抽取特征的能力不如Transformer这也是大家所公认的。</p>
 
       
     </div>
@@ -606,7 +611,7 @@
   <p><span>本文标题:</span><a href="/2019/06/20/菜鸟学NLP（十）/">菜鸟学NLP（十）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Yif Du 的个人博客">Yif Du</a></p>
   <p><span>发布时间:</span>2019年06月20日 - 18:06</p>
-  <p><span>最后更新:</span>2019年06月22日 - 19:06</p>
+  <p><span>最后更新:</span>2019年06月27日 - 13:06</p>
   <p><span>原始链接:</span><a href="/2019/06/20/菜鸟学NLP（十）/" title="菜鸟学NLP（十）">http://yifdu.github.io/2019/06/20/菜鸟学NLP（十）/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yifdu.github.io/2019/06/20/菜鸟学NLP（十）/" aria-label="复制成功！"></i></span>
   </p>
@@ -664,6 +669,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/23/菜鸟学shell（一）/" rel="prev" title="菜鸟学shell（一）">
+                菜鸟学shell（一） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -744,7 +753,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">168</span>
+                  <span class="site-state-item-count">170</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -755,7 +764,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -766,7 +775,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">132</span>
+                  <span class="site-state-item-count">134</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -815,7 +824,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Contextualized-word-representations前奏"><span class="nav-number">1.</span> <span class="nav-text">Deep Contextualized word representations前奏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-Representations-of-Words-and-Phrases-and-their-Compositionality"><span class="nav-number">1.1.</span> <span class="nav-text">Distributed Representations of Words and Phrases and their Compositionality</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型复杂度比较"><span class="nav-number">1.1.1.</span> <span class="nav-text">模型复杂度比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新模型"><span class="nav-number">1.1.2.</span> <span class="nav-text">新模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CBOW"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">CBOW</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Skip-gram"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Skip-gram</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果"><span class="nav-number">1.1.3.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-Representation-of-Words-and-Phrases-and-their-Compositionality"><span class="nav-number">1.2.</span> <span class="nav-text">Distributed Representation of Words and Phrases and their Compositionality</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram-model"><span class="nav-number">1.2.1.</span> <span class="nav-text">Skip-gram model</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hierarchical-Softmax"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Hierarchical Softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Negative-Sampling"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#负样本采样方法"><span class="nav-number">1.2.1.2.1.</span> <span class="nav-text">负样本采样方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Learning-Phrases"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">Learning Phrases</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Additive-Compositionality"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">Additive Compositionality</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-Representations-of-Sentences-and-Documents"><span class="nav-number">1.3.</span> <span class="nav-text">Distributed Representations of Sentences and Documents</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法"><span class="nav-number">1.3.1.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习单词表示向量"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">学习单词表示向量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Paragraph-Vector-A-distriuted-memory-model"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">Paragraph Vector: A distriuted memory model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Paragraph-Vector-without-word-ordering-Distributed-bag-of-words"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">Paragraph Vector without word ordering: Distributed bag of words</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.3.2.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Contextualized-word-representations"><span class="nav-number">2.</span> <span class="nav-text">Deep Contextualized word representations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型"><span class="nav-number">2.1.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#双向language-model"><span class="nav-number">2.1.1.</span> <span class="nav-text">双向language model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何应用到后续任务中"><span class="nav-number">2.1.2.</span> <span class="nav-text">如何应用到后续任务中?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">2.2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#疑问"><span class="nav-number">2.3.</span> <span class="nav-text">疑问</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Contextualized-word-representations前奏"><span class="nav-number">1.</span> <span class="nav-text">Deep Contextualized word representations前奏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-Representations-of-Words-and-Phrases-and-their-Compositionality"><span class="nav-number">1.1.</span> <span class="nav-text">Distributed Representations of Words and Phrases and their Compositionality</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型复杂度比较"><span class="nav-number">1.1.1.</span> <span class="nav-text">模型复杂度比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新模型"><span class="nav-number">1.1.2.</span> <span class="nav-text">新模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CBOW"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">CBOW</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Skip-gram"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Skip-gram</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果"><span class="nav-number">1.1.3.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-Representation-of-Words-and-Phrases-and-their-Compositionality"><span class="nav-number">1.2.</span> <span class="nav-text">Distributed Representation of Words and Phrases and their Compositionality</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram-model"><span class="nav-number">1.2.1.</span> <span class="nav-text">Skip-gram model</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hierarchical-Softmax"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Hierarchical Softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Negative-Sampling"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#负样本采样方法"><span class="nav-number">1.2.1.2.1.</span> <span class="nav-text">负样本采样方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Learning-Phrases"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">Learning Phrases</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Additive-Compositionality"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">Additive Compositionality</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-Representations-of-Sentences-and-Documents"><span class="nav-number">1.3.</span> <span class="nav-text">Distributed Representations of Sentences and Documents</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法"><span class="nav-number">1.3.1.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习单词表示向量"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">学习单词表示向量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Paragraph-Vector-A-distriuted-memory-model"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">Paragraph Vector: A distriuted memory model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Paragraph-Vector-without-word-ordering-Distributed-bag-of-words"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">Paragraph Vector without word ordering: Distributed bag of words</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.3.2.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Contextualized-word-representations"><span class="nav-number">2.</span> <span class="nav-text">Deep Contextualized word representations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型"><span class="nav-number">2.1.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#双向language-model"><span class="nav-number">2.1.1.</span> <span class="nav-text">双向language model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何应用到后续任务中"><span class="nav-number">2.1.2.</span> <span class="nav-text">如何应用到后续任务中?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">2.2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#疑问"><span class="nav-number">2.3.</span> <span class="nav-text">疑问</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#讨论中的问题"><span class="nav-number">3.</span> <span class="nav-text">讨论中的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#增量学习与迁移学习"><span class="nav-number">3.1.</span> <span class="nav-text">增量学习与迁移学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从后期的论文看ELMo的不足"><span class="nav-number">3.2.</span> <span class="nav-text">从后期的论文看ELMo的不足</span></a></li></ol></li></ol></div>
             
 
 			
